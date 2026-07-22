@@ -1,0 +1,29 @@
+
+:root{--bg:#edf2ee;--panel:#fff;--ink:#152019;--muted:#68756c;--green:#102a21;--green2:#285e45;--line:#d7dfd9;--red:#a52a2a;--amber:#a06408;--shadow:0 12px 30px rgba(14,48,32,.12)}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1410;--panel:#162019;--ink:#f5f7f5;--muted:#aab7ae;--line:#2b3930;--shadow:none}}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
+header{position:sticky;top:0;z-index:20;background:linear-gradient(135deg,var(--green),#071b13);color:#fff;padding:18px 16px 15px;box-shadow:var(--shadow)}
+.brand{display:flex;align-items:center;justify-content:space-between;gap:12px}h1{margin:0;font-size:32px}header p{margin:2px 0 0;opacity:.8;font-size:13px}
+.pill{font-size:12px;font-weight:800;padding:7px 10px;border-radius:999px;background:#dcebdd;color:#17462f}
+#search{width:100%;margin-top:13px;border:0;border-radius:14px;padding:13px 15px;font-size:17px}
+main{max-width:1024px;margin:auto;padding:16px}.section{display:none}.section.active{display:block}
+.hero,.panel,.card,.status,.calculator,.field,.resultBox{background:var(--panel);border:1px solid var(--line);border-radius:19px;box-shadow:var(--shadow)}
+.hero{padding:18px}.hero h2{margin:0 0 7px;font-size:26px}.hero p{margin:0;color:var(--muted)}.greeting{font-size:14px;color:var(--muted);margin-bottom:8px}
+.quote{margin-top:13px;padding:11px 13px;border-left:5px solid var(--green2);background:rgba(54,122,82,.10);border-radius:9px}
+.titleRow{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:18px}.titleRow h2{font-size:20px;margin:0}
+.statusGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}.status{padding:14px;cursor:pointer}.statusTop{display:flex;justify-content:space-between}.statusValue{font-size:24px;font-weight:800;margin:9px 0 2px}
+.dot{width:11px;height:11px;border-radius:50%;background:#2f9a58}.dot.amber{background:#e49a21}.dot.red{background:#bd3333}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;margin-top:12px}.card{padding:15px;min-height:116px;cursor:pointer}.card:active{transform:scale(.985)}
+.icon{font-size:29px}.card h3{margin:8px 0 4px;font-size:17px}.card p{margin:0;font-size:13px;color:var(--muted);line-height:1.35}
+.dangerCard{border:2px solid rgba(165,42,42,.35);background:linear-gradient(145deg,var(--panel),rgba(165,42,42,.06))}
+.back{border:0;border-radius:12px;padding:10px 14px;background:rgba(50,110,75,.15);color:inherit;font-weight:800}
+.panel,.calculator,.field,.resultBox{padding:17px;margin:12px 0}.red{border-left:7px solid var(--red)}.amber{border-left:7px solid var(--amber)}
+.check{display:flex;gap:12px;padding:12px;border:1px solid var(--line);border-radius:13px;margin:9px 0;background:var(--panel)}.check input{width:24px;height:24px}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}button.action{border:0;border-radius:12px;padding:11px 14px;font-weight:800;background:var(--green2);color:white}
+button.secondary{background:rgba(70,90,78,.16);color:inherit}.small{font-size:12px;color:var(--muted)}
+.formGrid{display:grid;grid-template-columns:1fr;gap:12px}.field{margin:0}.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:7px}
+.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);background:transparent;color:inherit;border-radius:11px;padding:12px;font-size:16px;margin-top:8px}
+.field textarea{min-height:90px}.wide{grid-column:1/-1}.resultBox{font-size:18px;font-weight:700}.inline{display:flex;gap:8px}.inline input{margin:0}.pendingItem{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--line);border-radius:13px;margin:9px 0;background:var(--panel)}.pendingItem span{flex:1}.pendingItem.done span{text-decoration:line-through;opacity:.6}.deleteBtn{border:0;background:transparent;font-size:20px}
+.result{width:100%;text-align:left;border:1px solid var(--line);background:var(--panel);color:inherit;padding:14px;border-radius:13px;margin:8px 0;font-size:16px}
+footer{text-align:center;padding:28px 12px 40px;color:var(--muted);font-size:12px}
+@media(min-width:760px){.grid{grid-template-columns:repeat(3,1fr)}.statusGrid{grid-template-columns:repeat(4,1fr)}.formGrid{grid-template-columns:repeat(2,1fr)}}

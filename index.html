@@ -6,59 +6,8 @@
   <meta name="theme-color" content="#102a21">
   <title>EDY Offline</title>
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <style>
-    :root{
-      --bg:#edf2ee;--panel:#fff;--ink:#152019;--muted:#68756c;--green:#102a21;
-      --green2:#285e45;--line:#d7dfd9;--red:#a52a2a;--amber:#a06408;
-      --shadow:0 12px 30px rgba(14,48,32,.12)
-    }
-    @media(prefers-color-scheme:dark){
-      :root{--bg:#0d1410;--panel:#162019;--ink:#f5f7f5;--muted:#aab7ae;
-      --line:#2b3930;--shadow:none}
-    }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
-    header{position:sticky;top:0;z-index:20;background:linear-gradient(135deg,var(--green),#071b13);color:#fff;padding:18px 16px 15px;box-shadow:var(--shadow)}
-    .brand{display:flex;align-items:center;justify-content:space-between;gap:12px}
-    h1{margin:0;font-size:32px;letter-spacing:.6px}
-    header p{margin:2px 0 0;opacity:.8;font-size:13px}
-    .pill{font-size:12px;font-weight:800;padding:7px 10px;border-radius:999px;background:#dcebdd;color:#17462f}
-    #search{width:100%;margin-top:13px;border:0;border-radius:14px;padding:13px 15px;font-size:17px}
-    main{max-width:1024px;margin:auto;padding:16px}
-    .section{display:none}.section.active{display:block}
-    .hero,.panel,.card,.status{background:var(--panel);border:1px solid var(--line);border-radius:19px;box-shadow:var(--shadow)}
-    .hero{padding:18px}.hero h2{margin:0 0 7px;font-size:26px}.hero p{margin:0;color:var(--muted)}
-    .greeting{font-size:14px;color:var(--muted);margin-bottom:8px}
-    .quote{margin-top:13px;padding:11px 13px;border-left:5px solid var(--green2);background:rgba(54,122,82,.10);border-radius:9px}
-    .titleRow{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:18px}
-    .titleRow h2{font-size:20px;margin:0}
-    .statusGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
-    .status{padding:14px;cursor:pointer}.statusTop{display:flex;justify-content:space-between;gap:8px}
-    .status strong{font-size:15px}.statusValue{font-size:24px;font-weight:800;margin:9px 0 2px}
-    .dot{width:11px;height:11px;border-radius:50%;background:#2f9a58;display:inline-block}
-    .dot.amber{background:#e49a21}.dot.red{background:#bd3333}
-    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;margin-top:12px}
-    .card{padding:15px;min-height:116px;cursor:pointer}.card:active{transform:scale(.985)}
-    .icon{font-size:29px}.card h3{margin:8px 0 4px;font-size:17px}.card p{margin:0;font-size:13px;color:var(--muted);line-height:1.35}
-    .dangerCard{border:2px solid rgba(165,42,42,.35);background:linear-gradient(145deg,var(--panel),rgba(165,42,42,.06))}
-    .back{border:0;border-radius:12px;padding:10px 14px;background:rgba(50,110,75,.15);color:inherit;font-weight:800}
-    .panel{padding:17px;margin:12px 0}.red{border-left:7px solid var(--red)}.amber{border-left:7px solid var(--amber)}
-    .check{display:flex;gap:12px;align-items:flex-start;padding:12px;border:1px solid var(--line);border-radius:13px;margin:9px 0;background:var(--panel)}
-    .check input{width:24px;height:24px;flex:0 0 auto}.check span{line-height:1.35}
-    .actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}
-    button.action{border:0;border-radius:12px;padding:11px 14px;font-weight:800;background:var(--green2);color:white}
-    button.secondary{background:rgba(70,90,78,.16);color:inherit}
-    .result{width:100%;text-align:left;border:1px solid var(--line);background:var(--panel);color:inherit;padding:14px;border-radius:13px;margin:8px 0;font-size:16px}
-    .small{font-size:12px;color:var(--muted)}
-    .formGrid{display:grid;grid-template-columns:1fr;gap:12px}
-    .field{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px}
-    .field label{display:block;font-size:13px;color:var(--muted);margin-bottom:7px}
-    .field input,.field select,.field textarea{width:100%;border:1px solid var(--line);background:transparent;color:inherit;border-radius:11px;padding:12px;font-size:16px}
-    .field textarea{min-height:90px}
-    footer{text-align:center;padding:28px 12px 40px;color:var(--muted);font-size:12px}
-    @media(min-width:760px){.grid{grid-template-columns:repeat(3,1fr)}.statusGrid{grid-template-columns:repeat(4,1fr)}.formGrid{grid-template-columns:repeat(2,1fr)}}
-  </style>
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 <header>
@@ -66,7 +15,7 @@
     <div><h1>EDY</h1><p>Centro de Supervivencia Digital Familiar</p></div>
     <div class="pill">OFFLINE</div>
   </div>
-  <input id="search" placeholder="Buscar: apagón, agua, evacuación, salud…">
+  <input id="search" placeholder="Buscar: apagón, agua, energía, evacuación…">
 </header>
 
 <main>
@@ -80,10 +29,10 @@
 
   <div class="titleRow"><h2>Estado del hogar</h2><button class="back" onclick="openSection('estado')">Actualizar</button></div>
   <div class="statusGrid">
-    <div class="status" onclick="openSection('estado')"><div class="statusTop"><strong>Agua</strong><span id="dotWater" class="dot"></span></div><div id="waterValue" class="statusValue">OK</div><div id="waterDetail" class="small">Sin registrar</div></div>
-    <div class="status" onclick="openSection('estado')"><div class="statusTop"><strong>Energía</strong><span id="dotEnergy" class="dot"></span></div><div id="energyValue" class="statusValue">OK</div><div id="energyDetail" class="small">Sin registrar</div></div>
-    <div class="status" onclick="openSection('estado')"><div class="statusTop"><strong>Comunicaciones</strong><span id="dotComms" class="dot"></span></div><div id="commsValue" class="statusValue">OK</div><div id="commsDetail" class="small">Sin registrar</div></div>
-    <div class="status" onclick="openSection('estado')"><div class="statusTop"><strong>Botiquín</strong><span id="dotHealth" class="dot"></span></div><div id="healthValue" class="statusValue">OK</div><div id="healthDetail" class="small">Sin registrar</div></div>
+    <div class="status" onclick="openSection('agua')"><div class="statusTop"><strong>Agua</strong><span id="dotWater" class="dot"></span></div><div id="waterValue" class="statusValue">OK</div><div id="waterDetail" class="small">Sin registrar</div></div>
+    <div class="status" onclick="openSection('energia')"><div class="statusTop"><strong>Energía</strong><span id="dotEnergy" class="dot"></span></div><div id="energyValue" class="statusValue">OK</div><div id="energyDetail" class="small">Sin registrar</div></div>
+    <div class="status" onclick="openSection('comunicaciones')"><div class="statusTop"><strong>Comunicaciones</strong><span id="dotComms" class="dot"></span></div><div id="commsValue" class="statusValue">OK</div><div id="commsDetail" class="small">Sin registrar</div></div>
+    <div class="status" onclick="openSection('salud')"><div class="statusTop"><strong>Botiquín</strong><span id="dotHealth" class="dot"></span></div><div id="healthValue" class="statusValue">OK</div><div id="healthDetail" class="small">Sin registrar</div></div>
   </div>
 
   <div class="titleRow"><h2>¿Qué está pasando?</h2></div>
@@ -93,17 +42,17 @@
     <div class="card dangerCard" onclick="openSection('evacuacion')"><div class="icon">🚗</div><h3>Necesito evacuar</h3><p>Lista guiada para salir con seguridad.</p></div>
     <div class="card dangerCard" onclick="openSection('herido')"><div class="icon">🩹</div><h3>Hay un herido</h3><p>Evaluación inicial y señales de alarma.</p></div>
     <div class="card dangerCard" onclick="openSection('tormenta')"><div class="icon">⛈️</div><h3>Tormenta fuerte</h3><p>Refugio, energía y comunicaciones.</p></div>
-    <div class="card" onclick="openSection('consultar')"><div class="icon">🔎</div><h3>Solo consultar</h3><p>Biblioteca rápida y buscador offline.</p></div>
+    <div class="card" onclick="openSection('biblioteca')"><div class="icon">📚</div><h3>Biblioteca</h3><p>Consulta rápida sin internet.</p></div>
   </div>
 
-  <div class="titleRow"><h2>Recursos</h2></div>
+  <div class="titleRow"><h2>Centro de recursos</h2></div>
   <div class="grid">
-    <div class="card" onclick="openSection('energia')"><div class="icon">⚡</div><h3>Energía</h3><p>Prioridades y respaldo.</p></div>
-    <div class="card" onclick="openSection('agua')"><div class="icon">💧</div><h3>Agua</h3><p>Reserva y potabilización.</p></div>
-    <div class="card" onclick="openSection('salud')"><div class="icon">🩺</div><h3>Salud</h3><p>Primeros auxilios básicos.</p></div>
-    <div class="card" onclick="openSection('comunicaciones')"><div class="icon">📡</div><h3>Comunicaciones</h3><p>Ahorro y ventanas de conexión.</p></div>
+    <div class="card" onclick="openSection('agua')"><div class="icon">💧</div><h3>Agua</h3><p>Reserva y autonomía estimada.</p></div>
+    <div class="card" onclick="openSection('energia')"><div class="icon">⚡</div><h3>Energía</h3><p>Forza, consumos y autonomía.</p></div>
+    <div class="card" onclick="openSection('pendientes')"><div class="icon">📝</div><h3>Pendientes</h3><p>Compras y tareas guardadas localmente.</p></div>
+    <div class="card" onclick="openSection('estado')"><div class="icon">🏠</div><h3>Estado del hogar</h3><p>Actualizar semáforos y observaciones.</p></div>
     <div class="card" onclick="openSection('mascotas')"><div class="icon">🐶</div><h3>Mascotas</h3><p>Evacuación y cuidado.</p></div>
-    <div class="card" onclick="openSection('privacidad')"><div class="icon">🔒</div><h3>Privacidad</h3><p>Qué nunca se publica.</p></div>
+    <div class="card" onclick="openSection('privacidad')"><div class="icon">🔒</div><h3>Privacidad</h3><p>Información pública y privada.</p></div>
   </div>
 </section>
 
@@ -113,13 +62,48 @@
   <div class="formGrid">
     <div class="field"><label>Nombre para el saludo</label><input id="nameInput" placeholder="Darío"></div>
     <div class="field"><label>Nivel general</label><select id="levelInput"><option value="green">Verde · Todo normal</option><option value="amber">Amarillo · Atención</option><option value="red">Rojo · Emergencia</option></select></div>
-    <div class="field"><label>Agua</label><select id="waterStatus"><option value="green">Disponible</option><option value="amber">Limitada</option><option value="red">No disponible</option></select><input id="waterText" placeholder="Ej.: 120 litros" style="margin-top:8px"></div>
-    <div class="field"><label>Energía</label><select id="energyStatus"><option value="green">Disponible</option><option value="amber">Limitada</option><option value="red">No disponible</option></select><input id="energyText" placeholder="Ej.: Forza 85%" style="margin-top:8px"></div>
-    <div class="field"><label>Comunicaciones</label><select id="commsStatus"><option value="green">Disponible</option><option value="amber">Limitada</option><option value="red">No disponible</option></select><input id="commsText" placeholder="Ej.: iPad + Starlink" style="margin-top:8px"></div>
-    <div class="field"><label>Botiquín</label><select id="healthStatus"><option value="green">Completo</option><option value="amber">Revisar</option><option value="red">Incompleto</option></select><input id="healthText" placeholder="Ej.: falta gasa" style="margin-top:8px"></div>
-    <div class="field"><label>Observaciones</label><textarea id="notesInput" placeholder="Pendientes importantes"></textarea></div>
+    <div class="field"><label>Agua</label><select id="waterStatus"><option value="green">Disponible</option><option value="amber">Limitada</option><option value="red">No disponible</option></select><input id="waterText" placeholder="Ej.: 120 litros"></div>
+    <div class="field"><label>Energía</label><select id="energyStatus"><option value="green">Disponible</option><option value="amber">Limitada</option><option value="red">No disponible</option></select><input id="energyText" placeholder="Ej.: Forza 85%"></div>
+    <div class="field"><label>Comunicaciones</label><select id="commsStatus"><option value="green">Disponible</option><option value="amber">Limitada</option><option value="red">No disponible</option></select><input id="commsText" placeholder="Ej.: iPad + Starlink"></div>
+    <div class="field"><label>Botiquín</label><select id="healthStatus"><option value="green">Completo</option><option value="amber">Revisar</option><option value="red">Incompleto</option></select><input id="healthText" placeholder="Ej.: falta gasa"></div>
+    <div class="field wide"><label>Observaciones</label><textarea id="notesInput" placeholder="Pendientes importantes"></textarea></div>
   </div>
   <div class="actions"><button class="action" onclick="saveStatus()">Guardar estado</button><button class="action secondary" onclick="clearStatus()">Borrar datos locales</button></div>
+</section>
+
+<section id="agua" class="section searchable">
+  <button class="back" onclick="home()">← Inicio</button><h2>💧 Reserva de agua</h2>
+  <div class="calculator">
+    <div class="formGrid">
+      <div class="field"><label>Litros disponibles</label><input id="waterLiters" type="number" min="0" step="1" placeholder="180"></div>
+      <div class="field"><label>Personas</label><input id="waterPeople" type="number" min="1" step="1" value="5"></div>
+      <div class="field"><label>Litros por persona por día</label><input id="waterPerPerson" type="number" min="1" step="0.5" value="4"></div>
+    </div>
+    <div class="actions"><button class="action" onclick="calculateWater()">Calcular autonomía</button></div>
+    <div id="waterResult" class="resultBox">Ingresá la reserva disponible.</div>
+  </div>
+  <div class="panel amber"><strong>Importante:</strong> el cálculo es orientativo y contempla bebida y preparación mínima de alimentos, no higiene completa.</div>
+</section>
+
+<section id="energia" class="section searchable">
+  <button class="back" onclick="home()">← Inicio</button><h2>⚡ Autonomía de energía</h2>
+  <div class="calculator">
+    <div class="formGrid">
+      <div class="field"><label>Capacidad útil (Wh)</label><input id="batteryWh" type="number" min="1" value="551"></div>
+      <div class="field"><label>Nivel actual de batería (%)</label><input id="batteryPercent" type="number" min="1" max="100" value="100"></div>
+      <div class="field"><label>Consumo total estimado (W)</label><input id="loadWatts" type="number" min="1" placeholder="30"></div>
+      <div class="field"><label>Eficiencia estimada (%)</label><input id="efficiency" type="number" min="50" max="100" value="85"></div>
+    </div>
+    <div class="actions"><button class="action" onclick="calculateEnergy()">Calcular autonomía</button></div>
+    <div id="energyResult" class="resultBox">Ingresá el consumo total de los equipos conectados.</div>
+  </div>
+  <div class="panel amber"><strong>Importante:</strong> es una estimación. El consumo real puede variar por temperatura, pérdidas del inversor y picos de arranque.</div>
+</section>
+
+<section id="pendientes" class="section">
+  <button class="back" onclick="home()">← Inicio</button><h2>📝 Pendientes</h2>
+  <div class="field"><label>Agregar compra o tarea</label><div class="inline"><input id="pendingInput" placeholder="Ej.: comprar panel solar"><button class="action" onclick="addPending()">Agregar</button></div></div>
+  <div id="pendingList"></div>
 </section>
 
 <section id="apagon" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🔌 Apagón</h2><div class="panel red"><strong>Primero:</strong> verificá que no haya humo, chispas, cables caídos ni riesgo eléctrico.</div>
@@ -155,9 +139,7 @@
 <label class="check"><input type="checkbox" data-key="to3"><span>Cargar iPad y teléfonos.</span></label>
 <label class="check"><input type="checkbox" data-key="to4"><span>Reunir linternas, agua, botiquín y llaves.</span></label></section>
 
-<section id="consultar" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🔎 Consulta rápida</h2><div class="panel"><p>Usá el buscador superior con palabras concretas.</p></div></section>
-<section id="energia" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>⚡ Energía</h2><div class="panel"><ol><li>Comunicaciones.</li><li>Iluminación.</li><li>iPad y teléfonos.</li><li>Equipos médicos indispensables.</li></ol></div></section>
-<section id="agua" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>💧 Agua</h2><div class="panel"><p>Usar primero agua potable almacenada y mantener recipientes cerrados.</p></div></section>
+<section id="biblioteca" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>📚 Biblioteca</h2><div id="manualList"></div></section>
 <section id="salud" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🩺 Salud</h2><div class="panel"><p>Proteger, alertar y socorrer. No reemplaza atención médica.</p></div></section>
 <section id="comunicaciones" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>📡 Comunicaciones</h2><div class="panel"><ul><li>Modo de bajo consumo.</li><li>Brillo mínimo legible.</li><li>Modo avión cuando no se necesiten enlaces.</li><li>Starlink solo en ventanas de comunicación.</li></ul></div></section>
 <section id="mascotas" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🐶 Mascotas</h2><div class="panel"><ul><li>Correas o transportadoras accesibles.</li><li>Agua, alimento y manta.</li><li>No soltarlas durante una evacuación.</li></ul></div></section>
@@ -165,60 +147,9 @@
 <section id="results" class="section"><button class="back" onclick="home()">← Inicio</button><h2>🔍 Resultados</h2><div id="list"></div></section>
 </main>
 
-<footer>EDY Offline · v0.3 · Estado guardado localmente</footer>
-
-<script>
-const sections=[...document.querySelectorAll('.section')];
-function openSection(id){sections.forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0)}
-function home(){document.getElementById('search').value='';loadStatus();openSection('home')}
-document.getElementById('search').addEventListener('input',e=>{
- const q=e.target.value.trim().toLowerCase();if(!q){home();return}
- const found=[...document.querySelectorAll('.searchable')].filter(s=>s.innerText.toLowerCase().includes(q));
- document.getElementById('list').innerHTML=found.length?found.map(s=>`<button class="result" onclick="openSection('${s.id}')"><strong>${s.querySelector('h2').innerText}</strong><br><span class="small">Abrir sección</span></button>`).join(''):'<div class="panel">No se encontraron resultados.</div>';
- openSection('results');
-});
-document.querySelectorAll('input[type=checkbox][data-key]').forEach(cb=>{
- cb.checked=localStorage.getItem('edy_'+cb.dataset.key)==='1';
- cb.addEventListener('change',()=>localStorage.setItem('edy_'+cb.dataset.key,cb.checked?'1':'0'));
-});
-function val(id){return document.getElementById(id).value}
-function setDot(id,status){const d=document.getElementById(id);d.className='dot '+(status==='amber'?'amber':status==='red'?'red':'')}
-function saveStatus(){
- const data={name:val('nameInput'),level:val('levelInput'),waterStatus:val('waterStatus'),waterText:val('waterText'),energyStatus:val('energyStatus'),energyText:val('energyText'),commsStatus:val('commsStatus'),commsText:val('commsText'),healthStatus:val('healthStatus'),healthText:val('healthText'),notes:val('notesInput'),updated:new Date().toLocaleString('es-AR')};
- localStorage.setItem('edy_status',JSON.stringify(data));loadStatus();home();
-}
-function loadStatus(){
- const data=JSON.parse(localStorage.getItem('edy_status')||'{}');
- const hour=new Date().getHours();const sal=hour<12?'Buenos días':hour<19?'Buenas tardes':'Buenas noches';
- document.getElementById('greeting').textContent=data.name?`${sal}, ${data.name}.`:'Centro de Operaciones';
- const msg=data.level==='red'?'Emergencia activa. Priorizá la seguridad.':data.level==='amber'?'Hay elementos que requieren atención.':'Todo bajo control.';
- document.getElementById('overallMessage').textContent=msg;
- document.getElementById('lastReview').textContent=data.updated?`Última revisión: ${data.updated}`:'Última revisión: todavía no registrada.';
- const map={green:'OK',amber:'ATENCIÓN',red:'CRÍTICO'};
- [['Water','water'],['Energy','energy'],['Comms','comms'],['Health','health']].forEach(([cap,key])=>{
-   const st=data[key+'Status']||'green';
-   document.getElementById(key+'Value').textContent=map[st];
-   document.getElementById(key+'Detail').textContent=data[key+'Text']||'Sin registrar';
-   setDot('dot'+cap,st);
- });
- ['nameInput','levelInput','waterStatus','waterText','energyStatus','energyText','commsStatus','commsText','healthStatus','healthText','notesInput'].forEach(id=>{
-   const key=id.replace('Input','').replace('Status','Status').replace('Text','Text');
- });
- document.getElementById('nameInput').value=data.name||'';
- document.getElementById('levelInput').value=data.level||'green';
- document.getElementById('waterStatus').value=data.waterStatus||'green';
- document.getElementById('waterText').value=data.waterText||'';
- document.getElementById('energyStatus').value=data.energyStatus||'green';
- document.getElementById('energyText').value=data.energyText||'';
- document.getElementById('commsStatus').value=data.commsStatus||'green';
- document.getElementById('commsText').value=data.commsText||'';
- document.getElementById('healthStatus').value=data.healthStatus||'green';
- document.getElementById('healthText').value=data.healthText||'';
- document.getElementById('notesInput').value=data.notes||'';
-}
-function clearStatus(){if(confirm('¿Borrar el estado guardado en este dispositivo?')){localStorage.removeItem('edy_status');loadStatus();home()}}
-loadStatus();
-if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js'))}
-</script>
+<footer>EDY Offline · v0.4 · Centro de recursos</footer>
+<script src="js/storage.js"></script>
+<script src="js/calculator.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
