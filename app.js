@@ -1,7 +1,7 @@
 
 const sections=[...document.querySelectorAll('.section')];
 function openSection(id){sections.forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0)}
-function home(){document.getElementById('search').value='';loadStatus();renderHomePendings();openSection('home')}
+function home(){document.getElementById('search').value='';loadStatus();renderHomePendings();renderOperationsHome();openSection('home')}
 document.getElementById('search').addEventListener('input',e=>{
  const q=e.target.value.trim().toLowerCase();if(!q){home();return}
  const found=[...document.querySelectorAll('.searchable')].filter(s=>s.innerText.toLowerCase().includes(q));
@@ -165,5 +165,129 @@ function addInventoryItem(){
  openSection('inventario');
 }
 
-loadStatus();renderPendings();renderHomePendings();loadManuals();loadInventory();
+
+const emergencyProtocols={
+ power:{
+  title:'Corte de energía',emoji:'🔌',
+  intro:'Priorizá iluminación, frío de alimentos, comunicaciones y consumo mínimo.',
+  steps:['Confirmar si el corte afecta solo a la vivienda o a la zona.','Desconectar equipos sensibles antes de energizar la reserva.','Encender la Forza y verificar el porcentaje disponible.','Conectar únicamente los consumos esenciales.','Mantener una linterna accesible para cada sector.','Verificar Starlink o el medio alternativo de comunicación.','Registrar la hora de inicio del corte.'],
+  note:'No uses generadores a combustión dentro de la vivienda, garaje cerrado ni espacios sin ventilación.'
+ },
+ water:{
+  title:'Falta de agua',emoji:'🚱',
+  intro:'Protegé la reserva y evitá consumir agua dudosa sin tratar.',
+  steps:['Confirmar si el problema es interno o de la red.','Cerrar pérdidas y suspender usos no esenciales.','Calcular la reserva disponible por persona.','Separar agua para beber y cocinar.','Usar filtros únicamente según sus instrucciones.','Hervir o desinfectar el agua cuando corresponda.','Registrar el consumo diario.'],
+  note:'El agua transparente también puede estar contaminada. Ante dudas, tratala antes de beber.'
+ },
+ evacuation:{
+  title:'Evacuación',emoji:'🚗',
+  intro:'La seguridad de las personas está primero. No demores la salida por objetos reemplazables.',
+  steps:['Confirmar la ruta de salida y un punto de reunión.','Reunir a toda la familia.','Tomar botiquín, agua y documentación esencial.','Llevar las mochilas de 72 horas.','Colocar correas y transportar a Manchas y Bella.','Cortar energía o gas solo si hacerlo es seguro.','Avisar a un contacto externo y salir.'],
+  note:'No regreses hasta que una autoridad competente indique que el lugar es seguro.'
+ },
+ injury:{
+  title:'Persona herida',emoji:'🩹',
+  intro:'Evaluá primero que el lugar sea seguro y pedí ayuda profesional cuando sea necesario.',
+  steps:['Verificar que no exista peligro para quien ayuda.','Comprobar respuesta y respiración.','Solicitar asistencia de emergencias.','Controlar hemorragias con presión directa.','No mover a la persona si sospechás lesión de columna, salvo peligro inmediato.','Mantenerla abrigada y acompañada.','Registrar hora, síntomas y acciones realizadas.'],
+  note:'Esta guía no reemplaza capacitación en primeros auxilios ni atención médica.'
+ },
+ storm:{
+  title:'Tormenta fuerte',emoji:'⛈️',
+  intro:'Permanecé bajo techo, lejos de aberturas y elementos que puedan caer.',
+  steps:['Ingresar objetos sueltos del exterior si todavía es seguro.','Cerrar puertas y ventanas.','Desconectar equipos sensibles.','Preparar linternas y energía de reserva.','Mantener a la familia y mascotas alejadas de vidrios.','Evitar circular por calles anegadas.','Escuchar avisos oficiales por los medios disponibles.'],
+  note:'No atravieses agua en movimiento a pie ni en vehículo.'
+ }
+};
+
+function activateEmergency(type){
+ const p=emergencyProtocols[type]; if(!p)return;
+ EDYStorage.set('active_emergency',{type,started:new Date().toLocaleString('es-AR')});
+ const checks=p.steps.map((s,i)=>`<div class="protocolStep"><input type="checkbox" id="ep_${type}_${i}" onchange="saveEmergencyCheck('${type}',${i},this.checked)"><label for="ep_${type}_${i}">${i+1}. ${s}</label></div>`).join('');
+ document.getElementById('activeEmergencyContent').innerHTML=`
+  <div class="activeEmergencyCard">
+   <div class="activeEmergencyTitle"><div class="emoji">${p.emoji}</div><h2>${p.title}</h2><p>${p.intro}</p></div>
+   <div class="protocolChecklist">${checks}</div>
+   <div class="emergencyInfo"><strong>Importante:</strong> ${p.note}</div>
+   <div class="actions"><button class="action" onclick="finishEmergency()">Finalizar emergencia</button><button class="action secondary" onclick="home()">Ir al inicio</button></div>
+  </div>`;
+ p.steps.forEach((_,i)=>{const el=document.getElementById(`ep_${type}_${i}`);el.checked=EDYStorage.get(`emergency_${type}_${i}`,false)});
+ openSection('activeEmergency');
+}
+function saveEmergencyCheck(type,index,value){EDYStorage.set(`emergency_${type}_${index}`,value)}
+function finishEmergency(){
+ if(!confirm('¿Finalizar la emergencia activa?'))return;
+ const active=EDYStorage.get('active_emergency',null);
+ if(active && emergencyProtocols[active.type]) emergencyProtocols[active.type].steps.forEach((_,i)=>EDYStorage.remove(`emergency_${active.type}_${i}`));
+ EDYStorage.remove('active_emergency');
+ const d=EDYStorage.get('status',{});d.level='green';d.updated=new Date().toLocaleString('es-AR');EDYStorage.set('status',d);
+ home();
+}
+
+function getOperations(){return EDYStorage.get('operations',{})}
+function saveOperations(){
+ const data={
+  waterLiters:Number(document.getElementById('opsWaterLiters').value)||0,
+  people:Math.max(1,Number(document.getElementById('opsPeople').value)||5),
+  waterPerPerson:Math.max(.5,Number(document.getElementById('opsWaterPerPerson').value)||3),
+  foodDays:Number(document.getElementById('opsFoodDays').value)||0,
+  energyHours:Number(document.getElementById('opsEnergyHours').value)||0,
+  comms:Number(document.getElementById('opsComms').value),
+  healthPercent:Math.min(100,Math.max(0,Number(document.getElementById('opsHealthPercent').value)||0)),
+  pets:Number(document.getElementById('opsPets').value),
+  updated:new Date().toLocaleString('es-AR')
+ };
+ EDYStorage.set('operations',data);
+ loadOperationsForm();renderOperationsResult();renderOperationsHome();
+}
+function clearOperations(){
+ if(!confirm('¿Borrar los valores del Centro de Operaciones?'))return;
+ EDYStorage.remove('operations');loadOperationsForm();renderOperationsResult();renderOperationsHome();
+}
+function waterDays(o){return o.people&&o.waterPerPerson?o.waterLiters/(o.people*o.waterPerPerson):0}
+function scoreOperations(o){
+ if(!o || !o.updated)return 0;
+ const wd=waterDays(o);
+ const water=Math.min(100,wd/14*100);
+ const food=Math.min(100,(o.foodDays||0)/14*100);
+ const energy=Math.min(100,(o.energyHours||0)/72*100);
+ const inv=getInventory();
+ const inventory=inv.length?inv.filter(i=>i.status==='available').length/inv.length*100:0;
+ return Math.round((water+food+energy+(o.comms||0)+(o.healthPercent||0)+(o.pets||0)+inventory)/7);
+}
+function loadOperationsForm(){
+ const o=getOperations();
+ const set=(id,v)=>{const el=document.getElementById(id);if(el)el.value=v};
+ set('opsWaterLiters',o.waterLiters??'');set('opsPeople',o.people??5);set('opsWaterPerPerson',o.waterPerPerson??3);
+ set('opsFoodDays',o.foodDays??'');set('opsEnergyHours',o.energyHours??'');set('opsComms',o.comms??100);
+ set('opsHealthPercent',o.healthPercent??'');set('opsPets',o.pets??100);
+}
+function renderOperationsResult(){
+ const box=document.getElementById('operationsResult');if(!box)return;
+ const o=getOperations();
+ if(!o.updated){box.innerHTML='<div class="panel">Todavía no hay datos calculados.</div>';return}
+ const wd=waterDays(o),score=scoreOperations(o);
+ box.innerHTML=`<div class="opsResultCard"><h3>Resultado actual: ${score}%</h3>
+  <div class="opsBar"><span style="width:${score}%"></span></div>
+  <p><strong>Agua:</strong> ${wd.toFixed(1)} días para ${o.people} personas.</p>
+  <p><strong>Alimentos:</strong> ${o.foodDays} días.</p>
+  <p><strong>Energía:</strong> ${o.energyHours} horas estimadas.</p>
+  <p class="small">Última actualización: ${o.updated}</p></div>`;
+}
+function renderOperationsHome(){
+ const o=getOperations(),inv=getInventory();
+ const total=inv.length,available=inv.filter(i=>i.status==='available').length;
+ const score=scoreOperations(o),ring=document.getElementById('readinessRing');
+ if(ring)ring.style.background=`conic-gradient(#2f9a58 ${score*3.6}deg, rgba(120,135,126,.22) 0deg)`;
+ const put=(id,text)=>{const el=document.getElementById(id);if(el)el.textContent=text};
+ put('readinessScore',score+'%');
+ put('readinessMessage',!o.updated?'Completá los datos para calcularlo.':score>=80?'Preparación alta. Mantené las revisiones.':score>=50?'Preparación intermedia. Hay aspectos por mejorar.':'Preparación baja. Priorizá agua, alimentos y energía.');
+ put('opWater',o.updated?waterDays(o).toFixed(1)+' días':'Sin registrar');
+ put('opFood',o.updated?o.foodDays+' días':'Sin registrar');
+ put('opEnergy',o.updated?o.energyHours+' horas':'Sin registrar');
+ put('opComms',o.updated?(o.comms>=100?'Operativas':o.comms>0?'Limitadas':'No disponibles'):'Sin registrar');
+ put('opHealth',o.updated?o.healthPercent+'%':'Sin registrar');
+ put('opInventory',`${available}/${total} disponibles`);
+}
+
+loadStatus();renderPendings();renderHomePendings();loadManuals();loadInventory().then(()=>renderOperationsHome());loadOperationsForm();renderOperationsResult();renderOperationsHome();
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js'))}

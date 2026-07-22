@@ -34,6 +34,29 @@
     <span><strong>DECLARAR EMERGENCIA</strong><small>Abrir el panel de acción rápida</small></span>
   </button>
 
+
+  <div class="titleRow">
+    <h2>Centro de Operaciones</h2>
+    <button class="back" onclick="openSection('operaciones')">Configurar</button>
+  </div>
+  <div class="operationsPanel">
+    <div class="readinessBlock">
+      <div class="readinessRing" id="readinessRing"><span id="readinessScore">0%</span></div>
+      <div>
+        <strong>Nivel de preparación</strong>
+        <p id="readinessMessage">Completá los datos para calcularlo.</p>
+      </div>
+    </div>
+    <div class="operationsGrid">
+      <div class="operationMetric"><span>💧 Agua</span><strong id="opWater">Sin registrar</strong></div>
+      <div class="operationMetric"><span>🍲 Alimentos</span><strong id="opFood">Sin registrar</strong></div>
+      <div class="operationMetric"><span>⚡ Energía</span><strong id="opEnergy">Sin registrar</strong></div>
+      <div class="operationMetric"><span>📡 Comunicaciones</span><strong id="opComms">Sin registrar</strong></div>
+      <div class="operationMetric"><span>🩺 Botiquín</span><strong id="opHealth">Sin registrar</strong></div>
+      <div class="operationMetric"><span>📦 Inventario</span><strong id="opInventory">0 elementos</strong></div>
+    </div>
+  </div>
+
   <div class="titleRow"><h2>Estado del hogar</h2><button class="back" onclick="openSection('estado')">Actualizar</button></div>
   <div class="statusGrid">
     <div class="status" onclick="openSection('agua')"><div class="statusTop"><strong>Agua</strong><span id="dotWater" class="dot"></span></div><div id="waterValue" class="statusValue">OK</div><div id="waterDetail" class="small">Sin registrar</div></div>
@@ -53,6 +76,7 @@
     <div class="card" onclick="openSection('biblioteca')"><div class="icon">📚</div><h3>Biblioteca</h3><p>Consulta offline.</p></div>
     <div class="card" onclick="openSection('mascotas')"><div class="icon">🐶</div><h3>Mascotas</h3><p>Evacuación y cuidado.</p></div>
     <div class="card" onclick="openSection('estado')"><div class="icon">🏠</div><h3>Estado</h3><p>Actualizar el hogar.</p></div>
+    <div class="card operationsFeatured" onclick="openSection('operaciones')"><div class="icon">🧭</div><h3>Operaciones</h3><p>Autonomía y preparación.</p></div>
     <div class="card" onclick="openSection('privacidad')"><div class="icon">🔒</div><h3>Privacidad</h3><p>Datos locales y públicos.</p></div>
   </div>
 </section>
@@ -65,13 +89,47 @@
     <p>Elegí lo que está ocurriendo. EDY mostrará solo las acciones prioritarias.</p>
   </div>
   <div class="emergencyGrid">
-    <button class="emergencyOption" onclick="openSection('apagon')"><span>🔌</span><strong>Corte de energía</strong></button>
-    <button class="emergencyOption" onclick="openSection('sinagua')"><span>🚱</span><strong>Falta de agua</strong></button>
-    <button class="emergencyOption" onclick="openSection('evacuacion')"><span>🚗</span><strong>Evacuar</strong></button>
-    <button class="emergencyOption" onclick="openSection('herido')"><span>🩹</span><strong>Hay un herido</strong></button>
-    <button class="emergencyOption" onclick="openSection('tormenta')"><span>⛈️</span><strong>Tormenta fuerte</strong></button>
+    <button class="emergencyOption" onclick="activateEmergency('power')"><span>🔌</span><strong>Corte de energía</strong></button>
+    <button class="emergencyOption" onclick="activateEmergency('water')"><span>🚱</span><strong>Falta de agua</strong></button>
+    <button class="emergencyOption" onclick="activateEmergency('evacuation')"><span>🚗</span><strong>Evacuar</strong></button>
+    <button class="emergencyOption" onclick="activateEmergency('injury')"><span>🩹</span><strong>Hay un herido</strong></button>
+    <button class="emergencyOption" onclick="activateEmergency('storm')"><span>⛈️</span><strong>Tormenta fuerte</strong></button>
     <button class="emergencyOption" onclick="openSection('biblioteca')"><span>📚</span><strong>Consultar manual</strong></button>
   </div>
+</section>
+
+
+
+<section id="operaciones" class="section">
+  <button class="back" onclick="home()">← Inicio</button>
+  <h2>🧭 Centro de Operaciones</h2>
+  <div class="panel">
+    <p>Registrá valores simples. EDY calculará una vista rápida de la autonomía familiar. Los datos quedan solamente en este dispositivo.</p>
+  </div>
+  <div class="formGrid">
+    <div class="field"><label>Agua disponible (litros)</label><input id="opsWaterLiters" type="number" min="0" placeholder="Ej.: 180"></div>
+    <div class="field"><label>Personas</label><input id="opsPeople" type="number" min="1" value="5"></div>
+    <div class="field"><label>Consumo diario por persona (litros)</label><input id="opsWaterPerPerson" type="number" min="0.5" step="0.5" value="3"></div>
+    <div class="field"><label>Alimentos disponibles (días)</label><input id="opsFoodDays" type="number" min="0" placeholder="Ej.: 15"></div>
+    <div class="field"><label>Autonomía eléctrica estimada (horas)</label><input id="opsEnergyHours" type="number" min="0" placeholder="Ej.: 24"></div>
+    <div class="field"><label>Comunicaciones</label><select id="opsComms">
+      <option value="100">Operativas</option><option value="60">Limitadas</option><option value="0">No disponibles</option>
+    </select></div>
+    <div class="field"><label>Botiquín completo (%)</label><input id="opsHealthPercent" type="number" min="0" max="100" placeholder="Ej.: 80"></div>
+    <div class="field"><label>Mascotas preparadas</label><select id="opsPets">
+      <option value="100">Sí</option><option value="50">Parcialmente</option><option value="0">No</option>
+    </select></div>
+  </div>
+  <div class="actions">
+    <button class="action" onclick="saveOperations()">Guardar y calcular</button>
+    <button class="action secondary" onclick="clearOperations()">Borrar valores</button>
+  </div>
+  <div id="operationsResult" class="operationsResult"></div>
+</section>
+
+<section id="activeEmergency" class="section emergencyActiveSection">
+  <button class="back" onclick="openSection('modoEmergencia')">← Cambiar emergencia</button>
+  <div id="activeEmergencyContent"></div>
 </section>
 
 
@@ -214,7 +272,7 @@
 <section id="results" class="section"><button class="back" onclick="home()">← Inicio</button><h2>🔍 Resultados</h2><div id="list"></div></section>
 </main>
 
-<footer>EDY Offline · v0.6 · Inventario Familiar</footer>
+<footer>EDY Offline · v0.7 · Centro de Operaciones</footer>
 <script src="storage.js"></script>
 <script src="calculator.js"></script>
 <script src="app.js"></script>
