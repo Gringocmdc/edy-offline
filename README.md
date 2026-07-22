@@ -1,14 +1,13 @@
-# EDY Offline v0.4
+# EDY Offline v0.4.1
 
-Centro de Supervivencia Digital Familiar.
+Versión corregida para subir desde iPad con todos los archivos en la raíz del repositorio.
 
-## Novedades
-- Arquitectura profesional separada en carpetas CSS, JS, data e icons.
+## Incluye
 - Calculadora de autonomía de agua.
-- Calculadora estimada de autonomía de energía.
-- Módulo de pendientes guardado localmente.
-- Biblioteca offline basada en datos JSON.
-- Conserva panel de estado, protocolos, checklists y buscador.
+- Calculadora estimada de energía.
+- Pendientes guardados localmente.
+- Biblioteca offline.
+- Panel de estado, protocolos y checklists.
 
-## Privacidad
-No publicar datos personales, inventarios sensibles, direcciones, documentos, contraseñas ni información médica identificable.
+## Nota técnica
+GitHub desde Safari en iPad subió las carpetas de v0.4 como archivos sueltos. Esta revisión ajusta todas las rutas para esa estructura plana.
