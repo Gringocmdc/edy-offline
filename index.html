@@ -3,43 +3,47 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#0d2f22">
+  <meta name="theme-color" content="#102a21">
   <title>EDY Offline</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <style>
     :root{
-      --bg:#edf2ee;--panel:#fff;--ink:#142018;--muted:#68756c;
-      --green:#0d2f22;--green2:#235a3f;--line:#d7dfd9;
-      --red:#a52a2a;--amber:#a06408;--shadow:0 10px 28px rgba(14,48,32,.12)
+      --bg:#edf2ee;--panel:#fff;--ink:#152019;--muted:#68756c;--green:#102a21;
+      --green2:#285e45;--line:#d7dfd9;--red:#a52a2a;--amber:#a06408;
+      --shadow:0 12px 30px rgba(14,48,32,.12)
     }
     @media(prefers-color-scheme:dark){
-      :root{--bg:#0e1511;--panel:#17211a;--ink:#f4f7f4;--muted:#aab7ae;--line:#2c3a30;--shadow:none}
+      :root{--bg:#0d1410;--panel:#162019;--ink:#f5f7f5;--muted:#aab7ae;
+      --line:#2b3930;--shadow:none}
     }
     *{box-sizing:border-box}
     body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
-    header{position:sticky;top:0;z-index:20;background:linear-gradient(135deg,var(--green),#081d15);color:white;padding:18px 16px 15px;box-shadow:var(--shadow)}
+    header{position:sticky;top:0;z-index:20;background:linear-gradient(135deg,var(--green),#071b13);color:#fff;padding:18px 16px 15px;box-shadow:var(--shadow)}
     .brand{display:flex;align-items:center;justify-content:space-between;gap:12px}
     h1{margin:0;font-size:32px;letter-spacing:.6px}
     header p{margin:2px 0 0;opacity:.8;font-size:13px}
+    .pill{font-size:12px;font-weight:800;padding:7px 10px;border-radius:999px;background:#dcebdd;color:#17462f}
     #search{width:100%;margin-top:13px;border:0;border-radius:14px;padding:13px 15px;font-size:17px}
     main{max-width:1024px;margin:auto;padding:16px}
     .section{display:none}.section.active{display:block}
     .hero,.panel,.card,.status{background:var(--panel);border:1px solid var(--line);border-radius:19px;box-shadow:var(--shadow)}
-    .hero{padding:18px}.hero h2{margin:0 0 7px;font-size:26px}
-    .quote{margin-top:12px;padding:11px 13px;border-left:5px solid var(--green2);background:rgba(54,122,82,.10);border-radius:9px}
+    .hero{padding:18px}.hero h2{margin:0 0 7px;font-size:26px}.hero p{margin:0;color:var(--muted)}
+    .greeting{font-size:14px;color:var(--muted);margin-bottom:8px}
+    .quote{margin-top:13px;padding:11px 13px;border-left:5px solid var(--green2);background:rgba(54,122,82,.10);border-radius:9px}
     .titleRow{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:18px}
     .titleRow h2{font-size:20px;margin:0}
-    .mode{font-size:12px;font-weight:800;padding:7px 10px;border-radius:999px;background:#dcebdd;color:#17462f}
     .statusGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
-    .status{padding:13px}.statusTop{display:flex;justify-content:space-between;gap:8px}.dot{width:11px;height:11px;border-radius:50%;background:#2f9a58;display:inline-block}.dot.amber{background:#e49a21}
+    .status{padding:14px;cursor:pointer}.statusTop{display:flex;justify-content:space-between;gap:8px}
+    .status strong{font-size:15px}.statusValue{font-size:24px;font-weight:800;margin:9px 0 2px}
+    .dot{width:11px;height:11px;border-radius:50%;background:#2f9a58;display:inline-block}
+    .dot.amber{background:#e49a21}.dot.red{background:#bd3333}
     .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;margin-top:12px}
     .card{padding:15px;min-height:116px;cursor:pointer}.card:active{transform:scale(.985)}
     .icon{font-size:29px}.card h3{margin:8px 0 4px;font-size:17px}.card p{margin:0;font-size:13px;color:var(--muted);line-height:1.35}
     .dangerCard{border:2px solid rgba(165,42,42,.35);background:linear-gradient(145deg,var(--panel),rgba(165,42,42,.06))}
     .back{border:0;border-radius:12px;padding:10px 14px;background:rgba(50,110,75,.15);color:inherit;font-weight:800}
     .panel{padding:17px;margin:12px 0}.red{border-left:7px solid var(--red)}.amber{border-left:7px solid var(--amber)}
-    ol,ul{padding-left:23px}li{margin:10px 0;line-height:1.45}
     .check{display:flex;gap:12px;align-items:flex-start;padding:12px;border:1px solid var(--line);border-radius:13px;margin:9px 0;background:var(--panel)}
     .check input{width:24px;height:24px;flex:0 0 auto}.check span{line-height:1.35}
     .actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}
@@ -47,15 +51,20 @@
     button.secondary{background:rgba(70,90,78,.16);color:inherit}
     .result{width:100%;text-align:left;border:1px solid var(--line);background:var(--panel);color:inherit;padding:14px;border-radius:13px;margin:8px 0;font-size:16px}
     .small{font-size:12px;color:var(--muted)}
+    .formGrid{display:grid;grid-template-columns:1fr;gap:12px}
+    .field{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px}
+    .field label{display:block;font-size:13px;color:var(--muted);margin-bottom:7px}
+    .field input,.field select,.field textarea{width:100%;border:1px solid var(--line);background:transparent;color:inherit;border-radius:11px;padding:12px;font-size:16px}
+    .field textarea{min-height:90px}
     footer{text-align:center;padding:28px 12px 40px;color:var(--muted);font-size:12px}
-    @media(min-width:760px){.grid{grid-template-columns:repeat(3,1fr)}.statusGrid{grid-template-columns:repeat(4,1fr)}}
+    @media(min-width:760px){.grid{grid-template-columns:repeat(3,1fr)}.statusGrid{grid-template-columns:repeat(4,1fr)}.formGrid{grid-template-columns:repeat(2,1fr)}}
   </style>
 </head>
 <body>
 <header>
   <div class="brand">
     <div><h1>EDY</h1><p>Centro de Supervivencia Digital Familiar</p></div>
-    <div class="mode">OFFLINE</div>
+    <div class="pill">OFFLINE</div>
   </div>
   <input id="search" placeholder="Buscar: apagón, agua, evacuación, salud…">
 </header>
@@ -63,17 +72,18 @@
 <main>
 <section id="home" class="section active">
   <div class="hero">
-    <h2>Centro de Operaciones</h2>
-    <p>Acceso rápido a decisiones y protocolos esenciales, incluso sin internet.</p>
-    <div class="quote">La improvisación salva un día. La preparación salva una familia.</div>
+    <div class="greeting" id="greeting">Centro de Operaciones</div>
+    <h2 id="overallMessage">Todo bajo control.</h2>
+    <p id="lastReview">Última revisión: todavía no registrada.</p>
+    <div class="quote">La preparación convierte el miedo en decisiones.</div>
   </div>
 
-  <div class="titleRow"><h2>Estado general</h2><span class="small">Datos manuales</span></div>
+  <div class="titleRow"><h2>Estado del hogar</h2><button class="back" onclick="openSection('estado')">Actualizar</button></div>
   <div class="statusGrid">
-    <div class="status"><div class="statusTop"><strong>Agua</strong><span class="dot amber"></span></div><div class="small">Filtro pendiente</div></div>
-    <div class="status"><div class="statusTop"><strong>Energía</strong><span class="dot"></span></div><div class="small">Forza disponible</div></div>
-    <div class="status"><div class="statusTop"><strong>Comunicación</strong><span class="dot"></span></div><div class="small">iPad + Starlink</div></div>
-    <div class="status"><div class="statusTop"><strong>Botiquín</strong><span class="dot amber"></span></div><div class="small">Completar inventario</div></div>
+    <div class="status" onclick="openSection('estado')"><div class="statusTop"><strong>Agua</strong><span id="dotWater" class="dot"></span></div><div id="waterValue" class="statusValue">OK</div><div id="waterDetail" class="small">Sin registrar</div></div>
+    <div class="status" onclick="openSection('estado')"><div class="statusTop"><strong>Energía</strong><span id="dotEnergy" class="dot"></span></div><div id="energyValue" class="statusValue">OK</div><div id="energyDetail" class="small">Sin registrar</div></div>
+    <div class="status" onclick="openSection('estado')"><div class="statusTop"><strong>Comunicaciones</strong><span id="dotComms" class="dot"></span></div><div id="commsValue" class="statusValue">OK</div><div id="commsDetail" class="small">Sin registrar</div></div>
+    <div class="status" onclick="openSection('estado')"><div class="statusTop"><strong>Botiquín</strong><span id="dotHealth" class="dot"></span></div><div id="healthValue" class="statusValue">OK</div><div id="healthDetail" class="small">Sin registrar</div></div>
   </div>
 
   <div class="titleRow"><h2>¿Qué está pasando?</h2></div>
@@ -97,95 +107,70 @@
   </div>
 </section>
 
-<section id="apagon" class="section searchable">
-  <button class="back" onclick="home()">← Inicio</button><h2>🔌 Apagón</h2>
-  <div class="panel red"><strong>Primero:</strong> verificá que no haya olor a quemado, humo, chispas, cables caídos ni riesgo eléctrico.</div>
-  <label class="check"><input type="checkbox" data-key="ap1"><span>Confirmar que nadie esté herido.</span></label>
-  <label class="check"><input type="checkbox" data-key="ap2"><span>Revisar si el corte es solo de la vivienda o de la zona.</span></label>
-  <label class="check"><input type="checkbox" data-key="ap3"><span>Desconectar consumos innecesarios y dejar la heladera cerrada.</span></label>
-  <label class="check"><input type="checkbox" data-key="ap4"><span>Activar modo de bajo consumo en iPad y teléfonos.</span></label>
-  <label class="check"><input type="checkbox" data-key="ap5"><span>Reservar la Forza para iluminación, comunicación y cargas esenciales.</span></label>
-  <label class="check"><input type="checkbox" data-key="ap6"><span>Encender Starlink solo durante ventanas de comunicación.</span></label>
-  <div class="actions"><button class="action secondary" onclick="resetChecks('ap')">Reiniciar lista</button></div>
+<section id="estado" class="section">
+  <button class="back" onclick="home()">← Inicio</button><h2>Estado del hogar</h2>
+  <div class="panel"><p>Estos datos se guardan solamente en este dispositivo.</p></div>
+  <div class="formGrid">
+    <div class="field"><label>Nombre para el saludo</label><input id="nameInput" placeholder="Darío"></div>
+    <div class="field"><label>Nivel general</label><select id="levelInput"><option value="green">Verde · Todo normal</option><option value="amber">Amarillo · Atención</option><option value="red">Rojo · Emergencia</option></select></div>
+    <div class="field"><label>Agua</label><select id="waterStatus"><option value="green">Disponible</option><option value="amber">Limitada</option><option value="red">No disponible</option></select><input id="waterText" placeholder="Ej.: 120 litros" style="margin-top:8px"></div>
+    <div class="field"><label>Energía</label><select id="energyStatus"><option value="green">Disponible</option><option value="amber">Limitada</option><option value="red">No disponible</option></select><input id="energyText" placeholder="Ej.: Forza 85%" style="margin-top:8px"></div>
+    <div class="field"><label>Comunicaciones</label><select id="commsStatus"><option value="green">Disponible</option><option value="amber">Limitada</option><option value="red">No disponible</option></select><input id="commsText" placeholder="Ej.: iPad + Starlink" style="margin-top:8px"></div>
+    <div class="field"><label>Botiquín</label><select id="healthStatus"><option value="green">Completo</option><option value="amber">Revisar</option><option value="red">Incompleto</option></select><input id="healthText" placeholder="Ej.: falta gasa" style="margin-top:8px"></div>
+    <div class="field"><label>Observaciones</label><textarea id="notesInput" placeholder="Pendientes importantes"></textarea></div>
+  </div>
+  <div class="actions"><button class="action" onclick="saveStatus()">Guardar estado</button><button class="action secondary" onclick="clearStatus()">Borrar datos locales</button></div>
 </section>
 
-<section id="sinagua" class="section searchable">
-  <button class="back" onclick="home()">← Inicio</button><h2>🚱 Falta de agua</h2>
-  <div class="panel red">No beber agua dudosa solo porque parezca limpia. Filtrar y desinfectar no son lo mismo.</div>
-  <label class="check"><input type="checkbox" data-key="ag1"><span>Contar toda el agua potable disponible.</span></label>
-  <label class="check"><input type="checkbox" data-key="ag2"><span>Separar agua para beber y cocinar de la destinada a higiene.</span></label>
-  <label class="check"><input type="checkbox" data-key="ag3"><span>Proteger recipientes y mantenerlos cerrados.</span></label>
-  <label class="check"><input type="checkbox" data-key="ag4"><span>Priorizar hidratación de niños y personas vulnerables.</span></label>
-  <label class="check"><input type="checkbox" data-key="ag5"><span>No improvisar productos químicos sin dosis confiables.</span></label>
-  <div class="actions"><button class="action secondary" onclick="resetChecks('ag')">Reiniciar lista</button></div>
-</section>
+<section id="apagon" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🔌 Apagón</h2><div class="panel red"><strong>Primero:</strong> verificá que no haya humo, chispas, cables caídos ni riesgo eléctrico.</div>
+<label class="check"><input type="checkbox" data-key="ap1"><span>Confirmar que nadie esté herido.</span></label>
+<label class="check"><input type="checkbox" data-key="ap2"><span>Revisar si el corte es solo de la vivienda o de la zona.</span></label>
+<label class="check"><input type="checkbox" data-key="ap3"><span>Desconectar consumos innecesarios y dejar la heladera cerrada.</span></label>
+<label class="check"><input type="checkbox" data-key="ap4"><span>Activar modo de bajo consumo en iPad y teléfonos.</span></label>
+<label class="check"><input type="checkbox" data-key="ap5"><span>Reservar la Forza para iluminación, comunicación y cargas esenciales.</span></label>
+<label class="check"><input type="checkbox" data-key="ap6"><span>Encender Starlink solo durante ventanas de comunicación.</span></label></section>
 
-<section id="evacuacion" class="section searchable">
-  <button class="back" onclick="home()">← Inicio</button><h2>🚗 Evacuación</h2>
-  <div class="panel amber">Evacuar cuando permanecer sea más peligroso. No demorar la salida por objetos reemplazables.</div>
-  <label class="check"><input type="checkbox" data-key="ev1"><span>Reunir a todos los integrantes y confirmar quién conduce.</span></label>
-  <label class="check"><input type="checkbox" data-key="ev2"><span>Llevar medicamentos esenciales, botiquín, agua y teléfonos.</span></label>
-  <label class="check"><input type="checkbox" data-key="ev3"><span>Llevar iPad, cargadores y estación de energía solo si están accesibles.</span></label>
-  <label class="check"><input type="checkbox" data-key="ev4"><span>Asegurar mascotas con correas o transportadoras.</span></label>
-  <label class="check"><input type="checkbox" data-key="ev5"><span>Cerrar gas y electricidad únicamente si es seguro hacerlo.</span></label>
-  <label class="check"><input type="checkbox" data-key="ev6"><span>Salir por la ruta más segura y avisar a un contacto cuando haya señal.</span></label>
-  <div class="actions"><button class="action secondary" onclick="resetChecks('ev')">Reiniciar lista</button></div>
-</section>
+<section id="sinagua" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🚱 Falta de agua</h2><div class="panel red">No beber agua dudosa solo porque parezca limpia.</div>
+<label class="check"><input type="checkbox" data-key="ag1"><span>Contar toda el agua potable disponible.</span></label>
+<label class="check"><input type="checkbox" data-key="ag2"><span>Separar agua para beber y cocinar de la destinada a higiene.</span></label>
+<label class="check"><input type="checkbox" data-key="ag3"><span>Proteger recipientes y mantenerlos cerrados.</span></label>
+<label class="check"><input type="checkbox" data-key="ag4"><span>Priorizar hidratación de niños y personas vulnerables.</span></label></section>
 
-<section id="herido" class="section searchable">
-  <button class="back" onclick="home()">← Inicio</button><h2>🩹 Persona herida</h2>
-  <div class="panel red">Dificultad respiratoria, inconsciencia, sangrado abundante, convulsión, dolor fuerte de pecho, quemadura extensa o traumatismo grave requieren atención profesional urgente.</div>
-  <label class="check"><input type="checkbox" data-key="he1"><span>Comprobar que el lugar sea seguro antes de acercarse.</span></label>
-  <label class="check"><input type="checkbox" data-key="he2"><span>Comprobar respuesta y respiración.</span></label>
-  <label class="check"><input type="checkbox" data-key="he3"><span>Identificar sangrado visible y aplicar presión directa con material limpio.</span></label>
-  <label class="check"><input type="checkbox" data-key="he4"><span>No mover a la persona si se sospecha lesión de columna, salvo peligro inmediato.</span></label>
-  <label class="check"><input type="checkbox" data-key="he5"><span>Registrar qué pasó, hora y medidas realizadas.</span></label>
-  <div class="actions"><button class="action secondary" onclick="resetChecks('he')">Reiniciar lista</button></div>
-</section>
+<section id="evacuacion" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🚗 Evacuación</h2><div class="panel amber">No demorar la salida por objetos reemplazables.</div>
+<label class="check"><input type="checkbox" data-key="ev1"><span>Reunir a todos los integrantes.</span></label>
+<label class="check"><input type="checkbox" data-key="ev2"><span>Llevar medicamentos, botiquín, agua y teléfonos.</span></label>
+<label class="check"><input type="checkbox" data-key="ev3"><span>Llevar iPad y estación de energía solo si están accesibles.</span></label>
+<label class="check"><input type="checkbox" data-key="ev4"><span>Asegurar mascotas con correas o transportadoras.</span></label>
+<label class="check"><input type="checkbox" data-key="ev5"><span>Cerrar gas y electricidad únicamente si es seguro.</span></label></section>
 
-<section id="tormenta" class="section searchable">
-  <button class="back" onclick="home()">← Inicio</button><h2>⛈️ Tormenta fuerte</h2>
-  <label class="check"><input type="checkbox" data-key="to1"><span>Ingresar a un lugar seguro y alejarse de ventanas.</span></label>
-  <label class="check"><input type="checkbox" data-key="to2"><span>Desconectar equipos sensibles si hay tiempo y es seguro.</span></label>
-  <label class="check"><input type="checkbox" data-key="to3"><span>Cargar iPad y teléfonos antes de que se corte la energía.</span></label>
-  <label class="check"><input type="checkbox" data-key="to4"><span>Reunir linternas, agua, botiquín y llaves.</span></label>
-  <label class="check"><input type="checkbox" data-key="to5"><span>No salir para observar daños mientras continúe el peligro.</span></label>
-  <div class="actions"><button class="action secondary" onclick="resetChecks('to')">Reiniciar lista</button></div>
-</section>
+<section id="herido" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🩹 Persona herida</h2><div class="panel red">Dificultad respiratoria, inconsciencia, sangrado abundante, convulsión, dolor fuerte de pecho o traumatismo grave requieren ayuda profesional urgente.</div>
+<label class="check"><input type="checkbox" data-key="he1"><span>Comprobar que el lugar sea seguro.</span></label>
+<label class="check"><input type="checkbox" data-key="he2"><span>Comprobar respuesta y respiración.</span></label>
+<label class="check"><input type="checkbox" data-key="he3"><span>Aplicar presión directa ante sangrado visible.</span></label>
+<label class="check"><input type="checkbox" data-key="he4"><span>No mover si se sospecha lesión de columna, salvo peligro inmediato.</span></label></section>
 
-<section id="consultar" class="section searchable">
-  <button class="back" onclick="home()">← Inicio</button><h2>🔎 Consulta rápida</h2>
-  <div class="panel"><p>Usá el buscador superior con palabras concretas: <em>apagón</em>, <em>agua</em>, <em>evacuación</em>, <em>herido</em>, <em>Forza</em>, <em>Starlink</em>.</p></div>
-</section>
+<section id="tormenta" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>⛈️ Tormenta fuerte</h2>
+<label class="check"><input type="checkbox" data-key="to1"><span>Ingresar a un lugar seguro y alejarse de ventanas.</span></label>
+<label class="check"><input type="checkbox" data-key="to2"><span>Desconectar equipos sensibles si es seguro.</span></label>
+<label class="check"><input type="checkbox" data-key="to3"><span>Cargar iPad y teléfonos.</span></label>
+<label class="check"><input type="checkbox" data-key="to4"><span>Reunir linternas, agua, botiquín y llaves.</span></label></section>
 
-<section id="energia" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>⚡ Energía</h2>
-<div class="panel"><ol><li>Comunicaciones.</li><li>Iluminación.</li><li>iPad y teléfonos.</li><li>Equipos médicos indispensables.</li><li>Herramientas solo para reparaciones necesarias.</li></ol></div>
-<div class="panel amber"><strong>Panel solar:</strong> verificar voltaje, corriente, potencia, polaridad y conector antes de comprar. No elegir solamente por la potencia anunciada.</div></section>
-
-<section id="agua" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>💧 Agua</h2>
-<div class="panel"><p>Usar primero agua potable almacenada. Mantener recipientes cerrados y separar consumo humano de limpieza.</p></div></section>
-
-<section id="salud" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🩺 Salud</h2>
-<div class="panel"><p>Proteger, alertar y socorrer. Esta sección pública contiene solo orientación básica y no reemplaza atención médica.</p></div></section>
-
-<section id="comunicaciones" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>📡 Comunicaciones</h2>
-<div class="panel"><ul><li>Modo de bajo consumo.</li><li>Brillo mínimo legible.</li><li>Modo avión cuando no se necesiten enlaces.</li><li>Starlink solo en ventanas de comunicación.</li></ul></div></section>
-
-<section id="mascotas" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🐶 Mascotas</h2>
-<div class="panel"><ul><li>Correas o transportadoras accesibles.</li><li>Agua, alimento, manta y bolsas.</li><li>No soltarlas durante una evacuación.</li></ul></div></section>
-
-<section id="privacidad" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🔒 Privacidad</h2>
-<div class="panel red"><strong>Nunca publicar:</strong> domicilio, teléfonos privados, documentos, contraseñas, ubicaciones de equipos, rutinas de seguridad, inventario de armas o municiones, números de serie ni información médica identificable.</div>
-<div class="panel"><p>GitHub contiene solamente la aplicación pública. La información privada debe permanecer en el iPad y en respaldos cifrados externos.</p></div></section>
-
+<section id="consultar" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🔎 Consulta rápida</h2><div class="panel"><p>Usá el buscador superior con palabras concretas.</p></div></section>
+<section id="energia" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>⚡ Energía</h2><div class="panel"><ol><li>Comunicaciones.</li><li>Iluminación.</li><li>iPad y teléfonos.</li><li>Equipos médicos indispensables.</li></ol></div></section>
+<section id="agua" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>💧 Agua</h2><div class="panel"><p>Usar primero agua potable almacenada y mantener recipientes cerrados.</p></div></section>
+<section id="salud" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🩺 Salud</h2><div class="panel"><p>Proteger, alertar y socorrer. No reemplaza atención médica.</p></div></section>
+<section id="comunicaciones" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>📡 Comunicaciones</h2><div class="panel"><ul><li>Modo de bajo consumo.</li><li>Brillo mínimo legible.</li><li>Modo avión cuando no se necesiten enlaces.</li><li>Starlink solo en ventanas de comunicación.</li></ul></div></section>
+<section id="mascotas" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🐶 Mascotas</h2><div class="panel"><ul><li>Correas o transportadoras accesibles.</li><li>Agua, alimento y manta.</li><li>No soltarlas durante una evacuación.</li></ul></div></section>
+<section id="privacidad" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🔒 Privacidad</h2><div class="panel red"><strong>Nunca publicar:</strong> domicilios, teléfonos privados, documentos, contraseñas, ubicaciones de equipos, inventario de armas o municiones, números de serie ni información médica identificable.</div></section>
 <section id="results" class="section"><button class="back" onclick="home()">← Inicio</button><h2>🔍 Resultados</h2><div id="list"></div></section>
 </main>
-<footer>EDY Offline · v0.2 · Contenido público sin información sensible</footer>
+
+<footer>EDY Offline · v0.3 · Estado guardado localmente</footer>
 
 <script>
 const sections=[...document.querySelectorAll('.section')];
 function openSection(id){sections.forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0)}
-function home(){document.getElementById('search').value='';openSection('home')}
+function home(){document.getElementById('search').value='';loadStatus();openSection('home')}
 document.getElementById('search').addEventListener('input',e=>{
  const q=e.target.value.trim().toLowerCase();if(!q){home();return}
  const found=[...document.querySelectorAll('.searchable')].filter(s=>s.innerText.toLowerCase().includes(q));
@@ -196,9 +181,43 @@ document.querySelectorAll('input[type=checkbox][data-key]').forEach(cb=>{
  cb.checked=localStorage.getItem('edy_'+cb.dataset.key)==='1';
  cb.addEventListener('change',()=>localStorage.setItem('edy_'+cb.dataset.key,cb.checked?'1':'0'));
 });
-function resetChecks(prefix){
- document.querySelectorAll(`input[data-key^="${prefix}"]`).forEach(cb=>{cb.checked=false;localStorage.removeItem('edy_'+cb.dataset.key)});
+function val(id){return document.getElementById(id).value}
+function setDot(id,status){const d=document.getElementById(id);d.className='dot '+(status==='amber'?'amber':status==='red'?'red':'')}
+function saveStatus(){
+ const data={name:val('nameInput'),level:val('levelInput'),waterStatus:val('waterStatus'),waterText:val('waterText'),energyStatus:val('energyStatus'),energyText:val('energyText'),commsStatus:val('commsStatus'),commsText:val('commsText'),healthStatus:val('healthStatus'),healthText:val('healthText'),notes:val('notesInput'),updated:new Date().toLocaleString('es-AR')};
+ localStorage.setItem('edy_status',JSON.stringify(data));loadStatus();home();
 }
+function loadStatus(){
+ const data=JSON.parse(localStorage.getItem('edy_status')||'{}');
+ const hour=new Date().getHours();const sal=hour<12?'Buenos días':hour<19?'Buenas tardes':'Buenas noches';
+ document.getElementById('greeting').textContent=data.name?`${sal}, ${data.name}.`:'Centro de Operaciones';
+ const msg=data.level==='red'?'Emergencia activa. Priorizá la seguridad.':data.level==='amber'?'Hay elementos que requieren atención.':'Todo bajo control.';
+ document.getElementById('overallMessage').textContent=msg;
+ document.getElementById('lastReview').textContent=data.updated?`Última revisión: ${data.updated}`:'Última revisión: todavía no registrada.';
+ const map={green:'OK',amber:'ATENCIÓN',red:'CRÍTICO'};
+ [['Water','water'],['Energy','energy'],['Comms','comms'],['Health','health']].forEach(([cap,key])=>{
+   const st=data[key+'Status']||'green';
+   document.getElementById(key+'Value').textContent=map[st];
+   document.getElementById(key+'Detail').textContent=data[key+'Text']||'Sin registrar';
+   setDot('dot'+cap,st);
+ });
+ ['nameInput','levelInput','waterStatus','waterText','energyStatus','energyText','commsStatus','commsText','healthStatus','healthText','notesInput'].forEach(id=>{
+   const key=id.replace('Input','').replace('Status','Status').replace('Text','Text');
+ });
+ document.getElementById('nameInput').value=data.name||'';
+ document.getElementById('levelInput').value=data.level||'green';
+ document.getElementById('waterStatus').value=data.waterStatus||'green';
+ document.getElementById('waterText').value=data.waterText||'';
+ document.getElementById('energyStatus').value=data.energyStatus||'green';
+ document.getElementById('energyText').value=data.energyText||'';
+ document.getElementById('commsStatus').value=data.commsStatus||'green';
+ document.getElementById('commsText').value=data.commsText||'';
+ document.getElementById('healthStatus').value=data.healthStatus||'green';
+ document.getElementById('healthText').value=data.healthText||'';
+ document.getElementById('notesInput').value=data.notes||'';
+}
+function clearStatus(){if(confirm('¿Borrar el estado guardado en este dispositivo?')){localStorage.removeItem('edy_status');loadStatus();home()}}
+loadStatus();
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js'))}
 </script>
 </body>
