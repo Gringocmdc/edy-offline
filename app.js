@@ -1,11 +1,23 @@
 
 const sections=[...document.querySelectorAll('.section')];
-function openSection(id){sections.forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0)}
-function home(){document.getElementById('search').value='';loadStatus();renderHomePendings();renderOperationsHome();openSection('home')}
+function openSection(id){
+ sections.forEach(s=>s.classList.remove('active'));
+ const target=document.getElementById(id);if(!target)return;
+ target.classList.add('active');
+ if(id==='asistente'){renderAssistantAlerts();document.getElementById('assistantQuery')?.focus()}
+ if(id==='inventario')renderInventory();
+ scrollTo(0,0)
+}
+function home(){document.getElementById('search').value='';loadStatus();renderHomePendings();renderOperationsHome();renderAssistantHomeAlerts();openSection('home')}
 document.getElementById('search').addEventListener('input',e=>{
- const q=e.target.value.trim().toLowerCase();if(!q){home();return}
- const found=[...document.querySelectorAll('.searchable')].filter(s=>s.innerText.toLowerCase().includes(q));
- document.getElementById('list').innerHTML=found.length?found.map(s=>`<button class="result" onclick="openSection('${s.id}')"><strong>${s.querySelector('h2').innerText}</strong><br><span class="small">Abrir sección</span></button>`).join(''):'<div class="panel">No se encontraron resultados.</div>';
+ const raw=e.target.value.trim();const q=normalizeText(raw);if(!q){home();return}
+ const sectionsFound=[...document.querySelectorAll('.searchable')].filter(s=>normalizeText(s.innerText).includes(q));
+ const inventoryFound=getInventory().filter(i=>normalizeText([i.name,i.category,i.notes,i.location].join(' ')).includes(q)).slice(0,8);
+ const rows=[
+   ...inventoryFound.map(i=>`<button class="result" onclick="openItem('${i.id}')"><strong>📦 ${escapeHTML(i.name)}</strong><br><span class="small">${escapeHTML(i.category)} · ${escapeHTML(i.location||'Sin registrar')}</span></button>`),
+   ...sectionsFound.map(s=>`<button class="result" onclick="openSection('${s.id}')"><strong>${escapeHTML(s.querySelector('h2').innerText)}</strong><br><span class="small">Abrir sección</span></button>`)
+ ];
+ document.getElementById('list').innerHTML=rows.length?rows.join(''):`<div class="panel">No se encontraron resultados. <button class="miniAction" onclick="openSection('asistente');assistantAsk('${escapeJS(raw)}')">Consultar a EDY</button></div>`;
  openSection('results');
 });
 document.querySelectorAll('input[type=checkbox][data-key]').forEach(cb=>{
@@ -14,7 +26,7 @@ document.querySelectorAll('input[type=checkbox][data-key]').forEach(cb=>{
 });
 function setDot(id,status){document.getElementById(id).className='dot '+(status==='amber'?'amber':status==='red'?'red':'')}
 function saveStatus(){
- const data={name:nameInput.value,level:levelInput.value,waterStatus:waterStatus.value,waterText:waterText.value,energyStatus:energyStatus.value,energyText:energyText.value,commsStatus:commsStatus.value,commsText:commsText.value,healthStatus:healthStatus.value,healthText:healthText.value,notes:notesInput.value,updated:new Date().toLocaleString('es-AR')};
+ const data={name:nameInput.value,level:levelInput.value,waterStatus:waterStatus.value,waterText:waterText.value,energyStatus:energyStatus.value,energyText:energyText.value,commsStatus:commsStatus.value,commsText:commsText.value,healthStatus:healthStatus.value,healthText:healthText.value,notes:notesInput.value,updated:new Date().toLocaleString('es-AR'),updatedISO:new Date().toISOString()};
  EDYStorage.set('status',data);home();
 }
 function loadStatus(){
@@ -71,16 +83,33 @@ function getInventory(){
 function saveInventory(list){
  EDYStorage.set('inventory',list);
  renderInventory();
+ renderOperationsHome();
+ renderAssistantAlerts();
+ renderAssistantHomeAlerts();
 }
 async function loadInventory(){
  try{
    const r=await fetch('inventory.json');
    inventoryBase=await r.json();
-   if(!EDYStorage.get('inventory',null)) EDYStorage.set('inventory',inventoryBase);
+   let saved=EDYStorage.get('inventory',null);
+   if(!saved){
+     saved=inventoryBase;
+   }else{
+     saved=saved.map(item=>({
+       ...item,
+       critical:Boolean(item.critical),
+       reviewDate:item.reviewDate||''
+     }));
+   }
+   EDYStorage.set('inventory',saved);
    renderInventory();
+   renderAssistantAlerts();
+   renderAssistantHomeAlerts();
+   return saved;
  }catch(e){
    const box=document.getElementById('inventoryCategories');
    if(box) box.innerHTML='<div class="panel">No se pudo cargar el inventario.</div>';
+   return [];
  }
 }
 function renderInventory(){
@@ -89,22 +118,26 @@ function renderInventory(){
  const q=(document.getElementById('inventorySearch')?.value||'').trim().toLowerCase();
  const all=getInventory();
  const filtered=all.filter(i=>[i.name,i.category,i.notes,i.location].join(' ').toLowerCase().includes(q));
- const counts={available:0,incoming:0,missing:0};
- all.forEach(i=>{if(counts[i.status]!==undefined)counts[i.status]++});
+ const counts={available:0,incoming:0,missing:0,critical:0};
+ all.forEach(i=>{if(counts[i.status]!==undefined)counts[i.status]++;if(i.critical)counts.critical++});
  document.getElementById('invTotal').textContent=all.length;
  document.getElementById('invAvailable').textContent=counts.available;
  document.getElementById('invIncoming').textContent=counts.incoming;
  document.getElementById('invMissing').textContent=counts.missing;
+ document.getElementById('invCritical').textContent=counts.critical;
  const order=['Energía','Agua','Comunicaciones','Herramientas','Botiquín','Alimentos','Mochilas','Mascotas','Vehículos','Documentación'];
  box.innerHTML=order.map(cat=>{
-   const items=filtered.filter(i=>i.category===cat);
+   const items=filtered.filter(i=>i.category===cat).sort((a,b)=>Number(Boolean(b.critical))-Number(Boolean(a.critical)) || a.name.localeCompare(b.name));
    if(!items.length)return '';
    return `<div class="categoryBlock">
      <div class="categoryTitle"><h3>${categoryIcon(cat)} ${cat}</h3><span class="categoryCount">${items.length} elementos</span></div>
      <div class="inventoryList">${items.map(i=>`
        <div class="inventoryItem" onclick="openItem('${i.id}')">
          <span class="statusMark ${i.status}"></span>
-         <div class="itemMain"><strong>${i.name}</strong><div class="itemMeta">${i.qty} ${i.unit} · ${i.location||'Sin registrar'}</div></div>
+         <div class="itemMain">
+           <div class="itemFlags">${i.critical?'<span class="criticalStar" title="Elemento crítico">⭐</span>':''}${reviewStatus(i)==='due'?'<span class="reviewTag">Revisión vencida</span>':reviewStatus(i)==='soon'?'<span class="reviewTag">Revisar pronto</span>':''}</div>
+           <strong>${escapeHTML(i.name)}</strong><div class="itemMeta">${i.qty} ${escapeHTML(i.unit)} · ${escapeHTML(i.location||'Sin registrar')}</div>
+         </div>
          <span class="statusLabel ${i.status}">${statusText(i.status)}</span>
        </div>`).join('')}</div>
    </div>`;
@@ -118,7 +151,7 @@ function openItem(id){
  const i=getInventory().find(x=>x.id===id); if(!i)return;
  document.getElementById('itemDetailContent').innerHTML=`
   <div class="detailCard">
-    <div class="detailTop"><div><div class="small">${categoryIcon(i.category)} ${i.category}</div><h2>${i.name}</h2></div><span class="statusLabel ${i.status}">${statusText(i.status)}</span></div>
+    <div class="detailTop"><div><div class="small">${categoryIcon(i.category)} ${escapeHTML(i.category)}</div><h2>${i.critical?'⭐ ':''}${escapeHTML(i.name)}</h2></div><span class="statusLabel ${i.status}">${statusText(i.status)}</span></div>
     <div class="detailGrid">
       <div class="detailField"><span>Estado</span><select id="editStatus" class="editSelect">
         <option value="available" ${i.status==='available'?'selected':''}>Disponible</option>
@@ -127,10 +160,12 @@ function openItem(id){
         <option value="missing" ${i.status==='missing'?'selected':''}>Falta</option>
       </select></div>
       <div class="detailField"><span>Cantidad</span><input id="editQty" class="editInput" type="number" min="0" value="${i.qty}"></div>
-      <div class="detailField"><span>Unidad</span><input id="editUnit" class="editInput" value="${i.unit}"></div>
-      <div class="detailField"><span>Ubicación</span><input id="editLocation" class="editInput" value="${i.location||''}"></div>
+      <div class="detailField"><span>Unidad</span><input id="editUnit" class="editInput" value="${escapeAttr(i.unit)}"></div>
+      <div class="detailField"><span>Ubicación exacta</span><input id="editLocation" class="editInput" value="${escapeAttr(i.location||'')}" placeholder="Depósito · Estante 2 · Caja verde"></div>
+      <div class="detailField"><span>Próxima revisión</span><input id="editReviewDate" class="editInput" type="date" value="${escapeAttr(i.reviewDate||'')}"></div>
+      <div class="detailField checkField"><label><input id="editCritical" type="checkbox" ${i.critical?'checked':''}> Elemento crítico</label></div>
     </div>
-    <div class="detailNotes"><strong>Observaciones</strong><textarea id="editNotes" class="editInput">${i.notes||''}</textarea></div>
+    <div class="detailNotes"><strong>Observaciones</strong><textarea id="editNotes" class="editInput">${escapeHTML(i.notes||'')}</textarea></div>
     <div class="actions"><button class="action" onclick="saveCurrentItem()">Guardar cambios</button><button class="action secondary" onclick="deleteCurrentItem()">Eliminar</button></div>
   </div>`;
  openSection('itemDetail');
@@ -141,6 +176,8 @@ function saveCurrentItem(){
  i.qty=Number(document.getElementById('editQty').value)||0;
  i.unit=document.getElementById('editUnit').value.trim()||'unidad';
  i.location=document.getElementById('editLocation').value.trim()||'Sin registrar';
+ i.reviewDate=document.getElementById('editReviewDate').value||'';
+ i.critical=document.getElementById('editCritical').checked;
  i.notes=document.getElementById('editNotes').value.trim();
  saveInventory(list); openSection('inventario');
 }
@@ -157,12 +194,180 @@ function addInventoryItem(){
    qty:Number(document.getElementById('newItemQty').value)||0,
    unit:document.getElementById('newItemUnit').value.trim()||'unidad',
    location:document.getElementById('newItemLocation').value.trim()||'Sin registrar',
+   reviewDate:document.getElementById('newItemReviewDate').value||'',
+   critical:document.getElementById('newItemCritical').checked,
    notes:document.getElementById('newItemNotes').value.trim()
  };
  const list=getInventory();list.push(item);saveInventory(list);
- ['newItemName','newItemLocation','newItemNotes'].forEach(id=>document.getElementById(id).value='');
+ ['newItemName','newItemLocation','newItemNotes','newItemReviewDate'].forEach(id=>document.getElementById(id).value='');
+ document.getElementById('newItemCritical').checked=false;
  document.getElementById('newItemQty').value=1;
  openSection('inventario');
+}
+
+
+function normalizeText(value){
+ return String(value??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+}
+function escapeHTML(value){
+ return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+}
+function escapeAttr(value){return escapeHTML(value)}
+function escapeJS(value){return String(value??'').replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\n/g,' ')}
+function reviewStatus(item){
+ if(!item.reviewDate)return 'none';
+ const today=new Date();today.setHours(0,0,0,0);
+ const due=new Date(item.reviewDate+'T00:00:00');
+ const diff=Math.ceil((due-today)/86400000);
+ if(diff<0)return 'due';
+ if(diff<=30)return 'soon';
+ return 'ok';
+}
+function formatDateISO(value){
+ if(!value)return 'Sin fecha';
+ const d=new Date(value+'T00:00:00');
+ return Number.isNaN(d.getTime())?value:d.toLocaleDateString('es-AR');
+}
+function getSmartAlerts(){
+ const inv=getInventory();
+ const alerts=[];
+ inv.filter(i=>i.critical && i.status==='missing').forEach(i=>alerts.push({
+   level:'urgent',icon:'🚨',title:`Falta un elemento crítico: ${i.name}`,
+   detail:i.location&&i.location!=='Pendiente'?i.location:'Pendiente de compra',itemId:i.id
+ }));
+ inv.filter(i=>i.critical && i.status==='review').forEach(i=>alerts.push({
+   level:'warning',icon:'⚠️',title:`Revisar elemento crítico: ${i.name}`,
+   detail:i.notes||'Requiere verificación',itemId:i.id
+ }));
+ inv.filter(i=>reviewStatus(i)==='due').forEach(i=>alerts.push({
+   level:'urgent',icon:'📅',title:`Revisión vencida: ${i.name}`,
+   detail:`Fecha prevista: ${formatDateISO(i.reviewDate)}`,itemId:i.id
+ }));
+ inv.filter(i=>reviewStatus(i)==='soon').forEach(i=>alerts.push({
+   level:'warning',icon:'📅',title:`Próxima revisión: ${i.name}`,
+   detail:`Fecha prevista: ${formatDateISO(i.reviewDate)}`,itemId:i.id
+ }));
+ const o=getOperations();
+ if(o.updatedISO){
+   const age=Math.floor((Date.now()-new Date(o.updatedISO).getTime())/86400000);
+   if(age>=30)alerts.push({level:'info',icon:'🧭',title:'Actualizar el Centro de Operaciones',detail:`La última carga fue hace ${age} días.`,section:'operaciones'});
+ }
+ const pending=EDYStorage.get('pendings',[]).filter(p=>!p.done);
+ if(pending.length)alerts.push({level:'info',icon:'☑️',title:`${pending.length} tarea${pending.length===1?'':'s'} pendiente${pending.length===1?'':'s'}`,detail:pending[0].text,section:'pendientes'});
+ return alerts;
+}
+function alertMarkup(a,compact=false){
+ const action=a.itemId?`openItem('${escapeJS(a.itemId)}')`:a.section?`openSection('${escapeJS(a.section)}')`:`openSection('asistente')`;
+ return `<div class="smartAlert ${a.level}">
+   <div class="smartAlertIcon">${a.icon}</div>
+   <div><strong>${escapeHTML(a.title)}</strong><small>${escapeHTML(a.detail||'')}</small></div>
+   ${compact?'':`<button class="miniAction" onclick="${action}">Abrir</button>`}
+ </div>`;
+}
+function renderAssistantAlerts(){
+ const box=document.getElementById('assistantAlerts');if(!box)return;
+ const alerts=getSmartAlerts();
+ box.innerHTML=alerts.length?alerts.map(a=>alertMarkup(a)).join(''):'<div class="noSmartAlerts">✅ No hay alertas críticas ni revisiones próximas.</div>';
+}
+function renderAssistantHomeAlerts(){
+ const box=document.getElementById('assistantHomeAlerts');if(!box)return;
+ const alerts=getSmartAlerts().slice(0,4);
+ box.innerHTML=alerts.length?alerts.map(a=>alertMarkup(a,true)).join(''):'<div class="noSmartAlerts">✅ Sin alertas importantes.</div>';
+}
+function findInventoryMatches(query){
+ const q=normalizeText(query);
+ const words=q.split(/\s+/).filter(w=>w.length>=3 && !['donde','esta','estan','tengo','necesito','para','como','cuanto','cuanta','cual','hacer','ante','quiero'].includes(w));
+ return getInventory().map(i=>{
+   const text=normalizeText([i.name,i.category,i.notes,i.location].join(' '));
+   const score=words.reduce((n,w)=>n+(text.includes(w)?1:0),0)+(text.includes(q)?3:0);
+   return {item:i,score};
+ }).filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,8).map(x=>x.item);
+}
+function assistantInventoryRows(items){
+ return `<div class="assistantList">${items.map(i=>`
+   <div class="assistantResultItem">
+    <div><strong>${i.critical?'⭐ ':''}${escapeHTML(i.name)}</strong><small>${escapeHTML(i.category)} · ${escapeHTML(i.location||'Sin registrar')} · ${statusText(i.status)}</small></div>
+    <button class="miniAction" onclick="openItem('${escapeJS(i.id)}')">Ver</button>
+   </div>`).join('')}</div>`;
+}
+function assistantReply(title,body,extra=''){
+ const box=document.getElementById('assistantAnswer');if(!box)return;
+ box.innerHTML=`<div class="assistantResponse">
+  <div class="assistantAvatar">EDY</div>
+  <div class="assistantContent"><h3>${escapeHTML(title)}</h3>${body}${extra}</div>
+ </div>`;
+}
+function assistantAsk(prefill){
+ const input=document.getElementById('assistantQuery');
+ if(prefill!==undefined)input.value=prefill;
+ const raw=input.value.trim();
+ if(!raw){assistantReply('Escribí una consulta','<p>Por ejemplo: “¿Dónde está la Forza?” o “¿Qué me falta comprar?”.</p>');return}
+ const q=normalizeText(raw);
+ const inv=getInventory(),o=getOperations(),pending=EDYStorage.get('pendings',[]).filter(p=>!p.done);
+
+ if(/\b(donde|ubicacion|guardar|guardado|esta|estan)\b/.test(q)){
+   const matches=findInventoryMatches(q);
+   if(matches.length){
+     assistantReply('Ubicación encontrada',`<p>Encontré ${matches.length} coincidencia${matches.length===1?'':'s'} en el inventario.</p>`,assistantInventoryRows(matches));
+   }else assistantReply('No encontré la ubicación','<p>Ese elemento no figura en el inventario o todavía no tiene una ubicación registrada.</p><div class="assistantCallout">Probá escribiendo solamente el nombre del objeto.</div>');
+   return;
+ }
+ if(/\b(falta|faltan|comprar|pendiente|pendientes|en camino)\b/.test(q)){
+   const missing=inv.filter(i=>['missing','incoming','review'].includes(i.status)).sort((a,b)=>Number(Boolean(b.critical))-Number(Boolean(a.critical)));
+   const html=missing.length?assistantInventoryRows(missing):'<p>No hay faltantes, elementos en camino ni equipos marcados para revisar.</p>';
+   const tasks=pending.length?`<div class="assistantCallout"><strong>Tareas activas:</strong><br>${pending.slice(0,5).map(p=>'• '+escapeHTML(p.text)).join('<br>')}</div>`:'';
+   assistantReply('Pendientes y faltantes',`<p>${missing.length} elemento${missing.length===1?'':'s'} requieren atención.</p>`,html+tasks);
+   return;
+ }
+ if(/\b(agua|litros|hidrata|filtro)\b/.test(q)){
+   const days=o.updated?waterDays(o):0;
+   const waterItems=inv.filter(i=>normalizeText(i.category)==='agua');
+   assistantReply('Situación del agua',
+     o.updated?`<p>Tenés registrados <strong>${o.waterLiters} litros</strong> para ${o.people} personas: aproximadamente <strong>${days.toFixed(1)} días</strong> al consumo configurado.</p>`:'<p>Todavía no cargaste la cantidad de agua en el Centro de Operaciones.</p>',
+     waterItems.length?assistantInventoryRows(waterItems):''
+   );return;
+ }
+ if(/\b(energia|luz|apag|bateria|forza|solar|electric)\b/.test(q)){
+   const energyItems=inv.filter(i=>normalizeText(i.category)==='energia');
+   const body=o.updated?`<p>La autonomía eléctrica configurada es de <strong>${o.energyHours} horas</strong>.</p>`:'<p>Todavía no cargaste la autonomía eléctrica en el Centro de Operaciones.</p>';
+   const action=/apag|corte|sin luz/.test(q)?`<div class="assistantCallout"><button class="action" onclick="activateEmergency('power')">Abrir protocolo de corte de energía</button></div>`:'';
+   assistantReply('Energía',body,assistantInventoryRows(energyItems)+action);return;
+ }
+ if(/\b(alimento|comida|comer|provisiones)\b/.test(q)){
+   assistantReply('Alimentos',o.updated?`<p>La autonomía registrada es de <strong>${o.foodDays} días</strong>.</p>`:'<p>Todavía no cargaste los días de alimentos disponibles.</p>',
+     assistantInventoryRows(inv.filter(i=>normalizeText(i.category)==='alimentos')));return;
+ }
+ if(/\b(botiquin|medic|salud|curacion)\b/.test(q)){
+   const items=inv.filter(i=>normalizeText(i.category)==='botiquin');
+   assistantReply('Botiquín',o.updated?`<p>El nivel de completitud registrado es de <strong>${o.healthPercent}%</strong>.</p>`:'<p>Todavía no cargaste el porcentaje del botiquín.</p>',
+     items.length?assistantInventoryRows(items):'<div class="assistantCallout">Podés cargar cada insumo del botiquín como elemento del inventario.</div>');return;
+ }
+ if(/\b(evacua|salir|abandona)\b/.test(q)){
+   assistantReply('Evacuación','<p>La prioridad es reunir a la familia, tomar los elementos esenciales y salir sin demoras innecesarias.</p>',
+     `<div class="assistantCallout"><button class="action" onclick="activateEmergency('evacuation')">Abrir protocolo de evacuación</button></div>`);return;
+ }
+ if(/\b(tormenta|temporal|granizo)\b/.test(q)){
+   assistantReply('Tormenta fuerte','<p>Permanecé bajo techo, alejado de vidrios y seguí avisos oficiales.</p>',
+     `<div class="assistantCallout"><button class="action" onclick="activateEmergency('storm')">Abrir protocolo de tormenta</button></div>`);return;
+ }
+ if(/\b(herido|accidente|sangra|lesion)\b/.test(q)){
+   assistantReply('Persona herida','<p>Primero verificá que el lugar sea seguro y pedí ayuda profesional cuando sea necesario.</p>',
+     `<div class="assistantCallout"><button class="action" onclick="activateEmergency('injury')">Abrir protocolo para persona herida</button></div>`);return;
+ }
+ if(/\b(inventario|cuantos|cantidad|equipos)\b/.test(q)){
+   const available=inv.filter(i=>i.status==='available').length;
+   const critical=inv.filter(i=>i.critical).length;
+   assistantReply('Resumen del inventario',`<p>Hay <strong>${inv.length} elementos</strong>: ${available} disponibles y ${critical} marcados como críticos.</p>`,
+     assistantInventoryRows(inv.filter(i=>i.critical).slice(0,8)));return;
+ }
+
+ const matches=findInventoryMatches(q);
+ if(matches.length){
+   assistantReply('Encontré estas coincidencias','<p>Resultados obtenidos del inventario local.</p>',assistantInventoryRows(matches));return;
+ }
+ assistantReply('No encontré una respuesta directa',
+   '<p>Probá consultar por el nombre de un equipo, una categoría o una situación concreta.</p>',
+   '<div class="assistantCallout">Ejemplos: “filtros”, “qué falta comprar”, “autonomía de agua”, “corte de energía” o “evacuación”.</div>');
 }
 
 
@@ -289,5 +494,5 @@ function renderOperationsHome(){
  put('opInventory',`${available}/${total} disponibles`);
 }
 
-loadStatus();renderPendings();renderHomePendings();loadManuals();loadInventory().then(()=>renderOperationsHome());loadOperationsForm();renderOperationsResult();renderOperationsHome();
+loadStatus();renderPendings();renderHomePendings();loadManuals();loadInventory().then(()=>{renderOperationsHome();renderAssistantAlerts();renderAssistantHomeAlerts()});loadOperationsForm();renderOperationsResult();renderOperationsHome();renderAssistantAlerts();renderAssistantHomeAlerts();
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js'))}

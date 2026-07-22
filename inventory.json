@@ -7,7 +7,9 @@
     "qty": 1,
     "unit": "unidad",
     "location": "Sin registrar",
-    "notes": "Estación de energía 700 W / 551 Wh."
+    "notes": "Estación de energía 700 W / 551 Wh.",
+    "critical": true,
+    "reviewDate": ""
   },
   {
     "id": "forza-cable",
@@ -17,7 +19,9 @@
     "qty": 1,
     "unit": "unidad",
     "location": "Sin registrar",
-    "notes": "Cable de carga de red."
+    "notes": "Cable de carga de red.",
+    "critical": true,
+    "reviewDate": ""
   },
   {
     "id": "total-batteries",
@@ -27,7 +31,9 @@
     "qty": 2,
     "unit": "unidades",
     "location": "Sin registrar",
-    "notes": "Incluidas en el kit inalámbrico TOTAL."
+    "notes": "Incluidas en el kit inalámbrico TOTAL.",
+    "critical": false,
+    "reviewDate": ""
   },
   {
     "id": "total-charger",
@@ -37,7 +43,9 @@
     "qty": 1,
     "unit": "unidad",
     "location": "Sin registrar",
-    "notes": "Incluido en el kit inalámbrico TOTAL."
+    "notes": "Incluido en el kit inalámbrico TOTAL.",
+    "critical": false,
+    "reviewDate": ""
   },
   {
     "id": "solar-30w",
@@ -47,7 +55,9 @@
     "qty": 1,
     "unit": "unidad",
     "location": "En camino",
-    "notes": "Compra reciente. Pendiente recepción y prueba."
+    "notes": "Compra reciente. Pendiente recepción y prueba.",
+    "critical": false,
+    "reviewDate": ""
   },
   {
     "id": "spica",
@@ -57,7 +67,9 @@
     "qty": 1,
     "unit": "kit",
     "location": "Sin registrar",
-    "notes": "Kit solar registrado previamente."
+    "notes": "Kit solar registrado previamente.",
+    "critical": false,
+    "reviewDate": ""
   },
   {
     "id": "filter1",
@@ -67,7 +79,9 @@
     "qty": 1,
     "unit": "unidad",
     "location": "En camino",
-    "notes": "Compra reciente. Pendiente recepción y prueba."
+    "notes": "Compra reciente. Pendiente recepción y prueba.",
+    "critical": true,
+    "reviewDate": ""
   },
   {
     "id": "filter2",
@@ -77,7 +91,9 @@
     "qty": 1,
     "unit": "unidad",
     "location": "En camino",
-    "notes": "Compra reciente. Pendiente recepción y prueba."
+    "notes": "Compra reciente. Pendiente recepción y prueba.",
+    "critical": true,
+    "reviewDate": ""
   },
   {
     "id": "purification-tabs",
@@ -87,7 +103,9 @@
     "qty": 0,
     "unit": "unidades",
     "location": "Pendiente",
-    "notes": "Pendiente de compra."
+    "notes": "Pendiente de compra.",
+    "critical": false,
+    "reviewDate": ""
   },
   {
     "id": "starlink",
@@ -97,7 +115,9 @@
     "qty": 1,
     "unit": "equipo",
     "location": "Sin registrar",
-    "notes": "Disponible para comunicaciones satelitales."
+    "notes": "Disponible para comunicaciones satelitales.",
+    "critical": true,
+    "reviewDate": ""
   },
   {
     "id": "ipad",
@@ -107,7 +127,9 @@
     "qty": 1,
     "unit": "equipo",
     "location": "Uso principal",
-    "notes": "Dispositivo principal de EDY."
+    "notes": "Dispositivo principal de EDY.",
+    "critical": true,
+    "reviewDate": ""
   },
   {
     "id": "radios",
@@ -117,7 +139,9 @@
     "qty": 0,
     "unit": "equipos",
     "location": "Pendiente",
-    "notes": "Pendiente de compra."
+    "notes": "Pendiente de compra.",
+    "critical": false,
+    "reviewDate": ""
   },
   {
     "id": "satphone",
@@ -127,7 +151,9 @@
     "qty": 0,
     "unit": "equipo",
     "location": "Pendiente",
-    "notes": "Pendiente de compra."
+    "notes": "Pendiente de compra.",
+    "critical": false,
+    "reviewDate": ""
   },
   {
     "id": "saw",
@@ -137,7 +163,9 @@
     "qty": 1,
     "unit": "unidad",
     "location": "Sin registrar",
-    "notes": "Kit inalámbrico TOTAL 20 V."
+    "notes": "Kit inalámbrico TOTAL 20 V.",
+    "critical": false,
+    "reviewDate": ""
   },
   {
     "id": "rotary",
@@ -147,7 +175,9 @@
     "qty": 1,
     "unit": "unidad",
     "location": "Sin registrar",
-    "notes": "Kit inalámbrico TOTAL 20 V."
+    "notes": "Kit inalámbrico TOTAL 20 V.",
+    "critical": false,
+    "reviewDate": ""
   },
   {
     "id": "drill",
@@ -157,7 +187,9 @@
     "qty": 1,
     "unit": "unidad",
     "location": "Sin registrar",
-    "notes": "Brushless. Kit inalámbrico TOTAL 20 V."
+    "notes": "Brushless. Kit inalámbrico TOTAL 20 V.",
+    "critical": false,
+    "reviewDate": ""
   },
   {
     "id": "blower",
@@ -167,7 +199,9 @@
     "qty": 1,
     "unit": "unidad",
     "location": "Sin registrar",
-    "notes": "Kit inalámbrico TOTAL 20 V."
+    "notes": "Kit inalámbrico TOTAL 20 V.",
+    "critical": false,
+    "reviewDate": ""
   },
   {
     "id": "paracord",
@@ -177,7 +211,9 @@
     "qty": 30,
     "unit": "metros",
     "location": "Sin registrar",
-    "notes": "Longitud registrada: 30 m."
+    "notes": "Longitud registrada: 30 m.",
+    "critical": false,
+    "reviewDate": ""
   },
   {
     "id": "slingshots",
@@ -187,7 +223,9 @@
     "qty": 2,
     "unit": "unidades",
     "location": "Sin registrar",
-    "notes": "Inventario no sensible."
+    "notes": "Inventario no sensible.",
+    "critical": false,
+    "reviewDate": ""
   },
   {
     "id": "balls",
@@ -197,7 +235,9 @@
     "qty": 100,
     "unit": "unidades nominales",
     "location": "Sin registrar",
-    "notes": "Dos paquetes, 100 unidades nominales."
+    "notes": "Dos paquetes, 100 unidades nominales.",
+    "critical": false,
+    "reviewDate": ""
   },
   {
     "id": "thermal",
@@ -207,7 +247,9 @@
     "qty": 1,
     "unit": "unidad",
     "location": "Sin registrar",
-    "notes": "Elemento de abrigo de emergencia."
+    "notes": "Elemento de abrigo de emergencia.",
+    "critical": true,
+    "reviewDate": ""
   },
   {
     "id": "firstaid",
@@ -217,7 +259,9 @@
     "qty": 1,
     "unit": "kit",
     "location": "Sin registrar",
-    "notes": "Pendiente completar inventario interno."
+    "notes": "Pendiente completar inventario interno.",
+    "critical": true,
+    "reviewDate": ""
   },
   {
     "id": "manchas",
@@ -227,7 +271,9 @@
     "qty": 1,
     "unit": "kit",
     "location": "Sin registrar",
-    "notes": "Preparar correa, agua, alimento y manta."
+    "notes": "Preparar correa, agua, alimento y manta.",
+    "critical": true,
+    "reviewDate": ""
   },
   {
     "id": "bella",
@@ -237,6 +283,8 @@
     "qty": 1,
     "unit": "kit",
     "location": "Sin registrar",
-    "notes": "Preparar correa, agua, alimento y manta."
+    "notes": "Preparar correa, agua, alimento y manta.",
+    "critical": true,
+    "reviewDate": ""
   }
 ]

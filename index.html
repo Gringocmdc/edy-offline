@@ -65,11 +65,16 @@
     <div class="status" onclick="openSection('salud')"><div class="statusTop"><strong>Botiquín</strong><span id="dotHealth" class="dot"></span></div><div id="healthValue" class="statusValue">OK</div><div id="healthDetail" class="small">Sin registrar</div></div>
   </div>
 
+
+  <div class="titleRow"><h2>Alertas inteligentes</h2><button class="back" onclick="openSection('asistente')">Abrir asistente</button></div>
+  <div id="assistantHomeAlerts" class="assistantHomeAlerts"></div>
+
   <div class="titleRow"><h2>Próximas tareas</h2><button class="back" onclick="openSection('pendientes')">Ver todas</button></div>
   <div id="homePendingList" class="homePendingList"></div>
 
   <div class="titleRow"><h2>Accesos rápidos</h2></div>
   <div class="grid quickGrid">
+    <div class="card assistantFeatured" onclick="openSection('asistente')"><div class="icon">🧠</div><h3>Asistente EDY</h3><p>Consulta inventario y protocolos sin Internet.</p></div>
     <div class="card inventoryFeatured" onclick="openSection('inventario')"><div class="icon">📦</div><h3>Inventario</h3><p>Equipos, estados y cantidades.</p></div>
     <div class="card" onclick="openSection('agua')"><div class="icon">💧</div><h3>Agua</h3><p>Reserva y autonomía.</p></div>
     <div class="card" onclick="openSection('energia')"><div class="icon">⚡</div><h3>Energía</h3><p>Forza y consumos.</p></div>
@@ -99,6 +104,50 @@
 </section>
 
 
+
+
+<section id="asistente" class="section">
+  <button class="back" onclick="home()">← Inicio</button>
+  <div class="assistantHeader">
+    <div>
+      <h2>🧠 Asistente EDY</h2>
+      <p>Consulta tus datos locales, el inventario y los protocolos. Funciona sin Internet.</p>
+    </div>
+    <span class="localBadge">LOCAL</span>
+  </div>
+
+  <div class="assistantBox">
+    <label for="assistantQuery">¿Qué necesitás saber?</label>
+    <div class="assistantInputRow">
+      <input id="assistantQuery" placeholder="Ej.: ¿Dónde está la Forza?" onkeydown="if(event.key==='Enter')assistantAsk()">
+      <button class="action" onclick="assistantAsk()">Consultar</button>
+    </div>
+    <div class="assistantPrompts">
+      <button onclick="assistantAsk('¿Qué me falta comprar?')">Qué falta comprar</button>
+      <button onclick="assistantAsk('¿Cuánta autonomía de agua tengo?')">Autonomía de agua</button>
+      <button onclick="assistantAsk('¿Dónde está la Forza?')">Dónde está la Forza</button>
+      <button onclick="assistantAsk('¿Qué hago ante un corte de energía?')">Corte de energía</button>
+      <button onclick="assistantAsk('¿Qué necesito para evacuar?')">Evacuación</button>
+    </div>
+  </div>
+
+  <div id="assistantAnswer" class="assistantAnswer">
+    <div class="assistantWelcome">
+      <div class="assistantAvatar">EDY</div>
+      <div>
+        <strong>Listo para consultar.</strong>
+        <p>Podés preguntar por ubicaciones, faltantes, autonomía, inventario o emergencias.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="titleRow"><h2>Revisiones y alertas</h2></div>
+  <div id="assistantAlerts"></div>
+
+  <div class="assistantDisclaimer">
+    EDY v0.8 usa reglas y búsqueda local. No reemplaza a los servicios de emergencia, profesionales médicos ni instrucciones oficiales.
+  </div>
+</section>
 
 <section id="operaciones" class="section">
   <button class="back" onclick="home()">← Inicio</button>
@@ -148,6 +197,7 @@
     <div class="summaryCard available"><strong id="invAvailable">0</strong><span>Disponibles</span></div>
     <div class="summaryCard incoming"><strong id="invIncoming">0</strong><span>En camino</span></div>
     <div class="summaryCard missing"><strong id="invMissing">0</strong><span>Pendientes</span></div>
+    <div class="summaryCard critical"><strong id="invCritical">0</strong><span>Críticos</span></div>
   </div>
 
   <div class="field"><label>Buscar en el inventario</label><input id="inventorySearch" placeholder="Ej.: Forza, filtro, TOTAL…" oninput="renderInventory()"></div>
@@ -175,7 +225,9 @@
     </select></div>
     <div class="field"><label>Cantidad</label><input id="newItemQty" type="number" min="0" value="1"></div>
     <div class="field"><label>Unidad</label><input id="newItemUnit" value="unidad"></div>
-    <div class="field"><label>Ubicación</label><input id="newItemLocation" placeholder="Sin registrar"></div>
+    <div class="field"><label>Ubicación</label><input id="newItemLocation" placeholder="Ej.: Depósito · Estante 2 · Caja verde"></div>
+    <div class="field"><label>Próxima revisión</label><input id="newItemReviewDate" type="date"></div>
+    <div class="field checkField"><label><input id="newItemCritical" type="checkbox"> Elemento crítico</label></div>
     <div class="field wide"><label>Observaciones</label><textarea id="newItemNotes"></textarea></div>
   </div>
   <div class="actions"><button class="action" onclick="addInventoryItem()">Guardar elemento</button></div>
@@ -272,7 +324,7 @@
 <section id="results" class="section"><button class="back" onclick="home()">← Inicio</button><h2>🔍 Resultados</h2><div id="list"></div></section>
 </main>
 
-<footer>EDY Offline · v0.7 · Centro de Operaciones</footer>
+<footer>EDY Offline · v0.8 · Asistente Local</footer>
 <script src="storage.js"></script>
 <script src="calculator.js"></script>
 <script src="app.js"></script>

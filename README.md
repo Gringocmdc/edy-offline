@@ -1,19 +1,16 @@
-# EDY Offline v0.7 — Centro de Operaciones
+# EDY Offline v0.8 — Asistente Local
 
 ## Novedades
-- Panel principal de preparación familiar.
-- Cálculo local de autonomía de agua, alimentos y energía.
-- Indicadores de comunicaciones, botiquín, mascotas e inventario.
-- Porcentaje general de preparación.
-- Configuración guardada solamente en el dispositivo.
-- Protocolos interactivos para:
-  - corte de energía;
-  - falta de agua;
-  - evacuación;
-  - persona herida;
-  - tormenta fuerte.
-- Checklist persistente durante una emergencia.
-- Botón para finalizar la emergencia y volver al estado normal.
+- Asistente EDY completamente offline y basado en reglas locales.
+- Consultas por ubicación de equipos, faltantes, autonomía e inventario.
+- Acceso directo a protocolos desde las respuestas.
+- Búsqueda general integrada con los elementos del inventario.
+- Elementos críticos identificados con una estrella.
+- Fecha de próxima revisión para cada elemento.
+- Alertas por revisiones vencidas o próximas.
+- Alertas por elementos críticos faltantes o pendientes.
+- Ubicación exacta editable: sector, estante y caja.
+- Conserva los datos locales existentes de versiones anteriores.
 
-## Instalación
-Subir todos los archivos a la raíz del repositorio, reemplazando los anteriores.
+## Importante
+El asistente no utiliza inteligencia artificial generativa ni Internet. Consulta los datos guardados en el dispositivo y reglas incluidas en la aplicación.
