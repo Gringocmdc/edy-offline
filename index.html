@@ -20,12 +20,19 @@
 
 <main>
 <section id="home" class="section active">
-  <div class="hero">
-    <div class="greeting" id="greeting">Centro de Operaciones</div>
-    <h2 id="overallMessage">Todo bajo control.</h2>
-    <p id="lastReview">Última revisión: todavía no registrada.</p>
-    <div class="quote">La preparación convierte el miedo en decisiones.</div>
+  <div class="hero commandHero">
+    <div>
+      <div class="greeting" id="greeting">Centro de Operaciones</div>
+      <h2 id="overallMessage">Todo bajo control.</h2>
+      <p id="lastReview">Última revisión: todavía no registrada.</p>
+    </div>
+    <div id="overallBadge" class="overallBadge green">NORMAL</div>
   </div>
+
+  <button class="emergencyButton" onclick="openSection('modoEmergencia')">
+    <span class="emergencyIcon">🚨</span>
+    <span><strong>DECLARAR EMERGENCIA</strong><small>Abrir el panel de acción rápida</small></span>
+  </button>
 
   <div class="titleRow"><h2>Estado del hogar</h2><button class="back" onclick="openSection('estado')">Actualizar</button></div>
   <div class="statusGrid">
@@ -35,24 +42,34 @@
     <div class="status" onclick="openSection('salud')"><div class="statusTop"><strong>Botiquín</strong><span id="dotHealth" class="dot"></span></div><div id="healthValue" class="statusValue">OK</div><div id="healthDetail" class="small">Sin registrar</div></div>
   </div>
 
-  <div class="titleRow"><h2>¿Qué está pasando?</h2></div>
-  <div class="grid">
-    <div class="card dangerCard" onclick="openSection('apagon')"><div class="icon">🔌</div><h3>No tengo luz</h3><p>Protocolo para apagón y ahorro energético.</p></div>
-    <div class="card dangerCard" onclick="openSection('sinagua')"><div class="icon">🚱</div><h3>No tengo agua</h3><p>Prioridades, reserva y seguridad.</p></div>
-    <div class="card dangerCard" onclick="openSection('evacuacion')"><div class="icon">🚗</div><h3>Necesito evacuar</h3><p>Lista guiada para salir con seguridad.</p></div>
-    <div class="card dangerCard" onclick="openSection('herido')"><div class="icon">🩹</div><h3>Hay un herido</h3><p>Evaluación inicial y señales de alarma.</p></div>
-    <div class="card dangerCard" onclick="openSection('tormenta')"><div class="icon">⛈️</div><h3>Tormenta fuerte</h3><p>Refugio, energía y comunicaciones.</p></div>
-    <div class="card" onclick="openSection('biblioteca')"><div class="icon">📚</div><h3>Biblioteca</h3><p>Consulta rápida sin internet.</p></div>
-  </div>
+  <div class="titleRow"><h2>Próximas tareas</h2><button class="back" onclick="openSection('pendientes')">Ver todas</button></div>
+  <div id="homePendingList" class="homePendingList"></div>
 
-  <div class="titleRow"><h2>Centro de recursos</h2></div>
-  <div class="grid">
-    <div class="card" onclick="openSection('agua')"><div class="icon">💧</div><h3>Agua</h3><p>Reserva y autonomía estimada.</p></div>
-    <div class="card" onclick="openSection('energia')"><div class="icon">⚡</div><h3>Energía</h3><p>Forza, consumos y autonomía.</p></div>
-    <div class="card" onclick="openSection('pendientes')"><div class="icon">📝</div><h3>Pendientes</h3><p>Compras y tareas guardadas localmente.</p></div>
-    <div class="card" onclick="openSection('estado')"><div class="icon">🏠</div><h3>Estado del hogar</h3><p>Actualizar semáforos y observaciones.</p></div>
+  <div class="titleRow"><h2>Accesos rápidos</h2></div>
+  <div class="grid quickGrid">
+    <div class="card" onclick="openSection('agua')"><div class="icon">💧</div><h3>Agua</h3><p>Reserva y autonomía.</p></div>
+    <div class="card" onclick="openSection('energia')"><div class="icon">⚡</div><h3>Energía</h3><p>Forza y consumos.</p></div>
+    <div class="card" onclick="openSection('biblioteca')"><div class="icon">📚</div><h3>Biblioteca</h3><p>Consulta offline.</p></div>
     <div class="card" onclick="openSection('mascotas')"><div class="icon">🐶</div><h3>Mascotas</h3><p>Evacuación y cuidado.</p></div>
-    <div class="card" onclick="openSection('privacidad')"><div class="icon">🔒</div><h3>Privacidad</h3><p>Información pública y privada.</p></div>
+    <div class="card" onclick="openSection('estado')"><div class="icon">🏠</div><h3>Estado</h3><p>Actualizar el hogar.</p></div>
+    <div class="card" onclick="openSection('privacidad')"><div class="icon">🔒</div><h3>Privacidad</h3><p>Datos locales y públicos.</p></div>
+  </div>
+</section>
+
+<section id="modoEmergencia" class="section">
+  <button class="back" onclick="home()">← Volver al inicio</button>
+  <div class="emergencyHeader">
+    <div class="emergencyIconLarge">🚨</div>
+    <h2>Modo Emergencia</h2>
+    <p>Elegí lo que está ocurriendo. EDY mostrará solo las acciones prioritarias.</p>
+  </div>
+  <div class="emergencyGrid">
+    <button class="emergencyOption" onclick="openSection('apagon')"><span>🔌</span><strong>Corte de energía</strong></button>
+    <button class="emergencyOption" onclick="openSection('sinagua')"><span>🚱</span><strong>Falta de agua</strong></button>
+    <button class="emergencyOption" onclick="openSection('evacuacion')"><span>🚗</span><strong>Evacuar</strong></button>
+    <button class="emergencyOption" onclick="openSection('herido')"><span>🩹</span><strong>Hay un herido</strong></button>
+    <button class="emergencyOption" onclick="openSection('tormenta')"><span>⛈️</span><strong>Tormenta fuerte</strong></button>
+    <button class="emergencyOption" onclick="openSection('biblioteca')"><span>📚</span><strong>Consultar manual</strong></button>
   </div>
 </section>
 
@@ -147,7 +164,7 @@
 <section id="results" class="section"><button class="back" onclick="home()">← Inicio</button><h2>🔍 Resultados</h2><div id="list"></div></section>
 </main>
 
-<footer>EDY Offline · v0.4 · Centro de recursos</footer>
+<footer>EDY Offline · v0.5 · Centro de Operaciones</footer>
 <script src="storage.js"></script>
 <script src="calculator.js"></script>
 <script src="app.js"></script>
