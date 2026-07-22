@@ -47,6 +47,7 @@
 
   <div class="titleRow"><h2>Accesos rápidos</h2></div>
   <div class="grid quickGrid">
+    <div class="card inventoryFeatured" onclick="openSection('inventario')"><div class="icon">📦</div><h3>Inventario</h3><p>Equipos, estados y cantidades.</p></div>
     <div class="card" onclick="openSection('agua')"><div class="icon">💧</div><h3>Agua</h3><p>Reserva y autonomía.</p></div>
     <div class="card" onclick="openSection('energia')"><div class="icon">⚡</div><h3>Energía</h3><p>Forza y consumos.</p></div>
     <div class="card" onclick="openSection('biblioteca')"><div class="icon">📚</div><h3>Biblioteca</h3><p>Consulta offline.</p></div>
@@ -71,6 +72,55 @@
     <button class="emergencyOption" onclick="openSection('tormenta')"><span>⛈️</span><strong>Tormenta fuerte</strong></button>
     <button class="emergencyOption" onclick="openSection('biblioteca')"><span>📚</span><strong>Consultar manual</strong></button>
   </div>
+</section>
+
+
+<section id="inventario" class="section">
+  <button class="back" onclick="home()">← Inicio</button>
+  <div class="inventoryHeader">
+    <div>
+      <h2>📦 Inventario Familiar</h2>
+      <p>Los cambios se guardan únicamente en este dispositivo.</p>
+    </div>
+    <button class="action" onclick="openSection('nuevoItem')">Agregar elemento</button>
+  </div>
+
+  <div class="inventorySummary">
+    <div class="summaryCard"><strong id="invTotal">0</strong><span>Registrados</span></div>
+    <div class="summaryCard available"><strong id="invAvailable">0</strong><span>Disponibles</span></div>
+    <div class="summaryCard incoming"><strong id="invIncoming">0</strong><span>En camino</span></div>
+    <div class="summaryCard missing"><strong id="invMissing">0</strong><span>Pendientes</span></div>
+  </div>
+
+  <div class="field"><label>Buscar en el inventario</label><input id="inventorySearch" placeholder="Ej.: Forza, filtro, TOTAL…" oninput="renderInventory()"></div>
+  <div id="inventoryCategories"></div>
+</section>
+
+<section id="itemDetail" class="section">
+  <button class="back" onclick="openSection('inventario')">← Inventario</button>
+  <div id="itemDetailContent"></div>
+</section>
+
+<section id="nuevoItem" class="section">
+  <button class="back" onclick="openSection('inventario')">← Inventario</button>
+  <h2>Agregar elemento</h2>
+  <div class="formGrid">
+    <div class="field"><label>Nombre</label><input id="newItemName" placeholder="Ej.: Linterna recargable"></div>
+    <div class="field"><label>Categoría</label><select id="newItemCategory">
+      <option>Energía</option><option>Agua</option><option>Comunicaciones</option><option>Herramientas</option>
+      <option>Botiquín</option><option>Alimentos</option><option>Mochilas</option><option>Mascotas</option>
+      <option>Vehículos</option><option>Documentación</option>
+    </select></div>
+    <div class="field"><label>Estado</label><select id="newItemStatus">
+      <option value="available">Disponible</option><option value="incoming">En camino</option>
+      <option value="review">Revisar</option><option value="missing">Falta</option>
+    </select></div>
+    <div class="field"><label>Cantidad</label><input id="newItemQty" type="number" min="0" value="1"></div>
+    <div class="field"><label>Unidad</label><input id="newItemUnit" value="unidad"></div>
+    <div class="field"><label>Ubicación</label><input id="newItemLocation" placeholder="Sin registrar"></div>
+    <div class="field wide"><label>Observaciones</label><textarea id="newItemNotes"></textarea></div>
+  </div>
+  <div class="actions"><button class="action" onclick="addInventoryItem()">Guardar elemento</button></div>
 </section>
 
 <section id="estado" class="section">
@@ -164,7 +214,7 @@
 <section id="results" class="section"><button class="back" onclick="home()">← Inicio</button><h2>🔍 Resultados</h2><div id="list"></div></section>
 </main>
 
-<footer>EDY Offline · v0.5 · Centro de Operaciones</footer>
+<footer>EDY Offline · v0.6 · Inventario Familiar</footer>
 <script src="storage.js"></script>
 <script src="calculator.js"></script>
 <script src="app.js"></script>

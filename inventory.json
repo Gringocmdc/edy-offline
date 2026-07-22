@@ -1,0 +1,242 @@
+[
+  {
+    "id": "forza",
+    "name": "Forza FPP-T702",
+    "category": "Energía",
+    "status": "available",
+    "qty": 1,
+    "unit": "unidad",
+    "location": "Sin registrar",
+    "notes": "Estación de energía 700 W / 551 Wh."
+  },
+  {
+    "id": "forza-cable",
+    "name": "Cable CA original Forza",
+    "category": "Energía",
+    "status": "available",
+    "qty": 1,
+    "unit": "unidad",
+    "location": "Sin registrar",
+    "notes": "Cable de carga de red."
+  },
+  {
+    "id": "total-batteries",
+    "name": "Baterías TOTAL 20 V 4 Ah",
+    "category": "Energía",
+    "status": "available",
+    "qty": 2,
+    "unit": "unidades",
+    "location": "Sin registrar",
+    "notes": "Incluidas en el kit inalámbrico TOTAL."
+  },
+  {
+    "id": "total-charger",
+    "name": "Cargador TOTAL 20 V",
+    "category": "Energía",
+    "status": "available",
+    "qty": 1,
+    "unit": "unidad",
+    "location": "Sin registrar",
+    "notes": "Incluido en el kit inalámbrico TOTAL."
+  },
+  {
+    "id": "solar-30w",
+    "name": "Panel solar USB portátil 30 W",
+    "category": "Energía",
+    "status": "incoming",
+    "qty": 1,
+    "unit": "unidad",
+    "location": "En camino",
+    "notes": "Compra reciente. Pendiente recepción y prueba."
+  },
+  {
+    "id": "spica",
+    "name": "Kit SPICA SUR-60",
+    "category": "Energía",
+    "status": "available",
+    "qty": 1,
+    "unit": "kit",
+    "location": "Sin registrar",
+    "notes": "Kit solar registrado previamente."
+  },
+  {
+    "id": "filter1",
+    "name": "Filtro portátil de agua Nº 1",
+    "category": "Agua",
+    "status": "incoming",
+    "qty": 1,
+    "unit": "unidad",
+    "location": "En camino",
+    "notes": "Compra reciente. Pendiente recepción y prueba."
+  },
+  {
+    "id": "filter2",
+    "name": "Filtro portátil de agua Nº 2",
+    "category": "Agua",
+    "status": "incoming",
+    "qty": 1,
+    "unit": "unidad",
+    "location": "En camino",
+    "notes": "Compra reciente. Pendiente recepción y prueba."
+  },
+  {
+    "id": "purification-tabs",
+    "name": "Pastillas potabilizadoras",
+    "category": "Agua",
+    "status": "missing",
+    "qty": 0,
+    "unit": "unidades",
+    "location": "Pendiente",
+    "notes": "Pendiente de compra."
+  },
+  {
+    "id": "starlink",
+    "name": "Starlink",
+    "category": "Comunicaciones",
+    "status": "available",
+    "qty": 1,
+    "unit": "equipo",
+    "location": "Sin registrar",
+    "notes": "Disponible para comunicaciones satelitales."
+  },
+  {
+    "id": "ipad",
+    "name": "iPad Pro 13 M4",
+    "category": "Comunicaciones",
+    "status": "available",
+    "qty": 1,
+    "unit": "equipo",
+    "location": "Uso principal",
+    "notes": "Dispositivo principal de EDY."
+  },
+  {
+    "id": "radios",
+    "name": "Radios portátiles",
+    "category": "Comunicaciones",
+    "status": "missing",
+    "qty": 0,
+    "unit": "equipos",
+    "location": "Pendiente",
+    "notes": "Pendiente de compra."
+  },
+  {
+    "id": "satphone",
+    "name": "Teléfono satelital",
+    "category": "Comunicaciones",
+    "status": "missing",
+    "qty": 0,
+    "unit": "equipo",
+    "location": "Pendiente",
+    "notes": "Pendiente de compra."
+  },
+  {
+    "id": "saw",
+    "name": "Sierra circular TOTAL 140 mm",
+    "category": "Herramientas",
+    "status": "available",
+    "qty": 1,
+    "unit": "unidad",
+    "location": "Sin registrar",
+    "notes": "Kit inalámbrico TOTAL 20 V."
+  },
+  {
+    "id": "rotary",
+    "name": "Rotomartillo TOTAL 22 mm",
+    "category": "Herramientas",
+    "status": "available",
+    "qty": 1,
+    "unit": "unidad",
+    "location": "Sin registrar",
+    "notes": "Kit inalámbrico TOTAL 20 V."
+  },
+  {
+    "id": "drill",
+    "name": "Taladro percutor/atornillador TOTAL 66 Nm",
+    "category": "Herramientas",
+    "status": "available",
+    "qty": 1,
+    "unit": "unidad",
+    "location": "Sin registrar",
+    "notes": "Brushless. Kit inalámbrico TOTAL 20 V."
+  },
+  {
+    "id": "blower",
+    "name": "Sopladora TOTAL",
+    "category": "Herramientas",
+    "status": "available",
+    "qty": 1,
+    "unit": "unidad",
+    "location": "Sin registrar",
+    "notes": "Kit inalámbrico TOTAL 20 V."
+  },
+  {
+    "id": "paracord",
+    "name": "Paracord",
+    "category": "Herramientas",
+    "status": "available",
+    "qty": 30,
+    "unit": "metros",
+    "location": "Sin registrar",
+    "notes": "Longitud registrada: 30 m."
+  },
+  {
+    "id": "slingshots",
+    "name": "Gomeras con brújula",
+    "category": "Herramientas",
+    "status": "available",
+    "qty": 2,
+    "unit": "unidades",
+    "location": "Sin registrar",
+    "notes": "Inventario no sensible."
+  },
+  {
+    "id": "balls",
+    "name": "Balines de acero",
+    "category": "Herramientas",
+    "status": "available",
+    "qty": 100,
+    "unit": "unidades nominales",
+    "location": "Sin registrar",
+    "notes": "Dos paquetes, 100 unidades nominales."
+  },
+  {
+    "id": "thermal",
+    "name": "Bolsa térmica de emergencia",
+    "category": "Mochilas",
+    "status": "available",
+    "qty": 1,
+    "unit": "unidad",
+    "location": "Sin registrar",
+    "notes": "Elemento de abrigo de emergencia."
+  },
+  {
+    "id": "firstaid",
+    "name": "Botiquín familiar",
+    "category": "Botiquín",
+    "status": "review",
+    "qty": 1,
+    "unit": "kit",
+    "location": "Sin registrar",
+    "notes": "Pendiente completar inventario interno."
+  },
+  {
+    "id": "manchas",
+    "name": "Kit de evacuación Manchas",
+    "category": "Mascotas",
+    "status": "review",
+    "qty": 1,
+    "unit": "kit",
+    "location": "Sin registrar",
+    "notes": "Preparar correa, agua, alimento y manta."
+  },
+  {
+    "id": "bella",
+    "name": "Kit de evacuación Bella",
+    "category": "Mascotas",
+    "status": "review",
+    "qty": 1,
+    "unit": "kit",
+    "location": "Sin registrar",
+    "notes": "Preparar correa, agua, alimento y manta."
+  }
+]

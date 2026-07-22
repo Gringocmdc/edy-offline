@@ -57,5 +57,113 @@ async function loadManuals(){
 }
 const wc=EDYStorage.get('water_calc');if(wc){waterLiters.value=wc.liters;waterPeople.value=wc.people;waterPerPerson.value=wc.per}
 const ec=EDYStorage.get('energy_calc');if(ec){batteryWh.value=ec.wh;batteryPercent.value=ec.percent;loadWatts.value=ec.watts;efficiency.value=ec.eff}
-loadStatus();renderPendings();renderHomePendings();loadManuals();
+
+let inventoryBase=[];
+let currentItemId=null;
+
+function statusText(status){
+ return {available:'Disponible',incoming:'En camino',review:'Revisar',missing:'Falta'}[status]||status;
+}
+function getInventory(){
+ const saved=EDYStorage.get('inventory',null);
+ return saved || inventoryBase;
+}
+function saveInventory(list){
+ EDYStorage.set('inventory',list);
+ renderInventory();
+}
+async function loadInventory(){
+ try{
+   const r=await fetch('inventory.json');
+   inventoryBase=await r.json();
+   if(!EDYStorage.get('inventory',null)) EDYStorage.set('inventory',inventoryBase);
+   renderInventory();
+ }catch(e){
+   const box=document.getElementById('inventoryCategories');
+   if(box) box.innerHTML='<div class="panel">No se pudo cargar el inventario.</div>';
+ }
+}
+function renderInventory(){
+ const box=document.getElementById('inventoryCategories');
+ if(!box)return;
+ const q=(document.getElementById('inventorySearch')?.value||'').trim().toLowerCase();
+ const all=getInventory();
+ const filtered=all.filter(i=>[i.name,i.category,i.notes,i.location].join(' ').toLowerCase().includes(q));
+ const counts={available:0,incoming:0,missing:0};
+ all.forEach(i=>{if(counts[i.status]!==undefined)counts[i.status]++});
+ document.getElementById('invTotal').textContent=all.length;
+ document.getElementById('invAvailable').textContent=counts.available;
+ document.getElementById('invIncoming').textContent=counts.incoming;
+ document.getElementById('invMissing').textContent=counts.missing;
+ const order=['Energía','Agua','Comunicaciones','Herramientas','Botiquín','Alimentos','Mochilas','Mascotas','Vehículos','Documentación'];
+ box.innerHTML=order.map(cat=>{
+   const items=filtered.filter(i=>i.category===cat);
+   if(!items.length)return '';
+   return `<div class="categoryBlock">
+     <div class="categoryTitle"><h3>${categoryIcon(cat)} ${cat}</h3><span class="categoryCount">${items.length} elementos</span></div>
+     <div class="inventoryList">${items.map(i=>`
+       <div class="inventoryItem" onclick="openItem('${i.id}')">
+         <span class="statusMark ${i.status}"></span>
+         <div class="itemMain"><strong>${i.name}</strong><div class="itemMeta">${i.qty} ${i.unit} · ${i.location||'Sin registrar'}</div></div>
+         <span class="statusLabel ${i.status}">${statusText(i.status)}</span>
+       </div>`).join('')}</div>
+   </div>`;
+ }).join('') || '<div class="panel">No se encontraron elementos.</div>';
+}
+function categoryIcon(cat){
+ return {'Energía':'⚡','Agua':'💧','Comunicaciones':'📡','Herramientas':'🛠️','Botiquín':'🩺','Alimentos':'🍲','Mochilas':'🎒','Mascotas':'🐶','Vehículos':'🚗','Documentación':'📄'}[cat]||'📦';
+}
+function openItem(id){
+ currentItemId=id;
+ const i=getInventory().find(x=>x.id===id); if(!i)return;
+ document.getElementById('itemDetailContent').innerHTML=`
+  <div class="detailCard">
+    <div class="detailTop"><div><div class="small">${categoryIcon(i.category)} ${i.category}</div><h2>${i.name}</h2></div><span class="statusLabel ${i.status}">${statusText(i.status)}</span></div>
+    <div class="detailGrid">
+      <div class="detailField"><span>Estado</span><select id="editStatus" class="editSelect">
+        <option value="available" ${i.status==='available'?'selected':''}>Disponible</option>
+        <option value="incoming" ${i.status==='incoming'?'selected':''}>En camino</option>
+        <option value="review" ${i.status==='review'?'selected':''}>Revisar</option>
+        <option value="missing" ${i.status==='missing'?'selected':''}>Falta</option>
+      </select></div>
+      <div class="detailField"><span>Cantidad</span><input id="editQty" class="editInput" type="number" min="0" value="${i.qty}"></div>
+      <div class="detailField"><span>Unidad</span><input id="editUnit" class="editInput" value="${i.unit}"></div>
+      <div class="detailField"><span>Ubicación</span><input id="editLocation" class="editInput" value="${i.location||''}"></div>
+    </div>
+    <div class="detailNotes"><strong>Observaciones</strong><textarea id="editNotes" class="editInput">${i.notes||''}</textarea></div>
+    <div class="actions"><button class="action" onclick="saveCurrentItem()">Guardar cambios</button><button class="action secondary" onclick="deleteCurrentItem()">Eliminar</button></div>
+  </div>`;
+ openSection('itemDetail');
+}
+function saveCurrentItem(){
+ const list=getInventory(); const i=list.find(x=>x.id===currentItemId); if(!i)return;
+ i.status=document.getElementById('editStatus').value;
+ i.qty=Number(document.getElementById('editQty').value)||0;
+ i.unit=document.getElementById('editUnit').value.trim()||'unidad';
+ i.location=document.getElementById('editLocation').value.trim()||'Sin registrar';
+ i.notes=document.getElementById('editNotes').value.trim();
+ saveInventory(list); openSection('inventario');
+}
+function deleteCurrentItem(){
+ if(!confirm('¿Eliminar este elemento del inventario local?'))return;
+ saveInventory(getInventory().filter(x=>x.id!==currentItemId)); openSection('inventario');
+}
+function addInventoryItem(){
+ const name=document.getElementById('newItemName').value.trim(); if(!name){alert('Ingresá un nombre.');return}
+ const item={
+   id:'custom-'+Date.now(),name,
+   category:document.getElementById('newItemCategory').value,
+   status:document.getElementById('newItemStatus').value,
+   qty:Number(document.getElementById('newItemQty').value)||0,
+   unit:document.getElementById('newItemUnit').value.trim()||'unidad',
+   location:document.getElementById('newItemLocation').value.trim()||'Sin registrar',
+   notes:document.getElementById('newItemNotes').value.trim()
+ };
+ const list=getInventory();list.push(item);saveInventory(list);
+ ['newItemName','newItemLocation','newItemNotes'].forEach(id=>document.getElementById(id).value='');
+ document.getElementById('newItemQty').value=1;
+ openSection('inventario');
+}
+
+loadStatus();renderPendings();renderHomePendings();loadManuals();loadInventory();
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js'))}

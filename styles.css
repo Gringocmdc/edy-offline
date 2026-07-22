@@ -42,3 +42,27 @@ footer{text-align:center;padding:28px 12px 40px;color:var(--muted);font-size:12p
 .emergencyOption{min-height:140px;border:2px solid rgba(165,42,42,.45);border-radius:20px;background:linear-gradient(145deg,var(--panel),rgba(165,42,42,.08));color:inherit;padding:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;font-size:17px}
 .emergencyOption span{font-size:39px}
 @media(max-width:620px){.commandHero{align-items:flex-start;flex-direction:column}.emergencyGrid{grid-template-columns:1fr}.emergencyButton{justify-content:flex-start}}
+
+/* EDY v0.6 - Inventario */
+.inventoryFeatured{border:2px solid rgba(68,145,99,.45)}
+.inventoryHeader{display:flex;justify-content:space-between;align-items:center;gap:15px;margin:8px 0 15px}
+.inventoryHeader h2{margin-bottom:4px}.inventoryHeader p{margin:0;color:var(--muted)}
+.inventorySummary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:15px}
+.summaryCard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;text-align:center}
+.summaryCard strong{display:block;font-size:27px}.summaryCard span{font-size:12px;color:var(--muted)}
+.summaryCard.available{border-bottom:4px solid #2f9a58}.summaryCard.incoming{border-bottom:4px solid #e49a21}.summaryCard.missing{border-bottom:4px solid #bd3333}
+.categoryBlock{margin:18px 0}.categoryTitle{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
+.categoryTitle h3{margin:0}.categoryCount{font-size:12px;color:var(--muted)}
+.inventoryList{display:grid;gap:9px}
+.inventoryItem{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:13px;cursor:pointer}
+.inventoryItem:active{transform:scale(.993)}.statusMark{width:13px;height:13px;border-radius:50%}
+.statusMark.available{background:#2f9a58}.statusMark.incoming{background:#e49a21}.statusMark.review{background:#c77f22}.statusMark.missing{background:#bd3333}
+.itemMain strong{display:block}.itemMeta{font-size:12px;color:var(--muted);margin-top:3px}.statusLabel{font-size:11px;font-weight:800;padding:6px 8px;border-radius:999px}
+.statusLabel.available{background:rgba(47,154,88,.16);color:#55c87d}.statusLabel.incoming{background:rgba(228,154,33,.16);color:#e8a437}
+.statusLabel.review{background:rgba(199,127,34,.16);color:#dc963c}.statusLabel.missing{background:rgba(189,51,51,.18);color:#ef6666}
+.detailCard{background:var(--panel);border:1px solid var(--line);border-radius:19px;padding:18px;margin-top:14px}
+.detailTop{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}.detailTop h2{margin:0}
+.detailGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px}.detailField{padding:13px;border:1px solid var(--line);border-radius:13px}.detailField span{display:block;color:var(--muted);font-size:12px}.detailField strong{display:block;margin-top:4px}
+.detailNotes{margin-top:12px;padding:14px;border-left:5px solid var(--green2);background:rgba(54,122,82,.08);border-radius:10px}
+.editSelect,.editInput{width:100%;margin-top:8px;border:1px solid var(--line);background:transparent;color:inherit;border-radius:10px;padding:10px}
+@media(max-width:720px){.inventorySummary{grid-template-columns:repeat(2,1fr)}.inventoryHeader{align-items:flex-start;flex-direction:column}.detailGrid{grid-template-columns:1fr}}
