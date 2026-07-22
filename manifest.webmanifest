@@ -1,0 +1,17 @@
+{
+  "name": "EDY - Centro de Supervivencia Digital Familiar",
+  "short_name": "EDY",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#edf2ee",
+  "theme_color": "#123b2a",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

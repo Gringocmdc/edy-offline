@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#123b2a">
+  <title>EDY Offline</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <style>
+    :root{--bg:#edf2ee;--panel:#fff;--ink:#172019;--muted:#637067;--green:#123b2a;--line:#d8dfda;--red:#a62828}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
+    header{background:linear-gradient(135deg,var(--green),#0a2418);color:#fff;padding:24px 18px 18px;position:sticky;top:0}
+    header h1{font-size:34px;margin:0} header p{margin:4px 0 0;opacity:.82}
+    #search{width:100%;margin-top:16px;border:0;border-radius:14px;padding:14px 16px;font-size:17px}
+    main{max-width:1000px;margin:auto;padding:18px}
+    .hero,.panel,.card{background:var(--panel);border:1px solid var(--line);border-radius:19px;box-shadow:0 8px 24px rgba(20,50,34,.1)}
+    .hero{padding:20px}.hero h2{margin:0 0 7px}.quote{margin-top:12px;padding:12px 14px;background:#e9f2eb;border-left:5px solid #2c6648;border-radius:9px}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:15px}
+    .card{padding:16px;min-height:120px;cursor:pointer}.card:active{transform:scale(.985)}.icon{font-size:30px}.card h3{margin:8px 0 4px}.card p{margin:0;color:var(--muted);font-size:13px}
+    .section{display:none}.section.active{display:block}.panel{padding:17px;margin:12px 0}.red{border-left:7px solid var(--red)}
+    .back{border:0;border-radius:12px;padding:10px 14px;background:#dfe9e1;color:var(--green);font-weight:700}
+    li{margin:10px 0;line-height:1.45}
+    .result{width:100%;text-align:left;border:1px solid var(--line);background:#fff;padding:14px;border-radius:13px;margin:8px 0;font-size:16px}
+    @media(min-width:760px){.grid{grid-template-columns:repeat(4,1fr)}}
+  </style>
+</head>
+<body>
+<header>
+  <h1>EDY</h1>
+  <p>Centro de Supervivencia Digital Familiar</p>
+  <input id="search" placeholder="Buscar: apagón, agua, energía, evacuación…">
+</header>
+<main>
+<section id="home" class="section active">
+  <div class="hero">
+    <h2>Centro de Operaciones</h2>
+    <p>Versión pública inicial. No contiene direcciones, teléfonos, documentos ni datos sensibles.</p>
+    <div class="quote">La improvisación salva un día. La preparación salva una familia.</div>
+  </div>
+  <div class="grid">
+    <div class="card" onclick="openSection('emergencia')"><div class="icon">🚨</div><h3>Emergencia</h3><p>Primer minuto y primera hora.</p></div>
+    <div class="card" onclick="openSection('salud')"><div class="icon">🩺</div><h3>Salud</h3><p>Principios básicos y alertas.</p></div>
+    <div class="card" onclick="openSection('agua')"><div class="icon">💧</div><h3>Agua</h3><p>Reserva y potabilización.</p></div>
+    <div class="card" onclick="openSection('energia')"><div class="icon">⚡</div><h3>Energía</h3><p>Prioridades durante un apagón.</p></div>
+    <div class="card" onclick="openSection('comunicaciones')"><div class="icon">📡</div><h3>Comunicaciones</h3><p>Ahorro y ventanas de conexión.</p></div>
+    <div class="card" onclick="openSection('inventario')"><div class="icon">📦</div><h3>Inventario</h3><p>Estructura general sin datos sensibles.</p></div>
+    <div class="card" onclick="openSection('mascotas')"><div class="icon">🐶</div><h3>Mascotas</h3><p>Evacuación y elementos básicos.</p></div>
+    <div class="card" onclick="openSection('pendientes')"><div class="icon">✅</div><h3>Pendientes</h3><p>Próximas mejoras del sistema.</p></div>
+  </div>
+</section>
+
+<section id="emergencia" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🚨 Hoja Roja</h2>
+<div class="panel red"><h3>Primer minuto</h3><ol><li>Mantener la calma y reunir a la familia.</li><li>Comprobar lesiones, fuego, humo, gas, cables o daños estructurales.</li><li>Si el lugar es peligroso, evacuar sin regresar por objetos.</li></ol></div>
+<div class="panel"><h3>Primera hora</h3><ol><li>Determinar si conviene permanecer o evacuar.</li><li>Revisar agua, iluminación, energía y comunicaciones.</li><li>Registrar la hora y las decisiones tomadas.</li></ol></div></section>
+
+<section id="salud" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🩺 Salud</h2>
+<div class="panel red"><p>Dificultad respiratoria, pérdida de conocimiento, sangrado abundante, convulsión, dolor fuerte en el pecho, quemadura extensa o traumatismo grave requieren ayuda profesional urgente.</p></div>
+<div class="panel"><p>Principio básico: proteger, alertar y socorrer. No mover a una persona con posible lesión de columna salvo peligro inmediato.</p></div></section>
+
+<section id="agua" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>💧 Agua</h2>
+<div class="panel red"><p>No beber agua de origen dudoso solo porque parezca limpia. Filtrar y desinfectar son procesos diferentes.</p></div>
+<div class="panel"><ol><li>Usar primero agua potable almacenada.</li><li>Proteger recipientes contra contaminación.</li><li>Incorporar filtro, bidones y método de desinfección.</li></ol></div></section>
+
+<section id="energia" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>⚡ Energía</h2>
+<div class="panel"><h3>Orden de prioridad</h3><ol><li>Comunicaciones.</li><li>Iluminación.</li><li>Tablets y teléfonos.</li><li>Equipos médicos indispensables.</li><li>Herramientas solo para reparaciones necesarias.</li></ol></div></section>
+
+<section id="comunicaciones" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>📡 Comunicaciones</h2>
+<div class="panel"><ul><li>Usar brillo bajo y modo de bajo consumo.</li><li>Activar modo avión cuando no se necesiten enlaces.</li><li>Encender sistemas satelitales solo en ventanas de comunicación.</li></ul></div></section>
+
+<section id="inventario" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>📦 Inventario</h2>
+<div class="panel"><p>Las fichas privadas con ubicaciones, documentos, números de serie o datos personales no deben publicarse en este repositorio público. La versión privada permanecerá en el iPad y en respaldos externos.</p></div></section>
+
+<section id="mascotas" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🐶 Mascotas</h2>
+<div class="panel"><ul><li>Correas o transportadoras accesibles.</li><li>Agua, alimento, manta y bolsas.</li><li>Fotos y datos veterinarios en la copia privada offline.</li><li>No soltarlas durante una evacuación.</li></ul></div></section>
+
+<section id="pendientes" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>✅ Próximas mejoras</h2>
+<div class="panel"><ol><li>Instalación como aplicación en el iPad.</li><li>Funcionamiento offline completo.</li><li>Versión privada local con inventario real.</li><li>Mapas sin conexión.</li><li>Biblioteca de primeros auxilios, agua y energía.</li></ol></div></section>
+
+<section id="results" class="section"><button class="back" onclick="home()">← Inicio</button><h2>🔍 Resultados</h2><div id="list"></div></section>
+</main>
+<script>
+const sections=[...document.querySelectorAll('.section')];
+function openSection(id){sections.forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0)}
+function home(){document.getElementById('search').value='';openSection('home')}
+document.getElementById('search').addEventListener('input',e=>{
+ const q=e.target.value.trim().toLowerCase(); if(!q){home();return}
+ const found=[...document.querySelectorAll('.searchable')].filter(s=>s.innerText.toLowerCase().includes(q));
+ document.getElementById('list').innerHTML=found.length?found.map(s=>`<button class="result" onclick="openSection('${s.id}')"><strong>${s.querySelector('h2').innerText}</strong></button>`).join(''):'<div class="panel">No se encontraron resultados.</div>';
+ openSection('results');
+});
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js'))}
+</script>
+</body>
+</html>
