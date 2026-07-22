@@ -1,16 +1,19 @@
-# EDY Offline v0.8 — Asistente Local
+# EDY Offline v0.9 — Mapa de Ubicaciones
 
 ## Novedades
-- Asistente EDY completamente offline y basado en reglas locales.
-- Consultas por ubicación de equipos, faltantes, autonomía e inventario.
-- Acceso directo a protocolos desde las respuestas.
-- Búsqueda general integrada con los elementos del inventario.
-- Elementos críticos identificados con una estrella.
-- Fecha de próxima revisión para cada elemento.
-- Alertas por revisiones vencidas o próximas.
-- Alertas por elementos críticos faltantes o pendientes.
-- Ubicación exacta editable: sector, estante y caja.
-- Conserva los datos locales existentes de versiones anteriores.
+- Mapa visual completamente offline.
+- Zonas iniciales: Casa, Depósito, Vehículos, Agua, Energía y Punto de evacuación.
+- Vista de cantidad de elementos y críticos por zona.
+- Búsqueda por zona, equipo o ubicación exacta.
+- Posibilidad de crear zonas personalizadas.
+- Edición de nombre, ícono y descripción de cada zona.
+- Asignación de una zona a cada elemento del inventario.
+- Vista de elementos todavía sin ubicación.
+- Integración con el Asistente EDY:
+  - “¿Qué hay en el depósito?”
+  - “Abrir mapa”
+  - “¿Dónde está la Forza?”
+- Conserva el inventario y los datos locales existentes.
 
-## Importante
-El asistente no utiliza inteligencia artificial generativa ni Internet. Consulta los datos guardados en el dispositivo y reglas incluidas en la aplicación.
+## Privacidad
+Los nombres personalizados de zonas y las ubicaciones exactas quedan guardados únicamente en el dispositivo.

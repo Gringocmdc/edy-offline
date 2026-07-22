@@ -54,6 +54,7 @@
       <div class="operationMetric"><span>📡 Comunicaciones</span><strong id="opComms">Sin registrar</strong></div>
       <div class="operationMetric"><span>🩺 Botiquín</span><strong id="opHealth">Sin registrar</strong></div>
       <div class="operationMetric"><span>📦 Inventario</span><strong id="opInventory">0 elementos</strong></div>
+      <div class="operationMetric"><span>🗺️ Ubicaciones</span><strong id="opZones">0 zonas</strong></div>
     </div>
   </div>
 
@@ -74,6 +75,7 @@
 
   <div class="titleRow"><h2>Accesos rápidos</h2></div>
   <div class="grid quickGrid">
+    <div class="card mapFeatured" onclick="openSection('mapa')"><div class="icon">🗺️</div><h3>Mapa</h3><p>Ubicación física de equipos y reservas.</p></div>
     <div class="card assistantFeatured" onclick="openSection('asistente')"><div class="icon">🧠</div><h3>Asistente EDY</h3><p>Consulta inventario y protocolos sin Internet.</p></div>
     <div class="card inventoryFeatured" onclick="openSection('inventario')"><div class="icon">📦</div><h3>Inventario</h3><p>Equipos, estados y cantidades.</p></div>
     <div class="card" onclick="openSection('agua')"><div class="icon">💧</div><h3>Agua</h3><p>Reserva y autonomía.</p></div>
@@ -105,6 +107,46 @@
 
 
 
+
+
+<section id="mapa" class="section">
+  <button class="back" onclick="home()">← Inicio</button>
+  <div class="mapHeader">
+    <div>
+      <h2>🗺️ Mapa de Ubicaciones</h2>
+      <p>Una vista rápida de dónde está guardado cada elemento. Todo se guarda localmente.</p>
+    </div>
+    <button class="action" onclick="openSection('nuevaZona')">Agregar zona</button>
+  </div>
+
+  <div class="mapOverview">
+    <div class="mapStat"><strong id="mapZoneCount">0</strong><span>Zonas</span></div>
+    <div class="mapStat"><strong id="mapLocatedCount">0</strong><span>Ubicados</span></div>
+    <div class="mapStat"><strong id="mapUnlocatedCount">0</strong><span>Sin zona</span></div>
+    <div class="mapStat"><strong id="mapCriticalCount">0</strong><span>Críticos ubicados</span></div>
+  </div>
+
+  <div class="field"><label>Buscar por zona, elemento o ubicación</label><input id="mapSearch" placeholder="Ej.: depósito, filtro, caja verde…" oninput="renderMap()"></div>
+
+  <div id="mapCanvas" class="mapCanvas"></div>
+  <div class="mapHint">Tocá una zona para ver sus elementos.</div>
+</section>
+
+<section id="zoneDetail" class="section">
+  <button class="back" onclick="openSection('mapa')">← Mapa</button>
+  <div id="zoneDetailContent"></div>
+</section>
+
+<section id="nuevaZona" class="section">
+  <button class="back" onclick="openSection('mapa')">← Mapa</button>
+  <h2>Agregar zona</h2>
+  <div class="formGrid">
+    <div class="field"><label>Nombre</label><input id="newZoneName" placeholder="Ej.: Garage"></div>
+    <div class="field"><label>Ícono</label><input id="newZoneIcon" value="📍" maxlength="4"></div>
+    <div class="field wide"><label>Descripción</label><textarea id="newZoneDescription" placeholder="Ej.: Armario metálico junto a la entrada"></textarea></div>
+  </div>
+  <div class="actions"><button class="action" onclick="addZone()">Guardar zona</button></div>
+</section>
 
 <section id="asistente" class="section">
   <button class="back" onclick="home()">← Inicio</button>
@@ -225,7 +267,8 @@
     </select></div>
     <div class="field"><label>Cantidad</label><input id="newItemQty" type="number" min="0" value="1"></div>
     <div class="field"><label>Unidad</label><input id="newItemUnit" value="unidad"></div>
-    <div class="field"><label>Ubicación</label><input id="newItemLocation" placeholder="Ej.: Depósito · Estante 2 · Caja verde"></div>
+    <div class="field"><label>Zona</label><select id="newItemZone"></select></div>
+    <div class="field"><label>Ubicación exacta</label><input id="newItemLocation" placeholder="Ej.: Estante 2 · Caja verde"></div>
     <div class="field"><label>Próxima revisión</label><input id="newItemReviewDate" type="date"></div>
     <div class="field checkField"><label><input id="newItemCritical" type="checkbox"> Elemento crítico</label></div>
     <div class="field wide"><label>Observaciones</label><textarea id="newItemNotes"></textarea></div>
@@ -324,7 +367,7 @@
 <section id="results" class="section"><button class="back" onclick="home()">← Inicio</button><h2>🔍 Resultados</h2><div id="list"></div></section>
 </main>
 
-<footer>EDY Offline · v0.8 · Asistente Local</footer>
+<footer>EDY Offline · v0.9 · Mapa de Ubicaciones</footer>
 <script src="storage.js"></script>
 <script src="calculator.js"></script>
 <script src="app.js"></script>

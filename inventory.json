@@ -9,7 +9,8 @@
     "location": "Sin registrar",
     "notes": "Estación de energía 700 W / 551 Wh.",
     "critical": true,
-    "reviewDate": ""
+    "reviewDate": "",
+    "zone": "energy"
   },
   {
     "id": "forza-cable",
@@ -21,7 +22,8 @@
     "location": "Sin registrar",
     "notes": "Cable de carga de red.",
     "critical": true,
-    "reviewDate": ""
+    "reviewDate": "",
+    "zone": "energy"
   },
   {
     "id": "total-batteries",
@@ -33,7 +35,8 @@
     "location": "Sin registrar",
     "notes": "Incluidas en el kit inalámbrico TOTAL.",
     "critical": false,
-    "reviewDate": ""
+    "reviewDate": "",
+    "zone": "energy"
   },
   {
     "id": "total-charger",
@@ -45,7 +48,8 @@
     "location": "Sin registrar",
     "notes": "Incluido en el kit inalámbrico TOTAL.",
     "critical": false,
-    "reviewDate": ""
+    "reviewDate": "",
+    "zone": "energy"
   },
   {
     "id": "solar-30w",
@@ -57,7 +61,8 @@
     "location": "En camino",
     "notes": "Compra reciente. Pendiente recepción y prueba.",
     "critical": false,
-    "reviewDate": ""
+    "reviewDate": "",
+    "zone": "energy"
   },
   {
     "id": "spica",
@@ -69,7 +74,8 @@
     "location": "Sin registrar",
     "notes": "Kit solar registrado previamente.",
     "critical": false,
-    "reviewDate": ""
+    "reviewDate": "",
+    "zone": "energy"
   },
   {
     "id": "filter1",
@@ -81,7 +87,8 @@
     "location": "En camino",
     "notes": "Compra reciente. Pendiente recepción y prueba.",
     "critical": true,
-    "reviewDate": ""
+    "reviewDate": "",
+    "zone": "water"
   },
   {
     "id": "filter2",
@@ -93,7 +100,8 @@
     "location": "En camino",
     "notes": "Compra reciente. Pendiente recepción y prueba.",
     "critical": true,
-    "reviewDate": ""
+    "reviewDate": "",
+    "zone": "water"
   },
   {
     "id": "purification-tabs",
@@ -105,7 +113,8 @@
     "location": "Pendiente",
     "notes": "Pendiente de compra.",
     "critical": false,
-    "reviewDate": ""
+    "reviewDate": "",
+    "zone": "water"
   },
   {
     "id": "starlink",
@@ -117,7 +126,8 @@
     "location": "Sin registrar",
     "notes": "Disponible para comunicaciones satelitales.",
     "critical": true,
-    "reviewDate": ""
+    "reviewDate": "",
+    "zone": "home"
   },
   {
     "id": "ipad",
@@ -129,7 +139,8 @@
     "location": "Uso principal",
     "notes": "Dispositivo principal de EDY.",
     "critical": true,
-    "reviewDate": ""
+    "reviewDate": "",
+    "zone": "home"
   },
   {
     "id": "radios",
@@ -141,7 +152,8 @@
     "location": "Pendiente",
     "notes": "Pendiente de compra.",
     "critical": false,
-    "reviewDate": ""
+    "reviewDate": "",
+    "zone": "home"
   },
   {
     "id": "satphone",
@@ -153,7 +165,8 @@
     "location": "Pendiente",
     "notes": "Pendiente de compra.",
     "critical": false,
-    "reviewDate": ""
+    "reviewDate": "",
+    "zone": "home"
   },
   {
     "id": "saw",
@@ -165,7 +178,8 @@
     "location": "Sin registrar",
     "notes": "Kit inalámbrico TOTAL 20 V.",
     "critical": false,
-    "reviewDate": ""
+    "reviewDate": "",
+    "zone": "home"
   },
   {
     "id": "rotary",
@@ -177,7 +191,8 @@
     "location": "Sin registrar",
     "notes": "Kit inalámbrico TOTAL 20 V.",
     "critical": false,
-    "reviewDate": ""
+    "reviewDate": "",
+    "zone": "home"
   },
   {
     "id": "drill",
@@ -189,7 +204,8 @@
     "location": "Sin registrar",
     "notes": "Brushless. Kit inalámbrico TOTAL 20 V.",
     "critical": false,
-    "reviewDate": ""
+    "reviewDate": "",
+    "zone": "home"
   },
   {
     "id": "blower",
@@ -201,7 +217,8 @@
     "location": "Sin registrar",
     "notes": "Kit inalámbrico TOTAL 20 V.",
     "critical": false,
-    "reviewDate": ""
+    "reviewDate": "",
+    "zone": "home"
   },
   {
     "id": "paracord",
@@ -213,7 +230,8 @@
     "location": "Sin registrar",
     "notes": "Longitud registrada: 30 m.",
     "critical": false,
-    "reviewDate": ""
+    "reviewDate": "",
+    "zone": "home"
   },
   {
     "id": "slingshots",
@@ -225,7 +243,8 @@
     "location": "Sin registrar",
     "notes": "Inventario no sensible.",
     "critical": false,
-    "reviewDate": ""
+    "reviewDate": "",
+    "zone": "home"
   },
   {
     "id": "balls",
@@ -237,7 +256,8 @@
     "location": "Sin registrar",
     "notes": "Dos paquetes, 100 unidades nominales.",
     "critical": false,
-    "reviewDate": ""
+    "reviewDate": "",
+    "zone": "home"
   },
   {
     "id": "thermal",
@@ -249,7 +269,8 @@
     "location": "Sin registrar",
     "notes": "Elemento de abrigo de emergencia.",
     "critical": true,
-    "reviewDate": ""
+    "reviewDate": "",
+    "zone": "home"
   },
   {
     "id": "firstaid",
@@ -261,7 +282,8 @@
     "location": "Sin registrar",
     "notes": "Pendiente completar inventario interno.",
     "critical": true,
-    "reviewDate": ""
+    "reviewDate": "",
+    "zone": "home"
   },
   {
     "id": "manchas",
@@ -273,7 +295,8 @@
     "location": "Sin registrar",
     "notes": "Preparar correa, agua, alimento y manta.",
     "critical": true,
-    "reviewDate": ""
+    "reviewDate": "",
+    "zone": "home"
   },
   {
     "id": "bella",
@@ -285,6 +308,7 @@
     "location": "Sin registrar",
     "notes": "Preparar correa, agua, alimento y manta.",
     "critical": true,
-    "reviewDate": ""
+    "reviewDate": "",
+    "zone": "home"
   }
 ]

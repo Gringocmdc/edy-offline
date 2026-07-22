@@ -6,6 +6,8 @@ function openSection(id){
  target.classList.add('active');
  if(id==='asistente'){renderAssistantAlerts();document.getElementById('assistantQuery')?.focus()}
  if(id==='inventario')renderInventory();
+ if(id==='mapa')renderMap();
+ if(id==='nuevoItem')populateZoneSelect('newItemZone');
  scrollTo(0,0)
 }
 function home(){document.getElementById('search').value='';loadStatus();renderHomePendings();renderOperationsHome();renderAssistantHomeAlerts();openSection('home')}
@@ -86,6 +88,7 @@ function saveInventory(list){
  renderOperationsHome();
  renderAssistantAlerts();
  renderAssistantHomeAlerts();
+ renderMap();
 }
 async function loadInventory(){
  try{
@@ -98,7 +101,8 @@ async function loadInventory(){
      saved=saved.map(item=>({
        ...item,
        critical:Boolean(item.critical),
-       reviewDate:item.reviewDate||''
+       reviewDate:item.reviewDate||'',
+       zone:item.zone||inferZoneForItem(item)
      }));
    }
    EDYStorage.set('inventory',saved);
@@ -161,7 +165,8 @@ function openItem(id){
       </select></div>
       <div class="detailField"><span>Cantidad</span><input id="editQty" class="editInput" type="number" min="0" value="${i.qty}"></div>
       <div class="detailField"><span>Unidad</span><input id="editUnit" class="editInput" value="${escapeAttr(i.unit)}"></div>
-      <div class="detailField"><span>Ubicación exacta</span><input id="editLocation" class="editInput" value="${escapeAttr(i.location||'')}" placeholder="Depósito · Estante 2 · Caja verde"></div>
+      <div class="detailField"><span>Zona</span><select id="editZone" class="editSelect">${zoneOptions(i.zone)}</select></div>
+      <div class="detailField"><span>Ubicación exacta</span><input id="editLocation" class="editInput" value="${escapeAttr(i.location||'')}" placeholder="Estante 2 · Caja verde"></div>
       <div class="detailField"><span>Próxima revisión</span><input id="editReviewDate" class="editInput" type="date" value="${escapeAttr(i.reviewDate||'')}"></div>
       <div class="detailField checkField"><label><input id="editCritical" type="checkbox" ${i.critical?'checked':''}> Elemento crítico</label></div>
     </div>
@@ -175,6 +180,7 @@ function saveCurrentItem(){
  i.status=document.getElementById('editStatus').value;
  i.qty=Number(document.getElementById('editQty').value)||0;
  i.unit=document.getElementById('editUnit').value.trim()||'unidad';
+ i.zone=document.getElementById('editZone').value||'';
  i.location=document.getElementById('editLocation').value.trim()||'Sin registrar';
  i.reviewDate=document.getElementById('editReviewDate').value||'';
  i.critical=document.getElementById('editCritical').checked;
@@ -193,6 +199,7 @@ function addInventoryItem(){
    status:document.getElementById('newItemStatus').value,
    qty:Number(document.getElementById('newItemQty').value)||0,
    unit:document.getElementById('newItemUnit').value.trim()||'unidad',
+   zone:document.getElementById('newItemZone').value||'',
    location:document.getElementById('newItemLocation').value.trim()||'Sin registrar',
    reviewDate:document.getElementById('newItemReviewDate').value||'',
    critical:document.getElementById('newItemCritical').checked,
@@ -205,6 +212,140 @@ function addInventoryItem(){
  openSection('inventario');
 }
 
+
+
+let zonesBase=[];
+let currentZoneId=null;
+
+function inferZoneForItem(item){
+ const cat=item.category||'',loc=normalizeText(item.location||'');
+ if(cat==='Energía')return 'energy';
+ if(cat==='Agua')return 'water';
+ if(cat==='Vehículos')return 'vehicles';
+ if(['Mochilas','Documentación','Botiquín'].includes(cat))return 'home';
+ if(loc.includes('deposito'))return 'storage';
+ return 'home';
+}
+function getZones(){
+ const saved=EDYStorage.get('zones',null);
+ return saved||zonesBase;
+}
+function saveZones(zones){
+ EDYStorage.set('zones',zones);
+ renderMap();
+ renderOperationsHome();
+}
+async function loadZones(){
+ try{
+  const r=await fetch('zones.json');
+  zonesBase=await r.json();
+  if(!EDYStorage.get('zones',null))EDYStorage.set('zones',zonesBase);
+  renderMap();
+  return getZones();
+ }catch(e){
+  zonesBase=[
+   {id:'home',name:'Casa',icon:'🏠',description:'Elementos dentro de la vivienda',builtin:true},
+   {id:'storage',name:'Depósito',icon:'📦',description:'Equipos y reservas almacenadas',builtin:true}
+  ];
+  if(!EDYStorage.get('zones',null))EDYStorage.set('zones',zonesBase);
+  return getZones();
+ }
+}
+function zoneById(id){return getZones().find(z=>z.id===id)}
+function zoneName(id){return zoneById(id)?.name||'Sin zona'}
+function zoneOptions(selected=''){
+ const opts=['<option value="">Sin zona</option>',...getZones().map(z=>`<option value="${escapeAttr(z.id)}" ${z.id===selected?'selected':''}>${escapeHTML(z.icon)} ${escapeHTML(z.name)}</option>`)];
+ return opts.join('');
+}
+function populateZoneSelect(id,selected=''){
+ const el=document.getElementById(id);if(el)el.innerHTML=zoneOptions(selected);
+}
+function renderMap(){
+ const box=document.getElementById('mapCanvas');if(!box)return;
+ const q=normalizeText(document.getElementById('mapSearch')?.value||'');
+ const zones=getZones(),inv=getInventory();
+ const located=inv.filter(i=>i.zone && zoneById(i.zone));
+ const unlocated=inv.filter(i=>!i.zone || !zoneById(i.zone));
+ const criticalLocated=located.filter(i=>i.critical).length;
+ const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
+ set('mapZoneCount',zones.length);set('mapLocatedCount',located.length);set('mapUnlocatedCount',unlocated.length);set('mapCriticalCount',criticalLocated);
+
+ const cards=zones.map(z=>{
+  const items=inv.filter(i=>i.zone===z.id);
+  const critical=items.filter(i=>i.critical).length;
+  const searchable=normalizeText([z.name,z.description,...items.map(i=>[i.name,i.location,i.category].join(' '))].join(' '));
+  if(q && !searchable.includes(q))return '';
+  return `<div class="zoneCard ${items.length?'':'zoneEmpty'} ${q?'mapSearchHighlight':''}" onclick="openZone('${escapeJS(z.id)}')">
+   <div class="zoneCardIcon">${escapeHTML(z.icon||'📍')}</div>
+   <h3>${escapeHTML(z.name)}</h3>
+   <p>${escapeHTML(z.description||'Sin descripción')}</p>
+   <div class="zoneCardFooter"><span class="zoneCount">${items.length} elementos</span>${critical?`<span class="zoneCritical">⭐ ${critical} críticos</span>`:''}</div>
+  </div>`;
+ }).join('');
+ const unlocatedCard=(!q || unlocated.some(i=>normalizeText([i.name,i.location,i.category].join(' ')).includes(q))) && unlocated.length
+ ? `<div class="zoneCard" onclick="openZone('__unlocated__')"><div class="zoneCardIcon">❓</div><h3>Sin zona</h3><p>Elementos que todavía no tienen una ubicación asignada.</p><div class="zoneCardFooter"><span class="zoneCount">${unlocated.length} elementos</span></div></div>`:'';
+ box.innerHTML=cards+unlocatedCard || '<div class="panel">No se encontraron zonas o elementos.</div>';
+}
+function openZone(id){
+ currentZoneId=id;
+ const inv=getInventory();
+ const unlocated=id==='__unlocated__';
+ const zone=unlocated?{id,name:'Sin zona',icon:'❓',description:'Elementos pendientes de ubicar',builtin:true}:zoneById(id);
+ if(!zone)return;
+ const items=inv.filter(i=>unlocated?(!i.zone||!zoneById(i.zone)):i.zone===id)
+   .sort((a,b)=>Number(Boolean(b.critical))-Number(Boolean(a.critical))||a.name.localeCompare(b.name));
+ const actions=!unlocated?`<div class="zoneActions">
+   <button class="action secondary" onclick="editZonePrompt('${escapeJS(zone.id)}')">Editar zona</button>
+   ${zone.builtin?'':`<button class="action secondary" onclick="deleteZone('${escapeJS(zone.id)}')">Eliminar zona</button>`}
+ </div>`:'';
+ document.getElementById('zoneDetailContent').innerHTML=`
+  <div class="zoneDetailHeader">
+   <div class="zoneDetailTitle"><div class="zoneDetailIcon">${escapeHTML(zone.icon||'📍')}</div><div><h2>${escapeHTML(zone.name)}</h2><p>${escapeHTML(zone.description||'')}</p></div></div>
+   ${actions}
+  </div>
+  <div class="inventoryList">${items.length?items.map(i=>`
+   <div class="inventoryItem" onclick="openItem('${escapeJS(i.id)}')">
+    <span class="statusMark ${i.status}"></span>
+    <div class="itemMain"><div class="itemFlags">${i.critical?'<span class="criticalStar">⭐</span>':''}</div><strong>${escapeHTML(i.name)}</strong>
+     <div class="locationBreadcrumb">📍 ${escapeHTML(i.location||'Sin detalle')}</div>
+    </div>
+    <span class="statusLabel ${i.status}">${statusText(i.status)}</span>
+   </div>`).join(''):'<div class="panel">Esta zona todavía no tiene elementos.</div>'}</div>`;
+ openSection('zoneDetail');
+}
+function addZone(){
+ const name=document.getElementById('newZoneName').value.trim();
+ if(!name){alert('Ingresá un nombre para la zona.');return}
+ const zones=getZones();
+ const zone={
+  id:'zone-'+Date.now(),
+  name,
+  icon:document.getElementById('newZoneIcon').value.trim()||'📍',
+  description:document.getElementById('newZoneDescription').value.trim()||'Zona personalizada',
+  builtin:false
+ };
+ zones.push(zone);saveZones(zones);
+ document.getElementById('newZoneName').value='';
+ document.getElementById('newZoneIcon').value='📍';
+ document.getElementById('newZoneDescription').value='';
+ openZone(zone.id);
+}
+function editZonePrompt(id){
+ const zones=getZones(),z=zones.find(x=>x.id===id);if(!z)return;
+ const name=prompt('Nombre de la zona:',z.name);if(name===null)return;
+ const description=prompt('Descripción:',z.description||'');if(description===null)return;
+ const icon=prompt('Ícono:',z.icon||'📍');if(icon===null)return;
+ z.name=name.trim()||z.name;z.description=description.trim();z.icon=icon.trim()||'📍';
+ saveZones(zones);openZone(id);
+}
+function deleteZone(id){
+ const z=zoneById(id);if(!z||z.builtin)return;
+ if(!confirm(`¿Eliminar la zona "${z.name}"? Los elementos quedarán sin zona.`))return;
+ const inv=getInventory();inv.forEach(i=>{if(i.zone===id)i.zone=''});
+ EDYStorage.set('inventory',inv);
+ saveZones(getZones().filter(x=>x.id!==id));
+ openSection('mapa');
+}
 
 function normalizeText(value){
  return String(value??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
@@ -286,7 +427,7 @@ function findInventoryMatches(query){
 function assistantInventoryRows(items){
  return `<div class="assistantList">${items.map(i=>`
    <div class="assistantResultItem">
-    <div><strong>${i.critical?'⭐ ':''}${escapeHTML(i.name)}</strong><small>${escapeHTML(i.category)} · ${escapeHTML(i.location||'Sin registrar')} · ${statusText(i.status)}</small></div>
+    <div><strong>${i.critical?'⭐ ':''}${escapeHTML(i.name)}</strong><small>${escapeHTML(i.category)} · ${escapeHTML(zoneName(i.zone))} · ${escapeHTML(i.location||'Sin registrar')} · ${statusText(i.status)}</small></div>
     <button class="miniAction" onclick="openItem('${escapeJS(i.id)}')">Ver</button>
    </div>`).join('')}</div>`;
 }
@@ -305,6 +446,18 @@ function assistantAsk(prefill){
  const q=normalizeText(raw);
  const inv=getInventory(),o=getOperations(),pending=EDYStorage.get('pendings',[]).filter(p=>!p.done);
 
+ const zoneMatches=getZones().filter(z=>q.includes(normalizeText(z.name)));
+ if(zoneMatches.length && /\b(que hay|contenido|elementos|inventario|guardado|guardados|tengo)\b/.test(q)){
+   const z=zoneMatches[0],items=inv.filter(i=>i.zone===z.id);
+   assistantReply(`Contenido de ${z.name}`,items.length?`<p>Hay <strong>${items.length} elementos</strong> registrados en esta zona.</p>`:'<p>Esta zona todavía está vacía.</p>',
+    items.length?assistantInventoryRows(items):`<div class="assistantCallout"><button class="action" onclick="openZone('${escapeJS(z.id)}')">Abrir zona</button></div>`);
+   return;
+ }
+ if(/\b(mapa|zonas|ubicaciones)\b/.test(q)){
+   assistantReply('Mapa de ubicaciones',`<p>Tenés <strong>${getZones().length} zonas</strong> configuradas.</p>`,
+    `<div class="assistantCallout"><button class="action" onclick="openSection('mapa')">Abrir mapa</button></div>`);
+   return;
+ }
  if(/\b(donde|ubicacion|guardar|guardado|esta|estan)\b/.test(q)){
    const matches=findInventoryMatches(q);
    if(matches.length){
@@ -492,7 +645,8 @@ function renderOperationsHome(){
  put('opComms',o.updated?(o.comms>=100?'Operativas':o.comms>0?'Limitadas':'No disponibles'):'Sin registrar');
  put('opHealth',o.updated?o.healthPercent+'%':'Sin registrar');
  put('opInventory',`${available}/${total} disponibles`);
+ put('opZones',`${getZones().length} zonas`);
 }
 
-loadStatus();renderPendings();renderHomePendings();loadManuals();loadInventory().then(()=>{renderOperationsHome();renderAssistantAlerts();renderAssistantHomeAlerts()});loadOperationsForm();renderOperationsResult();renderOperationsHome();renderAssistantAlerts();renderAssistantHomeAlerts();
+loadStatus();renderPendings();renderHomePendings();loadManuals();loadZones().then(()=>loadInventory()).then(()=>{renderOperationsHome();renderAssistantAlerts();renderAssistantHomeAlerts();renderMap()});loadOperationsForm();renderOperationsResult();renderOperationsHome();renderAssistantAlerts();renderAssistantHomeAlerts();
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js'))}

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "home",
+    "name": "Casa",
+    "icon": "🏠",
+    "description": "Elementos dentro de la vivienda",
+    "builtin": true
+  },
+  {
+    "id": "storage",
+    "name": "Depósito",
+    "icon": "📦",
+    "description": "Equipos y reservas almacenadas",
+    "builtin": true
+  },
+  {
+    "id": "vehicles",
+    "name": "Vehículos",
+    "icon": "🚗",
+    "description": "Elementos guardados en vehículos",
+    "builtin": true
+  },
+  {
+    "id": "water",
+    "name": "Agua",
+    "icon": "💧",
+    "description": "Reservas, filtros y tratamiento",
+    "builtin": true
+  },
+  {
+    "id": "energy",
+    "name": "Energía",
+    "icon": "⚡",
+    "description": "Baterías, paneles y estación de energía",
+    "builtin": true
+  },
+  {
+    "id": "evacuation",
+    "name": "Punto de evacuación",
+    "icon": "🧭",
+    "description": "Elementos preparados para una salida rápida",
+    "builtin": true
+  }
+]
