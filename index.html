@@ -13,7 +13,7 @@
 <header>
   <div class="brand">
     <div><h1>EDY</h1><p>Centro de Supervivencia Digital Familiar</p></div>
-    <div class="headerActions"><span class="versionBadge">1.1</span><div class="pill">OFFLINE</div></div>
+    <div class="headerActions"><span class="versionBadge">1.2</span><div class="pill">OFFLINE</div></div>
   </div>
   <input id="search" placeholder="Buscar: apagón, agua, energía, evacuación…">
 </header>
@@ -396,6 +396,8 @@
     </select></div>
     <div class="field"><label>Cantidad</label><input id="newItemQty" type="number" min="0" value="1"></div>
     <div class="field"><label>Unidad</label><input id="newItemUnit" value="unidad"></div>
+    <div class="field"><label>Stock mínimo</label><input id="newItemMinStock" type="number" min="0" step="any" value="0"></div>
+    <div class="field"><label>Stock objetivo</label><input id="newItemTargetStock" type="number" min="0" step="any" value="0"></div>
     <div class="field"><label>Zona</label><select id="newItemZone"></select></div>
     <div class="field"><label>Ubicación exacta</label><input id="newItemLocation" placeholder="Ej.: Estante 2 · Caja verde"></div>
     <div class="field"><label>Fecha de compra</label><input id="newItemPurchaseDate" type="date"></div>

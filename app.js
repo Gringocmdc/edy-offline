@@ -103,34 +103,52 @@ async function loadInventory(){
  try{
    const r=await fetch('inventory.json');
    inventoryBase=await r.json();
-   let saved=EDYStorage.get('inventory',null);
-   if(!saved){
-     saved=inventoryBase;
-   }else{
-     saved=saved.map(item=>({
-       ...item,
-       critical:Boolean(item.critical),
-       reviewDate:item.reviewDate||'',
-       lastReviewDate:item.lastReviewDate||'',
-       purchaseDate:item.purchaseDate||'',
-       warrantyUntil:item.warrantyUntil||'',
-       responsible:item.responsible||'',
-       model:item.model||'',
-       serial:item.serial||'',
-       reviewIntervalDays:Number(item.reviewIntervalDays)||0,
-       zone:item.zone||inferZoneForItem(item)
-     }));
-   }
-   EDYStorage.set('inventory',saved);
-   renderInventory();
-   renderAssistantAlerts();
-   renderAssistantHomeAlerts();
-   return saved;
+   const normalizeItem=item=>({
+     ...item,
+     qty:Number(item.qty)||0,
+     minStock:Number(item.minStock)||0,
+     targetStock:Number(item.targetStock)||0,
+     lots:Array.isArray(item.lots)?item.lots.map(l=>({...l,qty:Number(l.qty)||0})):[],
+     critical:Boolean(item.critical),
+     reviewDate:item.reviewDate||'',lastReviewDate:item.lastReviewDate||'',purchaseDate:item.purchaseDate||'',
+     warrantyUntil:item.warrantyUntil||'',responsible:item.responsible||'',model:item.model||'',serial:item.serial||'',
+     reviewIntervalDays:Number(item.reviewIntervalDays)||0,zone:item.zone||inferZoneForItem(item)
+   });
+   const saved=(EDYStorage.get('inventory',null)||[]).map(normalizeItem);
+   const savedById=new Map(saved.map(i=>[i.id,i]));
+   const merged=[...saved,...inventoryBase.filter(i=>!savedById.has(i.id)).map(normalizeItem)];
+   EDYStorage.set('inventory',merged);
+   renderInventory();renderAssistantAlerts();renderAssistantHomeAlerts();return merged;
  }catch(e){
    const box=document.getElementById('inventoryCategories');
    if(box) box.innerHTML='<div class="panel">No se pudo cargar el inventario.</div>';
    return [];
  }
+}
+function nextExpiry(item){
+ const valid=(item.lots||[]).filter(l=>l.qty>0&&l.expiry).sort((a,b)=>a.expiry.localeCompare(b.expiry));
+ return valid[0]?.expiry||'';
+}
+function formatDateAR(iso){if(!iso)return 'Sin vencimiento';const [y,m,d]=iso.split('-');return `${d}/${m}/${y}`}
+function stockState(item){if(item.qty<=0)return 'missing';if(item.minStock>0&&item.qty<item.minStock)return 'review';return item.status||'available'}
+function quickAdd(id){
+ const amount=Number(prompt('¿Cuánto querés agregar?'));
+ if(!Number.isFinite(amount)||amount<=0)return;
+ const list=getInventory(),i=list.find(x=>x.id===id);if(!i)return;
+ const expiry=prompt('Vencimiento del nuevo lote (AAAA-MM-DD). Dejá vacío si no corresponde:','')||'';
+ i.qty=Number(i.qty||0)+amount;i.status='available';i.lots=i.lots||[];
+ if(expiry)i.lots.push({id:'lot-'+Date.now(),qty:amount,expiry,note:'Carga manual'});
+ saveInventory(list,`Agregado stock: ${i.name} (+${amount} ${i.unit})`);openItem(id);
+}
+function quickConsume(id,amount=null){
+ const list=getInventory(),i=list.find(x=>x.id===id);if(!i)return;
+ let n=amount===null?Number(prompt(`¿Cuánto querés consumir? (${i.unit})`)):Number(amount);
+ if(!Number.isFinite(n)||n<=0)return;if(n>i.qty)n=i.qty;
+ i.qty=Math.max(0,Number(i.qty||0)-n);let remaining=n;
+ i.lots=(i.lots||[]).sort((a,b)=>(a.expiry||'9999').localeCompare(b.expiry||'9999'));
+ for(const lot of i.lots){const take=Math.min(Number(lot.qty)||0,remaining);lot.qty=Math.max(0,(Number(lot.qty)||0)-take);remaining-=take;if(remaining<=0)break}
+ i.status=i.qty<=0?'missing':(i.minStock>0&&i.qty<i.minStock?'review':'available');
+ saveInventory(list,`Consumido: ${i.name} (-${n} ${i.unit})`);openItem(id);
 }
 function renderInventory(){
  const box=document.getElementById('inventoryCategories');
@@ -153,13 +171,13 @@ function renderInventory(){
      <div class="categoryTitle"><h3>${categoryIcon(cat)} ${cat}</h3><span class="categoryCount">${items.length} elementos</span></div>
      <div class="inventoryList">${items.map(i=>`
        <div class="inventoryItem withThumb" onclick="openItem('${i.id}')">
-         <span class="statusMark ${i.status}"></span>
+         <span class="statusMark ${stockState(i)}"></span>
          <div class="itemThumbnail" data-photo-item="${escapeAttr(i.id)}"><span>${categoryIcon(i.category)}</span></div>
          <div class="itemMain">
            <div class="itemFlags">${i.critical?'<span class="criticalStar" title="Elemento crítico">⭐</span>':''}${reviewStatus(i)==='due'?'<span class="reviewTag">Revisión vencida</span>':reviewStatus(i)==='soon'?'<span class="reviewTag">Revisar pronto</span>':''}</div>
-           <strong>${escapeHTML(i.name)}</strong><div class="itemMeta">${i.qty} ${escapeHTML(i.unit)} · ${escapeHTML(i.location||'Sin registrar')}</div>
+           <strong>${escapeHTML(i.name)}</strong><div class="itemMeta">${i.qty} ${escapeHTML(i.unit)} · ${escapeHTML(i.location||'Sin registrar')}</div><div class="stockMeta">${nextExpiry(i)?'Vence '+formatDateAR(nextExpiry(i)):'Sin vencimiento'}${i.targetStock?' · Objetivo '+i.targetStock+' '+escapeHTML(i.unit):''}</div>
          </div>
-         <span class="statusLabel ${i.status}">${statusText(i.status)}</span>
+         <span class="statusLabel ${stockState(i)}">${statusText(stockState(i))}</span>
        </div>`).join('')}</div>
    </div>`;
  }).join('') || '<div class="panel">No se encontraron elementos.</div>';
@@ -187,6 +205,13 @@ async function openItem(id){
         <div class="reviewNowBox"><div><strong>Revisión rápida</strong><p>Marca el control de hoy y calcula la próxima fecha.</p></div><button class="miniAction" onclick="markReviewedToday()">Revisado hoy</button></div>
       </div>
     </div>
+    <div class="stockControlPanel">
+      <div><span>Stock actual</span><strong>${i.qty} ${escapeHTML(i.unit)}</strong></div>
+      <div><span>Mínimo</span><strong>${i.minStock||0} ${escapeHTML(i.unit)}</strong></div>
+      <div><span>Objetivo</span><strong>${i.targetStock||0} ${escapeHTML(i.unit)}</strong></div>
+      <div class="stockButtons"><button class="action" onclick="quickAdd('${escapeJS(i.id)}')">➕ Agregar</button><button class="action secondary" onclick="quickConsume('${escapeJS(i.id)}')">➖ Consumir</button></div>
+    </div>
+    <div class="lotPanel"><h3>Lotes y vencimientos</h3>${(i.lots||[]).length?(i.lots||[]).map(l=>`<div class="lotRow"><strong>${l.qty} ${escapeHTML(i.unit)}</strong><span>${l.expiry?formatDateAR(l.expiry):'Sin vencimiento'}</span><small>${escapeHTML(l.note||'')}</small></div>`).join(''):'<div class="small">Este elemento no tiene lotes registrados.</div>'}</div>
     <div class="detailGrid">
       <div class="detailField"><span>Estado</span><select id="editStatus" class="editSelect">
         <option value="available" ${i.status==='available'?'selected':''}>Disponible</option>
@@ -196,6 +221,8 @@ async function openItem(id){
       </select></div>
       <div class="detailField"><span>Cantidad</span><input id="editQty" class="editInput" type="number" min="0" value="${i.qty}"></div>
       <div class="detailField"><span>Unidad</span><input id="editUnit" class="editInput" value="${escapeAttr(i.unit)}"></div>
+      <div class="detailField"><span>Stock mínimo</span><input id="editMinStock" class="editInput" type="number" min="0" step="any" value="${i.minStock||0}"></div>
+      <div class="detailField"><span>Stock objetivo</span><input id="editTargetStock" class="editInput" type="number" min="0" step="any" value="${i.targetStock||0}"></div>
       <div class="detailField"><span>Zona</span><select id="editZone" class="editSelect">${zoneOptions(i.zone)}</select></div>
       <div class="detailField"><span>Ubicación exacta</span><input id="editLocation" class="editInput" value="${escapeAttr(i.location||'')}" placeholder="Estante 2 · Caja verde"></div>
       <div class="detailField"><span>Marca / modelo</span><input id="editModel" class="editInput" value="${escapeAttr(i.model||'')}"></div>
@@ -219,6 +246,8 @@ function saveCurrentItem(){
  i.status=document.getElementById('editStatus').value;
  i.qty=Number(document.getElementById('editQty').value)||0;
  i.unit=document.getElementById('editUnit').value.trim()||'unidad';
+ i.minStock=Number(document.getElementById('editMinStock').value)||0;
+ i.targetStock=Number(document.getElementById('editTargetStock').value)||0;
  i.zone=document.getElementById('editZone').value||'';
  i.location=document.getElementById('editLocation').value.trim()||'Sin registrar';
  i.model=document.getElementById('editModel').value.trim();
@@ -246,6 +275,9 @@ function addInventoryItem(){
    status:document.getElementById('newItemStatus').value,
    qty:Number(document.getElementById('newItemQty').value)||0,
    unit:document.getElementById('newItemUnit').value.trim()||'unidad',
+   minStock:Number(document.getElementById('newItemMinStock').value)||0,
+   targetStock:Number(document.getElementById('newItemTargetStock').value)||0,
+   lots:[],
    zone:document.getElementById('newItemZone').value||'',
    location:document.getElementById('newItemLocation').value.trim()||'Sin registrar',
    model:document.getElementById('newItemModel').value.trim(),
