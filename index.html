@@ -13,7 +13,7 @@
 <header>
   <div class="brand">
     <div><h1>EDY</h1><p>Centro de Supervivencia Digital Familiar</p></div>
-    <div class="pill">OFFLINE</div>
+    <div class="headerActions"><span class="versionBadge">1.1</span><div class="pill">OFFLINE</div></div>
   </div>
   <input id="search" placeholder="Buscar: apagón, agua, energía, evacuación…">
 </header>
@@ -80,6 +80,14 @@
   </div>
 
 
+  <div class="titleRow"><h2>Plan de preparación</h2><button class="back" onclick="openSection('checklists')">Abrir listas</button></div>
+  <div class="prepPanel">
+    <div class="prepScore"><div id="integratedScoreRing" class="miniScoreRing"><span id="integratedScore">0%</span></div><div><strong>Preparación integrada</strong><p id="integratedScoreText">Analizando inventario, mantenimiento y listas.</p></div></div>
+    <div id="homeChecklistProgress" class="homeChecklistProgress"></div>
+  </div>
+  <div class="titleRow"><h2>Recomendaciones de EDY</h2><button class="back" onclick="openSection('diagnostico')">Ver diagnóstico</button></div>
+  <div id="readinessInsights" class="readinessInsights"></div>
+
   <div class="titleRow"><h2>Alertas inteligentes</h2><button class="back" onclick="openSection('asistente')">Abrir asistente</button></div>
   <div id="assistantHomeAlerts" class="assistantHomeAlerts"></div>
 
@@ -92,11 +100,12 @@
     <div class="card assistantFeatured" onclick="openSection('asistente')"><div class="icon">🧠</div><h3>Asistente EDY</h3><p>Consulta inventario y protocolos sin Internet.</p></div>
     <div class="card inventoryFeatured" onclick="openSection('inventario')"><div class="icon">📦</div><h3>Inventario</h3><p>Equipos, estados y cantidades.</p></div>
     <div class="card" onclick="openSection('agua')"><div class="icon">💧</div><h3>Agua</h3><p>Reserva y autonomía.</p></div>
-    <div class="card" onclick="openSection('energia')"><div class="icon">⚡</div><h3>Energía</h3><p>Forza y consumos.</p></div>
+    <div class="card" onclick="openSection('energia')"><div class="icon">⚡</div><h3>Energía</h3><p>Baterías y consumos.</p></div>
     <div class="card" onclick="openSection('biblioteca')"><div class="icon">📚</div><h3>Biblioteca</h3><p>Consulta offline.</p></div>
     <div class="card" onclick="openSection('mascotas')"><div class="icon">🐶</div><h3>Mascotas</h3><p>Evacuación y cuidado.</p></div>
     <div class="card" onclick="openSection('estado')"><div class="icon">🏠</div><h3>Estado</h3><p>Actualizar el hogar.</p></div>
     <div class="card operationsFeatured" onclick="openSection('operaciones')"><div class="icon">🧭</div><h3>Operaciones</h3><p>Autonomía y preparación.</p></div>
+    <div class="card checklistFeatured" onclick="openSection('checklists')"><div class="icon">✅</div><h3>Checklists</h3><p>Listas de preparación y evacuación.</p></div>
     <div class="card timelineFeatured" onclick="openSection('timeline')"><div class="icon">🕒</div><h3>Actividad</h3><p>Historial de cambios y revisiones.</p></div>
     <div class="card maintenanceFeatured" onclick="openSection('mantenimiento')"><div class="icon">🔧</div><h3>Mantenimiento</h3><p>Revisiones próximas y vencidas.</p></div>
     <div class="card" onclick="openSection('privacidad')"><div class="icon">🔒</div><h3>Privacidad</h3><p>Datos locales y públicos.</p></div>
@@ -124,6 +133,44 @@
 
 
 
+
+
+<section id="checklists" class="section">
+  <button class="back" onclick="home()">← Inicio</button>
+  <div class="sectionHeader"><div><h2>✅ Checklists</h2><p>Listas operativas para preparar, revisar y actuar sin olvidar pasos.</p></div><button class="action" onclick="openSection('nuevaChecklist')">Nueva lista</button></div>
+  <div class="checklistSummary">
+    <div class="mapStat"><strong id="checklistTotal">0</strong><span>Listas</span></div>
+    <div class="mapStat"><strong id="checklistActive">0</strong><span>En progreso</span></div>
+    <div class="mapStat"><strong id="checklistCompleted">0</strong><span>Completadas</span></div>
+    <div class="mapStat"><strong id="checklistAvg">0%</strong><span>Avance general</span></div>
+  </div>
+  <div id="checklistCards" class="checklistCards"></div>
+</section>
+
+<section id="checklistDetail" class="section">
+  <button class="back" onclick="openSection('checklists')">← Checklists</button>
+  <div id="checklistDetailContent"></div>
+</section>
+
+<section id="nuevaChecklist" class="section">
+  <button class="back" onclick="openSection('checklists')">← Checklists</button>
+  <h2>Nueva checklist</h2>
+  <div class="formGrid">
+    <div class="field"><label>Nombre</label><input id="newChecklistTitle" placeholder="Ej.: Salida de vacaciones"></div>
+    <div class="field"><label>Ícono</label><input id="newChecklistIcon" value="✅" maxlength="4"></div>
+    <div class="field wide"><label>Descripción</label><textarea id="newChecklistDescription" placeholder="Objetivo de la lista"></textarea></div>
+    <div class="field wide"><label>Pasos</label><textarea id="newChecklistItems" rows="10" placeholder="Escribí un paso por línea"></textarea></div>
+  </div>
+  <div class="actions"><button class="action" onclick="createChecklist()">Crear checklist</button></div>
+</section>
+
+<section id="diagnostico" class="section">
+  <button class="back" onclick="home()">← Inicio</button>
+  <div class="sectionHeader"><div><h2>🧠 Diagnóstico de preparación</h2><p>EDY analiza únicamente los datos guardados en este dispositivo.</p></div></div>
+  <div class="diagnosticHero"><div id="diagnosticRing" class="diagnosticRing"><span id="diagnosticScore">0%</span></div><div><h3 id="diagnosticTitle">Calculando…</h3><p id="diagnosticText"></p></div></div>
+  <div id="diagnosticList" class="diagnosticList"></div>
+  <div class="assistantDisclaimer">Las recomendaciones son organizativas y preventivas. No reemplazan indicaciones de autoridades, profesionales médicos ni servicios de emergencia.</div>
+</section>
 
 <section id="timeline" class="section">
   <button class="back" onclick="home()">← Inicio</button>
@@ -183,7 +230,7 @@
     <button onclick="activateEmergency('storm')">⛈️<strong>Tormenta fuerte</strong></button>
     <button onclick="openSection('mapa')">🗺️<strong>Mapa</strong></button>
     <button onclick="openCriticalInventory()">⭐<strong>Inventario crítico</strong></button>
-    <button onclick="openSection('asistente')">🧠<strong>Asistente EDY</strong></button>
+    <button onclick="openChecklist('evacuation-10')">✅<strong>Checklist de salida</strong></button><button onclick="openSection('asistente')">🧠<strong>Asistente EDY</strong></button>
   </div>
   <div class="crisisEssentials">
     <h3>Elementos críticos disponibles</h3>
@@ -243,13 +290,13 @@
   <div class="assistantBox">
     <label for="assistantQuery">¿Qué necesitás saber?</label>
     <div class="assistantInputRow">
-      <input id="assistantQuery" placeholder="Ej.: ¿Dónde está la Forza?" onkeydown="if(event.key==='Enter')assistantAsk()">
+      <input id="assistantQuery" placeholder="Ej.: ¿Dónde está la estación de energía?" onkeydown="if(event.key==='Enter')assistantAsk()">
       <button class="action" onclick="assistantAsk()">Consultar</button>
     </div>
     <div class="assistantPrompts">
       <button onclick="assistantAsk('¿Qué me falta comprar?')">Qué falta comprar</button>
       <button onclick="assistantAsk('¿Cuánta autonomía de agua tengo?')">Autonomía de agua</button>
-      <button onclick="assistantAsk('¿Dónde está la Forza?')">Dónde está la Forza</button>
+      <button onclick="assistantAsk('¿Dónde está la estación de energía?')">Estación de energía</button>
       <button onclick="assistantAsk('¿Qué hago ante un corte de energía?')">Corte de energía</button>
       <button onclick="assistantAsk('¿Qué necesito para evacuar?')">Evacuación</button>
     </div>
@@ -324,7 +371,7 @@
     <div class="summaryCard critical"><strong id="invCritical">0</strong><span>Críticos</span></div>
   </div>
 
-  <div class="field"><label>Buscar en el inventario</label><input id="inventorySearch" placeholder="Ej.: Forza, filtro, TOTAL…" oninput="renderInventory()"></div>
+  <div class="field"><label>Buscar en el inventario</label><input id="inventorySearch" placeholder="Ej.: linterna, filtro, botiquín…" oninput="renderInventory()"></div>
   <div id="inventoryCategories"></div>
 </section>
 
@@ -355,7 +402,10 @@
     <div class="field"><label>Última revisión</label><input id="newItemLastReviewDate" type="date"></div>
     <div class="field"><label>Próxima revisión</label><input id="newItemReviewDate" type="date"></div>
     <div class="field"><label>Garantía hasta</label><input id="newItemWarrantyUntil" type="date"></div>
-    <div class="field"><label>Responsable</label><input id="newItemResponsible" placeholder="Ej.: Darío"></div>
+    <div class="field"><label>Marca / modelo</label><input id="newItemModel" placeholder="Opcional"></div>
+    <div class="field"><label>Número de serie</label><input id="newItemSerial" placeholder="Se guarda solo en este dispositivo"></div>
+    <div class="field"><label>Responsable</label><input id="newItemResponsible" placeholder="Ej.: responsable familiar"></div>
+    <div class="field"><label>Frecuencia de revisión</label><select id="newItemReviewInterval"><option value="0">Sin frecuencia</option><option value="30">Cada 30 días</option><option value="90">Cada 90 días</option><option value="180">Cada 6 meses</option><option value="365">Cada año</option></select></div>
     <div class="field checkField"><label><input id="newItemCritical" type="checkbox"> Elemento crítico</label></div>
     <div class="field wide"><label>Observaciones</label><textarea id="newItemNotes"></textarea></div>
   </div>
@@ -366,11 +416,11 @@
   <button class="back" onclick="home()">← Inicio</button><h2>Estado del hogar</h2>
   <div class="panel"><p>Estos datos se guardan solamente en este dispositivo.</p></div>
   <div class="formGrid">
-    <div class="field"><label>Nombre para el saludo</label><input id="nameInput" placeholder="Darío"></div>
+    <div class="field"><label>Nombre para el saludo</label><input id="nameInput" placeholder="Nombre"></div>
     <div class="field"><label>Nivel general</label><select id="levelInput"><option value="green">Verde · Todo normal</option><option value="amber">Amarillo · Atención</option><option value="red">Rojo · Emergencia</option></select></div>
     <div class="field"><label>Agua</label><select id="waterStatus"><option value="green">Disponible</option><option value="amber">Limitada</option><option value="red">No disponible</option></select><input id="waterText" placeholder="Ej.: 120 litros"></div>
-    <div class="field"><label>Energía</label><select id="energyStatus"><option value="green">Disponible</option><option value="amber">Limitada</option><option value="red">No disponible</option></select><input id="energyText" placeholder="Ej.: Forza 85%"></div>
-    <div class="field"><label>Comunicaciones</label><select id="commsStatus"><option value="green">Disponible</option><option value="amber">Limitada</option><option value="red">No disponible</option></select><input id="commsText" placeholder="Ej.: iPad + Starlink"></div>
+    <div class="field"><label>Energía</label><select id="energyStatus"><option value="green">Disponible</option><option value="amber">Limitada</option><option value="red">No disponible</option></select><input id="energyText" placeholder="Ej.: estación de energía 85%"></div>
+    <div class="field"><label>Comunicaciones</label><select id="commsStatus"><option value="green">Disponible</option><option value="amber">Limitada</option><option value="red">No disponible</option></select><input id="commsText" placeholder="Ej.: teléfonos + enlace de datos"></div>
     <div class="field"><label>Botiquín</label><select id="healthStatus"><option value="green">Completo</option><option value="amber">Revisar</option><option value="red">Incompleto</option></select><input id="healthText" placeholder="Ej.: falta gasa"></div>
     <div class="field wide"><label>Observaciones</label><textarea id="notesInput" placeholder="Pendientes importantes"></textarea></div>
   </div>
@@ -417,8 +467,8 @@
 <label class="check"><input type="checkbox" data-key="ap2"><span>Revisar si el corte es solo de la vivienda o de la zona.</span></label>
 <label class="check"><input type="checkbox" data-key="ap3"><span>Desconectar consumos innecesarios y dejar la heladera cerrada.</span></label>
 <label class="check"><input type="checkbox" data-key="ap4"><span>Activar modo de bajo consumo en iPad y teléfonos.</span></label>
-<label class="check"><input type="checkbox" data-key="ap5"><span>Reservar la Forza para iluminación, comunicación y cargas esenciales.</span></label>
-<label class="check"><input type="checkbox" data-key="ap6"><span>Encender Starlink solo durante ventanas de comunicación.</span></label></section>
+<label class="check"><input type="checkbox" data-key="ap5"><span>Reservar la estación de energía para iluminación, comunicación y cargas esenciales.</span></label>
+<label class="check"><input type="checkbox" data-key="ap6"><span>Usar enlaces de alto consumo solo durante ventanas de comunicación.</span></label></section>
 
 <section id="sinagua" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🚱 Falta de agua</h2><div class="panel red">No beber agua dudosa solo porque parezca limpia.</div>
 <label class="check"><input type="checkbox" data-key="ag1"><span>Contar toda el agua potable disponible.</span></label>
@@ -447,15 +497,23 @@
 
 <section id="biblioteca" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>📚 Biblioteca</h2><div id="manualList"></div></section>
 <section id="salud" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🩺 Salud</h2><div class="panel"><p>Proteger, alertar y socorrer. No reemplaza atención médica.</p></div></section>
-<section id="comunicaciones" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>📡 Comunicaciones</h2><div class="panel"><ul><li>Modo de bajo consumo.</li><li>Brillo mínimo legible.</li><li>Modo avión cuando no se necesiten enlaces.</li><li>Starlink solo en ventanas de comunicación.</li></ul></div></section>
+<section id="comunicaciones" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>📡 Comunicaciones</h2><div class="panel"><ul><li>Modo de bajo consumo.</li><li>Brillo mínimo legible.</li><li>Modo avión cuando no se necesiten enlaces.</li><li>Usar enlaces de alto consumo solo en ventanas de comunicación.</li></ul></div></section>
 <section id="mascotas" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🐶 Mascotas</h2><div class="panel"><ul><li>Correas o transportadoras accesibles.</li><li>Agua, alimento y manta.</li><li>No soltarlas durante una evacuación.</li></ul></div></section>
-<section id="privacidad" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🔒 Privacidad</h2><div class="panel red"><strong>Nunca publicar:</strong> domicilios, teléfonos privados, documentos, contraseñas, ubicaciones de equipos, inventario de armas o municiones, números de serie ni información médica identificable.</div></section>
+<section id="privacidad" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🔒 Privacidad</h2><div class="panel privacyUpgrade"><strong>Datos locales:</strong> el inventario personal, las fotografías, ubicaciones y números de serie se guardan en este dispositivo y no forman parte del archivo público de EDY.</div><div class="panel red"><strong>Nunca publicar:</strong> domicilios, teléfonos privados, documentos, contraseñas, ubicaciones de equipos, inventario de armas o municiones, números de serie ni información médica identificable.</div><div class="panel"><strong>Respaldo:</strong> el archivo exportado puede contener toda esa información. Guardalo en una ubicación privada y segura.</div></section>
 <section id="results" class="section"><button class="back" onclick="home()">← Inicio</button><h2>🔍 Resultados</h2><div id="list"></div></section>
 </main>
+<nav class="bottomNav" aria-label="Navegación principal">
+  <button onclick="home()"><span>🏠</span><small>Inicio</small></button>
+  <button onclick="openSection('inventario')"><span>📦</span><small>Inventario</small></button>
+  <button onclick="openSection('checklists')"><span>✅</span><small>Listas</small></button>
+  <button onclick="openSection('mapa')"><span>🗺️</span><small>Mapa</small></button>
+  <button class="navCrisis" onclick="enterCrisisMode()"><span>🚨</span><small>Crisis</small></button>
+</nav>
 
-<footer>EDY Offline · v1.0 Beta · Sistema Integrado</footer>
+<footer>EDY Offline · v1.1 · Fichas y Checklists</footer>
 <script src="storage.js"></script>
 <script src="calculator.js"></script>
+<script src="media.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

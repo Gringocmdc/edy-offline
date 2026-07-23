@@ -1,0 +1,252 @@
+[
+  {
+    "id": "evacuation-10",
+    "title": "Evacuación · 10 minutos",
+    "icon": "🚗",
+    "description": "Salida rápida con personas, mascotas y elementos esenciales.",
+    "crisisType": "evacuation",
+    "custom": false,
+    "items": [
+      {
+        "id": "family",
+        "text": "Reunir a todas las personas y confirmar que nadie quede atrás.",
+        "done": false
+      },
+      {
+        "id": "route",
+        "text": "Confirmar ruta de salida y punto de reunión.",
+        "done": false
+      },
+      {
+        "id": "meds",
+        "text": "Tomar medicación habitual y botiquín.",
+        "done": false
+      },
+      {
+        "id": "docs",
+        "text": "Tomar documentación esencial y llaves.",
+        "done": false
+      },
+      {
+        "id": "water",
+        "text": "Cargar agua potable y alimentos rápidos.",
+        "done": false
+      },
+      {
+        "id": "phones",
+        "text": "Llevar teléfonos, cargadores y batería portátil.",
+        "done": false
+      },
+      {
+        "id": "pets",
+        "text": "Asegurar mascotas con correas o transportadoras.",
+        "done": false
+      },
+      {
+        "id": "bags",
+        "text": "Cargar mochilas de 72 horas si están accesibles.",
+        "done": false
+      },
+      {
+        "id": "utilities",
+        "text": "Cerrar gas o energía únicamente si es seguro.",
+        "done": false
+      },
+      {
+        "id": "notify",
+        "text": "Avisar a un contacto externo y salir.",
+        "done": false
+      }
+    ]
+  },
+  {
+    "id": "power-outage",
+    "title": "Corte de energía",
+    "icon": "🔌",
+    "description": "Preparación inicial durante los primeros minutos del corte.",
+    "crisisType": "power",
+    "custom": false,
+    "items": [
+      {
+        "id": "scope",
+        "text": "Verificar si el corte es interno o general.",
+        "done": false
+      },
+      {
+        "id": "hazards",
+        "text": "Comprobar que no haya humo, chispas ni cables dañados.",
+        "done": false
+      },
+      {
+        "id": "unplug",
+        "text": "Desconectar equipos sensibles y consumos innecesarios.",
+        "done": false
+      },
+      {
+        "id": "lights",
+        "text": "Distribuir linternas y reducir el uso de baterías.",
+        "done": false
+      },
+      {
+        "id": "power",
+        "text": "Revisar la estación de energía y reservarla para lo esencial.",
+        "done": false
+      },
+      {
+        "id": "cold",
+        "text": "Mantener heladera y freezer cerrados.",
+        "done": false
+      },
+      {
+        "id": "comms",
+        "text": "Definir ventanas breves de comunicación.",
+        "done": false
+      },
+      {
+        "id": "time",
+        "text": "Registrar la hora de inicio del corte.",
+        "done": false
+      }
+    ]
+  },
+  {
+    "id": "monthly-review",
+    "title": "Revisión mensual",
+    "icon": "🗓️",
+    "description": "Control preventivo del sistema familiar.",
+    "crisisType": "",
+    "custom": false,
+    "items": [
+      {
+        "id": "water",
+        "text": "Controlar reservas, envases y filtros de agua.",
+        "done": false
+      },
+      {
+        "id": "food",
+        "text": "Revisar alimentos, vencimientos y rotación.",
+        "done": false
+      },
+      {
+        "id": "firstaid",
+        "text": "Revisar botiquín y medicación de uso habitual.",
+        "done": false
+      },
+      {
+        "id": "energy",
+        "text": "Probar estación de energía, paneles y cargadores.",
+        "done": false
+      },
+      {
+        "id": "lights",
+        "text": "Probar linternas, pilas y radios.",
+        "done": false
+      },
+      {
+        "id": "bags",
+        "text": "Revisar mochilas de emergencia.",
+        "done": false
+      },
+      {
+        "id": "pets",
+        "text": "Comprobar suministros y transporte para mascotas.",
+        "done": false
+      },
+      {
+        "id": "docs",
+        "text": "Verificar copias y vigencia de documentación.",
+        "done": false
+      },
+      {
+        "id": "backup",
+        "text": "Exportar un respaldo actualizado de EDY.",
+        "done": false
+      }
+    ]
+  },
+  {
+    "id": "vehicle-ready",
+    "title": "Vehículo listo para salir",
+    "icon": "🚙",
+    "description": "Control básico antes de una salida o evacuación.",
+    "crisisType": "evacuation",
+    "custom": false,
+    "items": [
+      {
+        "id": "fuel",
+        "text": "Combustible suficiente para la ruta prevista.",
+        "done": false
+      },
+      {
+        "id": "tires",
+        "text": "Neumáticos y auxilio en condiciones.",
+        "done": false
+      },
+      {
+        "id": "keys",
+        "text": "Llaves y documentación del vehículo accesibles.",
+        "done": false
+      },
+      {
+        "id": "water",
+        "text": "Agua potable dentro del vehículo.",
+        "done": false
+      },
+      {
+        "id": "kit",
+        "text": "Botiquín, linterna y elementos de señalización.",
+        "done": false
+      },
+      {
+        "id": "charger",
+        "text": "Cable de carga y batería portátil.",
+        "done": false
+      },
+      {
+        "id": "route",
+        "text": "Ruta principal y alternativa revisadas.",
+        "done": false
+      }
+    ]
+  },
+  {
+    "id": "pets-ready",
+    "title": "Mascotas preparadas",
+    "icon": "🐾",
+    "description": "Elementos necesarios para evacuar con mascotas.",
+    "crisisType": "evacuation",
+    "custom": false,
+    "items": [
+      {
+        "id": "restraints",
+        "text": "Correas, arneses o transportadoras accesibles.",
+        "done": false
+      },
+      {
+        "id": "water",
+        "text": "Agua y recipiente portátil.",
+        "done": false
+      },
+      {
+        "id": "food",
+        "text": "Alimento para varios días.",
+        "done": false
+      },
+      {
+        "id": "meds",
+        "text": "Medicación y cuidados especiales preparados.",
+        "done": false
+      },
+      {
+        "id": "records",
+        "text": "Datos veterinarios y fotografías recientes disponibles.",
+        "done": false
+      },
+      {
+        "id": "blanket",
+        "text": "Manta, bolsas y elementos de higiene.",
+        "done": false
+      }
+    ]
+  }
+]
