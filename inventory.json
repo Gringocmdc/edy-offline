@@ -1,551 +1,876 @@
 [
   {
-    "id": "food-rice-sabor-sul",
-    "name": "Arroz Sabor Sul Tipo 1",
-    "category": "Alimentos",
+    "id": "starter-arroz-sabor-sul",
+    "starter": true,
+    "name": "Arroz Tipo 1",
+    "brand": "Sabor Sul",
+    "model": "Sabor Sul",
+    "category": "Despensa",
     "status": "available",
     "qty": 20,
     "unit": "kg",
-    "location": "Despensa",
-    "model": "Sabor Sul",
-    "critical": true,
-    "minStock": 10,
-    "targetStock": 25,
-    "lots": [
-      {
-        "id": "lot-ss-2027",
-        "qty": 20,
-        "expiry": "2027-07-07",
-        "note": "4 paquetes de 5 kg"
-      }
-    ],
-    "notes": "Reserva familiar. Consumir primero el lote con vencimiento más próximo.",
     "zone": "home",
+    "location": "Sin registrar",
+    "critical": true,
+    "minStock": null,
+    "targetStock": null,
     "purchaseDate": "",
     "lastReviewDate": "",
     "reviewDate": "",
     "warrantyUntil": "",
     "responsible": "",
     "serial": "",
-    "reviewIntervalDays": 0
+    "reviewIntervalDays": 0,
+    "notes": "4 paquetes de 5 kg.",
+    "lots": [
+      {
+        "id": "starter-arroz-sabor-sul-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 20,
+        "purchaseDate": "",
+        "expiryDate": "2027-07-07",
+        "notes": "4 paquetes de 5 kg."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-arroz-sabor-sul-initial",
+        "type": "initial",
+        "qty": 20,
+        "date": "2026-07-23T20:00:00-03:00",
+        "note": "Inventario inicial confirmado"
+      }
+    ],
+    "packageCount": 4,
+    "packageSize": 5,
+    "packageUnit": "kg"
   },
   {
-    "id": "food-rice-tio-joao",
-    "name": "Arroz Tío João",
-    "category": "Alimentos",
+    "id": "starter-arroz-tio-joao",
+    "starter": true,
+    "name": "Arroz",
+    "brand": "Tío João",
+    "model": "Tío João",
+    "category": "Despensa",
     "status": "available",
     "qty": 5,
     "unit": "kg",
-    "location": "Despensa",
-    "model": "Tío João",
-    "critical": true,
-    "minStock": 5,
-    "targetStock": 15,
-    "lots": [
-      {
-        "id": "lot-tj-2026",
-        "qty": 5,
-        "expiry": "2026-11-21",
-        "note": "1 paquete de 5 kg"
-      }
-    ],
-    "notes": "Consumir antes que el arroz Sabor Sul por vencimiento.",
     "zone": "home",
+    "location": "Sin registrar",
+    "critical": true,
+    "minStock": null,
+    "targetStock": null,
     "purchaseDate": "",
     "lastReviewDate": "",
     "reviewDate": "",
     "warrantyUntil": "",
     "responsible": "",
     "serial": "",
-    "reviewIntervalDays": 0
+    "reviewIntervalDays": 0,
+    "notes": "1 paquete de 5 kg.",
+    "lots": [
+      {
+        "id": "starter-arroz-tio-joao-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 5,
+        "purchaseDate": "",
+        "expiryDate": "2026-11-21",
+        "notes": "1 paquete de 5 kg."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-arroz-tio-joao-initial",
+        "type": "initial",
+        "qty": 5,
+        "date": "2026-07-23T20:00:00-03:00",
+        "note": "Inventario inicial confirmado"
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 5,
+    "packageUnit": "kg"
   },
   {
-    "id": "food-sugar-alto-alegre",
-    "name": "Azúcar Alto Alegre",
-    "category": "Alimentos",
+    "id": "starter-azucar-alto-alegre",
+    "starter": true,
+    "name": "Azúcar",
+    "brand": "Alto Alegre",
+    "model": "Alto Alegre",
+    "category": "Despensa",
     "status": "available",
     "qty": 10,
     "unit": "kg",
-    "location": "Despensa",
-    "model": "Alto Alegre",
-    "critical": false,
-    "minStock": 5,
-    "targetStock": 10,
-    "lots": [
-      {
-        "id": "lot-sugar-2028",
-        "qty": 10,
-        "expiry": "2028-07-08",
-        "note": "2 paquetes de 5 kg"
-      }
-    ],
-    "notes": "",
     "zone": "home",
+    "location": "Sin registrar",
+    "critical": true,
+    "minStock": null,
+    "targetStock": null,
     "purchaseDate": "",
     "lastReviewDate": "",
     "reviewDate": "",
     "warrantyUntil": "",
     "responsible": "",
     "serial": "",
-    "reviewIntervalDays": 0
+    "reviewIntervalDays": 0,
+    "notes": "2 paquetes de 5 kg.",
+    "lots": [
+      {
+        "id": "starter-azucar-alto-alegre-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 10,
+        "purchaseDate": "",
+        "expiryDate": "2028-07-08",
+        "notes": "2 paquetes de 5 kg."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-azucar-alto-alegre-initial",
+        "type": "initial",
+        "qty": 10,
+        "date": "2026-07-23T20:00:00-03:00",
+        "note": "Inventario inicial confirmado"
+      }
+    ],
+    "packageCount": 2,
+    "packageSize": 5,
+    "packageUnit": "kg"
   },
   {
-    "id": "food-pasta-galo",
-    "name": "Espagueti Galo",
-    "category": "Alimentos",
+    "id": "starter-pasta-galo",
+    "starter": true,
+    "name": "Espagueti",
+    "brand": "Galo",
+    "model": "Galo",
+    "category": "Despensa",
     "status": "available",
     "qty": 15,
     "unit": "kg",
-    "location": "Despensa",
-    "model": "Galo",
-    "critical": true,
-    "minStock": 5,
-    "targetStock": 15,
-    "lots": [
-      {
-        "id": "lot-galo-2028",
-        "qty": 15,
-        "expiry": "2028-05-22",
-        "note": "30 paquetes de 500 g"
-      }
-    ],
-    "notes": "",
     "zone": "home",
+    "location": "Sin registrar",
+    "critical": true,
+    "minStock": null,
+    "targetStock": null,
     "purchaseDate": "",
     "lastReviewDate": "",
     "reviewDate": "",
     "warrantyUntil": "",
     "responsible": "",
     "serial": "",
-    "reviewIntervalDays": 0
+    "reviewIntervalDays": 0,
+    "notes": "30 paquetes de 500 g.",
+    "lots": [
+      {
+        "id": "starter-pasta-galo-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 15,
+        "purchaseDate": "",
+        "expiryDate": "2028-05-22",
+        "notes": "30 paquetes de 500 g."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-pasta-galo-initial",
+        "type": "initial",
+        "qty": 15,
+        "date": "2026-07-23T20:00:00-03:00",
+        "note": "Inventario inicial confirmado"
+      }
+    ],
+    "packageCount": 30,
+    "packageSize": 500,
+    "packageUnit": "g"
   },
   {
-    "id": "food-pasta-matarazzo",
-    "name": "Espagueti Matarazzo Nº7",
-    "category": "Alimentos",
+    "id": "starter-pasta-matarazzo",
+    "starter": true,
+    "name": "Espagueti N.º 7",
+    "brand": "Matarazzo",
+    "model": "Matarazzo",
+    "category": "Despensa",
     "status": "available",
     "qty": 1,
     "unit": "kg",
-    "location": "Despensa",
-    "model": "Matarazzo Nº7",
-    "critical": false,
-    "minStock": 1,
-    "targetStock": 3,
-    "lots": [
-      {
-        "id": "lot-matarazzo-2027",
-        "qty": 1,
-        "expiry": "2027-12-29",
-        "note": "2 paquetes de 500 g"
-      }
-    ],
-    "notes": "",
     "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
     "purchaseDate": "",
     "lastReviewDate": "",
     "reviewDate": "",
     "warrantyUntil": "",
     "responsible": "",
     "serial": "",
-    "reviewIntervalDays": 0
+    "reviewIntervalDays": 0,
+    "notes": "2 paquetes de 500 g.",
+    "lots": [
+      {
+        "id": "starter-pasta-matarazzo-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 1,
+        "purchaseDate": "",
+        "expiryDate": "2027-12-29",
+        "notes": "2 paquetes de 500 g."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-pasta-matarazzo-initial",
+        "type": "initial",
+        "qty": 1,
+        "date": "2026-07-23T20:00:00-03:00",
+        "note": "Inventario inicial confirmado"
+      }
+    ],
+    "packageCount": 2,
+    "packageSize": 500,
+    "packageUnit": "g"
   },
   {
-    "id": "food-pasta-paganini",
-    "name": "Pasta Paganini Pomodoro e Spinaci",
-    "category": "Alimentos",
+    "id": "starter-pasta-paganini",
+    "starter": true,
+    "name": "Pasta Pomodoro e Spinaci",
+    "brand": "Paganini",
+    "model": "Paganini",
+    "category": "Despensa",
     "status": "available",
     "qty": 0.3,
     "unit": "kg",
-    "location": "Despensa",
-    "model": "Paganini",
+    "zone": "home",
+    "location": "Sin registrar",
     "critical": false,
-    "minStock": 0,
-    "targetStock": 1,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 0,
+    "notes": "1 paquete de 300 g.",
     "lots": [
       {
-        "id": "lot-paganini-2028",
+        "id": "starter-pasta-paganini-lot-1",
+        "lotNumber": "Sin registrar",
         "qty": 0.3,
-        "expiry": "2028-06-04",
-        "note": "1 paquete de 300 g"
+        "purchaseDate": "",
+        "expiryDate": "2028-06-04",
+        "notes": "1 paquete de 300 g."
       }
     ],
-    "notes": "",
+    "movements": [
+      {
+        "id": "starter-pasta-paganini-initial",
+        "type": "initial",
+        "qty": 0.3,
+        "date": "2026-07-23T20:00:00-03:00",
+        "note": "Inventario inicial confirmado"
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 300,
+    "packageUnit": "g"
+  },
+  {
+    "id": "starter-leche-ninho",
+    "starter": true,
+    "name": "Leche en polvo",
+    "brand": "Nestlé Ninho",
+    "model": "Nestlé Ninho",
+    "category": "Despensa",
+    "status": "available",
+    "qty": 2,
+    "unit": "lata",
     "zone": "home",
+    "location": "Sin registrar",
+    "critical": true,
+    "minStock": null,
+    "targetStock": null,
     "purchaseDate": "",
     "lastReviewDate": "",
     "reviewDate": "",
     "warrantyUntil": "",
     "responsible": "",
     "serial": "",
-    "reviewIntervalDays": 0
-  },
-  {
-    "id": "food-milk-ninho",
-    "name": "Leche en polvo Nestlé Ninho",
-    "category": "Alimentos",
-    "status": "available",
-    "qty": 0.76,
-    "unit": "kg",
-    "location": "Despensa",
-    "model": "Nestlé Ninho",
-    "critical": true,
-    "minStock": 0.76,
-    "targetStock": 2,
+    "reviewIntervalDays": 0,
+    "notes": "2 latas de 380 g.",
     "lots": [
       {
-        "id": "lot-ninho-2027",
-        "qty": 0.76,
-        "expiry": "2027-07-01",
-        "note": "2 envases de 380 g"
+        "id": "starter-leche-ninho-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 2,
+        "purchaseDate": "",
+        "expiryDate": "2027-07-01",
+        "notes": "2 latas de 380 g."
       }
     ],
-    "notes": "",
-    "zone": "home",
-    "purchaseDate": "",
-    "lastReviewDate": "",
-    "reviewDate": "",
-    "warrantyUntil": "",
-    "responsible": "",
-    "serial": "",
-    "reviewIntervalDays": 0
+    "movements": [
+      {
+        "id": "starter-leche-ninho-initial",
+        "type": "initial",
+        "qty": 2,
+        "date": "2026-07-23T20:00:00-03:00",
+        "note": "Inventario inicial confirmado"
+      }
+    ],
+    "packageCount": 2,
+    "packageSize": 380,
+    "packageUnit": "g"
   },
   {
-    "id": "food-chocolate-hersheys",
-    "name": "Chocolate Hershey's",
-    "category": "Alimentos",
+    "id": "starter-chocolate-hersheys",
+    "starter": true,
+    "name": "Chocolate",
+    "brand": "Hershey’s",
+    "model": "Hershey’s",
+    "category": "Despensa",
     "status": "available",
     "qty": 7,
-    "unit": "barras",
-    "location": "Despensa",
-    "model": "Hershey's 82 g",
+    "unit": "barra",
+    "zone": "home",
+    "location": "Sin registrar",
     "critical": false,
-    "minStock": 3,
-    "targetStock": 10,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 0,
+    "notes": "7 barras de 82 g.",
     "lots": [
       {
-        "id": "lot-hersheys-2027",
+        "id": "starter-chocolate-hersheys-lot-1",
+        "lotNumber": "Sin registrar",
         "qty": 7,
-        "expiry": "2027-03-30",
-        "note": "7 barras de 82 g"
+        "purchaseDate": "",
+        "expiryDate": "2027-03-30",
+        "notes": "7 barras de 82 g."
       }
     ],
-    "notes": "Reserva de energía y bienestar familiar.",
-    "zone": "home",
-    "purchaseDate": "",
-    "lastReviewDate": "",
-    "reviewDate": "",
-    "warrantyUntil": "",
-    "responsible": "",
-    "serial": "",
-    "reviewIntervalDays": 0
+    "movements": [
+      {
+        "id": "starter-chocolate-hersheys-initial",
+        "type": "initial",
+        "qty": 7,
+        "date": "2026-07-23T20:00:00-03:00",
+        "note": "Inventario inicial confirmado"
+      }
+    ],
+    "packageCount": 7,
+    "packageSize": 82,
+    "packageUnit": "g"
   },
   {
-    "id": "food-peas-predilecta",
-    "name": "Arvejas Predilecta",
-    "category": "Alimentos",
+    "id": "starter-arvejas-predilecta",
+    "starter": true,
+    "name": "Arvejas en conserva",
+    "brand": "Predilecta",
+    "model": "Predilecta",
+    "category": "Despensa",
     "status": "available",
     "qty": 4,
-    "unit": "latas",
-    "location": "Despensa",
-    "model": "Predilecta 280 g",
-    "critical": false,
-    "minStock": 4,
-    "targetStock": 12,
-    "lots": [
-      {
-        "id": "lot-peas-2028",
-        "qty": 4,
-        "expiry": "2028-05-31",
-        "note": "Vencimiento informado: mayo de 2028"
-      }
-    ],
-    "notes": "",
+    "unit": "lata",
     "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
     "purchaseDate": "",
     "lastReviewDate": "",
     "reviewDate": "",
     "warrantyUntil": "",
     "responsible": "",
     "serial": "",
-    "reviewIntervalDays": 0
+    "reviewIntervalDays": 0,
+    "notes": "4 latas de 280 g.",
+    "lots": [
+      {
+        "id": "starter-arvejas-predilecta-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 4,
+        "purchaseDate": "",
+        "expiryDate": "2028-05",
+        "notes": "4 latas de 280 g."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-arvejas-predilecta-initial",
+        "type": "initial",
+        "qty": 4,
+        "date": "2026-07-23T20:00:00-03:00",
+        "note": "Inventario inicial confirmado"
+      }
+    ],
+    "packageCount": 4,
+    "packageSize": 280,
+    "packageUnit": "g"
   },
   {
-    "id": "food-corn-stella",
-    "name": "Choclo Stella D'Oro",
-    "category": "Alimentos",
+    "id": "starter-choclo-stella-doro",
+    "starter": true,
+    "name": "Choclo en conserva",
+    "brand": "Stella D’Oro",
+    "model": "Stella D’Oro",
+    "category": "Despensa",
     "status": "available",
     "qty": 4,
-    "unit": "latas",
-    "location": "Despensa",
-    "model": "Stella D'Oro 280 g",
-    "critical": false,
-    "minStock": 4,
-    "targetStock": 12,
-    "lots": [
-      {
-        "id": "lot-corn-2028",
-        "qty": 4,
-        "expiry": "2028-12-31",
-        "note": "Vencimiento informado: diciembre de 2028"
-      }
-    ],
-    "notes": "",
+    "unit": "lata",
     "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
     "purchaseDate": "",
     "lastReviewDate": "",
     "reviewDate": "",
     "warrantyUntil": "",
     "responsible": "",
     "serial": "",
-    "reviewIntervalDays": 0
+    "reviewIntervalDays": 0,
+    "notes": "4 latas de 280 g.",
+    "lots": [
+      {
+        "id": "starter-choclo-stella-doro-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 4,
+        "purchaseDate": "",
+        "expiryDate": "2028-12",
+        "notes": "4 latas de 280 g."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-choclo-stella-doro-initial",
+        "type": "initial",
+        "qty": 4,
+        "date": "2026-07-23T20:00:00-03:00",
+        "note": "Inventario inicial confirmado"
+      }
+    ],
+    "packageCount": 4,
+    "packageSize": 280,
+    "packageUnit": "g"
   },
   {
-    "id": "food-tomato-elefante",
-    "name": "Extracto de tomate Elefante",
-    "category": "Alimentos",
+    "id": "starter-extracto-elefante",
+    "starter": true,
+    "name": "Extracto de tomate",
+    "brand": "Elefante",
+    "model": "Elefante",
+    "category": "Despensa",
     "status": "available",
     "qty": 3,
-    "unit": "latas",
-    "location": "Despensa",
-    "model": "Elefante 850 g",
-    "critical": false,
-    "minStock": 2,
-    "targetStock": 6,
-    "lots": [
-      {
-        "id": "lot-tomato-2028",
-        "qty": 3,
-        "expiry": "2028-01-18",
-        "note": "3 latas de 850 g"
-      }
-    ],
-    "notes": "",
+    "unit": "lata",
     "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
     "purchaseDate": "",
     "lastReviewDate": "",
     "reviewDate": "",
     "warrantyUntil": "",
     "responsible": "",
     "serial": "",
-    "reviewIntervalDays": 0
+    "reviewIntervalDays": 0,
+    "notes": "3 latas de 850 g.",
+    "lots": [
+      {
+        "id": "starter-extracto-elefante-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 3,
+        "purchaseDate": "",
+        "expiryDate": "2028-01-18",
+        "notes": "3 latas de 850 g."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-extracto-elefante-initial",
+        "type": "initial",
+        "qty": 3,
+        "date": "2026-07-23T20:00:00-03:00",
+        "note": "Inventario inicial confirmado"
+      }
+    ],
+    "packageCount": 3,
+    "packageSize": 850,
+    "packageUnit": "g"
   },
   {
-    "id": "food-sardines",
+    "id": "starter-sardinas-tomate",
+    "starter": true,
     "name": "Sardinas en salsa de tomate",
-    "category": "Alimentos",
+    "brand": "Sin registrar",
+    "model": "Sin registrar",
+    "category": "Despensa",
     "status": "available",
     "qty": 6,
-    "unit": "latas",
-    "location": "Despensa",
-    "model": "75 g",
-    "critical": true,
-    "minStock": 6,
-    "targetStock": 18,
-    "lots": [
-      {
-        "id": "lot-sardines-2030",
-        "qty": 6,
-        "expiry": "2030-06-30",
-        "note": "Vencimiento informado: junio de 2030"
-      }
-    ],
-    "notes": "Fuente de proteína de larga duración.",
+    "unit": "lata",
     "zone": "home",
+    "location": "Sin registrar",
+    "critical": true,
+    "minStock": null,
+    "targetStock": null,
     "purchaseDate": "",
     "lastReviewDate": "",
     "reviewDate": "",
     "warrantyUntil": "",
     "responsible": "",
     "serial": "",
-    "reviewIntervalDays": 0
+    "reviewIntervalDays": 0,
+    "notes": "6 latas de 75 g.",
+    "lots": [
+      {
+        "id": "starter-sardinas-tomate-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 6,
+        "purchaseDate": "",
+        "expiryDate": "2030-06",
+        "notes": "6 latas de 75 g."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-sardinas-tomate-initial",
+        "type": "initial",
+        "qty": 6,
+        "date": "2026-07-23T20:00:00-03:00",
+        "note": "Inventario inicial confirmado"
+      }
+    ],
+    "packageCount": 6,
+    "packageSize": 75,
+    "packageUnit": "g"
   },
   {
-    "id": "food-coffee-caboclo",
-    "name": "Café Caboclo",
-    "category": "Alimentos",
+    "id": "starter-cafe-caboclo",
+    "starter": true,
+    "name": "Café",
+    "brand": "Caboclo",
+    "model": "Caboclo",
+    "category": "Despensa",
     "status": "available",
     "qty": 1,
     "unit": "kg",
-    "location": "Despensa",
-    "model": "Caboclo",
-    "critical": false,
-    "minStock": 0.5,
-    "targetStock": 2,
-    "lots": [
-      {
-        "id": "lot-coffee-2027",
-        "qty": 1,
-        "expiry": "2027-09-27",
-        "note": "2 paquetes de 500 g"
-      }
-    ],
-    "notes": "",
     "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
     "purchaseDate": "",
     "lastReviewDate": "",
     "reviewDate": "",
     "warrantyUntil": "",
     "responsible": "",
     "serial": "",
-    "reviewIntervalDays": 0
+    "reviewIntervalDays": 0,
+    "notes": "2 paquetes de 500 g.",
+    "lots": [
+      {
+        "id": "starter-cafe-caboclo-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 1,
+        "purchaseDate": "",
+        "expiryDate": "2027-09-27",
+        "notes": "2 paquetes de 500 g."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-cafe-caboclo-initial",
+        "type": "initial",
+        "qty": 1,
+        "date": "2026-07-23T20:00:00-03:00",
+        "note": "Inventario inicial confirmado"
+      }
+    ],
+    "packageCount": 2,
+    "packageSize": 500,
+    "packageUnit": "g"
   },
   {
-    "id": "food-flour-bonina",
-    "name": "Harina Bonina",
-    "category": "Alimentos",
+    "id": "starter-harina-bonina",
+    "starter": true,
+    "name": "Harina",
+    "brand": "Bonina",
+    "model": "Bonina",
+    "category": "Despensa",
     "status": "available",
     "qty": 5,
     "unit": "kg",
-    "location": "Despensa",
-    "model": "Bonina",
+    "zone": "home",
+    "location": "Sin registrar",
     "critical": true,
-    "minStock": 5,
-    "targetStock": 10,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 0,
+    "notes": "1 paquete de 5 kg.",
     "lots": [
       {
-        "id": "lot-flour-2027",
+        "id": "starter-harina-bonina-lot-1",
+        "lotNumber": "Sin registrar",
         "qty": 5,
-        "expiry": "2027-01-27",
-        "note": "1 paquete de 5 kg"
+        "purchaseDate": "",
+        "expiryDate": "2027-01-27",
+        "notes": "1 paquete de 5 kg."
       }
     ],
-    "notes": "",
+    "movements": [
+      {
+        "id": "starter-harina-bonina-initial",
+        "type": "initial",
+        "qty": 5,
+        "date": "2026-07-23T20:00:00-03:00",
+        "note": "Inventario inicial confirmado"
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 5,
+    "packageUnit": "kg"
+  },
+  {
+    "id": "starter-algodon-apolo",
+    "starter": true,
+    "name": "Discos de algodón",
+    "brand": "Apolo",
+    "model": "Apolo",
+    "category": "Higiene",
+    "status": "available",
+    "qty": 2,
+    "unit": "paquete",
     "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
     "purchaseDate": "",
     "lastReviewDate": "",
     "reviewDate": "",
     "warrantyUntil": "",
     "responsible": "",
     "serial": "",
-    "reviewIntervalDays": 0
-  },
-  {
-    "id": "health-cotton-apolo",
-    "name": "Discos de algodón Apolo",
-    "category": "Botiquín",
-    "status": "available",
-    "qty": 2,
-    "unit": "paquetes",
-    "location": "Botiquín / higiene",
-    "model": "Apolo 70 g",
-    "critical": false,
-    "minStock": 1,
-    "targetStock": 4,
+    "reviewIntervalDays": 0,
+    "notes": "2 paquetes de 70 g.",
     "lots": [
       {
-        "id": "lot-cotton-2031",
+        "id": "starter-algodon-apolo-lot-1",
+        "lotNumber": "Sin registrar",
         "qty": 2,
-        "expiry": "2031-05-31",
-        "note": "2 paquetes; 140 g totales"
+        "purchaseDate": "",
+        "expiryDate": "2031-05",
+        "notes": "2 paquetes de 70 g."
       }
     ],
-    "notes": "",
-    "zone": "home",
-    "purchaseDate": "",
-    "lastReviewDate": "",
-    "reviewDate": "",
-    "warrantyUntil": "",
-    "responsible": "",
-    "serial": "",
-    "reviewIntervalDays": 0
+    "movements": [
+      {
+        "id": "starter-algodon-apolo-initial",
+        "type": "initial",
+        "qty": 2,
+        "date": "2026-07-23T20:00:00-03:00",
+        "note": "Inventario inicial confirmado"
+      }
+    ],
+    "packageCount": 2,
+    "packageSize": 70,
+    "packageUnit": "g"
   },
   {
-    "id": "health-bandaid",
-    "name": "Curativos adhesivos Band-Aid",
+    "id": "starter-band-aid",
+    "starter": true,
+    "name": "Curativos adhesivos",
+    "brand": "Band-Aid",
+    "model": "Band-Aid",
     "category": "Botiquín",
     "status": "available",
-    "qty": 80,
-    "unit": "unidades",
-    "location": "Botiquín",
-    "model": "Band-Aid",
-    "critical": true,
-    "minStock": 40,
-    "targetStock": 120,
-    "lots": [
-      {
-        "id": "lot-bandaid-2028",
-        "qty": 80,
-        "expiry": "2028-11-04",
-        "note": "2 cajas de 40"
-      }
-    ],
-    "notes": "",
+    "qty": 2,
+    "unit": "caja",
     "zone": "home",
+    "location": "Sin registrar",
+    "critical": true,
+    "minStock": null,
+    "targetStock": null,
     "purchaseDate": "",
     "lastReviewDate": "",
     "reviewDate": "",
     "warrantyUntil": "",
     "responsible": "",
     "serial": "",
-    "reviewIntervalDays": 0
+    "reviewIntervalDays": 0,
+    "notes": "2 cajas de 40 unidades.",
+    "lots": [
+      {
+        "id": "starter-band-aid-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 2,
+        "purchaseDate": "",
+        "expiryDate": "2028-11-04",
+        "notes": "2 cajas de 40 unidades."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-band-aid-initial",
+        "type": "initial",
+        "qty": 2,
+        "date": "2026-07-23T20:00:00-03:00",
+        "note": "Inventario inicial confirmado"
+      }
+    ],
+    "packageCount": 2,
+    "packageSize": 40,
+    "packageUnit": "unidad"
   },
   {
-    "id": "tool-duct-tape",
-    "name": "Cinta multipropósito TACSA DUCTAC",
+    "id": "starter-cinta-tacsa",
+    "starter": true,
+    "name": "Cinta multipropósito DUCTAC",
+    "brand": "TACSA",
+    "model": "TACSA",
     "category": "Herramientas",
     "status": "available",
     "qty": 2,
-    "unit": "rollos",
-    "location": "Herramientas",
-    "model": "48 mm × 9 m · verde",
-    "critical": true,
-    "minStock": 2,
-    "targetStock": 4,
-    "lots": [],
-    "notes": "",
+    "unit": "rollo",
     "zone": "home",
-    "purchaseDate": "",
-    "lastReviewDate": "",
-    "reviewDate": "",
-    "warrantyUntil": "",
-    "responsible": "",
-    "serial": "",
-    "reviewIntervalDays": 0
-  },
-  {
-    "id": "tool-extension",
-    "name": "Prolongador Multinorma",
-    "category": "Herramientas",
-    "status": "available",
-    "qty": 1,
-    "unit": "unidad",
-    "location": "Herramientas",
-    "model": "4 tomas · 5 m · 250 V / 10 A",
-    "critical": true,
-    "minStock": 1,
-    "targetStock": 2,
-    "lots": [],
-    "notes": "Con protección térmica.",
-    "zone": "home",
-    "purchaseDate": "",
-    "lastReviewDate": "",
-    "reviewDate": "",
-    "warrantyUntil": "",
-    "responsible": "",
-    "serial": "",
-    "reviewIntervalDays": 0
-  },
-  {
-    "id": "tool-cutter-koby",
-    "name": "Cutter Koby",
-    "category": "Herramientas",
-    "status": "available",
-    "qty": 1,
-    "unit": "unidad",
-    "location": "Herramientas",
-    "model": "Hoja de 18 mm",
+    "location": "Sin registrar",
     "critical": false,
-    "minStock": 1,
-    "targetStock": 2,
-    "lots": [],
-    "notes": "Nuevo en paquete.",
-    "zone": "home",
+    "minStock": null,
+    "targetStock": null,
     "purchaseDate": "",
     "lastReviewDate": "",
     "reviewDate": "",
     "warrantyUntil": "",
     "responsible": "",
     "serial": "",
-    "reviewIntervalDays": 0
+    "reviewIntervalDays": 0,
+    "notes": "2 rollos verdes de 48 mm × 9 m.",
+    "lots": [
+      {
+        "id": "starter-cinta-tacsa-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 2,
+        "purchaseDate": "",
+        "expiryDate": "",
+        "notes": "2 rollos verdes de 48 mm × 9 m."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-cinta-tacsa-initial",
+        "type": "initial",
+        "qty": 2,
+        "date": "2026-07-23T20:00:00-03:00",
+        "note": "Inventario inicial confirmado"
+      }
+    ],
+    "packageCount": 2,
+    "packageSize": 9,
+    "packageUnit": "m"
+  },
+  {
+    "id": "starter-prolongador-multinorma",
+    "starter": true,
+    "name": "Prolongador eléctrico",
+    "brand": "Multinorma",
+    "model": "Multinorma",
+    "category": "Herramientas",
+    "status": "available",
+    "qty": 1,
+    "unit": "unidad",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": true,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 0,
+    "notes": "4 tomas, cable de 5 m, 250 V / 10 A y protección térmica.",
+    "lots": [
+      {
+        "id": "starter-prolongador-multinorma-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 1,
+        "purchaseDate": "",
+        "expiryDate": "",
+        "notes": "4 tomas, cable de 5 m, 250 V / 10 A y protección térmica."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-prolongador-multinorma-initial",
+        "type": "initial",
+        "qty": 1,
+        "date": "2026-07-23T20:00:00-03:00",
+        "note": "Inventario inicial confirmado"
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 5,
+    "packageUnit": "m"
+  },
+  {
+    "id": "starter-cutter-koby",
+    "starter": true,
+    "name": "Cutter de 18 mm",
+    "brand": "Koby",
+    "model": "Koby",
+    "category": "Herramientas",
+    "status": "available",
+    "qty": 1,
+    "unit": "unidad",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 0,
+    "notes": "Nuevo en su envase.",
+    "lots": [
+      {
+        "id": "starter-cutter-koby-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 1,
+        "purchaseDate": "",
+        "expiryDate": "",
+        "notes": "Nuevo en su envase."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-cutter-koby-initial",
+        "type": "initial",
+        "qty": 1,
+        "date": "2026-07-23T20:00:00-03:00",
+        "note": "Inventario inicial confirmado"
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 18,
+    "packageUnit": "mm"
   }
 ]

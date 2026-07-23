@@ -7,13 +7,13 @@
   <title>EDY Offline</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=1.2.1">
 </head>
 <body>
 <header>
   <div class="brand">
     <div><h1>EDY</h1><p>Centro de Supervivencia Digital Familiar</p></div>
-    <div class="headerActions"><span class="versionBadge">1.2</span><div class="pill">OFFLINE</div></div>
+    <div class="headerActions"><span class="versionBadge">1.2.1</span><div class="pill">OFFLINE</div></div>
   </div>
   <input id="search" placeholder="Buscar: apagón, agua, energía, evacuación…">
 </header>
@@ -360,7 +360,10 @@
       <h2>📦 Inventario Familiar</h2>
       <p>Los cambios se guardan únicamente en este dispositivo.</p>
     </div>
-    <button class="action" onclick="openSection('nuevoItem')">Agregar elemento</button>
+    <div class="inventoryHeaderActions">
+      <button class="action secondary" onclick="restoreStarterInventory()">Restaurar inventario base</button>
+      <button class="action" onclick="openSection('nuevoItem')">Agregar producto</button>
+    </div>
   </div>
 
   <div class="inventorySummary">
@@ -369,6 +372,7 @@
     <div class="summaryCard incoming"><strong id="invIncoming">0</strong><span>En camino</span></div>
     <div class="summaryCard missing"><strong id="invMissing">0</strong><span>Pendientes</span></div>
     <div class="summaryCard critical"><strong id="invCritical">0</strong><span>Críticos</span></div>
+    <div class="summaryCard expiring"><strong id="invExpiring">0</strong><span>Por vencer</span></div>
   </div>
 
   <div class="field"><label>Buscar en el inventario</label><input id="inventorySearch" placeholder="Ej.: linterna, filtro, botiquín…" oninput="renderInventory()"></div>
@@ -382,36 +386,40 @@
 
 <section id="nuevoItem" class="section">
   <button class="back" onclick="openSection('inventario')">← Inventario</button>
-  <h2>Agregar elemento</h2>
+  <h2>Agregar producto</h2>
+  <div class="panel"><strong>Inventario privado:</strong> las ubicaciones, fotos y números de serie se guardan solamente en este dispositivo.</div>
   <div class="formGrid">
-    <div class="field"><label>Nombre</label><input id="newItemName" placeholder="Ej.: Linterna recargable"></div>
+    <div class="field"><label>Nombre</label><input id="newItemName" placeholder="Ej.: Arroz"></div>
+    <div class="field"><label>Marca</label><input id="newItemBrand" placeholder="Ej.: Tío João"></div>
     <div class="field"><label>Categoría</label><select id="newItemCategory">
-      <option>Energía</option><option>Agua</option><option>Comunicaciones</option><option>Herramientas</option>
-      <option>Botiquín</option><option>Alimentos</option><option>Mochilas</option><option>Mascotas</option>
-      <option>Vehículos</option><option>Documentación</option>
+      <option>Despensa</option><option>Agua</option><option>Energía</option><option>Higiene</option>
+      <option>Botiquín</option><option>Comunicaciones</option><option>Herramientas</option>
+      <option>Mochilas</option><option>Mascotas</option><option>Vehículos</option><option>Documentación</option><option>Otros</option>
     </select></div>
     <div class="field"><label>Estado</label><select id="newItemStatus">
       <option value="available">Disponible</option><option value="incoming">En camino</option>
       <option value="review">Revisar</option><option value="missing">Falta</option>
     </select></div>
-    <div class="field"><label>Cantidad</label><input id="newItemQty" type="number" min="0" value="1"></div>
-    <div class="field"><label>Unidad</label><input id="newItemUnit" value="unidad"></div>
-    <div class="field"><label>Stock mínimo</label><input id="newItemMinStock" type="number" min="0" step="any" value="0"></div>
-    <div class="field"><label>Stock objetivo</label><input id="newItemTargetStock" type="number" min="0" step="any" value="0"></div>
+    <div class="field"><label>Cantidad inicial</label><input id="newItemQty" type="number" min="0" step="any" value="1"></div>
+    <div class="field"><label>Unidad</label><input id="newItemUnit" value="unidad" placeholder="kg, lata, caja, unidad..."></div>
+    <div class="field"><label>Número de lote</label><input id="newItemLotNumber" placeholder="Opcional"></div>
+    <div class="field"><label>Vencimiento</label><input id="newItemExpiryDate" inputmode="numeric" placeholder="AAAA-MM-DD o AAAA-MM"></div>
+    <div class="field"><label>Stock mínimo</label><input id="newItemMinStock" type="number" min="0" step="any" placeholder="Opcional"></div>
+    <div class="field"><label>Stock objetivo</label><input id="newItemTargetStock" type="number" min="0" step="any" placeholder="Opcional"></div>
     <div class="field"><label>Zona</label><select id="newItemZone"></select></div>
-    <div class="field"><label>Ubicación exacta</label><input id="newItemLocation" placeholder="Ej.: Estante 2 · Caja verde"></div>
+    <div class="field"><label>Ubicación exacta</label><input id="newItemLocation" placeholder="Se guarda solo en este dispositivo"></div>
     <div class="field"><label>Fecha de compra</label><input id="newItemPurchaseDate" type="date"></div>
     <div class="field"><label>Última revisión</label><input id="newItemLastReviewDate" type="date"></div>
     <div class="field"><label>Próxima revisión</label><input id="newItemReviewDate" type="date"></div>
     <div class="field"><label>Garantía hasta</label><input id="newItemWarrantyUntil" type="date"></div>
-    <div class="field"><label>Marca / modelo</label><input id="newItemModel" placeholder="Opcional"></div>
+    <div class="field"><label>Modelo / presentación</label><input id="newItemModel" placeholder="Ej.: paquete de 5 kg"></div>
     <div class="field"><label>Número de serie</label><input id="newItemSerial" placeholder="Se guarda solo en este dispositivo"></div>
     <div class="field"><label>Responsable</label><input id="newItemResponsible" placeholder="Ej.: responsable familiar"></div>
     <div class="field"><label>Frecuencia de revisión</label><select id="newItemReviewInterval"><option value="0">Sin frecuencia</option><option value="30">Cada 30 días</option><option value="90">Cada 90 días</option><option value="180">Cada 6 meses</option><option value="365">Cada año</option></select></div>
     <div class="field checkField"><label><input id="newItemCritical" type="checkbox"> Elemento crítico</label></div>
-    <div class="field wide"><label>Observaciones</label><textarea id="newItemNotes"></textarea></div>
+    <div class="field wide"><label>Observaciones</label><textarea id="newItemNotes" placeholder="Presentación, cantidad de paquetes u otra información"></textarea></div>
   </div>
-  <div class="actions"><button class="action" onclick="addInventoryItem()">Guardar elemento</button></div>
+  <div class="actions"><button class="action" onclick="addInventoryItem()">Guardar producto</button></div>
 </section>
 
 <section id="estado" class="section">
@@ -501,7 +509,7 @@
 <section id="salud" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🩺 Salud</h2><div class="panel"><p>Proteger, alertar y socorrer. No reemplaza atención médica.</p></div></section>
 <section id="comunicaciones" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>📡 Comunicaciones</h2><div class="panel"><ul><li>Modo de bajo consumo.</li><li>Brillo mínimo legible.</li><li>Modo avión cuando no se necesiten enlaces.</li><li>Usar enlaces de alto consumo solo en ventanas de comunicación.</li></ul></div></section>
 <section id="mascotas" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🐶 Mascotas</h2><div class="panel"><ul><li>Correas o transportadoras accesibles.</li><li>Agua, alimento y manta.</li><li>No soltarlas durante una evacuación.</li></ul></div></section>
-<section id="privacidad" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🔒 Privacidad</h2><div class="panel privacyUpgrade"><strong>Datos locales:</strong> el inventario personal, las fotografías, ubicaciones y números de serie se guardan en este dispositivo y no forman parte del archivo público de EDY.</div><div class="panel red"><strong>Nunca publicar:</strong> domicilios, teléfonos privados, documentos, contraseñas, ubicaciones de equipos, inventario de armas o municiones, números de serie ni información médica identificable.</div><div class="panel"><strong>Respaldo:</strong> el archivo exportado puede contener toda esa información. Guardalo en una ubicación privada y segura.</div></section>
+<section id="privacidad" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🔒 Privacidad</h2><div class="panel privacyUpgrade"><strong>Inventario base:</strong> esta versión incluye solamente productos domésticos no sensibles. Las fotografías, ubicaciones exactas, números de serie y cambios posteriores se guardan localmente en este dispositivo.</div><div class="panel red"><strong>Nunca publicar:</strong> domicilios, teléfonos privados, documentos, contraseñas, ubicaciones de equipos, inventario de armas o municiones, números de serie ni información médica identificable.</div><div class="panel"><strong>Respaldo:</strong> el archivo exportado puede contener toda esa información. Guardalo en una ubicación privada y segura.</div></section>
 <section id="results" class="section"><button class="back" onclick="home()">← Inicio</button><h2>🔍 Resultados</h2><div id="list"></div></section>
 </main>
 <nav class="bottomNav" aria-label="Navegación principal">
@@ -512,10 +520,10 @@
   <button class="navCrisis" onclick="enterCrisisMode()"><span>🚨</span><small>Crisis</small></button>
 </nav>
 
-<footer>EDY Offline · v1.1 · Fichas y Checklists</footer>
-<script src="storage.js"></script>
-<script src="calculator.js"></script>
-<script src="media.js"></script>
-<script src="app.js"></script>
+<footer>EDY Offline · v1.2.1 · Inventario por lotes</footer>
+<script src="storage.js?v=1.2.1"></script>
+<script src="calculator.js?v=1.2.1"></script>
+<script src="media.js?v=1.2.1"></script>
+<script src="app.js?v=1.2.1"></script>
 </body>
 </html>

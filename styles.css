@@ -228,13 +228,31 @@ body{padding-bottom:calc(var(--nav-height) + env(safe-area-inset-bottom,0px))}
 .privacyUpgrade{border:1px solid rgba(42,151,101,.3)!important;background:rgba(42,151,101,.06)!important}
 @media(max-width:760px){.prepPanel{grid-template-columns:1fr}.checklistCards{grid-template-columns:1fr}.checklistSummary{grid-template-columns:repeat(2,1fr)}.itemHero{grid-template-columns:1fr}.itemPhotoBox{max-height:260px}.checklistDetailHeader{flex-direction:column}.diagnosticHero{align-items:flex-start}.bottomNav{border-radius:0}}
 
-
-/* EDY v1.2 - Inventario de abastecimiento */
-.stockMeta{font-size:11px;color:var(--muted);margin-top:4px}
-.stockControlPanel{display:grid;grid-template-columns:repeat(3,1fr) auto;gap:10px;align-items:stretch;margin:15px 0}
-.stockControlPanel>div{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px}
-.stockControlPanel span{display:block;color:var(--muted);font-size:11px}.stockControlPanel strong{display:block;margin-top:5px;font-size:18px}
-.stockControlPanel .stockButtons{display:flex;gap:8px;align-items:center}.stockControlPanel .stockButtons button{white-space:nowrap}
-.lotPanel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:15px}.lotPanel h3{margin:0 0 10px}
-.lotRow{display:grid;grid-template-columns:1fr auto;gap:5px 12px;padding:10px 0;border-top:1px solid var(--line)}.lotRow:first-of-type{border-top:0}.lotRow small{grid-column:1/-1;color:var(--muted)}
-@media(max-width:720px){.stockControlPanel{grid-template-columns:repeat(3,1fr)}.stockControlPanel .stockButtons{grid-column:1/-1}.stockControlPanel .stockButtons button{flex:1}}
+/* EDY v1.2.1 - Inventario real por lotes, vencimientos y consumo FIFO */
+.inventoryHeaderActions{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+.inventorySummary{grid-template-columns:repeat(6,1fr)}
+.summaryCard.critical{border-bottom:4px solid #8a5ac2}
+.summaryCard.expiring{border-bottom:4px solid #dd7a1d}
+.itemFlags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:4px;min-height:0}
+.stockTag,.reviewTag{display:inline-flex;align-items:center;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.25px;padding:4px 6px;border-radius:999px}
+.stockTag.low{background:rgba(228,154,33,.18);color:#e8a437}
+.stockTag.expiring{background:rgba(221,122,29,.18);color:#ef9a45}
+.stockTag.expired{background:rgba(189,51,51,.20);color:#ef6666}
+.stockHeroValue{font-size:31px;font-weight:900;margin:12px 0 6px}
+.stockActionGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
+.stockActionCard{background:rgba(47,154,88,.055);border:1px solid rgba(47,154,88,.25);border-radius:17px;padding:15px}
+.stockActionCard.consumeCard{background:rgba(228,154,33,.045);border-color:rgba(228,154,33,.24)}
+.stockActionCard h3{margin:0 0 12px}
+.stockForm{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-bottom:11px}
+.stockForm label{font-size:12px;color:var(--muted)}
+.stockForm input{display:block;width:100%;margin-top:6px;border:1px solid var(--line);background:transparent;color:inherit;border-radius:10px;padding:10px;font-size:15px}
+.quickConsume{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}
+.consumeQuick{border-color:rgba(189,51,51,.28)!important}
+.lotList,.movementList{display:grid;gap:8px;margin-bottom:17px}
+.lotRow,.movementRow{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;border:1px solid var(--line);background:rgba(255,255,255,.02);border-radius:13px;padding:12px}
+.lotRow.soon{border-left:4px solid #dd7a1d}.lotRow.expired{border-left:4px solid #bd3333}
+.lotRow strong,.movementRow strong{display:block}.lotRow small,.movementRow small{display:block;color:var(--muted);font-size:11px;margin-top:4px;line-height:1.35}
+.lotRow>span,.movementRow>span{font-weight:900;white-space:nowrap}
+.movementRow .positive{color:#55c87d}.movementRow .negative{color:#ef7777}
+@media(max-width:900px){.inventorySummary{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:720px){.inventoryHeaderActions{width:100%;justify-content:stretch}.inventoryHeaderActions button{flex:1}.stockActionGrid{grid-template-columns:1fr}.stockForm{grid-template-columns:1fr}.inventorySummary{grid-template-columns:repeat(2,1fr)}.lotRow,.movementRow{grid-template-columns:1fr}.lotRow>span,.movementRow>span{justify-self:start}}

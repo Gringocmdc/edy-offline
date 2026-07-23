@@ -20,7 +20,7 @@ function home(){document.getElementById('search').value='';loadStatus();renderHo
 document.getElementById('search').addEventListener('input',e=>{
  const raw=e.target.value.trim();const q=normalizeText(raw);if(!q){home();return}
  const sectionsFound=[...document.querySelectorAll('.searchable')].filter(s=>normalizeText(s.innerText).includes(q));
- const inventoryFound=getInventory().filter(i=>normalizeText([i.name,i.category,i.notes,i.location].join(' ')).includes(q)).slice(0,8);
+ const inventoryFound=getInventory().filter(i=>itemSearchText(normalizeInventoryItem(i)).includes(q)).slice(0,8);
  const rows=[
    ...inventoryFound.map(i=>`<button class="result" onclick="openItem('${i.id}')"><strong>📦 ${escapeHTML(i.name)}</strong><br><span class="small">${escapeHTML(i.category)} · ${escapeHTML(i.location||'Sin registrar')}</span></button>`),
    ...sectionsFound.map(s=>`<button class="result" onclick="openSection('${s.id}')"><strong>${escapeHTML(s.querySelector('h2').innerText)}</strong><br><span class="small">Abrir sección</span></button>`)
@@ -80,16 +80,112 @@ const ec=EDYStorage.get('energy_calc');if(ec){batteryWh.value=ec.wh;batteryPerce
 
 let inventoryBase=[];
 let currentItemId=null;
+const INVENTORY_SEED_VERSION='1.2.1';
 
 function statusText(status){
  return {available:'Disponible',incoming:'En camino',review:'Revisar',missing:'Falta'}[status]||status;
 }
+function cloneData(value){return JSON.parse(JSON.stringify(value))}
+function numberOrNull(value){
+ if(value===null||value===undefined||value==='')return null;
+ const n=Number(value);return Number.isFinite(n)?n:null;
+}
+function roundStock(value){return Math.round((Number(value)||0)*1000)/1000}
+function normalizeExpiry(value){
+ const raw=String(value||'').trim();
+ if(!raw)return '';
+ if(/^\d{4}-\d{2}(-\d{2})?$/.test(raw))return raw;
+ const slash=raw.match(/^(\d{1,2})\/(\d{4})$/);
+ if(slash)return `${slash[2]}-${String(slash[1]).padStart(2,'0')}`;
+ return raw;
+}
+function expiryTimestamp(value){
+ const raw=normalizeExpiry(value);if(!raw)return Number.POSITIVE_INFINITY;
+ let d;
+ if(/^\d{4}-\d{2}$/.test(raw)){
+  const [y,m]=raw.split('-').map(Number);d=new Date(y,m,0,23,59,59,999);
+ }else if(/^\d{4}-\d{2}-\d{2}$/.test(raw)){
+  const [y,m,day]=raw.split('-').map(Number);d=new Date(y,m-1,day,23,59,59,999);
+ }else return Number.POSITIVE_INFINITY;
+ return d.getTime();
+}
+function formatExpiry(value){
+ const raw=normalizeExpiry(value);if(!raw)return 'Sin vencimiento';
+ if(/^\d{4}-\d{2}$/.test(raw)){const [y,m]=raw.split('-');return `${m}/${y}`}
+ if(/^\d{4}-\d{2}-\d{2}$/.test(raw)){const [y,m,d]=raw.split('-');return `${d}/${m}/${y}`}
+ return raw;
+}
+function daysUntilExpiry(value){
+ const ts=expiryTimestamp(value);if(!Number.isFinite(ts))return null;
+ const now=new Date();now.setHours(0,0,0,0);return Math.ceil((ts-now.getTime())/86400000);
+}
+function normalizeLot(lot,index,item){
+ return {
+  id:String(lot?.id||`${item.id||'item'}-lot-${index+1}-${Date.now()}`),
+  lotNumber:String(lot?.lotNumber||'Sin registrar'),
+  qty:Math.max(0,roundStock(lot?.qty)),
+  purchaseDate:String(lot?.purchaseDate||item.purchaseDate||''),
+  expiryDate:normalizeExpiry(lot?.expiryDate||item.expiryDate||''),
+  notes:String(lot?.notes||'')
+ };
+}
+function currentQuantity(item){
+ if(Array.isArray(item?.lots))return roundStock(item.lots.reduce((sum,lot)=>sum+Math.max(0,Number(lot.qty)||0),0));
+ return Math.max(0,roundStock(item?.qty));
+}
+function normalizeInventoryItem(item){
+ const base={...item};
+ base.id=String(base.id||`custom-${Date.now()}-${Math.random().toString(36).slice(2,7)}`);
+ base.name=String(base.name||'Elemento sin nombre');
+ base.brand=String(base.brand||base.model||'');
+ base.model=String(base.model||'');
+ base.category=String(base.category||'Otros');
+ base.unit=String(base.unit||'unidad');
+ base.notes=String(base.notes||'');
+ base.location=String(base.location||'Sin registrar');
+ base.critical=Boolean(base.critical);
+ base.minStock=numberOrNull(base.minStock);
+ base.targetStock=numberOrNull(base.targetStock);
+ base.reviewDate=String(base.reviewDate||'');
+ base.lastReviewDate=String(base.lastReviewDate||'');
+ base.purchaseDate=String(base.purchaseDate||'');
+ base.warrantyUntil=String(base.warrantyUntil||'');
+ base.responsible=String(base.responsible||'');
+ base.serial=String(base.serial||'');
+ base.reviewIntervalDays=Number(base.reviewIntervalDays)||0;
+ base.zone=base.zone||inferZoneForItem(base);
+ base.movements=Array.isArray(base.movements)?base.movements:[];
+ const oldQty=Math.max(0,roundStock(base.qty));
+ if(Array.isArray(base.lots)&&base.lots.length){
+  base.lots=base.lots.map((lot,index)=>normalizeLot(lot,index,base));
+ }else if(oldQty>0){
+  base.lots=[normalizeLot({id:`${base.id}-legacy-lot`,qty:oldQty,purchaseDate:base.purchaseDate,expiryDate:base.expiryDate||'',lotNumber:base.lotNumber||'Sin registrar',notes:'Stock existente migrado a lote.'},0,base)];
+ }else base.lots=[];
+ base.qty=currentQuantity(base);
+ if(base.qty<=0&&base.status==='available')base.status='missing';
+ if(!base.status)base.status=base.qty>0?'available':'missing';
+ return base;
+}
 function getInventory(){
  const saved=EDYStorage.get('inventory',null);
- return saved || inventoryBase;
+ return Array.isArray(saved)?saved:inventoryBase;
+}
+function starterIdentity(item){return normalizeText(`${item.id||''}|${item.brand||''}|${item.name||''}`)}
+function mergeStarterItems(saved,{force=false}={}){
+ const normalizedSaved=(Array.isArray(saved)?saved:[]).map(normalizeInventoryItem);
+ if(!force&&EDYStorage.get('inventory_seed_version','')===INVENTORY_SEED_VERSION)return normalizedSaved;
+ const ids=new Set(normalizedSaved.map(x=>x.id));
+ const names=new Set(normalizedSaved.map(starterIdentity));
+ const merged=[...normalizedSaved];
+ inventoryBase.map(normalizeInventoryItem).forEach(baseItem=>{
+  if(!ids.has(baseItem.id)&&!names.has(starterIdentity(baseItem)))merged.push(cloneData(baseItem));
+ });
+ EDYStorage.set('inventory_seed_version',INVENTORY_SEED_VERSION);
+ return merged;
 }
 function saveInventory(list,logMessage='Inventario actualizado'){
- EDYStorage.set('inventory',list);
+ const normalized=(Array.isArray(list)?list:[]).map(normalizeInventoryItem);
+ EDYStorage.set('inventory',normalized);
  addTimelineEntry('inventory','📦',logMessage);
  renderInventory();
  renderOperationsHome();
@@ -98,208 +194,177 @@ function saveInventory(list,logMessage='Inventario actualizado'){
  renderMap();
  renderReadinessInsights();
  renderDiagnostic();
+ renderTodayStrip();
 }
 async function loadInventory(){
  try{
-   const r=await fetch('inventory.json');
-   inventoryBase=await r.json();
-   const normalizeItem=item=>({
-     ...item,
-     qty:Number(item.qty)||0,
-     minStock:Number(item.minStock)||0,
-     targetStock:Number(item.targetStock)||0,
-     lots:Array.isArray(item.lots)?item.lots.map(l=>({...l,qty:Number(l.qty)||0})):[],
-     critical:Boolean(item.critical),
-     reviewDate:item.reviewDate||'',lastReviewDate:item.lastReviewDate||'',purchaseDate:item.purchaseDate||'',
-     warrantyUntil:item.warrantyUntil||'',responsible:item.responsible||'',model:item.model||'',serial:item.serial||'',
-     reviewIntervalDays:Number(item.reviewIntervalDays)||0,zone:item.zone||inferZoneForItem(item)
-   });
-   const saved=(EDYStorage.get('inventory',null)||[]).map(normalizeItem);
-   const savedById=new Map(saved.map(i=>[i.id,i]));
-   const merged=[...saved,...inventoryBase.filter(i=>!savedById.has(i.id)).map(normalizeItem)];
-   EDYStorage.set('inventory',merged);
-   renderInventory();renderAssistantAlerts();renderAssistantHomeAlerts();return merged;
+  const r=await fetch(`inventory.json?v=${INVENTORY_SEED_VERSION}`);
+  if(!r.ok)throw new Error('Inventario base no disponible');
+  inventoryBase=(await r.json()).map(normalizeInventoryItem);
+  const saved=EDYStorage.get('inventory',null);
+  const merged=mergeStarterItems(saved);
+  EDYStorage.set('inventory',merged);
+  renderInventory();renderAssistantAlerts();renderAssistantHomeAlerts();
+  return merged;
  }catch(e){
-   const box=document.getElementById('inventoryCategories');
-   if(box) box.innerHTML='<div class="panel">No se pudo cargar el inventario.</div>';
-   return [];
+  const saved=EDYStorage.get('inventory',[]);
+  if(Array.isArray(saved)&&saved.length){EDYStorage.set('inventory',saved.map(normalizeInventoryItem));renderInventory();return getInventory()}
+  const box=document.getElementById('inventoryCategories');
+  if(box)box.innerHTML='<div class="panel">No se pudo cargar el inventario base. Revisá la conexión una vez y volvé a abrir EDY.</div>';
+  return [];
  }
 }
+function restoreStarterInventory(){
+ if(!inventoryBase.length){alert('El inventario base todavía no está disponible. Recargá EDY e intentá nuevamente.');return}
+ if(!confirm('Se agregarán únicamente los productos iniciales que falten. No se borrará ningún dato local.'))return;
+ const before=getInventory().length;
+ const merged=mergeStarterItems(getInventory(),{force:true});
+ EDYStorage.set('inventory',merged);
+ const added=merged.length-before;
+ addTimelineEntry('inventory','📦',`Inventario inicial restaurado: ${added} productos agregados`);
+ renderInventory();renderOperationsHome();renderAssistantAlerts();
+ alert(added?`Se agregaron ${added} productos.`:'El inventario inicial ya estaba completo.');
+}
+function itemSearchText(item){
+ const lots=(item.lots||[]).map(l=>`${l.lotNumber} ${l.expiryDate} ${l.notes}`).join(' ');
+ return normalizeText([item.name,item.brand,item.model,item.category,item.notes,item.location,item.unit,lots].join(' '));
+}
 function nextExpiry(item){
- const valid=(item.lots||[]).filter(l=>l.qty>0&&l.expiry).sort((a,b)=>a.expiry.localeCompare(b.expiry));
- return valid[0]?.expiry||'';
+ return (item.lots||[]).filter(l=>Number(l.qty)>0&&l.expiryDate).sort((a,b)=>expiryTimestamp(a.expiryDate)-expiryTimestamp(b.expiryDate))[0]?.expiryDate||'';
 }
-function formatDateAR(iso){if(!iso)return 'Sin vencimiento';const [y,m,d]=iso.split('-');return `${d}/${m}/${y}`}
-function stockState(item){if(item.qty<=0)return 'missing';if(item.minStock>0&&item.qty<item.minStock)return 'review';return item.status||'available'}
-function quickAdd(id){
- const amount=Number(prompt('¿Cuánto querés agregar?'));
- if(!Number.isFinite(amount)||amount<=0)return;
- const list=getInventory(),i=list.find(x=>x.id===id);if(!i)return;
- const expiry=prompt('Vencimiento del nuevo lote (AAAA-MM-DD). Dejá vacío si no corresponde:','')||'';
- i.qty=Number(i.qty||0)+amount;i.status='available';i.lots=i.lots||[];
- if(expiry)i.lots.push({id:'lot-'+Date.now(),qty:amount,expiry,note:'Carga manual'});
- saveInventory(list,`Agregado stock: ${i.name} (+${amount} ${i.unit})`);openItem(id);
+function itemExpiryState(item){
+ const expiry=nextExpiry(item),days=daysUntilExpiry(expiry);
+ if(days===null)return '';
+ if(days<0)return 'expired';
+ if(days<=180)return 'soon';
+ return '';
 }
-function quickConsume(id,amount=null){
- const list=getInventory(),i=list.find(x=>x.id===id);if(!i)return;
- let n=amount===null?Number(prompt(`¿Cuánto querés consumir? (${i.unit})`)):Number(amount);
- if(!Number.isFinite(n)||n<=0)return;if(n>i.qty)n=i.qty;
- i.qty=Math.max(0,Number(i.qty||0)-n);let remaining=n;
- i.lots=(i.lots||[]).sort((a,b)=>(a.expiry||'9999').localeCompare(b.expiry||'9999'));
- for(const lot of i.lots){const take=Math.min(Number(lot.qty)||0,remaining);lot.qty=Math.max(0,(Number(lot.qty)||0)-take);remaining-=take;if(remaining<=0)break}
- i.status=i.qty<=0?'missing':(i.minStock>0&&i.qty<i.minStock?'review':'available');
- saveInventory(list,`Consumido: ${i.name} (-${n} ${i.unit})`);openItem(id);
+function isLowStock(item){
+ const min=numberOrNull(item.minStock);return min!==null&&currentQuantity(item)<=min;
+}
+function formatStockNumber(value){return new Intl.NumberFormat('es-AR',{maximumFractionDigits:3}).format(Number(value)||0)}
+function unitLabel(unit,qty){
+ const raw=String(unit||'unidad'),key=normalizeText(raw);if(Math.abs(Number(qty)||0)===1)return raw;
+ return {unidad:'unidades',lata:'latas',barra:'barras',caja:'cajas',paquete:'paquetes',rollo:'rollos',frasco:'frascos',botella:'botellas'}[key]||raw;
+}
+function formatQuantity(item){const qty=currentQuantity(item);return `${formatStockNumber(qty)} ${escapeHTML(unitLabel(item.unit,qty))}`}
+function stockBadges(item){
+ const badges=[];const expiryState=itemExpiryState(item);
+ if(item.critical)badges.push('<span class="criticalStar" title="Elemento crítico">⭐</span>');
+ if(isLowStock(item))badges.push('<span class="stockTag low">Stock bajo</span>');
+ if(expiryState==='expired')badges.push('<span class="stockTag expired">Vencido</span>');
+ else if(expiryState==='soon')badges.push('<span class="stockTag expiring">Vence pronto</span>');
+ if(reviewStatus(item)==='due')badges.push('<span class="reviewTag">Revisión vencida</span>');
+ else if(reviewStatus(item)==='soon')badges.push('<span class="reviewTag">Revisar pronto</span>');
+ return badges.join('');
 }
 function renderInventory(){
- const box=document.getElementById('inventoryCategories');
- if(!box)return;
- const q=(document.getElementById('inventorySearch')?.value||'').trim().toLowerCase();
- const all=getInventory();
- const filtered=all.filter(i=>[i.name,i.category,i.notes,i.location].join(' ').toLowerCase().includes(q));
- const counts={available:0,incoming:0,missing:0,critical:0};
- all.forEach(i=>{if(counts[i.status]!==undefined)counts[i.status]++;if(i.critical)counts.critical++});
- document.getElementById('invTotal').textContent=all.length;
- document.getElementById('invAvailable').textContent=counts.available;
- document.getElementById('invIncoming').textContent=counts.incoming;
- document.getElementById('invMissing').textContent=counts.missing;
- document.getElementById('invCritical').textContent=counts.critical;
- const order=['Energía','Agua','Comunicaciones','Herramientas','Botiquín','Alimentos','Mochilas','Mascotas','Vehículos','Documentación'];
- box.innerHTML=order.map(cat=>{
-   const items=filtered.filter(i=>i.category===cat).sort((a,b)=>Number(Boolean(b.critical))-Number(Boolean(a.critical)) || a.name.localeCompare(b.name));
-   if(!items.length)return '';
-   return `<div class="categoryBlock">
-     <div class="categoryTitle"><h3>${categoryIcon(cat)} ${cat}</h3><span class="categoryCount">${items.length} elementos</span></div>
-     <div class="inventoryList">${items.map(i=>`
-       <div class="inventoryItem withThumb" onclick="openItem('${i.id}')">
-         <span class="statusMark ${stockState(i)}"></span>
-         <div class="itemThumbnail" data-photo-item="${escapeAttr(i.id)}"><span>${categoryIcon(i.category)}</span></div>
-         <div class="itemMain">
-           <div class="itemFlags">${i.critical?'<span class="criticalStar" title="Elemento crítico">⭐</span>':''}${reviewStatus(i)==='due'?'<span class="reviewTag">Revisión vencida</span>':reviewStatus(i)==='soon'?'<span class="reviewTag">Revisar pronto</span>':''}</div>
-           <strong>${escapeHTML(i.name)}</strong><div class="itemMeta">${i.qty} ${escapeHTML(i.unit)} · ${escapeHTML(i.location||'Sin registrar')}</div><div class="stockMeta">${nextExpiry(i)?'Vence '+formatDateAR(nextExpiry(i)):'Sin vencimiento'}${i.targetStock?' · Objetivo '+i.targetStock+' '+escapeHTML(i.unit):''}</div>
-         </div>
-         <span class="statusLabel ${stockState(i)}">${statusText(stockState(i))}</span>
-       </div>`).join('')}</div>
-   </div>`;
- }).join('') || '<div class="panel">No se encontraron elementos.</div>';
+ const box=document.getElementById('inventoryCategories');if(!box)return;
+ const q=normalizeText(document.getElementById('inventorySearch')?.value||'');
+ const all=getInventory().map(normalizeInventoryItem);
+ const filtered=all.filter(i=>itemSearchText(i).includes(q));
+ const counts={available:0,incoming:0,missing:0,critical:0,expiring:0};
+ all.forEach(i=>{if(counts[i.status]!==undefined)counts[i.status]++;if(i.critical)counts.critical++;if(['soon','expired'].includes(itemExpiryState(i)))counts.expiring++});
+ const put=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value};
+ put('invTotal',all.length);put('invAvailable',counts.available);put('invIncoming',counts.incoming);put('invMissing',counts.missing);put('invCritical',counts.critical);put('invExpiring',counts.expiring);
+ const preferred=['Despensa','Agua','Energía','Higiene','Botiquín','Comunicaciones','Herramientas','Mochilas','Mascotas','Vehículos','Documentación','Alimentos','Otros'];
+ const extra=[...new Set(filtered.map(i=>i.category))].filter(cat=>!preferred.includes(cat));
+ const categories=[...preferred,...extra];
+ box.innerHTML=categories.map(cat=>{
+  const items=filtered.filter(i=>i.category===cat).sort((a,b)=>Number(Boolean(b.critical))-Number(Boolean(a.critical))||expiryTimestamp(nextExpiry(a))-expiryTimestamp(nextExpiry(b))||a.name.localeCompare(b.name,'es'));
+  if(!items.length)return '';
+  return `<div class="categoryBlock"><div class="categoryTitle"><h3>${categoryIcon(cat)} ${escapeHTML(cat)}</h3><span class="categoryCount">${items.length} productos</span></div><div class="inventoryList">${items.map(i=>{
+   const expiry=nextExpiry(i);const brand=i.brand||i.model||'';
+   return `<div class="inventoryItem withThumb" onclick="openItem('${escapeJS(i.id)}')"><span class="statusMark ${escapeAttr(i.status)}"></span><div class="itemThumbnail" data-photo-item="${escapeAttr(i.id)}"><span>${categoryIcon(i.category)}</span></div><div class="itemMain"><div class="itemFlags">${stockBadges(i)}</div><strong>${escapeHTML(i.name)}</strong><div class="itemMeta">${brand?`${escapeHTML(brand)} · `:''}${formatQuantity(i)}${expiry?` · Vence ${formatExpiry(expiry)}`:''}</div></div><span class="statusLabel ${escapeAttr(i.status)}">${statusText(i.status)}</span></div>`;
+  }).join('')}</div></div>`;
+ }).join('')||'<div class="panel">No se encontraron productos.</div>';
  refreshInventoryThumbnails();
 }
 function categoryIcon(cat){
- return {'Energía':'⚡','Agua':'💧','Comunicaciones':'📡','Herramientas':'🛠️','Botiquín':'🩺','Alimentos':'🍲','Mochilas':'🎒','Mascotas':'🐶','Vehículos':'🚗','Documentación':'📄'}[cat]||'📦';
+ return {'Despensa':'🍚','Energía':'⚡','Agua':'💧','Higiene':'🧼','Comunicaciones':'📡','Herramientas':'🛠️','Botiquín':'🩺','Alimentos':'🍲','Mochilas':'🎒','Mascotas':'🐶','Vehículos':'🚗','Documentación':'📄','Otros':'📦'}[cat]||'📦';
+}
+function stockTargetText(item){
+ const min=numberOrNull(item.minStock),target=numberOrNull(item.targetStock);
+ if(min===null&&target===null)return 'Sin objetivos definidos';
+ return `${min===null?'Mínimo sin definir':`Mínimo ${formatStockNumber(min)} ${unitLabel(item.unit,min)}`} · ${target===null?'Objetivo sin definir':`Objetivo ${formatStockNumber(target)} ${unitLabel(item.unit,target)}`}`;
+}
+function quickConsumeButtons(item){
+ const unit=normalizeText(item.unit||'');
+ let options;
+ if(unit==='kg'||unit==='kilogramo'||unit==='kilogramos')options=[[.25,'−250 g'],[.5,'−500 g'],[1,'−1 kg']];
+ else if(unit==='g'||unit==='gramo'||unit==='gramos')options=[[250,'−250 g'],[500,'−500 g'],[1000,'−1 kg']];
+ else if(unit==='l'||unit==='litro'||unit==='litros')options=[[.5,'−500 ml'],[1,'−1 litro']];
+ else options=[[1,`−1 ${item.unit||'unidad'}`]];
+ return options.map(([amount,label])=>`<button class="miniAction consumeQuick" onclick="consumeStock('${escapeJS(item.id)}',${amount})">${label}</button>`).join('');
+}
+function renderLots(item){
+ const lots=(item.lots||[]).slice().sort((a,b)=>expiryTimestamp(a.expiryDate)-expiryTimestamp(b.expiryDate));
+ if(!lots.length)return '<div class="panel">No hay lotes cargados.</div>';
+ return `<div class="lotList">${lots.map(l=>{const days=daysUntilExpiry(l.expiryDate);const state=days!==null&&days<0?'expired':days!==null&&days<=180?'soon':'';return `<div class="lotRow ${state}"><div><strong>Lote ${escapeHTML(l.lotNumber||'Sin registrar')}</strong><small>${l.purchaseDate?`Compra: ${formatExpiry(l.purchaseDate)} · `:''}${l.expiryDate?`Vence: ${formatExpiry(l.expiryDate)}`:'Sin vencimiento'}${l.notes?` · ${escapeHTML(l.notes)}`:''}</small></div><span>${formatStockNumber(l.qty)} ${escapeHTML(unitLabel(item.unit,l.qty))}</span></div>`}).join('')}</div>`;
+}
+function movementLabel(type){return {initial:'Inventario inicial',purchase:'Compra / ingreso',consume:'Consumo',adjustment:'Ajuste'}[type]||'Movimiento'}
+function renderMovements(item){
+ const rows=(item.movements||[]).slice().sort((a,b)=>String(b.date||'').localeCompare(String(a.date||''))).slice(0,10);
+ if(!rows.length)return '<div class="panel">Todavía no hay movimientos.</div>';
+ return `<div class="movementList">${rows.map(m=>`<div class="movementRow"><div><strong>${escapeHTML(movementLabel(m.type))}</strong><small>${m.date?new Date(m.date).toLocaleString('es-AR'):'Sin fecha'}${m.note?` · ${escapeHTML(m.note)}`:''}</small></div><span class="${Number(m.qty)<0?'negative':'positive'}">${Number(m.qty)>0?'+':''}${formatStockNumber(m.qty)} ${escapeHTML(unitLabel(item.unit,Math.abs(Number(m.qty)||0)))}</span></div>`).join('')}</div>`;
 }
 async function openItem(id){
  currentItemId=id;
- const i=getInventory().find(x=>x.id===id); if(!i)return;
- document.getElementById('itemDetailContent').innerHTML=`
-  <div class="detailCard">
-    <div class="itemHero">
-      <div>
-        <div id="itemPhotoPreview" class="itemPhotoBox"><div class="itemPhotoEmpty"><span>📷</span>Sin fotografía</div></div>
-        <div class="photoActions"><label>Agregar foto<input type="file" accept="image/*" capture="environment" onchange="handleItemPhoto(event)"></label><button onclick="deleteItemPhoto()">Quitar foto</button></div>
-      </div>
-      <div class="itemIdentity">
-        <div class="small">${categoryIcon(i.category)} ${escapeHTML(i.category)}</div>
-        <h2>${i.critical?'⭐ ':''}${escapeHTML(i.name)}</h2>
-        <span class="itemCode">${escapeHTML(itemPublicCode(i))}</span>
-        <p class="small">${escapeHTML(zoneName(i.zone))} · ${escapeHTML(i.location||'Sin registrar')}</p>
-        <span class="statusLabel ${i.status}">${statusText(i.status)}</span>
-        <div class="reviewNowBox"><div><strong>Revisión rápida</strong><p>Marca el control de hoy y calcula la próxima fecha.</p></div><button class="miniAction" onclick="markReviewedToday()">Revisado hoy</button></div>
-      </div>
-    </div>
-    <div class="stockControlPanel">
-      <div><span>Stock actual</span><strong>${i.qty} ${escapeHTML(i.unit)}</strong></div>
-      <div><span>Mínimo</span><strong>${i.minStock||0} ${escapeHTML(i.unit)}</strong></div>
-      <div><span>Objetivo</span><strong>${i.targetStock||0} ${escapeHTML(i.unit)}</strong></div>
-      <div class="stockButtons"><button class="action" onclick="quickAdd('${escapeJS(i.id)}')">➕ Agregar</button><button class="action secondary" onclick="quickConsume('${escapeJS(i.id)}')">➖ Consumir</button></div>
-    </div>
-    <div class="lotPanel"><h3>Lotes y vencimientos</h3>${(i.lots||[]).length?(i.lots||[]).map(l=>`<div class="lotRow"><strong>${l.qty} ${escapeHTML(i.unit)}</strong><span>${l.expiry?formatDateAR(l.expiry):'Sin vencimiento'}</span><small>${escapeHTML(l.note||'')}</small></div>`).join(''):'<div class="small">Este elemento no tiene lotes registrados.</div>'}</div>
-    <div class="detailGrid">
-      <div class="detailField"><span>Estado</span><select id="editStatus" class="editSelect">
-        <option value="available" ${i.status==='available'?'selected':''}>Disponible</option>
-        <option value="incoming" ${i.status==='incoming'?'selected':''}>En camino</option>
-        <option value="review" ${i.status==='review'?'selected':''}>Revisar</option>
-        <option value="missing" ${i.status==='missing'?'selected':''}>Falta</option>
-      </select></div>
-      <div class="detailField"><span>Cantidad</span><input id="editQty" class="editInput" type="number" min="0" value="${i.qty}"></div>
-      <div class="detailField"><span>Unidad</span><input id="editUnit" class="editInput" value="${escapeAttr(i.unit)}"></div>
-      <div class="detailField"><span>Stock mínimo</span><input id="editMinStock" class="editInput" type="number" min="0" step="any" value="${i.minStock||0}"></div>
-      <div class="detailField"><span>Stock objetivo</span><input id="editTargetStock" class="editInput" type="number" min="0" step="any" value="${i.targetStock||0}"></div>
-      <div class="detailField"><span>Zona</span><select id="editZone" class="editSelect">${zoneOptions(i.zone)}</select></div>
-      <div class="detailField"><span>Ubicación exacta</span><input id="editLocation" class="editInput" value="${escapeAttr(i.location||'')}" placeholder="Estante 2 · Caja verde"></div>
-      <div class="detailField"><span>Marca / modelo</span><input id="editModel" class="editInput" value="${escapeAttr(i.model||'')}"></div>
-      <div class="detailField"><span>Número de serie</span><input id="editSerial" class="editInput" value="${escapeAttr(i.serial||'')}" placeholder="Solo local"></div>
-      <div class="detailField"><span>Fecha de compra</span><input id="editPurchaseDate" class="editInput" type="date" value="${escapeAttr(i.purchaseDate||'')}"></div>
-      <div class="detailField"><span>Última revisión</span><input id="editLastReviewDate" class="editInput" type="date" value="${escapeAttr(i.lastReviewDate||'')}"></div>
-      <div class="detailField"><span>Próxima revisión</span><input id="editReviewDate" class="editInput" type="date" value="${escapeAttr(i.reviewDate||'')}"></div>
-      <div class="detailField"><span>Frecuencia de revisión</span><select id="editReviewInterval" class="editSelect">${reviewIntervalOptions(i.reviewIntervalDays)}</select></div>
-      <div class="detailField"><span>Garantía hasta</span><input id="editWarrantyUntil" class="editInput" type="date" value="${escapeAttr(i.warrantyUntil||'')}"></div>
-      <div class="detailField"><span>Responsable</span><input id="editResponsible" class="editInput" value="${escapeAttr(i.responsible||'')}" placeholder="Responsable familiar"></div>
-      <div class="detailField checkField"><label><input id="editCritical" type="checkbox" ${i.critical?'checked':''}> Elemento crítico</label></div>
-    </div>
-    <div class="detailNotes"><strong>Observaciones</strong><textarea id="editNotes" class="editInput">${escapeHTML(i.notes||'')}</textarea></div>
-    <div class="actions"><button class="action" onclick="saveCurrentItem()">Guardar cambios</button><button class="action secondary" onclick="deleteCurrentItem()">Eliminar</button></div>
-  </div>`;
- openSection('itemDetail');
- await renderItemPhoto(id);
+ const item=getInventory().find(x=>x.id===id);if(!item)return;
+ const i=normalizeInventoryItem(item),expiry=nextExpiry(i),qty=currentQuantity(i);
+ document.getElementById('itemDetailContent').innerHTML=`<div class="detailCard"><div class="itemHero"><div><div id="itemPhotoPreview" class="itemPhotoBox"><div class="itemPhotoEmpty"><span>📷</span>Sin fotografía</div></div><div class="photoActions"><label>Agregar foto<input type="file" accept="image/*" capture="environment" onchange="handleItemPhoto(event)"></label><button onclick="deleteItemPhoto()">Quitar foto</button></div></div><div class="itemIdentity"><div class="small">${categoryIcon(i.category)} ${escapeHTML(i.category)}</div><h2>${i.critical?'⭐ ':''}${escapeHTML(i.name)}</h2><span class="itemCode">${escapeHTML(itemPublicCode(i))}</span><p class="stockHeroValue">${formatStockNumber(qty)} ${escapeHTML(unitLabel(i.unit,qty))}</p><p class="small">${escapeHTML(i.brand||i.model||'Marca sin registrar')}${expiry?` · Próximo vencimiento ${formatExpiry(expiry)}`:' · Sin vencimiento'}</p><p class="small">${escapeHTML(stockTargetText(i))}</p><span class="statusLabel ${escapeAttr(i.status)}">${statusText(i.status)}</span><div class="reviewNowBox"><div><strong>Revisión rápida</strong><p>Marca el control de hoy y calcula la próxima fecha.</p></div><button class="miniAction" onclick="markReviewedToday()">Revisado hoy</button></div></div></div>
+ <div class="stockActionGrid"><div class="stockActionCard"><h3>➕ Agregar compra o lote</h3><div class="stockForm"><label>Cantidad<input id="addStockAmount" type="number" min="0" step="any" placeholder="Ej.: 5"></label><label>Número de lote<input id="addStockLot" placeholder="Opcional"></label><label>Fecha de compra<input id="addStockPurchase" type="date"></label><label>Vencimiento<input id="addStockExpiry" inputmode="numeric" placeholder="AAAA-MM-DD o AAAA-MM"></label><label class="wide">Nota<input id="addStockNote" placeholder="Ej.: 2 paquetes de 500 g"></label></div><button class="action" onclick="addStockFromForm()">Agregar al stock</button></div>
+ <div class="stockActionCard consumeCard"><h3>➖ Consumir stock</h3><p class="small">EDY descuenta primero el lote que vence antes (FIFO).</p><div class="quickConsume">${quickConsumeButtons(i)}</div><div class="inline"><input id="consumeStockAmount" type="number" min="0" step="any" placeholder="Cantidad personalizada"><button class="action secondary" onclick="consumeCustomFromForm()">Consumir</button></div></div></div>
+ <div class="titleRow"><h3>Lotes y vencimientos</h3><span class="categoryCount">${(i.lots||[]).length} lotes</span></div>${renderLots(i)}
+ <div class="titleRow"><h3>Datos del producto</h3></div><div class="detailGrid"><div class="detailField"><span>Estado</span><select id="editStatus" class="editSelect"><option value="available" ${i.status==='available'?'selected':''}>Disponible</option><option value="incoming" ${i.status==='incoming'?'selected':''}>En camino</option><option value="review" ${i.status==='review'?'selected':''}>Revisar</option><option value="missing" ${i.status==='missing'?'selected':''}>Falta</option></select></div><div class="detailField"><span>Unidad</span><input id="editUnit" class="editInput" value="${escapeAttr(i.unit)}"></div><div class="detailField"><span>Stock mínimo</span><input id="editMinStock" class="editInput" type="number" min="0" step="any" value="${i.minStock??''}" placeholder="Sin definir"></div><div class="detailField"><span>Stock objetivo</span><input id="editTargetStock" class="editInput" type="number" min="0" step="any" value="${i.targetStock??''}" placeholder="Sin definir"></div><div class="detailField"><span>Zona</span><select id="editZone" class="editSelect">${zoneOptions(i.zone)}</select></div><div class="detailField"><span>Ubicación exacta</span><input id="editLocation" class="editInput" value="${escapeAttr(i.location||'')}" placeholder="Se guarda solo en este dispositivo"></div><div class="detailField"><span>Marca</span><input id="editBrand" class="editInput" value="${escapeAttr(i.brand||'')}"></div><div class="detailField"><span>Modelo / presentación</span><input id="editModel" class="editInput" value="${escapeAttr(i.model||'')}"></div><div class="detailField"><span>Número de serie</span><input id="editSerial" class="editInput" value="${escapeAttr(i.serial||'')}" placeholder="Solo local"></div><div class="detailField"><span>Última revisión</span><input id="editLastReviewDate" class="editInput" type="date" value="${escapeAttr(i.lastReviewDate||'')}"></div><div class="detailField"><span>Próxima revisión</span><input id="editReviewDate" class="editInput" type="date" value="${escapeAttr(i.reviewDate||'')}"></div><div class="detailField"><span>Frecuencia de revisión</span><select id="editReviewInterval" class="editSelect">${reviewIntervalOptions(i.reviewIntervalDays)}</select></div><div class="detailField"><span>Garantía hasta</span><input id="editWarrantyUntil" class="editInput" type="date" value="${escapeAttr(i.warrantyUntil||'')}"></div><div class="detailField"><span>Responsable</span><input id="editResponsible" class="editInput" value="${escapeAttr(i.responsible||'')}" placeholder="Responsable familiar"></div><div class="detailField checkField"><label><input id="editCritical" type="checkbox" ${i.critical?'checked':''}> Elemento crítico</label></div></div><div class="detailNotes"><strong>Observaciones</strong><textarea id="editNotes" class="editInput">${escapeHTML(i.notes||'')}</textarea></div><div class="actions"><button class="action" onclick="saveCurrentItem()">Guardar cambios</button><button class="action secondary" onclick="deleteCurrentItem()">Eliminar</button></div>
+ <div class="titleRow"><h3>Historial de movimientos</h3></div>${renderMovements(i)}</div>`;
+ openSection('itemDetail');await renderItemPhoto(id);
+}
+function addMovement(item,type,qty,note=''){
+ item.movements=Array.isArray(item.movements)?item.movements:[];
+ item.movements.push({id:`move-${Date.now()}-${Math.random().toString(36).slice(2,6)}`,type,qty:roundStock(qty),date:new Date().toISOString(),note});
+}
+function addStockFromForm(){
+ const amount=Number(document.getElementById('addStockAmount')?.value);if(!Number.isFinite(amount)||amount<=0){alert('Ingresá una cantidad mayor que cero.');return}
+ const expiry=normalizeExpiry(document.getElementById('addStockExpiry')?.value||'');
+ if(expiry&&!/^\d{4}-\d{2}(-\d{2})?$/.test(expiry)){alert('Usá el formato AAAA-MM-DD o AAAA-MM para el vencimiento.');return}
+ const list=getInventory().map(normalizeInventoryItem),item=list.find(x=>x.id===currentItemId);if(!item)return;
+ const lot={id:`${item.id}-lot-${Date.now()}`,lotNumber:document.getElementById('addStockLot')?.value.trim()||'Sin registrar',qty:roundStock(amount),purchaseDate:document.getElementById('addStockPurchase')?.value||todayISO(),expiryDate:expiry,notes:document.getElementById('addStockNote')?.value.trim()||''};
+ item.lots.push(lot);item.qty=currentQuantity(item);item.status='available';addMovement(item,'purchase',amount,lot.notes||`Lote ${lot.lotNumber}`);
+ saveInventory(list,`Stock agregado: ${item.name} (+${formatStockNumber(amount)} ${item.unit})`);openItem(item.id);
+}
+function consumeCustomFromForm(){
+ const amount=Number(document.getElementById('consumeStockAmount')?.value);if(!Number.isFinite(amount)||amount<=0){alert('Ingresá una cantidad mayor que cero.');return}consumeStock(currentItemId,amount);
+}
+function consumeStock(itemId,amount){
+ const list=getInventory().map(normalizeInventoryItem),item=list.find(x=>x.id===itemId);if(!item)return;
+ const available=currentQuantity(item);amount=roundStock(amount);
+ if(amount<=0)return;if(amount>available){alert(`No alcanza el stock. Disponible: ${formatStockNumber(available)} ${unitLabel(item.unit,available)}.`);return}
+ if(!confirm(`¿Consumir ${formatStockNumber(amount)} ${unitLabel(item.unit,amount)} de ${item.name}?`))return;
+ let remaining=amount;
+ const lots=item.lots.slice().sort((a,b)=>expiryTimestamp(a.expiryDate)-expiryTimestamp(b.expiryDate)||String(a.purchaseDate).localeCompare(String(b.purchaseDate)));
+ for(const lot of lots){if(remaining<=0)break;const take=Math.min(Number(lot.qty)||0,remaining);lot.qty=roundStock((Number(lot.qty)||0)-take);remaining=roundStock(remaining-take)}
+ item.qty=currentQuantity(item);item.status=item.qty>0?'available':'missing';addMovement(item,'consume',-amount,'Consumo FIFO');
+ saveInventory(list,`Consumo: ${item.name} (−${formatStockNumber(amount)} ${item.unit})`);openItem(item.id);
 }
 function saveCurrentItem(){
- const list=getInventory(); const i=list.find(x=>x.id===currentItemId); if(!i)return;
- i.status=document.getElementById('editStatus').value;
- i.qty=Number(document.getElementById('editQty').value)||0;
- i.unit=document.getElementById('editUnit').value.trim()||'unidad';
- i.minStock=Number(document.getElementById('editMinStock').value)||0;
- i.targetStock=Number(document.getElementById('editTargetStock').value)||0;
- i.zone=document.getElementById('editZone').value||'';
- i.location=document.getElementById('editLocation').value.trim()||'Sin registrar';
- i.model=document.getElementById('editModel').value.trim();
- i.serial=document.getElementById('editSerial').value.trim();
- i.purchaseDate=document.getElementById('editPurchaseDate').value||'';
- i.lastReviewDate=document.getElementById('editLastReviewDate').value||'';
- i.reviewDate=document.getElementById('editReviewDate').value||'';
- i.warrantyUntil=document.getElementById('editWarrantyUntil').value||'';
- i.responsible=document.getElementById('editResponsible').value.trim();
- i.reviewIntervalDays=Number(document.getElementById('editReviewInterval').value)||0;
- i.critical=document.getElementById('editCritical').checked;
- i.notes=document.getElementById('editNotes').value.trim();
- saveInventory(list,`Actualizado: ${i.name}`); openSection('inventario');
+ const list=getInventory().map(normalizeInventoryItem),i=list.find(x=>x.id===currentItemId);if(!i)return;
+ i.status=document.getElementById('editStatus').value;i.unit=document.getElementById('editUnit').value.trim()||'unidad';i.minStock=numberOrNull(document.getElementById('editMinStock').value);i.targetStock=numberOrNull(document.getElementById('editTargetStock').value);i.zone=document.getElementById('editZone').value||'';i.location=document.getElementById('editLocation').value.trim()||'Sin registrar';i.brand=document.getElementById('editBrand').value.trim();i.model=document.getElementById('editModel').value.trim();i.serial=document.getElementById('editSerial').value.trim();i.lastReviewDate=document.getElementById('editLastReviewDate').value||'';i.reviewDate=document.getElementById('editReviewDate').value||'';i.warrantyUntil=document.getElementById('editWarrantyUntil').value||'';i.responsible=document.getElementById('editResponsible').value.trim();i.reviewIntervalDays=Number(document.getElementById('editReviewInterval').value)||0;i.critical=document.getElementById('editCritical').checked;i.notes=document.getElementById('editNotes').value.trim();i.qty=currentQuantity(i);
+ saveInventory(list,`Actualizado: ${i.name}`);openSection('inventario');
 }
 async function deleteCurrentItem(){
- if(!confirm('¿Eliminar este elemento del inventario local?'))return;
- await EDYMedia.deletePhoto(currentItemId);
- saveInventory(getInventory().filter(x=>x.id!==currentItemId),'Elemento eliminado del inventario'); openSection('inventario');
+ if(!confirm('¿Eliminar este producto del inventario local?'))return;await EDYMedia.deletePhoto(currentItemId);saveInventory(getInventory().filter(x=>x.id!==currentItemId),'Producto eliminado del inventario');openSection('inventario');
 }
 function addInventoryItem(){
- const name=document.getElementById('newItemName').value.trim(); if(!name){alert('Ingresá un nombre.');return}
- const item={
-   id:'custom-'+Date.now(),name,
-   category:document.getElementById('newItemCategory').value,
-   status:document.getElementById('newItemStatus').value,
-   qty:Number(document.getElementById('newItemQty').value)||0,
-   unit:document.getElementById('newItemUnit').value.trim()||'unidad',
-   minStock:Number(document.getElementById('newItemMinStock').value)||0,
-   targetStock:Number(document.getElementById('newItemTargetStock').value)||0,
-   lots:[],
-   zone:document.getElementById('newItemZone').value||'',
-   location:document.getElementById('newItemLocation').value.trim()||'Sin registrar',
-   model:document.getElementById('newItemModel').value.trim(),
-   serial:document.getElementById('newItemSerial').value.trim(),
-   purchaseDate:document.getElementById('newItemPurchaseDate').value||'',
-   lastReviewDate:document.getElementById('newItemLastReviewDate').value||'',
-   reviewDate:document.getElementById('newItemReviewDate').value||'',
-   warrantyUntil:document.getElementById('newItemWarrantyUntil').value||'',
-   responsible:document.getElementById('newItemResponsible').value.trim(),
-   reviewIntervalDays:Number(document.getElementById('newItemReviewInterval').value)||0,
-   critical:document.getElementById('newItemCritical').checked,
-   notes:document.getElementById('newItemNotes').value.trim()
- };
+ const name=document.getElementById('newItemName').value.trim();if(!name){alert('Ingresá un nombre.');return}
+ const qty=Math.max(0,Number(document.getElementById('newItemQty').value)||0),expiry=normalizeExpiry(document.getElementById('newItemExpiryDate')?.value||'');
+ if(expiry&&!/^\d{4}-\d{2}(-\d{2})?$/.test(expiry)){alert('Usá el formato AAAA-MM-DD o AAAA-MM para el vencimiento.');return}
+ const id=`custom-${Date.now()}`;
+ const item=normalizeInventoryItem({id,name,brand:document.getElementById('newItemBrand')?.value.trim()||'',model:document.getElementById('newItemModel').value.trim(),category:document.getElementById('newItemCategory').value,status:document.getElementById('newItemStatus').value,qty,unit:document.getElementById('newItemUnit').value.trim()||'unidad',zone:document.getElementById('newItemZone').value||'',location:document.getElementById('newItemLocation').value.trim()||'Sin registrar',serial:document.getElementById('newItemSerial').value.trim(),purchaseDate:document.getElementById('newItemPurchaseDate').value||'',lastReviewDate:document.getElementById('newItemLastReviewDate').value||'',reviewDate:document.getElementById('newItemReviewDate').value||'',warrantyUntil:document.getElementById('newItemWarrantyUntil').value||'',responsible:document.getElementById('newItemResponsible').value.trim(),reviewIntervalDays:Number(document.getElementById('newItemReviewInterval').value)||0,critical:document.getElementById('newItemCritical').checked,minStock:numberOrNull(document.getElementById('newItemMinStock')?.value),targetStock:numberOrNull(document.getElementById('newItemTargetStock')?.value),notes:document.getElementById('newItemNotes').value.trim(),lots:qty>0?[{id:`${id}-lot-1`,lotNumber:document.getElementById('newItemLotNumber')?.value.trim()||'Sin registrar',qty,purchaseDate:document.getElementById('newItemPurchaseDate').value||'',expiryDate:expiry,notes:'Stock inicial'}]:[],movements:qty>0?[{id:`${id}-initial`,type:'initial',qty,date:new Date().toISOString(),note:'Stock inicial'}]:[]});
  const list=getInventory();list.push(item);saveInventory(list,`Agregado: ${item.name}`);
- ['newItemName','newItemLocation','newItemNotes','newItemPurchaseDate','newItemLastReviewDate','newItemReviewDate','newItemWarrantyUntil','newItemResponsible','newItemModel','newItemSerial'].forEach(id=>document.getElementById(id).value='');
- document.getElementById('newItemCritical').checked=false;
- document.getElementById('newItemQty').value=1;
- openSection('inventario');
+ ['newItemName','newItemBrand','newItemModel','newItemSerial','newItemLocation','newItemNotes','newItemPurchaseDate','newItemExpiryDate','newItemLotNumber','newItemMinStock','newItemTargetStock','newItemLastReviewDate','newItemReviewDate','newItemWarrantyUntil','newItemResponsible'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=''});
+ document.getElementById('newItemCritical').checked=false;document.getElementById('newItemQty').value=1;openSection('inventario');
 }
-
-
-
 
 function itemPublicCode(item){
  const raw=String(item.id||'ITEM').replace(/[^a-zA-Z0-9]/g,'').slice(-8).toUpperCase();
@@ -427,7 +492,7 @@ function renderMaintenance(){
 }
 async function getAllBackupData(){
  return {
-  version:'1.1',
+  version:'1.2.1',
   exportedAt:new Date().toISOString(),
   inventory:getInventory(),
   zones:getZones(),
@@ -960,4 +1025,12 @@ function renderOperationsHome(){
 }
 
 loadStatus();renderPendings();renderHomePendings();loadManuals();Promise.all([loadZones(),loadChecklists()]).then(()=>loadInventory()).then(()=>{renderAllBetaViews();if(EDYStorage.get('crisis_mode',false)){document.body.classList.add('crisisMode')}});loadOperationsForm();renderOperationsResult();renderOperationsHome();renderAssistantAlerts();renderAssistantHomeAlerts();renderTodayStrip();renderBackupStatus();
-if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js'))}
+if('serviceWorker' in navigator){
+ let reloadingForUpdate=false;
+ navigator.serviceWorker.addEventListener('controllerchange',()=>{
+  if(reloadingForUpdate)return;reloadingForUpdate=true;window.location.reload();
+ });
+ window.addEventListener('load',async()=>{
+  try{const registration=await navigator.serviceWorker.register('./service-worker.js?v=1.2.1');registration.update()}catch(e){console.warn('No se pudo registrar el modo offline',e)}
+ });
+}
