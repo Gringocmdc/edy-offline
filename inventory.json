@@ -10,7 +10,12 @@
     "notes": "Estación de energía 700 W / 551 Wh.",
     "critical": true,
     "reviewDate": "",
-    "zone": "energy"
+    "zone": "energy",
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "responsible": "",
+    "warrantyUntil": "",
+    "manualRef": ""
   },
   {
     "id": "forza-cable",
@@ -23,7 +28,12 @@
     "notes": "Cable de carga de red.",
     "critical": true,
     "reviewDate": "",
-    "zone": "energy"
+    "zone": "energy",
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "responsible": "",
+    "warrantyUntil": "",
+    "manualRef": ""
   },
   {
     "id": "total-batteries",
@@ -36,7 +46,12 @@
     "notes": "Incluidas en el kit inalámbrico TOTAL.",
     "critical": false,
     "reviewDate": "",
-    "zone": "energy"
+    "zone": "energy",
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "responsible": "",
+    "warrantyUntil": "",
+    "manualRef": ""
   },
   {
     "id": "total-charger",
@@ -49,7 +64,12 @@
     "notes": "Incluido en el kit inalámbrico TOTAL.",
     "critical": false,
     "reviewDate": "",
-    "zone": "energy"
+    "zone": "energy",
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "responsible": "",
+    "warrantyUntil": "",
+    "manualRef": ""
   },
   {
     "id": "solar-30w",
@@ -62,7 +82,12 @@
     "notes": "Compra reciente. Pendiente recepción y prueba.",
     "critical": false,
     "reviewDate": "",
-    "zone": "energy"
+    "zone": "energy",
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "responsible": "",
+    "warrantyUntil": "",
+    "manualRef": ""
   },
   {
     "id": "spica",
@@ -75,7 +100,12 @@
     "notes": "Kit solar registrado previamente.",
     "critical": false,
     "reviewDate": "",
-    "zone": "energy"
+    "zone": "energy",
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "responsible": "",
+    "warrantyUntil": "",
+    "manualRef": ""
   },
   {
     "id": "filter1",
@@ -88,7 +118,12 @@
     "notes": "Compra reciente. Pendiente recepción y prueba.",
     "critical": true,
     "reviewDate": "",
-    "zone": "water"
+    "zone": "water",
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "responsible": "",
+    "warrantyUntil": "",
+    "manualRef": ""
   },
   {
     "id": "filter2",
@@ -101,7 +136,12 @@
     "notes": "Compra reciente. Pendiente recepción y prueba.",
     "critical": true,
     "reviewDate": "",
-    "zone": "water"
+    "zone": "water",
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "responsible": "",
+    "warrantyUntil": "",
+    "manualRef": ""
   },
   {
     "id": "purification-tabs",
@@ -114,7 +154,12 @@
     "notes": "Pendiente de compra.",
     "critical": false,
     "reviewDate": "",
-    "zone": "water"
+    "zone": "water",
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "responsible": "",
+    "warrantyUntil": "",
+    "manualRef": ""
   },
   {
     "id": "starlink",
@@ -127,7 +172,12 @@
     "notes": "Disponible para comunicaciones satelitales.",
     "critical": true,
     "reviewDate": "",
-    "zone": "home"
+    "zone": "home",
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "responsible": "",
+    "warrantyUntil": "",
+    "manualRef": ""
   },
   {
     "id": "ipad",
@@ -140,7 +190,12 @@
     "notes": "Dispositivo principal de EDY.",
     "critical": true,
     "reviewDate": "",
-    "zone": "home"
+    "zone": "home",
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "responsible": "",
+    "warrantyUntil": "",
+    "manualRef": ""
   },
   {
     "id": "radios",
@@ -153,7 +208,12 @@
     "notes": "Pendiente de compra.",
     "critical": false,
     "reviewDate": "",
-    "zone": "home"
+    "zone": "home",
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "responsible": "",
+    "warrantyUntil": "",
+    "manualRef": ""
   },
   {
     "id": "satphone",
@@ -166,7 +226,12 @@
     "notes": "Pendiente de compra.",
     "critical": false,
     "reviewDate": "",
-    "zone": "home"
+    "zone": "home",
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "responsible": "",
+    "warrantyUntil": "",
+    "manualRef": ""
   },
   {
     "id": "saw",
@@ -179,7 +244,12 @@
     "notes": "Kit inalámbrico TOTAL 20 V.",
     "critical": false,
     "reviewDate": "",
-    "zone": "home"
+    "zone": "home",
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "responsible": "",
+    "warrantyUntil": "",
+    "manualRef": ""
   },
   {
     "id": "rotary",
@@ -192,7 +262,12 @@
     "notes": "Kit inalámbrico TOTAL 20 V.",
     "critical": false,
     "reviewDate": "",
-    "zone": "home"
+    "zone": "home",
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "responsible": "",
+    "warrantyUntil": "",
+    "manualRef": ""
   },
   {
     "id": "drill",
@@ -205,7 +280,12 @@
     "notes": "Brushless. Kit inalámbrico TOTAL 20 V.",
     "critical": false,
     "reviewDate": "",
-    "zone": "home"
+    "zone": "home",
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "responsible": "",
+    "warrantyUntil": "",
+    "manualRef": ""
   },
   {
     "id": "blower",
@@ -218,7 +298,12 @@
     "notes": "Kit inalámbrico TOTAL 20 V.",
     "critical": false,
     "reviewDate": "",
-    "zone": "home"
+    "zone": "home",
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "responsible": "",
+    "warrantyUntil": "",
+    "manualRef": ""
   },
   {
     "id": "paracord",
@@ -231,7 +316,12 @@
     "notes": "Longitud registrada: 30 m.",
     "critical": false,
     "reviewDate": "",
-    "zone": "home"
+    "zone": "home",
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "responsible": "",
+    "warrantyUntil": "",
+    "manualRef": ""
   },
   {
     "id": "slingshots",
@@ -244,7 +334,12 @@
     "notes": "Inventario no sensible.",
     "critical": false,
     "reviewDate": "",
-    "zone": "home"
+    "zone": "home",
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "responsible": "",
+    "warrantyUntil": "",
+    "manualRef": ""
   },
   {
     "id": "balls",
@@ -257,7 +352,12 @@
     "notes": "Dos paquetes, 100 unidades nominales.",
     "critical": false,
     "reviewDate": "",
-    "zone": "home"
+    "zone": "home",
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "responsible": "",
+    "warrantyUntil": "",
+    "manualRef": ""
   },
   {
     "id": "thermal",
@@ -270,7 +370,12 @@
     "notes": "Elemento de abrigo de emergencia.",
     "critical": true,
     "reviewDate": "",
-    "zone": "home"
+    "zone": "home",
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "responsible": "",
+    "warrantyUntil": "",
+    "manualRef": ""
   },
   {
     "id": "firstaid",
@@ -283,7 +388,12 @@
     "notes": "Pendiente completar inventario interno.",
     "critical": true,
     "reviewDate": "",
-    "zone": "home"
+    "zone": "home",
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "responsible": "",
+    "warrantyUntil": "",
+    "manualRef": ""
   },
   {
     "id": "manchas",
@@ -296,7 +406,12 @@
     "notes": "Preparar correa, agua, alimento y manta.",
     "critical": true,
     "reviewDate": "",
-    "zone": "home"
+    "zone": "home",
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "responsible": "",
+    "warrantyUntil": "",
+    "manualRef": ""
   },
   {
     "id": "bella",
@@ -309,6 +424,11 @@
     "notes": "Preparar correa, agua, alimento y manta.",
     "critical": true,
     "reviewDate": "",
-    "zone": "home"
+    "zone": "home",
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "responsible": "",
+    "warrantyUntil": "",
+    "manualRef": ""
   }
 ]

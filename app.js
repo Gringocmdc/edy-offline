@@ -8,9 +8,13 @@ function openSection(id){
  if(id==='inventario')renderInventory();
  if(id==='mapa')renderMap();
  if(id==='nuevoItem')populateZoneSelect('newItemZone');
+ if(id==='timeline')renderTimeline();
+ if(id==='mantenimiento')renderMaintenance();
+ if(id==='respaldo')renderBackupStatus();
+ if(id==='crisisCenter')renderCrisisCritical();
  scrollTo(0,0)
 }
-function home(){document.getElementById('search').value='';loadStatus();renderHomePendings();renderOperationsHome();renderAssistantHomeAlerts();openSection('home')}
+function home(){document.getElementById('search').value='';loadStatus();renderHomePendings();renderOperationsHome();renderAssistantHomeAlerts();renderTodayStrip();openSection('home')}
 document.getElementById('search').addEventListener('input',e=>{
  const raw=e.target.value.trim();const q=normalizeText(raw);if(!q){home();return}
  const sectionsFound=[...document.querySelectorAll('.searchable')].filter(s=>normalizeText(s.innerText).includes(q));
@@ -82,8 +86,9 @@ function getInventory(){
  const saved=EDYStorage.get('inventory',null);
  return saved || inventoryBase;
 }
-function saveInventory(list){
+function saveInventory(list,logMessage='Inventario actualizado'){
  EDYStorage.set('inventory',list);
+ addTimelineEntry('inventory','📦',logMessage);
  renderInventory();
  renderOperationsHome();
  renderAssistantAlerts();
@@ -167,7 +172,11 @@ function openItem(id){
       <div class="detailField"><span>Unidad</span><input id="editUnit" class="editInput" value="${escapeAttr(i.unit)}"></div>
       <div class="detailField"><span>Zona</span><select id="editZone" class="editSelect">${zoneOptions(i.zone)}</select></div>
       <div class="detailField"><span>Ubicación exacta</span><input id="editLocation" class="editInput" value="${escapeAttr(i.location||'')}" placeholder="Estante 2 · Caja verde"></div>
+      <div class="detailField"><span>Fecha de compra</span><input id="editPurchaseDate" class="editInput" type="date" value="${escapeAttr(i.purchaseDate||'')}"></div>
+      <div class="detailField"><span>Última revisión</span><input id="editLastReviewDate" class="editInput" type="date" value="${escapeAttr(i.lastReviewDate||'')}"></div>
       <div class="detailField"><span>Próxima revisión</span><input id="editReviewDate" class="editInput" type="date" value="${escapeAttr(i.reviewDate||'')}"></div>
+      <div class="detailField"><span>Garantía hasta</span><input id="editWarrantyUntil" class="editInput" type="date" value="${escapeAttr(i.warrantyUntil||'')}"></div>
+      <div class="detailField"><span>Responsable</span><input id="editResponsible" class="editInput" value="${escapeAttr(i.responsible||'')}" placeholder="Ej.: Darío"></div>
       <div class="detailField checkField"><label><input id="editCritical" type="checkbox" ${i.critical?'checked':''}> Elemento crítico</label></div>
     </div>
     <div class="detailNotes"><strong>Observaciones</strong><textarea id="editNotes" class="editInput">${escapeHTML(i.notes||'')}</textarea></div>
@@ -182,14 +191,18 @@ function saveCurrentItem(){
  i.unit=document.getElementById('editUnit').value.trim()||'unidad';
  i.zone=document.getElementById('editZone').value||'';
  i.location=document.getElementById('editLocation').value.trim()||'Sin registrar';
+ i.purchaseDate=document.getElementById('editPurchaseDate').value||'';
+ i.lastReviewDate=document.getElementById('editLastReviewDate').value||'';
  i.reviewDate=document.getElementById('editReviewDate').value||'';
+ i.warrantyUntil=document.getElementById('editWarrantyUntil').value||'';
+ i.responsible=document.getElementById('editResponsible').value.trim();
  i.critical=document.getElementById('editCritical').checked;
  i.notes=document.getElementById('editNotes').value.trim();
- saveInventory(list); openSection('inventario');
+ saveInventory(list,`Actualizado: ${i.name}`); openSection('inventario');
 }
 function deleteCurrentItem(){
  if(!confirm('¿Eliminar este elemento del inventario local?'))return;
- saveInventory(getInventory().filter(x=>x.id!==currentItemId)); openSection('inventario');
+ saveInventory(getInventory().filter(x=>x.id!==currentItemId),'Elemento eliminado del inventario'); openSection('inventario');
 }
 function addInventoryItem(){
  const name=document.getElementById('newItemName').value.trim(); if(!name){alert('Ingresá un nombre.');return}
@@ -201,18 +214,156 @@ function addInventoryItem(){
    unit:document.getElementById('newItemUnit').value.trim()||'unidad',
    zone:document.getElementById('newItemZone').value||'',
    location:document.getElementById('newItemLocation').value.trim()||'Sin registrar',
+   purchaseDate:document.getElementById('newItemPurchaseDate').value||'',
+   lastReviewDate:document.getElementById('newItemLastReviewDate').value||'',
    reviewDate:document.getElementById('newItemReviewDate').value||'',
+   warrantyUntil:document.getElementById('newItemWarrantyUntil').value||'',
+   responsible:document.getElementById('newItemResponsible').value.trim(),
    critical:document.getElementById('newItemCritical').checked,
    notes:document.getElementById('newItemNotes').value.trim()
  };
- const list=getInventory();list.push(item);saveInventory(list);
- ['newItemName','newItemLocation','newItemNotes','newItemReviewDate'].forEach(id=>document.getElementById(id).value='');
+ const list=getInventory();list.push(item);saveInventory(list,`Agregado: ${item.name}`);
+ ['newItemName','newItemLocation','newItemNotes','newItemPurchaseDate','newItemLastReviewDate','newItemReviewDate','newItemWarrantyUntil','newItemResponsible'].forEach(id=>document.getElementById(id).value='');
  document.getElementById('newItemCritical').checked=false;
  document.getElementById('newItemQty').value=1;
  openSection('inventario');
 }
 
 
+
+
+function addTimelineEntry(type,icon,title,detail=''){
+ const list=EDYStorage.get('timeline',[]);
+ list.unshift({id:Date.now(),type,icon,title,detail,date:new Date().toLocaleString('es-AR'),iso:new Date().toISOString()});
+ EDYStorage.set('timeline',list.slice(0,300));
+ renderTodayStrip();
+}
+function renderTimeline(){
+ const box=document.getElementById('timelineList');if(!box)return;
+ const q=normalizeText(document.getElementById('timelineSearch')?.value||'');
+ const list=EDYStorage.get('timeline',[]).filter(e=>!q||normalizeText([e.title,e.detail,e.type,e.date].join(' ')).includes(q));
+ box.innerHTML=list.length?list.map(e=>`<div class="timelineEntry"><div class="timelineIcon">${escapeHTML(e.icon||'•')}</div><div><strong>${escapeHTML(e.title)}</strong><small>${escapeHTML(e.date)}</small>${e.detail?`<p>${escapeHTML(e.detail)}</p>`:''}</div></div>`).join(''):'<div class="panel">Todavía no hay actividad registrada.</div>';
+}
+function clearTimeline(){
+ if(!confirm('¿Limpiar todo el historial de actividad?'))return;
+ EDYStorage.set('timeline',[]);
+ renderTimeline();renderTodayStrip();
+}
+function daysUntil(dateStr){
+ if(!dateStr)return null;
+ const today=new Date();today.setHours(0,0,0,0);
+ const date=new Date(dateStr+'T00:00:00');
+ return Math.ceil((date-today)/86400000);
+}
+function renderMaintenance(){
+ const box=document.getElementById('maintenanceList');if(!box)return;
+ const inv=getInventory();
+ const items=inv.filter(i=>i.reviewDate||i.warrantyUntil).map(i=>{
+  const review=daysUntil(i.reviewDate),warranty=daysUntil(i.warrantyUntil);
+  let state='ok',label='Al día',sort=99999;
+  if(review!==null){sort=review;if(review<0){state='overdue';label=`Revisión vencida hace ${Math.abs(review)} días`}else if(review<=30){state='soon';label=`Revisar en ${review} días`}else label=`Revisión en ${review} días`}
+  if(review===null&&warranty!==null){sort=warranty;label=warranty<0?'Garantía vencida':`Garantía: ${warranty} días`}
+  return {i,state,label,sort,warranty};
+ }).sort((a,b)=>a.sort-b.sort);
+ const overdue=items.filter(x=>x.state==='overdue').length;
+ const soon=items.filter(x=>x.state==='soon').length;
+ const noDate=inv.filter(i=>!i.reviewDate).length;
+ const warranty=inv.filter(i=>{const d=daysUntil(i.warrantyUntil);return d!==null&&d>=0&&d<=60}).length;
+ const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
+ set('maintOverdue',overdue);set('maintSoon',soon);set('maintNoDate',noDate);set('maintWarranty',warranty);
+ box.innerHTML=items.length?items.map(x=>`<div class="maintenanceCard ${x.state}"><div><strong>${x.i.critical?'⭐ ':''}${escapeHTML(x.i.name)}</strong><small>${escapeHTML(x.label)}${x.i.responsible?` · Responsable: ${escapeHTML(x.i.responsible)}`:''}</small></div><button class="miniAction" onclick="openItem('${escapeJS(x.i.id)}')">Abrir</button></div>`).join(''):'<div class="panel">Todavía no hay fechas de revisión o garantía registradas.</div>';
+}
+function getAllBackupData(){
+ return {
+  version:'1.0-beta',
+  exportedAt:new Date().toISOString(),
+  inventory:getInventory(),
+  zones:getZones(),
+  operations:EDYStorage.get('operations',{}),
+  status:EDYStorage.get('status',{}),
+  pendings:EDYStorage.get('pendings',[]),
+  timeline:EDYStorage.get('timeline',[]),
+  activeEmergency:EDYStorage.get('active_emergency',null)
+ };
+}
+function exportEDYBackup(){
+ const data=getAllBackupData();
+ const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement('a');
+ a.href=url;a.download=`EDY-respaldo-${new Date().toISOString().slice(0,10)}.json`;
+ document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+ const now=new Date().toLocaleString('es-AR');
+ EDYStorage.set('last_backup',now);
+ addTimelineEntry('backup','💾','Respaldo exportado');
+ renderBackupStatus();renderTodayStrip();
+}
+function importEDYBackup(event){
+ const file=event.target.files?.[0];if(!file)return;
+ const reader=new FileReader();
+ reader.onload=()=>{
+  try{
+   const data=JSON.parse(reader.result);
+   if(!data.inventory||!Array.isArray(data.inventory))throw new Error('Formato inválido');
+   if(!confirm('Esto reemplazará los datos locales actuales. ¿Continuar?'))return;
+   EDYStorage.set('inventory',data.inventory);
+   EDYStorage.set('zones',Array.isArray(data.zones)?data.zones:getZones());
+   EDYStorage.set('operations',data.operations||{});
+   EDYStorage.set('status',data.status||{});
+   EDYStorage.set('pendings',Array.isArray(data.pendings)?data.pendings:[]);
+   EDYStorage.set('timeline',Array.isArray(data.timeline)?data.timeline:[]);
+   if(data.activeEmergency)EDYStorage.set('active_emergency',data.activeEmergency);else EDYStorage.remove('active_emergency');
+   EDYStorage.set('last_backup',new Date().toLocaleString('es-AR'));
+   addTimelineEntry('backup','⬆️','Respaldo importado');
+   renderAllBetaViews();alert('Respaldo importado correctamente.');
+  }catch(e){alert('No se pudo importar el archivo. Verificá que sea un respaldo válido de EDY.')}
+  event.target.value='';
+ };
+ reader.readAsText(file);
+}
+function renderBackupStatus(){
+ const value=EDYStorage.get('last_backup','Nunca');
+ const el=document.getElementById('lastBackupText');if(el)el.textContent=value;
+}
+function renderTodayStrip(){
+ const timeline=EDYStorage.get('timeline',[]);
+ const inv=getInventory();
+ const reviews=inv.filter(i=>{const d=daysUntil(i.reviewDate);return d!==null&&d<=30}).length;
+ const critical=inv.filter(i=>i.critical).length;
+ const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
+ set('todayLastChange',timeline[0]?.date||'Sin actividad');
+ set('todayReviews',reviews);
+ set('todayCritical',critical);
+ set('todayBackup',EDYStorage.get('last_backup','Nunca'));
+}
+function renderAllBetaViews(){
+ renderInventory();renderMap();renderOperationsHome();renderAssistantAlerts();renderAssistantHomeAlerts();
+ renderPendings();renderHomePendings();renderTimeline();renderMaintenance();renderBackupStatus();renderTodayStrip();
+}
+function enterCrisisMode(){
+ EDYStorage.set('crisis_mode',true);
+ addTimelineEntry('crisis','🚨','Modo Crisis activado');
+ document.body.classList.add('crisisMode');
+ openSection('crisisCenter');
+}
+function exitCrisisMode(){
+ EDYStorage.set('crisis_mode',false);
+ addTimelineEntry('crisis','✅','Modo Crisis finalizado');
+ document.body.classList.remove('crisisMode');
+ home();
+}
+function renderCrisisCritical(){
+ const box=document.getElementById('crisisCriticalList');if(!box)return;
+ const items=getInventory().filter(i=>i.critical&&i.status==='available').slice(0,12);
+ box.innerHTML=items.length?`<div class="crisisCriticalGrid">${items.map(i=>`<div class="crisisCriticalItem"><strong>${escapeHTML(i.name)}</strong><small>${escapeHTML(zoneName(i.zone))} · ${escapeHTML(i.location||'Sin detalle')}</small></div>`).join('')}</div>`:'<p>No hay elementos críticos marcados como disponibles.</p>';
+}
+function openCriticalInventory(){
+ openSection('inventario');
+ const search=document.getElementById('inventorySearch');if(search){search.value='';}
+ const box=document.getElementById('inventoryCategories');
+ const all=getInventory().filter(i=>i.critical);
+ if(box)box.innerHTML=all.length?`<div class="categoryBlock"><div class="categoryTitle"><h3>⭐ Elementos críticos</h3><span class="categoryCount">${all.length} elementos</span></div><div class="inventoryList">${all.map(i=>`<div class="inventoryItem" onclick="openItem('${escapeJS(i.id)}')"><span class="statusMark ${i.status}"></span><div class="itemMain"><strong>${escapeHTML(i.name)}</strong><div class="itemMeta">${escapeHTML(zoneName(i.zone))} · ${escapeHTML(i.location||'Sin registrar')}</div></div><span class="statusLabel ${i.status}">${statusText(i.status)}</span></div>`).join('')}</div></div>`:'<div class="panel">No hay elementos críticos.</div>';
+}
 
 let zonesBase=[];
 let currentZoneId=null;
@@ -560,6 +711,7 @@ const emergencyProtocols={
 function activateEmergency(type){
  const p=emergencyProtocols[type]; if(!p)return;
  EDYStorage.set('active_emergency',{type,started:new Date().toLocaleString('es-AR')});
+ addTimelineEntry('emergency','🚨',`Emergencia declarada: ${p.title}`);
  const checks=p.steps.map((s,i)=>`<div class="protocolStep"><input type="checkbox" id="ep_${type}_${i}" onchange="saveEmergencyCheck('${type}',${i},this.checked)"><label for="ep_${type}_${i}">${i+1}. ${s}</label></div>`).join('');
  document.getElementById('activeEmergencyContent').innerHTML=`
   <div class="activeEmergencyCard">
@@ -577,6 +729,7 @@ function finishEmergency(){
  const active=EDYStorage.get('active_emergency',null);
  if(active && emergencyProtocols[active.type]) emergencyProtocols[active.type].steps.forEach((_,i)=>EDYStorage.remove(`emergency_${active.type}_${i}`));
  EDYStorage.remove('active_emergency');
+ addTimelineEntry('emergency','✅','Emergencia finalizada');
  const d=EDYStorage.get('status',{});d.level='green';d.updated=new Date().toLocaleString('es-AR');EDYStorage.set('status',d);
  home();
 }
@@ -595,6 +748,7 @@ function saveOperations(){
   updated:new Date().toLocaleString('es-AR')
  };
  EDYStorage.set('operations',data);
+ addTimelineEntry('operations','🧭','Centro de Operaciones actualizado');
  loadOperationsForm();renderOperationsResult();renderOperationsHome();
 }
 function clearOperations(){
@@ -648,5 +802,5 @@ function renderOperationsHome(){
  put('opZones',`${getZones().length} zonas`);
 }
 
-loadStatus();renderPendings();renderHomePendings();loadManuals();loadZones().then(()=>loadInventory()).then(()=>{renderOperationsHome();renderAssistantAlerts();renderAssistantHomeAlerts();renderMap()});loadOperationsForm();renderOperationsResult();renderOperationsHome();renderAssistantAlerts();renderAssistantHomeAlerts();
+loadStatus();renderPendings();renderHomePendings();loadManuals();loadZones().then(()=>loadInventory()).then(()=>{renderAllBetaViews();if(EDYStorage.get('crisis_mode',false)){document.body.classList.add('crisisMode')}});loadOperationsForm();renderOperationsResult();renderOperationsHome();renderAssistantAlerts();renderAssistantHomeAlerts();renderTodayStrip();renderBackupStatus();
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js'))}

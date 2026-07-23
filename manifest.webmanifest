@@ -13,5 +13,6 @@
       "type": "image/svg+xml",
       "purpose": "any maskable"
     }
-  ]
+  ],
+  "description": "Sistema familiar offline de preparación, inventario y respuesta ante emergencias."
 }

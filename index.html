@@ -17,6 +17,11 @@
   </div>
   <input id="search" placeholder="Buscar: apagón, agua, energía, evacuación…">
 </header>
+  <div class="mainActionBar">
+    <button class="crisisButton" onclick="enterCrisisMode()">🚨 MODO CRISIS</button>
+    <button class="backupButton" onclick="openSection('respaldo')">💾 Respaldo</button>
+  </div>
+
 
 <main>
 <section id="home" class="section active">
@@ -58,6 +63,14 @@
     </div>
   </div>
 
+
+  <div class="titleRow"><h2>Resumen de hoy</h2><button class="back" onclick="openSection('timeline')">Ver actividad</button></div>
+  <div class="todayStrip">
+    <div><span>Último cambio</span><strong id="todayLastChange">Sin actividad</strong></div>
+    <div><span>Revisiones próximas</span><strong id="todayReviews">0</strong></div>
+    <div><span>Elementos críticos</span><strong id="todayCritical">0</strong></div>
+    <div><span>Respaldo</span><strong id="todayBackup">Nunca</strong></div>
+  </div>
   <div class="titleRow"><h2>Estado del hogar</h2><button class="back" onclick="openSection('estado')">Actualizar</button></div>
   <div class="statusGrid">
     <div class="status" onclick="openSection('agua')"><div class="statusTop"><strong>Agua</strong><span id="dotWater" class="dot"></span></div><div id="waterValue" class="statusValue">OK</div><div id="waterDetail" class="small">Sin registrar</div></div>
@@ -84,6 +97,8 @@
     <div class="card" onclick="openSection('mascotas')"><div class="icon">🐶</div><h3>Mascotas</h3><p>Evacuación y cuidado.</p></div>
     <div class="card" onclick="openSection('estado')"><div class="icon">🏠</div><h3>Estado</h3><p>Actualizar el hogar.</p></div>
     <div class="card operationsFeatured" onclick="openSection('operaciones')"><div class="icon">🧭</div><h3>Operaciones</h3><p>Autonomía y preparación.</p></div>
+    <div class="card timelineFeatured" onclick="openSection('timeline')"><div class="icon">🕒</div><h3>Actividad</h3><p>Historial de cambios y revisiones.</p></div>
+    <div class="card maintenanceFeatured" onclick="openSection('mantenimiento')"><div class="icon">🔧</div><h3>Mantenimiento</h3><p>Revisiones próximas y vencidas.</p></div>
     <div class="card" onclick="openSection('privacidad')"><div class="icon">🔒</div><h3>Privacidad</h3><p>Datos locales y públicos.</p></div>
   </div>
 </section>
@@ -108,6 +123,73 @@
 
 
 
+
+
+<section id="timeline" class="section">
+  <button class="back" onclick="home()">← Inicio</button>
+  <div class="sectionHeader">
+    <div><h2>🕒 Actividad de EDY</h2><p>Registro local de cambios importantes.</p></div>
+    <button class="action secondary" onclick="clearTimeline()">Limpiar historial</button>
+  </div>
+  <div class="field"><label>Filtrar actividad</label><input id="timelineSearch" placeholder="Ej.: inventario, revisión, emergencia…" oninput="renderTimeline()"></div>
+  <div id="timelineList" class="timelineList"></div>
+</section>
+
+<section id="mantenimiento" class="section">
+  <button class="back" onclick="home()">← Inicio</button>
+  <div class="sectionHeader">
+    <div><h2>🔧 Mantenimiento</h2><p>Control de equipos, vencimientos y revisiones.</p></div>
+  </div>
+  <div class="maintenanceSummary">
+    <div class="mapStat"><strong id="maintOverdue">0</strong><span>Vencidas</span></div>
+    <div class="mapStat"><strong id="maintSoon">0</strong><span>Próximas</span></div>
+    <div class="mapStat"><strong id="maintNoDate">0</strong><span>Sin fecha</span></div>
+    <div class="mapStat"><strong id="maintWarranty">0</strong><span>Garantías próximas</span></div>
+  </div>
+  <div id="maintenanceList" class="maintenanceList"></div>
+</section>
+
+<section id="respaldo" class="section">
+  <button class="back" onclick="home()">← Inicio</button>
+  <h2>💾 Respaldo local</h2>
+  <div class="panel">
+    <p>Exportá todos los datos locales de EDY a un archivo JSON. Ese archivo puede guardarse en Archivos, iCloud Drive o una memoria externa.</p>
+  </div>
+  <div class="backupGrid">
+    <button class="backupCard" onclick="exportEDYBackup()"><span>⬇️</span><strong>Exportar respaldo</strong><small>Descarga un archivo con inventario, zonas, tareas, operaciones e historial.</small></button>
+    <label class="backupCard"><span>⬆️</span><strong>Importar respaldo</strong><small>Restaurar EDY desde un archivo previamente exportado.</small><input id="backupFileInput" type="file" accept=".json,application/json" onchange="importEDYBackup(event)"></label>
+  </div>
+  <div class="backupStatus">
+    <span>Último respaldo:</span>
+    <strong id="lastBackupText">Nunca</strong>
+  </div>
+  <div class="assistantDisclaimer">El archivo de respaldo puede contener información privada. Guardalo en un lugar seguro.</div>
+</section>
+
+<section id="crisisCenter" class="section crisisSection">
+  <div class="crisisHeader">
+    <div><span class="crisisPulse"></span><strong>MODO CRISIS ACTIVO</strong></div>
+    <button onclick="exitCrisisMode()">Salir del modo crisis</button>
+  </div>
+  <div class="crisisHero">
+    <h2>¿Qué está ocurriendo?</h2>
+    <p>Elegí una situación para abrir el protocolo inmediato.</p>
+  </div>
+  <div class="crisisGrid">
+    <button onclick="activateEmergency('power')">🔌<strong>Corte de energía</strong></button>
+    <button onclick="activateEmergency('water')">🚱<strong>Falta de agua</strong></button>
+    <button onclick="activateEmergency('evacuation')">🚗<strong>Evacuación</strong></button>
+    <button onclick="activateEmergency('injury')">🩹<strong>Persona herida</strong></button>
+    <button onclick="activateEmergency('storm')">⛈️<strong>Tormenta fuerte</strong></button>
+    <button onclick="openSection('mapa')">🗺️<strong>Mapa</strong></button>
+    <button onclick="openCriticalInventory()">⭐<strong>Inventario crítico</strong></button>
+    <button onclick="openSection('asistente')">🧠<strong>Asistente EDY</strong></button>
+  </div>
+  <div class="crisisEssentials">
+    <h3>Elementos críticos disponibles</h3>
+    <div id="crisisCriticalList"></div>
+  </div>
+</section>
 
 <section id="mapa" class="section">
   <button class="back" onclick="home()">← Inicio</button>
@@ -269,7 +351,11 @@
     <div class="field"><label>Unidad</label><input id="newItemUnit" value="unidad"></div>
     <div class="field"><label>Zona</label><select id="newItemZone"></select></div>
     <div class="field"><label>Ubicación exacta</label><input id="newItemLocation" placeholder="Ej.: Estante 2 · Caja verde"></div>
+    <div class="field"><label>Fecha de compra</label><input id="newItemPurchaseDate" type="date"></div>
+    <div class="field"><label>Última revisión</label><input id="newItemLastReviewDate" type="date"></div>
     <div class="field"><label>Próxima revisión</label><input id="newItemReviewDate" type="date"></div>
+    <div class="field"><label>Garantía hasta</label><input id="newItemWarrantyUntil" type="date"></div>
+    <div class="field"><label>Responsable</label><input id="newItemResponsible" placeholder="Ej.: Darío"></div>
     <div class="field checkField"><label><input id="newItemCritical" type="checkbox"> Elemento crítico</label></div>
     <div class="field wide"><label>Observaciones</label><textarea id="newItemNotes"></textarea></div>
   </div>
@@ -367,7 +453,7 @@
 <section id="results" class="section"><button class="back" onclick="home()">← Inicio</button><h2>🔍 Resultados</h2><div id="list"></div></section>
 </main>
 
-<footer>EDY Offline · v0.9 · Mapa de Ubicaciones</footer>
+<footer>EDY Offline · v1.0 Beta · Sistema Integrado</footer>
 <script src="storage.js"></script>
 <script src="calculator.js"></script>
 <script src="app.js"></script>
