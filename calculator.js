@@ -4,10 +4,17 @@ function calculateWater(){
  const people=Number(document.getElementById('waterPeople').value);
  const per=Number(document.getElementById('waterPerPerson').value);
  const box=document.getElementById('waterResult');
- if(!liters||!people||!per){box.textContent='Completá los tres valores.';return}
- const days=liters/(people*per);
- box.innerHTML=`Autonomía estimada: <strong>${days.toFixed(1)} días</strong><br><span class="small">${liters} litros para ${people} personas usando ${per} L por persona por día.</span>`;
- EDYStorage.set('water_calc',{liters,people,per});
+ if(!liters){box.textContent='Ingresá los litros disponibles.';return}
+ const profileDaily=typeof familyDailyWater==='function'?familyDailyWater():0;
+ const humans=typeof familyHumans==='function'?familyHumans().length:people;
+ const pets=typeof familyPets==='function'?familyPets().length:0;
+ const daily=profileDaily>0?profileDaily:people*per;
+ if(!daily){box.textContent='Completá el consumo diario.';return}
+ const days=liters/daily;
+ box.innerHTML=profileDaily>0
+  ?`Autonomía familiar estimada: <strong>${days.toFixed(1)} días</strong><br><span class="small">${liters} litros para ${humans} personas y ${pets} mascotas, usando ${daily.toFixed(2)} L diarios configurados en el perfil familiar.</span>`
+  :`Autonomía estimada: <strong>${days.toFixed(1)} días</strong><br><span class="small">${liters} litros para ${people} personas usando ${per} L por persona por día.</span>`;
+ EDYStorage.set('water_calc',{liters,people,per,profileDaily});
 }
 function calculateEnergy(){
  const wh=Number(document.getElementById('batteryWh').value);

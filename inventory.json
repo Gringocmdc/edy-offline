@@ -919,5 +919,52 @@
     "packageSize": 20,
     "packageUnit": "L",
     "containerType": "Bidón retornable"
+  },
+  {
+    "id": "starter-alcohol-araucaria-bactericida-1l",
+    "starter": true,
+    "name": "Alcohol etílico bactericida",
+    "brand": "Araucaria",
+    "model": "Desinfectante para uso general · botella de 1 L · 46° INPM / 54° GL",
+    "category": "Limpieza",
+    "status": "available",
+    "qty": 2,
+    "unit": "L",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 0,
+    "notes": "2 botellas de 1 litro. Producto saneante a base de alcohol etílico hidratado. Validez indicada por el fabricante: 24 meses desde la fecha de fabricación; fecha y lote no visibles en las fotos. Mantener en el envase original, cerrado, ventilado y alejado del fuego, calor, niños y mascotas. No ingerir, no mezclar con otros productos y no usar para desinfectar alimentos.",
+    "lots": [
+      {
+        "id": "starter-alcohol-araucaria-bactericida-1l-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 2,
+        "purchaseDate": "",
+        "expiryDate": "",
+        "notes": "2 botellas de 1 L. Revisar fecha de fabricación y lote en cada envase."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-alcohol-araucaria-bactericida-1l-initial",
+        "type": "initial",
+        "qty": 2,
+        "date": "2026-07-23T20:36:00-03:00",
+        "note": "Inventario inicial confirmado por fotografía"
+      }
+    ],
+    "packageCount": 2,
+    "packageSize": 1,
+    "packageUnit": "L",
+    "containerType": "Botella"
   }
 ]

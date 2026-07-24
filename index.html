@@ -7,16 +7,20 @@
   <title>EDY Offline</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=1.3.0">
+  <link rel="stylesheet" href="styles.css?v=1.4.0">
 </head>
 <body>
 <header>
   <div class="brand">
     <div><h1>EDY</h1><p>Centro de Supervivencia Digital Familiar</p></div>
-    <div class="headerActions"><span class="versionBadge">1.3.0</span><div class="pill">OFFLINE</div></div>
+    <div class="headerActions"><button class="versionBadge versionButton" onclick="openSection('actualizaciones')" title="Centro de actualizaciones">1.4.0</button><div class="pill">OFFLINE</div></div>
   </div>
   <input id="search" placeholder="Buscar: apagón, agua, energía, evacuación…">
 </header>
+<div id="updateBanner" class="updateBanner" hidden>
+  <div><strong>Hay una actualización de EDY disponible.</strong><small id="updateBannerText">Podés instalarla sin borrar tus datos locales.</small></div>
+  <button onclick="applyAvailableUpdate()">Actualizar ahora</button>
+</div>
   <div class="mainActionBar">
     <button class="crisisButton" onclick="enterCrisisMode()">🚨 MODO CRISIS</button>
     <button class="backupButton" onclick="openSection('respaldo')">💾 Respaldo</button>
@@ -60,6 +64,7 @@
       <div class="operationMetric"><span>🩺 Botiquín</span><strong id="opHealth">Sin registrar</strong></div>
       <div class="operationMetric"><span>📦 Inventario</span><strong id="opInventory">0 elementos</strong></div>
       <div class="operationMetric"><span>🗺️ Ubicaciones</span><strong id="opZones">0 zonas</strong></div>
+      <div class="operationMetric"><span>👨‍👩‍👦 Familia</span><strong id="opFamily">Sin configurar</strong></div>
     </div>
   </div>
 
@@ -71,6 +76,8 @@
     <div><span>Elementos críticos</span><strong id="todayCritical">0</strong></div>
     <div><span>Respaldo</span><strong id="todayBackup">Nunca</strong></div>
   </div>
+  <div class="titleRow"><h2>Perfil familiar</h2><button class="back" onclick="openSection('familia')">Administrar</button></div>
+  <div id="familyHomeSummary" class="familyHomeSummary"></div>
   <div class="titleRow"><h2>Estado del hogar</h2><button class="back" onclick="openSection('estado')">Actualizar</button></div>
   <div class="statusGrid">
     <div class="status" onclick="openSection('agua')"><div class="statusTop"><strong>Agua</strong><span id="dotWater" class="dot"></span></div><div id="waterValue" class="statusValue">OK</div><div id="waterDetail" class="small">Sin registrar</div></div>
@@ -102,6 +109,7 @@
     <div class="card" onclick="openSection('agua')"><div class="icon">💧</div><h3>Agua</h3><p>Reserva y autonomía.</p></div>
     <div class="card" onclick="openSection('energia')"><div class="icon">⚡</div><h3>Energía</h3><p>Baterías y consumos.</p></div>
     <div class="card" onclick="openSection('biblioteca')"><div class="icon">📚</div><h3>Biblioteca</h3><p>Consulta offline.</p></div>
+    <div class="card familyFeatured" onclick="openSection('familia')"><div class="icon">👨‍👩‍👦</div><h3>Familia</h3><p>Integrantes, roles y preparación.</p></div>
     <div class="card" onclick="openSection('mascotas')"><div class="icon">🐶</div><h3>Mascotas</h3><p>Evacuación y cuidado.</p></div>
     <div class="card" onclick="openSection('estado')"><div class="icon">🏠</div><h3>Estado</h3><p>Actualizar el hogar.</p></div>
     <div class="card operationsFeatured" onclick="openSection('operaciones')"><div class="icon">🧭</div><h3>Operaciones</h3><p>Autonomía y preparación.</p></div>
@@ -316,7 +324,7 @@
   <div id="assistantAlerts"></div>
 
   <div class="assistantDisclaimer">
-    EDY v1.3 usa reglas, búsqueda local y una biblioteca preventiva offline. No reemplaza a los servicios de emergencia, profesionales médicos ni instrucciones oficiales.
+    EDY v1.4 usa reglas, búsqueda local, perfil familiar y biblioteca preventiva offline. No reemplaza a los servicios de emergencia, profesionales médicos ni instrucciones oficiales.
   </div>
 </section>
 
@@ -392,7 +400,7 @@
     <div class="field"><label>Nombre</label><input id="newItemName" placeholder="Ej.: Arroz"></div>
     <div class="field"><label>Marca</label><input id="newItemBrand" placeholder="Ej.: Tío João"></div>
     <div class="field"><label>Categoría</label><select id="newItemCategory">
-      <option>Despensa</option><option>Agua</option><option>Energía</option><option>Higiene</option>
+      <option>Despensa</option><option>Agua</option><option>Energía</option><option>Limpieza</option><option>Higiene</option>
       <option>Botiquín</option><option>Comunicaciones</option><option>Herramientas</option>
       <option>Mochilas</option><option>Mascotas</option><option>Vehículos</option><option>Documentación</option><option>Otros</option>
     </select></div>
@@ -422,6 +430,51 @@
   <div class="actions"><button class="action" onclick="addInventoryItem()">Guardar producto</button></div>
 </section>
 
+<section id="familia" class="section searchable">
+  <button class="back" onclick="home()">← Inicio</button>
+  <div class="sectionHeader"><div><h2>👨‍👩‍👦 Perfil Familiar</h2><p>Integrantes, mascotas, roles y necesidades básicas. Todo se guarda solamente en este dispositivo.</p></div><button class="action" onclick="openFamilyMember()">Agregar integrante</button></div>
+  <div class="familySummaryGrid">
+    <div class="summaryCard"><strong id="familyTotal">0</strong><span>Integrantes</span></div>
+    <div class="summaryCard available"><strong id="familyHumans">0</strong><span>Personas</span></div>
+    <div class="summaryCard incoming"><strong id="familyPets">0</strong><span>Mascotas</span></div>
+    <div class="summaryCard critical"><strong id="familyDailyWaterTotal">0 L</strong><span>Agua diaria</span></div>
+    <div class="summaryCard expiring"><strong id="familyReadiness">0%</strong><span>Preparación</span></div>
+  </div>
+  <div class="panel privacyUpgrade"><strong>Privacidad:</strong> EDY incluye únicamente nombres y roles básicos. Documentos, teléfonos, información médica y observaciones quedan en el almacenamiento local y no deben subirse al repositorio.</div>
+  <div id="familyList" class="familyList"></div>
+</section>
+
+<section id="familyMember" class="section">
+  <button class="back" onclick="openSection('familia')">← Perfil familiar</button>
+  <h2 id="familyMemberTitle">Agregar integrante</h2>
+  <input id="familyMemberId" type="hidden">
+  <div class="formGrid">
+    <div class="field"><label>Nombre</label><input id="familyMemberName" placeholder="Nombre"></div>
+    <div class="field"><label>Tipo</label><select id="familyMemberKind" onchange="setFamilyWaterSuggestion()"><option value="adult">Adulto</option><option value="child">Niño / adolescente</option><option value="pet">Mascota</option></select></div>
+    <div class="field"><label>Vínculo o función</label><input id="familyMemberRelation" placeholder="Ej.: padre, hijo, mascota"></div>
+    <div class="field"><label>Agua potable estimada por día</label><input id="familyMemberWater" type="number" min="0" step="0.05" value="3"><small>Valor de planificación editable.</small></div>
+    <div class="field"><label>Rol en emergencia</label><input id="familyMemberEmergencyRole" placeholder="Ej.: coordinación, comunicaciones, acompañamiento"></div>
+    <div class="field"><label>Mochila personal</label><select id="familyMemberBackpack"><option value="ready">Lista</option><option value="partial">Parcial</option><option value="missing">Falta</option><option value="na">No aplica</option></select></div>
+    <div class="field"><label>Documentación</label><select id="familyMemberDocuments"><option value="ready">Preparada</option><option value="partial">Parcial</option><option value="missing">Falta</option><option value="na">No aplica</option></select></div>
+    <div class="field"><label>Medicaciones / necesidades</label><select id="familyMemberMedication"><option value="ready">Preparadas</option><option value="partial">Revisar</option><option value="missing">Faltan</option><option value="na">No aplica</option></select></div>
+    <div class="field wide"><label>Observaciones privadas</label><textarea id="familyMemberNotes" placeholder="Se guarda solamente en este dispositivo"></textarea></div>
+  </div>
+  <div class="actions"><button class="action" onclick="saveFamilyMember()">Guardar integrante</button><button id="deleteFamilyMemberButton" class="action secondary" onclick="deleteFamilyMember()" hidden>Eliminar</button></div>
+</section>
+
+<section id="actualizaciones" class="section">
+  <button class="back" onclick="home()">← Inicio</button>
+  <h2>🔄 Centro de actualizaciones</h2>
+  <div class="updateStatusCard">
+    <div><span>Versión instalada</span><strong id="installedVersion">1.4.0</strong></div>
+    <div><span>Versión disponible</span><strong id="availableVersion">Comprobar</strong></div>
+    <div><span>Modo offline</span><strong id="offlineCacheStatus">Verificando…</strong></div>
+  </div>
+  <div id="updateStatusMessage" class="panel">EDY comprobará la versión publicada cuando haya conexión.</div>
+  <div class="actions"><button class="action" onclick="checkForUpdate(true)">Buscar actualización</button><button class="action secondary" onclick="forceSafeUpdate()">Forzar actualización segura</button></div>
+  <div class="panel amber"><strong>Actualización segura:</strong> limpia solamente los archivos temporales de la aplicación. El inventario, el perfil familiar y los documentos privados permanecen guardados en el dispositivo.</div>
+</section>
+
 <section id="estado" class="section">
   <button class="back" onclick="home()">← Inicio</button><h2>Estado del hogar</h2>
   <div class="panel"><p>Estos datos se guardan solamente en este dispositivo.</p></div>
@@ -439,28 +492,27 @@
 
 <section id="agua" class="section searchable">
   <button class="back" onclick="home()">← Inicio</button>
-  <div class="sectionHeader"><div><h2>💧 Reserva de agua</h2><p>El total se obtiene automáticamente del inventario de agua potable.</p></div><button class="action secondary" onclick="openItem('starter-agua-manantial-de-oro-20l')">Ver producto</button></div>
+  <div class="sectionHeader"><div><h2>💧 Reserva de agua</h2><p>El total se obtiene automáticamente del inventario y el consumo del perfil familiar.</p></div><button class="back" onclick="openItem('starter-agua-manantial-de-oro-20l')">Ver producto</button></div>
   <div class="waterInventoryHero">
-    <div class="waterDrop">💧</div>
-    <div><span>Agua potable registrada</span><strong id="waterInventoryLiters">0 L</strong><p id="waterInventoryPackages">Sin bidones registrados</p></div>
-    <div class="waterDaysBadge"><span>Autonomía</span><strong id="waterInventoryDays">—</strong></div>
+    <div><span>Agua potable registrada</span><strong id="waterInventoryLiters">0 L</strong><small id="waterInventoryPackages">Sin bidones registrados</small></div>
+    <div><span>Autonomía familiar</span><strong id="waterInventoryDays">—</strong><small id="waterFamilyDaily">Perfil familiar sin configurar</small></div>
   </div>
   <div class="waterQuickActions">
-    <button onclick="adjustWaterInventory(20)">➕ 1 bidón · 20 L</button>
-    <button onclick="adjustWaterInventory(-20)">➖ 1 bidón · 20 L</button>
-    <button onclick="adjustWaterInventory(-5)">Consumir 5 L</button>
-    <button onclick="consumeWaterCustom()">Otra cantidad</button>
+    <button class="action" onclick="adjustWaterInventory(20)">➕ 1 bidón · 20 L</button>
+    <button class="action secondary" onclick="adjustWaterInventory(-20)">➖ 1 bidón · 20 L</button>
+    <button class="action secondary" onclick="adjustWaterInventory(-5)">Consumir 5 L</button>
+    <button class="action secondary" onclick="consumeWaterCustom()">Otra cantidad</button>
   </div>
   <div class="calculator">
     <div class="formGrid">
-      <div class="field"><label>Litros disponibles</label><input id="waterLiters" type="number" min="0" step="1" placeholder="100"><small id="waterInventorySource">Sincronizado con el inventario cuando hay agua cargada.</small></div>
+      <div class="field"><label>Litros disponibles</label><input id="waterLiters" type="number" min="0" step="1" placeholder="180"><small id="waterInventorySource">Sincronizado con el inventario cuando hay agua cargada.</small></div>
       <div class="field"><label>Personas</label><input id="waterPeople" type="number" min="1" step="1" value="5"></div>
-      <div class="field"><label>Litros por persona por día</label><input id="waterPerPerson" type="number" min="0.5" step="0.5" value="3"></div>
+      <div class="field"><label>Litros por persona por día</label><input id="waterPerPerson" type="number" min="0.5" step="0.25" value="3"></div>
     </div>
-    <div class="actions"><button class="action" onclick="calculateWater()">Calcular autonomía</button><button class="action secondary" onclick="syncWaterCalculatorFromInventory()">Usar inventario</button></div>
+    <div class="actions"><button class="action" onclick="calculateWater()">Calcular manualmente</button><button class="action secondary" onclick="syncWaterCalculatorFromInventory()">Usar inventario</button><button class="action secondary" onclick="openSection('familia')">Editar perfil familiar</button></div>
     <div id="waterResult" class="resultBox">La reserva se actualizará al cargar el inventario.</div>
   </div>
-  <div class="panel amber"><strong>Importante:</strong> el cálculo es orientativo y contempla bebida y preparación mínima de alimentos. La higiene, el calor, la actividad física y las mascotas pueden aumentar el consumo.</div>
+  <div class="panel amber"><strong>Importante:</strong> el cálculo es orientativo. El calor, la actividad física, la preparación de alimentos, la higiene y las necesidades individuales pueden aumentar el consumo.</div>
 </section>
 
 <section id="energia" class="section searchable">
@@ -519,21 +571,19 @@
 
 <section id="biblioteca" class="section searchable">
   <button class="back" onclick="home()">← Inicio</button>
-  <div class="sectionHeader"><div><h2>📚 Biblioteca EDY Offline</h2><p>Protocolos completos incluidos en la aplicación y disponibles sin Internet.</p></div><span class="offlineLibraryBadge">21 MANUALES OFFLINE</span></div>
+  <div class="sectionHeader"><div><h2>📚 Biblioteca EDY Offline</h2><p>Protocolos incluidos en la aplicación y disponibles sin Internet.</p></div><span class="offlineLibraryBadge">21 MANUALES OFFLINE</span></div>
   <div class="libraryDownloads">
-    <a class="libraryDownload" href="manuales/Manual_Maestro_EDY_Biblioteca_Offline.pdf" target="_blank" rel="noopener"><span>📘</span><div><strong>Manual Maestro EDY</strong><small>PDF completo · uso offline</small></div></a>
-    <a class="libraryDownload" href="manuales/Checklist_Botiquin_Familiar_EDY.pdf" target="_blank" rel="noopener"><span>🩹</span><div><strong>Checklist de botiquín</strong><small>PDF imprimible</small></div></a>
+    <a class="downloadCard" href="manuales/Manual_Maestro_EDY_Biblioteca_Offline.pdf" target="_blank"><strong>📘 Manual Maestro EDY</strong><small>Abrir PDF offline</small></a>
+    <a class="downloadCard" href="manuales/Checklist_Botiquin_Familiar_EDY.pdf" target="_blank"><strong>🩺 Checklist de botiquín</strong><small>Abrir PDF offline</small></a>
   </div>
-  <div class="libraryTools">
-    <input id="manualSearch" placeholder="Buscar: apagón, agua, dengue, incendio…" oninput="renderManuals()">
-    <select id="manualCategory" onchange="renderManuals()"><option value="">Todas las categorías</option></select>
+  <div class="manualToolbar">
+    <div class="field"><label>Buscar en los manuales</label><input id="manualSearch" placeholder="Ej.: apagón, dengue, agua segura…" oninput="renderManuals()"></div>
+    <div class="field"><label>Categoría</label><select id="manualCategory" onchange="renderManuals()"><option value="">Todas las categorías</option></select></div>
   </div>
-  <div class="manualStats"><span><strong id="manualCount">0</strong> manuales</span><span>✅ Contenido precargado</span><span>🔎 Búsqueda local</span></div>
+  <div class="manualCountLine"><strong id="manualCount">0</strong> manuales encontrados</div>
   <div id="manualList" class="manualGrid"></div>
-  <div class="privateManualPanel">
-    <div><h3>🔒 Documentos privados</h3><p>Importá PDFs personales para guardarlos solo en este dispositivo. No se publican en GitHub.</p></div>
-    <label class="action fileAction">Agregar PDF privado<input id="privateManualInput" type="file" accept="application/pdf" hidden onchange="importPrivateManual(event)"></label>
-  </div>
+  <div class="titleRow"><h2>Documentos privados</h2><span class="localBadge">SOLO EN ESTE DISPOSITIVO</span></div>
+  <div class="panel"><p>Podés importar PDF familiares. No se publican en GitHub y quedan guardados localmente en este iPad.</p><label class="action fileAction">Importar PDF<input type="file" accept="application/pdf" onchange="importPrivateManual(event)"></label></div>
   <div id="privateManualList"></div>
 </section>
 <section id="manualDetail" class="section">
@@ -554,10 +604,10 @@
   <button class="navCrisis" onclick="enterCrisisMode()"><span>🚨</span><small>Crisis</small></button>
 </nav>
 
-<footer>EDY Offline · v1.3.0 · Agua y Biblioteca Offline</footer>
-<script src="storage.js?v=1.3.0"></script>
-<script src="calculator.js?v=1.3.0"></script>
-<script src="media.js?v=1.3.0"></script>
-<script src="app.js?v=1.3.0"></script>
+<footer>EDY Offline · v1.4.0 · Perfil familiar e inventario conectado</footer>
+<script src="storage.js?v=1.4.0"></script>
+<script src="calculator.js?v=1.4.0"></script>
+<script src="media.js?v=1.4.0"></script>
+<script src="app.js?v=1.4.0"></script>
 </body>
 </html>

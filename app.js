@@ -1,3 +1,5 @@
+const APP_VERSION='1.4.0';
+const APP_NAME='Perfil familiar e inventario conectado';
 
 const sections=[...document.querySelectorAll('.section')];
 function openSection(id){
@@ -8,6 +10,8 @@ function openSection(id){
  if(id==='inventario')renderInventory();
  if(id==='agua')renderWaterInventory();
  if(id==='biblioteca'){renderManuals();renderPrivateManuals()}
+ if(id==='familia')renderFamily();
+ if(id==='actualizaciones')renderUpdateCenter();
  if(id==='mapa')renderMap();
  if(id==='nuevoItem')populateZoneSelect('newItemZone');
  if(id==='timeline')renderTimeline();
@@ -18,7 +22,7 @@ function openSection(id){
  if(id==='diagnostico')renderDiagnostic();
  scrollTo(0,0)
 }
-function home(){document.getElementById('search').value='';loadStatus();renderHomePendings();renderOperationsHome();renderAssistantHomeAlerts();renderTodayStrip();renderHomeChecklistProgress();renderReadinessInsights();openSection('home')}
+function home(){document.getElementById('search').value='';loadStatus();renderHomePendings();renderOperationsHome();renderFamilyHomeSummary();renderAssistantHomeAlerts();renderTodayStrip();renderHomeChecklistProgress();renderReadinessInsights();openSection('home')}
 document.getElementById('search').addEventListener('input',e=>{
  const raw=e.target.value.trim();const q=normalizeText(raw);if(!q){home();return}
  const sectionsFound=[...document.querySelectorAll('.searchable')].filter(s=>normalizeText(s.innerText).includes(q));
@@ -95,7 +99,7 @@ function findManualMatches(query){
 async function loadManuals(){
  const box=document.getElementById('manualList');
  try{
-  const r=await fetch('manuals.json?v=1.3.0');if(!r.ok)throw new Error('Biblioteca no disponible');
+  const r=await fetch('manuals.json?v=1.4.0');if(!r.ok)throw new Error('Biblioteca no disponible');
   manualsData=await r.json();
   const select=document.getElementById('manualCategory');
   if(select){
@@ -166,13 +170,132 @@ async function deletePrivateManual(id){
  if(!confirm('¿Eliminar este PDF privado del dispositivo?'))return;
  const db=await openPrivateLibraryDB();await new Promise((resolve,reject)=>{const tx=db.transaction(PRIVATE_LIBRARY_STORE,'readwrite');tx.objectStore(PRIVATE_LIBRARY_STORE).delete(id);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)});renderPrivateManuals();
 }
+
+const FAMILY_SEED_VERSION='1.4.0';
+const FAMILY_DEFAULTS=[
+ {id:'family-dario',name:'Darío',kind:'adult',relation:'Padre',dailyWater:3,emergencyRole:'Coordinación general',backpack:'partial',documents:'partial',medication:'na',notes:''},
+ {id:'family-eliana',name:'Eliana',kind:'adult',relation:'Madre',dailyWater:3,emergencyRole:'Documentación y cuidado familiar',backpack:'partial',documents:'partial',medication:'na',notes:''},
+ {id:'family-alvaro',name:'Álvaro',kind:'child',relation:'Hijo',dailyWater:3,emergencyRole:'Apoyo en comunicaciones',backpack:'partial',documents:'partial',medication:'na',notes:''},
+ {id:'family-felipe',name:'Felipe',kind:'child',relation:'Hijo',dailyWater:3,emergencyRole:'Apoyo en agua y listas',backpack:'partial',documents:'partial',medication:'na',notes:''},
+ {id:'family-maximo',name:'Máximo',kind:'child',relation:'Hijo',dailyWater:3,emergencyRole:'Acompañado por un adulto',backpack:'partial',documents:'partial',medication:'na',notes:''},
+ {id:'family-manchas',name:'Manchas',kind:'pet',relation:'Mascota',dailyWater:.25,emergencyRole:'Correa o transportadora',backpack:'na',documents:'partial',medication:'na',notes:''},
+ {id:'family-bella',name:'Bella',kind:'pet',relation:'Mascota',dailyWater:.25,emergencyRole:'Correa o transportadora',backpack:'na',documents:'partial',medication:'na',notes:''}
+];
+function normalizeFamilyMember(member){
+ const kind=['adult','child','pet'].includes(member?.kind)?member.kind:'adult';
+ const suggested={adult:3,child:3,pet:.25}[kind];
+ return {
+  id:String(member?.id||`family-${Date.now()}-${Math.random().toString(36).slice(2,7)}`),
+  name:String(member?.name||'Integrante'),
+  kind,
+  relation:String(member?.relation||''),
+  dailyWater:Math.max(0,Number(member?.dailyWater??suggested)||0),
+  emergencyRole:String(member?.emergencyRole||''),
+  backpack:['ready','partial','missing','na'].includes(member?.backpack)?member.backpack:'partial',
+  documents:['ready','partial','missing','na'].includes(member?.documents)?member.documents:'partial',
+  medication:['ready','partial','missing','na'].includes(member?.medication)?member.medication:'na',
+  notes:String(member?.notes||'')
+ };
+}
+function seedFamilyProfile(){
+ const saved=EDYStorage.get('family_profile',null);
+ if(!Array.isArray(saved)){
+  EDYStorage.set('family_profile',FAMILY_DEFAULTS.map(normalizeFamilyMember));
+  EDYStorage.set('family_seed_version',FAMILY_SEED_VERSION);
+  return;
+ }
+ const normalized=saved.map(normalizeFamilyMember);
+ if(EDYStorage.get('family_seed_version','')!==FAMILY_SEED_VERSION){
+  const ids=new Set(normalized.map(x=>x.id));
+  FAMILY_DEFAULTS.forEach(member=>{if(!ids.has(member.id))normalized.push(normalizeFamilyMember(member))});
+  EDYStorage.set('family_seed_version',FAMILY_SEED_VERSION);
+ }
+ EDYStorage.set('family_profile',normalized);
+}
+function getFamilyProfile(){return (EDYStorage.get('family_profile',[])||[]).map(normalizeFamilyMember)}
+function saveFamilyProfile(list,message='Perfil familiar actualizado'){
+ EDYStorage.set('family_profile',(list||[]).map(normalizeFamilyMember));
+ addTimelineEntry('family','👨‍👩‍👦',message);
+ renderFamily();renderFamilyHomeSummary();renderOperationsHome();renderWaterInventory();renderReadinessInsights();renderDiagnostic();
+}
+function familyHumans(){return getFamilyProfile().filter(x=>x.kind!=='pet')}
+function familyPets(){return getFamilyProfile().filter(x=>x.kind==='pet')}
+function familyDailyWater(){return roundStock(getFamilyProfile().reduce((sum,x)=>sum+(Number(x.dailyWater)||0),0))}
+function familyStatusScore(value){return {ready:100,partial:50,missing:0,na:100}[value]??0}
+function familyReadinessScore(){
+ const members=getFamilyProfile();if(!members.length)return 0;
+ const scores=members.flatMap(m=>[m.backpack,m.documents,m.medication].map(familyStatusScore));
+ return Math.round(scores.reduce((a,b)=>a+b,0)/scores.length);
+}
+function familyKindLabel(kind){return {adult:'Adulto',child:'Niño / adolescente',pet:'Mascota'}[kind]||kind}
+function familyStatusLabel(value){return {ready:'Listo',partial:'Parcial',missing:'Falta',na:'No aplica'}[value]||value}
+function renderFamily(){
+ const list=getFamilyProfile(),box=document.getElementById('familyList');if(!box)return;
+ const put=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value};
+ put('familyTotal',list.length);put('familyHumans',familyHumans().length);put('familyPets',familyPets().length);
+ put('familyDailyWaterTotal',`${formatStockNumber(familyDailyWater())} L`);
+ put('familyReadiness',`${familyReadinessScore()}%`);
+ box.innerHTML=list.length?list.map(m=>`<article class="familyCard" onclick="openFamilyMember('${escapeJS(m.id)}')">
+  <div class="familyAvatar">${m.kind==='pet'?'🐶':m.kind==='child'?'🧒':'🧑'}</div>
+  <div class="familyCardBody"><div class="familyCardTitle"><strong>${escapeHTML(m.name)}</strong><span>${escapeHTML(familyKindLabel(m.kind))}</span></div>
+   <p>${escapeHTML(m.relation||'Sin vínculo registrado')}${m.emergencyRole?` · ${escapeHTML(m.emergencyRole)}`:''}</p>
+   <div class="familyTags"><span>💧 ${formatStockNumber(m.dailyWater)} L/día</span><span class="${m.backpack}">🎒 ${familyStatusLabel(m.backpack)}</span><span class="${m.documents}">📄 ${familyStatusLabel(m.documents)}</span></div>
+  </div><span class="familyOpen">›</span></article>`).join(''):'<div class="panel">No hay integrantes registrados.</div>';
+}
+function renderFamilyHomeSummary(){
+ const box=document.getElementById('familyHomeSummary');if(!box)return;
+ const humans=familyHumans().length,pets=familyPets().length,daily=familyDailyWater(),score=familyReadinessScore();
+ box.innerHTML=`<div class="familyHomeMain" onclick="openSection('familia')"><div><strong>${humans} personas + ${pets} mascotas</strong><small>Consumo planificado: ${formatStockNumber(daily)} L de agua potable por día</small></div><span>${score}% preparados ›</span></div>`;
+}
+function openFamilyMember(id=''){
+ const member=id?getFamilyProfile().find(x=>x.id===id):null;
+ const set=(field,value)=>{const el=document.getElementById(field);if(el)el.value=value??''};
+ set('familyMemberId',member?.id||'');set('familyMemberName',member?.name||'');
+ set('familyMemberKind',member?.kind||'adult');set('familyMemberRelation',member?.relation||'');
+ set('familyMemberWater',member?.dailyWater??3);set('familyMemberEmergencyRole',member?.emergencyRole||'');
+ set('familyMemberBackpack',member?.backpack||'partial');set('familyMemberDocuments',member?.documents||'partial');
+ set('familyMemberMedication',member?.medication||'na');set('familyMemberNotes',member?.notes||'');
+ const title=document.getElementById('familyMemberTitle');if(title)title.textContent=member?`Editar a ${member.name}`:'Agregar integrante';
+ const del=document.getElementById('deleteFamilyMemberButton');if(del)del.hidden=!member;
+ openSection('familyMember');
+}
+function setFamilyWaterSuggestion(){
+ const kind=document.getElementById('familyMemberKind')?.value||'adult';
+ const input=document.getElementById('familyMemberWater');if(!input)return;
+ const current=Number(input.value);if(!current||[3,.25].includes(current))input.value={adult:3,child:3,pet:.25}[kind];
+}
+function saveFamilyMember(){
+ const name=document.getElementById('familyMemberName')?.value.trim();if(!name){alert('Ingresá el nombre del integrante.');return}
+ const id=document.getElementById('familyMemberId')?.value||`family-${Date.now()}-${Math.random().toString(36).slice(2,7)}`;
+ const member=normalizeFamilyMember({
+  id,name,kind:document.getElementById('familyMemberKind')?.value,
+  relation:document.getElementById('familyMemberRelation')?.value.trim(),
+  dailyWater:document.getElementById('familyMemberWater')?.value,
+  emergencyRole:document.getElementById('familyMemberEmergencyRole')?.value.trim(),
+  backpack:document.getElementById('familyMemberBackpack')?.value,
+  documents:document.getElementById('familyMemberDocuments')?.value,
+  medication:document.getElementById('familyMemberMedication')?.value,
+  notes:document.getElementById('familyMemberNotes')?.value.trim()
+ });
+ const list=getFamilyProfile(),index=list.findIndex(x=>x.id===id);
+ if(index>=0)list[index]=member;else list.push(member);
+ saveFamilyProfile(list,`${index>=0?'Integrante actualizado':'Integrante agregado'}: ${name}`);
+ openSection('familia');
+}
+function deleteFamilyMember(){
+ const id=document.getElementById('familyMemberId')?.value;if(!id)return;
+ const member=getFamilyProfile().find(x=>x.id===id);if(!member||!confirm(`¿Eliminar a ${member.name} del perfil familiar?`))return;
+ saveFamilyProfile(getFamilyProfile().filter(x=>x.id!==id),`Integrante eliminado: ${member.name}`);
+ openSection('familia');
+}
+
 const wc=EDYStorage.get('water_calc');if(wc){waterLiters.value=wc.liters;waterPeople.value=wc.people;waterPerPerson.value=wc.per}
 ['waterPeople','waterPerPerson'].forEach(id=>document.getElementById(id)?.addEventListener('input',renderWaterInventory));
 const ec=EDYStorage.get('energy_calc');if(ec){batteryWh.value=ec.wh;batteryPercent.value=ec.percent;loadWatts.value=ec.watts;efficiency.value=ec.eff}
 
 let inventoryBase=[];
 let currentItemId=null;
-const INVENTORY_SEED_VERSION='1.3.0';
+const INVENTORY_SEED_VERSION='1.4.0';
 
 function statusText(status){
  return {available:'Disponible',incoming:'En camino',review:'Revisar',missing:'Falta'}[status]||status;
@@ -360,7 +483,7 @@ function renderInventory(){
  all.forEach(i=>{if(counts[i.status]!==undefined)counts[i.status]++;if(i.critical)counts.critical++;if(['soon','expired'].includes(itemExpiryState(i)))counts.expiring++});
  const put=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value};
  put('invTotal',all.length);put('invAvailable',counts.available);put('invIncoming',counts.incoming);put('invMissing',counts.missing);put('invCritical',counts.critical);put('invExpiring',counts.expiring);
- const preferred=['Despensa','Agua','Energía','Higiene','Botiquín','Comunicaciones','Herramientas','Mochilas','Mascotas','Vehículos','Documentación','Alimentos','Otros'];
+ const preferred=['Despensa','Agua','Energía','Limpieza','Higiene','Botiquín','Comunicaciones','Herramientas','Mochilas','Mascotas','Vehículos','Documentación','Alimentos','Otros'];
  const extra=[...new Set(filtered.map(i=>i.category))].filter(cat=>!preferred.includes(cat));
  const categories=[...preferred,...extra];
  box.innerHTML=categories.map(cat=>{
@@ -374,7 +497,7 @@ function renderInventory(){
  refreshInventoryThumbnails();
 }
 function categoryIcon(cat){
- return {'Despensa':'🍚','Energía':'⚡','Agua':'💧','Higiene':'🧼','Comunicaciones':'📡','Herramientas':'🛠️','Botiquín':'🩺','Alimentos':'🍲','Mochilas':'🎒','Mascotas':'🐶','Vehículos':'🚗','Documentación':'📄','Otros':'📦'}[cat]||'📦';
+ return {'Despensa':'🍚','Energía':'⚡','Agua':'💧','Limpieza':'🧴','Higiene':'🧼','Comunicaciones':'📡','Herramientas':'🛠️','Botiquín':'🩺','Alimentos':'🍲','Mochilas':'🎒','Mascotas':'🐶','Vehículos':'🚗','Documentación':'📄','Otros':'📦'}[cat]||'📦';
 }
 function stockTargetText(item){
  const min=numberOrNull(item.minStock),target=numberOrNull(item.targetStock);
@@ -527,6 +650,7 @@ function computeIntegratedReadiness(){
  if(inv.length){const good=inv.filter(i=>i.status==='available').length;parts.push(Math.round(good/inv.length*100));const located=inv.filter(i=>i.zone&&zoneById(i.zone)).length;parts.push(Math.round(located/inv.length*100));const critical=inv.filter(i=>i.critical);if(critical.length)parts.push(Math.round(critical.filter(i=>i.status==='available').length/critical.length*100))}
  const dated=inv.filter(i=>i.reviewDate);if(dated.length)parts.push(Math.round(dated.filter(i=>daysUntil(i.reviewDate)>=0).length/dated.length*100));
  if(lists.length)parts.push(Math.round(lists.reduce((s,c)=>s+checklistProgress(c).pct,0)/lists.length));
+ if(getFamilyProfile().length)parts.push(familyReadinessScore());
  return parts.length?Math.round(parts.reduce((a,b)=>a+b,0)/parts.length):0;
 }
 function buildReadinessInsights(){
@@ -535,6 +659,7 @@ function buildReadinessInsights(){
  if(overdue.length)out.push({level:'attention',icon:'🔧',title:`${overdue.length} revisión${overdue.length===1?' vencida':'es vencidas'}`,detail:'Actualizá el mantenimiento para mantener la preparación real.',action:"openSection('mantenimiento')"});
  if(unlocated.length)out.push({level:'attention',icon:'🗺️',title:`${unlocated.length} elemento${unlocated.length===1?' sin zona':'s sin zona'}`,detail:'Asignar ubicaciones reduce el tiempo de búsqueda en una emergencia.',action:"openZone('__unlocated__')"});
  if(!o.updated)out.push({level:'attention',icon:'🧭',title:'Centro de Operaciones sin configurar',detail:'Cargá agua, personas, alimentos y energía para calcular autonomía.',action:"openSection('operaciones')"});
+ if(familyReadinessScore()<70)out.push({level:'attention',icon:'👨‍👩‍👦',title:'Perfil familiar por completar',detail:'Revisá mochilas, documentación y necesidades de cada integrante.',action:"openSection('familia')"});
  const last=EDYStorage.get('last_backup','Nunca');if(last==='Nunca')out.push({level:'attention',icon:'💾',title:'Todavía no hay un respaldo',detail:'Exportá una copia antes de cargar más información privada.',action:"openSection('respaldo')"});
  if(!out.length)out.push({level:'good',icon:'✅',title:'No se detectaron puntos críticos',detail:'Mantené las revisiones y actualizá el inventario cuando haya cambios.',action:"openSection('mantenimiento')"});
  return out;
@@ -585,7 +710,7 @@ function renderMaintenance(){
 }
 async function getAllBackupData(){
  return {
-  version:'1.3.0',
+  version:APP_VERSION,
   exportedAt:new Date().toISOString(),
   inventory:getInventory(),
   zones:getZones(),
@@ -595,6 +720,7 @@ async function getAllBackupData(){
   timeline:EDYStorage.get('timeline',[]),
   activeEmergency:EDYStorage.get('active_emergency',null),
   checklists:getChecklists(),
+  family:getFamilyProfile(),
   photos:await EDYMedia.getAllPhotos()
  };
 }
@@ -625,6 +751,7 @@ function importEDYBackup(event){
    EDYStorage.set('pendings',Array.isArray(data.pendings)?data.pendings:[]);
    EDYStorage.set('timeline',Array.isArray(data.timeline)?data.timeline:[]);
    EDYStorage.set('checklists',Array.isArray(data.checklists)?data.checklists:getChecklists());
+   if(Array.isArray(data.family))EDYStorage.set('family_profile',data.family.map(normalizeFamilyMember));
    await EDYMedia.replaceAll(Array.isArray(data.photos)?data.photos:[]);
    if(data.activeEmergency)EDYStorage.set('active_emergency',data.activeEmergency);else EDYStorage.remove('active_emergency');
    EDYStorage.set('last_backup',new Date().toLocaleString('es-AR'));
@@ -652,7 +779,7 @@ function renderTodayStrip(){
 }
 function renderAllBetaViews(){
  renderInventory();renderMap();renderOperationsHome();renderAssistantAlerts();renderAssistantHomeAlerts();
- renderPendings();renderHomePendings();renderTimeline();renderMaintenance();renderBackupStatus();renderTodayStrip();renderChecklists();renderHomeChecklistProgress();renderReadinessInsights();renderDiagnostic();
+ renderPendings();renderHomePendings();renderTimeline();renderMaintenance();renderBackupStatus();renderTodayStrip();renderChecklists();renderHomeChecklistProgress();renderFamily();renderFamilyHomeSummary();renderReadinessInsights();renderDiagnostic();
 }
 function enterCrisisMode(){
  EDYStorage.set('crisis_mode',true);
@@ -940,6 +1067,11 @@ function assistantAsk(prefill){
    assistantReply('Pendientes y faltantes',`<p>${missing.length} elemento${missing.length===1?'':'s'} requieren atención.</p>`,html+tasks);
    return;
  }
+ if(/\b(familia|integrantes|personas|mascotas|miembros|mochilas)\b/.test(q)){
+   const members=getFamilyProfile(),humans=familyHumans(),pets=familyPets();
+   assistantReply('Perfil familiar',`<p>Hay <strong>${humans.length} personas</strong> y <strong>${pets.length} mascotas</strong>. El consumo planificado de agua es de <strong>${formatStockNumber(familyDailyWater())} L por día</strong>.</p>`,
+    `<div class="assistantCallout"><button class="action" onclick="openSection('familia')">Abrir perfil familiar</button></div>`);return;
+ }
  if(/\b(agua|litros|hidrata|filtro)\b/.test(q)){
    const totalWater=effectiveWaterLiters(o),days=waterDays(o);
    const waterItems=inv.filter(i=>normalizeText(i.category)==='agua');
@@ -1074,9 +1206,13 @@ function renderWaterInventory(){
  const total=inventoryWaterLiters();
  const liters=document.getElementById('waterInventoryLiters'),packages=document.getElementById('waterInventoryPackages'),daysEl=document.getElementById('waterInventoryDays');
  if(liters)liters.textContent=`${formatStockNumber(total)} L`;if(packages)packages.textContent=waterDisplaySummary();
- const people=Math.max(1,Number(document.getElementById('waterPeople')?.value)||Number(getOperations().people)||5);
+ const familyUse=familyDailyWater(),humans=familyHumans().length,pets=familyPets().length;
+ const people=Math.max(1,Number(document.getElementById('waterPeople')?.value)||Number(getOperations().people)||humans||5);
  const per=Math.max(.5,Number(document.getElementById('waterPerPerson')?.value)||Number(getOperations().waterPerPerson)||3);
- if(daysEl)daysEl.textContent=total>0?`${(total/(people*per)).toFixed(1)} días`:'—';
+ const daily=familyUse>0?familyUse:people*per;
+ if(daysEl)daysEl.textContent=total>0&&daily>0?`${(total/daily).toFixed(1)} días`:'—';
+ const familyLabel=document.getElementById('waterFamilyDaily');
+ if(familyLabel)familyLabel.textContent=familyUse>0?`${humans} personas + ${pets} mascotas · ${formatStockNumber(familyUse)} L/día`:'Perfil familiar sin configurar';
  const source=document.getElementById('waterInventorySource');
  if(total>0){const input=document.getElementById('waterLiters');if(input)input.value=total;if(source)source.textContent='Valor sincronizado automáticamente desde el inventario.'}
  else if(source)source.textContent='Sin agua potable registrada en el inventario.';
@@ -1121,7 +1257,8 @@ function saveOperations(){
   comms:Number(document.getElementById('opsComms').value),
   healthPercent:Math.min(100,Math.max(0,Number(document.getElementById('opsHealthPercent').value)||0)),
   pets:Number(document.getElementById('opsPets').value),
-  updated:new Date().toLocaleString('es-AR')
+  updated:new Date().toLocaleString('es-AR'),
+  updatedISO:new Date().toISOString()
  };
  EDYStorage.set('operations',data);
  addTimelineEntry('operations','🧭','Centro de Operaciones actualizado');
@@ -1131,7 +1268,7 @@ function clearOperations(){
  if(!confirm('¿Borrar los valores del Centro de Operaciones?'))return;
  EDYStorage.remove('operations');loadOperationsForm();renderOperationsResult();renderOperationsHome();
 }
-function waterDays(o={}){const people=Math.max(1,Number(o.people)||5),per=Math.max(.5,Number(o.waterPerPerson)||3);return effectiveWaterLiters(o)/(people*per)}
+function waterDays(o={}){const familyUse=familyDailyWater();const people=Math.max(1,Number(o.people)||familyHumans().length||5),per=Math.max(.5,Number(o.waterPerPerson)||3);const daily=familyUse>0?familyUse:people*per;return daily>0?effectiveWaterLiters(o)/daily:0}
 function scoreOperations(o){
  o=o||{};
  const wd=waterDays(o);
@@ -1145,7 +1282,7 @@ function scoreOperations(o){
 function loadOperationsForm(){
  const o=getOperations();
  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.value=v};
- set('opsWaterLiters',effectiveWaterLiters(o)||'');set('opsPeople',o.people??5);set('opsWaterPerPerson',o.waterPerPerson??3);
+ set('opsWaterLiters',effectiveWaterLiters(o)||'');set('opsPeople',o.people??familyHumans().length??5);set('opsWaterPerPerson',o.waterPerPerson??3);
  set('opsFoodDays',o.foodDays??'');set('opsEnergyHours',o.energyHours??'');set('opsComms',o.comms??100);
  set('opsHealthPercent',o.healthPercent??'');set('opsPets',o.pets??100);
 }
@@ -1157,10 +1294,10 @@ function renderOperationsResult(){
  const wd=waterDays(o),score=scoreOperations(o);
  box.innerHTML=`<div class="opsResultCard"><h3>Resultado actual: ${score}%</h3>
   <div class="opsBar"><span style="width:${score}%"></span></div>
-  <p><strong>Agua:</strong> ${formatStockNumber(totalWater)} L · ${wd.toFixed(1)} días para ${Number(o.people)||5} personas.</p>
-  <p><strong>Alimentos:</strong> ${o.foodDays} días.</p>
-  <p><strong>Energía:</strong> ${o.energyHours} horas estimadas.</p>
-  <p class="small">Última actualización: ${o.updated}</p></div>`;
+  <p><strong>Agua:</strong> ${formatStockNumber(totalWater)} L · ${wd.toFixed(1)} días para ${familyHumans().length||Number(o.people)||5} personas y ${familyPets().length} mascotas.</p>
+  <p><strong>Alimentos:</strong> ${o.updated?`${o.foodDays} días`:'Sin registrar'}.</p>
+  <p><strong>Energía:</strong> ${o.updated?`${o.energyHours} horas estimadas`:'Sin registrar'}.</p>
+  <p class="small">Última actualización: ${o.updated||'Todavía no registrada'}</p></div>`;
 }
 function renderOperationsHome(){
  const o=getOperations(),inv=getInventory();
@@ -1177,16 +1314,73 @@ function renderOperationsHome(){
  put('opHealth',o.updated?o.healthPercent+'%':'Sin registrar');
  put('opInventory',`${available}/${total} disponibles`);
  put('opZones',`${getZones().length} zonas`);
+ put('opFamily',`${familyHumans().length} personas · ${familyPets().length} mascotas`);
  renderReadinessInsights();
 }
 
-loadStatus();renderPendings();renderHomePendings();loadManuals();Promise.all([loadZones(),loadChecklists()]).then(()=>loadInventory()).then(()=>{renderAllBetaViews();if(EDYStorage.get('crisis_mode',false)){document.body.classList.add('crisisMode')}});loadOperationsForm();renderOperationsResult();renderOperationsHome();renderAssistantAlerts();renderAssistantHomeAlerts();renderTodayStrip();renderBackupStatus();
+
+let availableUpdateVersion='';
+function compareVersions(a,b){
+ const pa=String(a).split('.').map(Number),pb=String(b).split('.').map(Number);
+ for(let i=0;i<Math.max(pa.length,pb.length);i++){const x=pa[i]||0,y=pb[i]||0;if(x!==y)return x>y?1:-1}
+ return 0;
+}
+function updateMessage(text,kind=''){
+ const el=document.getElementById('updateStatusMessage');if(el){el.className=`panel ${kind}`.trim();el.textContent=text}
+}
+async function checkForUpdate(manual=false){
+ const available=document.getElementById('availableVersion');
+ try{
+  const response=await fetch(`version.json?t=${Date.now()}`,{cache:'no-store'});
+  if(!response.ok)throw new Error('Sin respuesta');
+  const data=await response.json(),remote=String(data.version||'');
+  availableUpdateVersion=remote;if(available)available.textContent=remote||'Desconocida';
+  if(remote&&compareVersions(remote,APP_VERSION)>0){
+   const banner=document.getElementById('updateBanner');if(banner)banner.hidden=false;
+   const txt=document.getElementById('updateBannerText');if(txt)txt.textContent=`Versión ${remote}: ${data.name||'nueva actualización'}.`;
+   updateMessage(`Está disponible EDY ${remote}. Tocá “Actualizar ahora”.`,'amber');
+   return true;
+  }
+  updateMessage(`EDY ${APP_VERSION} está actualizado.`,'');
+  if(manual)alert(`EDY ${APP_VERSION} está actualizado.`);
+  return false;
+ }catch(e){
+  if(available)available.textContent='Sin conexión';
+  updateMessage('No se pudo comprobar la versión. EDY sigue funcionando offline.','amber');
+  if(manual)alert('No se pudo comprobar la actualización. Revisá la conexión e intentá nuevamente.');
+  return false;
+ }
+}
+async function renderUpdateCenter(){
+ const installed=document.getElementById('installedVersion');if(installed)installed.textContent=APP_VERSION;
+ const offline=document.getElementById('offlineCacheStatus');
+ if(offline){try{offline.textContent=(await caches.has(`edy-offline-v${APP_VERSION}`))?'Listo':'Preparando'}catch{offline.textContent='No disponible'}}
+ checkForUpdate(false);
+}
+async function applyAvailableUpdate(){
+ if('serviceWorker' in navigator){
+  const registration=await navigator.serviceWorker.getRegistration();
+  if(registration){await registration.update();if(registration.waiting){registration.waiting.postMessage({type:'SKIP_WAITING'});return}}
+ }
+ window.location.href=`actualizar.html?t=${Date.now()}`;
+}
+function forceSafeUpdate(){
+ if(!confirm('EDY limpiará solamente los archivos temporales y volverá a descargar la aplicación. Tus datos locales se conservarán. ¿Continuar?'))return;
+ window.location.href=`actualizar.html?t=${Date.now()}`;
+}
+
+seedFamilyProfile();
+loadStatus();renderPendings();renderHomePendings();renderFamily();renderFamilyHomeSummary();loadManuals();Promise.all([loadZones(),loadChecklists()]).then(()=>loadInventory()).then(()=>{renderAllBetaViews();if(EDYStorage.get('crisis_mode',false)){document.body.classList.add('crisisMode')}});loadOperationsForm();renderOperationsResult();renderOperationsHome();renderAssistantAlerts();renderAssistantHomeAlerts();renderTodayStrip();renderBackupStatus();
 if('serviceWorker' in navigator){
  let reloadingForUpdate=false;
  navigator.serviceWorker.addEventListener('controllerchange',()=>{
   if(reloadingForUpdate)return;reloadingForUpdate=true;window.location.reload();
  });
  window.addEventListener('load',async()=>{
-  try{const registration=await navigator.serviceWorker.register('./service-worker.js?v=1.3.0');registration.update()}catch(e){console.warn('No se pudo registrar el modo offline',e)}
+  try{
+   const registration=await navigator.serviceWorker.register(`./service-worker.js?v=${APP_VERSION}`);
+   registration.addEventListener('updatefound',()=>{const worker=registration.installing;if(worker)worker.addEventListener('statechange',()=>{if(worker.state==='installed'&&navigator.serviceWorker.controller){const banner=document.getElementById('updateBanner');if(banner)banner.hidden=false}})});
+   registration.update();setTimeout(()=>checkForUpdate(false),1500);
+  }catch(e){console.warn('No se pudo registrar el modo offline',e)}
  });
 }

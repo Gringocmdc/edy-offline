@@ -1,21 +1,28 @@
-# EDY Offline v1.3.0
+# EDY Offline v1.4.0
 
 Centro de Preparación Digital Familiar, diseñado para funcionar como PWA y conservar los datos principales en el dispositivo.
 
 ## Novedades de esta versión
 
-- Inventario inicial de 20 productos, incluido **Manantial de Oro: 5 bidones de 20 L (100 L)**.
-- Módulo Agua conectado al inventario: suma, consumo rápido y cálculo de autonomía.
-- Biblioteca con **21 manuales interactivos**, búsqueda local y categorías.
-- Manual Maestro EDY y checklist de botiquín incluidos como PDF para consulta offline.
-- Importación de PDFs privados mediante IndexedDB: quedan solamente en el dispositivo y no se publican en GitHub.
-- Asistente EDY conectado al inventario, al agua y a la biblioteca local.
-- Caché offline actualizado a v1.3.0.
+- Perfil familiar local con 5 personas y 2 mascotas como base editable.
+- Roles de emergencia, mochilas, documentación y necesidades por integrante.
+- Autonomía de agua calculada desde el inventario y el consumo configurado en el perfil familiar.
+- Inventario inicial ampliado a 21 productos.
+- Nuevo registro: 2 litros de alcohol etílico bactericida Araucaria (2 botellas de 1 L).
+- Módulo Agua conectado a los 5 bidones Manantial de Oro de 20 L (100 L).
+- Centro de actualizaciones con comprobación de versión y actualización segura.
+- Página `actualizar.html` para renovar los archivos temporales sin borrar datos locales.
+- Biblioteca con 21 manuales y dos PDF incluidos para consulta offline.
+- Respaldo ampliado para incluir el perfil familiar.
 
-## Publicación en GitHub Pages
+## Primera actualización desde una versión anterior
 
-Subir todos los archivos del ZIP a la raíz del repositorio y reemplazar los anteriores. La primera apertura después de publicar debe realizarse con conexión para que el navegador descargue y almacene la nueva versión.
+Después de subir todos los archivos a GitHub, abrir una vez:
+
+`https://gringocmdc.github.io/edy-offline/actualizar.html`
+
+Esa página elimina únicamente los archivos temporales de EDY y vuelve a descargar la aplicación. No borra el inventario, el perfil familiar ni los documentos privados.
 
 ## Privacidad
 
-El repositorio y GitHub Pages son públicos. No subir domicilios, teléfonos privados, documentación personal, información médica identificable, contraseñas, ubicaciones sensibles ni inventarios regulados. Para documentos familiares usar la función **Documentos privados** de la Biblioteca, que guarda el PDF solo en el navegador del dispositivo.
+El repositorio y GitHub Pages son públicos. No subir domicilios, teléfonos privados, documentación personal, información médica identificable, contraseñas, ubicaciones sensibles ni inventarios regulados. Los datos familiares detallados deben cargarse dentro de la aplicación, donde quedan guardados localmente.

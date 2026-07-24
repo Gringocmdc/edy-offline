@@ -4,7 +4,7 @@
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#edf2ee",
+  "background_color": "#08140f",
   "theme_color": "#102a21",
   "icons": [
     {
@@ -14,6 +14,6 @@
       "purpose": "any maskable"
     }
   ],
-  "description": "Sistema familiar offline con inventario por lotes, agua conectada, 21 manuales, checklists y respuesta ante emergencias.",
-  "version": "1.3.0"
+  "description": "Sistema familiar offline con inventario por lotes, perfil familiar, agua conectada, manuales, checklists y actualización segura.",
+  "version": "1.4.0"
 }
