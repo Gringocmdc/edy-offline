@@ -7,13 +7,13 @@
   <title>EDY Offline</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=1.5.2">
+  <link rel="stylesheet" href="styles.css?v=1.6.0">
 </head>
 <body>
 <header>
   <div class="brand">
     <div><h1>EDY</h1><p>Centro de Supervivencia Digital Familiar</p></div>
-    <div class="headerActions"><button class="versionBadge versionButton" onclick="openSection('actualizaciones')" title="Centro de actualizaciones">1.5.2</button><div class="pill">OFFLINE</div></div>
+    <div class="headerActions"><button class="versionBadge versionButton" onclick="openSection('actualizaciones')" title="Centro de actualizaciones">1.6.0</button><div class="pill">OFFLINE</div></div>
   </div>
   <input id="search" placeholder="Buscar: apagón, agua, energía, evacuación…">
 </header>
@@ -65,6 +65,7 @@
       <div class="operationMetric"><span>📦 Inventario</span><strong id="opInventory">0 elementos</strong></div>
       <div class="operationMetric"><span>🗺️ Ubicaciones</span><strong id="opZones">0 zonas</strong></div>
       <div class="operationMetric"><span>👨‍👩‍👦 Familia</span><strong id="opFamily">Sin configurar</strong></div>
+      <div class="operationMetric"><span>🎒 Mochilas 72 h</span><strong id="opKits">Sin registrar</strong></div>
     </div>
   </div>
 
@@ -78,6 +79,8 @@
   </div>
   <div class="titleRow"><h2>Perfil familiar</h2><button class="back" onclick="openSection('familia')">Administrar</button></div>
   <div id="familyHomeSummary" class="familyHomeSummary"></div>
+  <div class="titleRow"><h2>Mochilas de 72 horas</h2><button class="back" onclick="openSection('kits72')">Administrar</button></div>
+  <div id="kitsHomeSummary" class="kitsHomeSummary"></div>
   <div class="titleRow"><h2>Estado del hogar</h2><button class="back" onclick="openSection('estado')">Actualizar</button></div>
   <div class="statusGrid">
     <div class="status" onclick="openSection('agua')"><div class="statusTop"><strong>Agua</strong><span id="dotWater" class="dot"></span></div><div id="waterValue" class="statusValue">OK</div><div id="waterDetail" class="small">Sin registrar</div></div>
@@ -109,6 +112,7 @@
     <div class="card mapFeatured" onclick="openSection('mapa')"><div class="icon">🗺️</div><h3>Mapa</h3><p>Ubicación física de equipos y reservas.</p></div>
     <div class="card assistantFeatured" onclick="openSection('asistente')"><div class="icon">🧠</div><h3>Asistente EDY</h3><p>Consulta inventario y protocolos sin Internet.</p></div>
     <div class="card inventoryFeatured" onclick="openSection('inventario')"><div class="icon">📦</div><h3>Inventario</h3><p>Equipos, estados y cantidades.</p></div>
+    <div class="card kitsFeatured" onclick="openSection('kits72')"><div class="icon">🎒</div><h3>Mochilas 72 h</h3><p>Auditoría del kit comprado y plan para 3 personas.</p></div>
     <div class="card shoppingFeatured" onclick="openSection('compras')"><div class="icon">🛒</div><h3>Compras</h3><p>Faltantes según mínimos y objetivos.</p></div>
     <div class="card" onclick="openSection('agua')"><div class="icon">💧</div><h3>Agua</h3><p>Reserva y autonomía.</p></div>
     <div class="card" onclick="openSection('energia')"><div class="icon">⚡</div><h3>Energía</h3><p>Baterías y consumos.</p></div>
@@ -335,7 +339,7 @@
   <div id="assistantAlerts"></div>
 
   <div class="assistantDisclaimer">
-    EDY v1.4 usa reglas, búsqueda local, perfil familiar y biblioteca preventiva offline. No reemplaza a los servicios de emergencia, profesionales médicos ni instrucciones oficiales.
+    EDY v1.6 usa reglas, búsqueda local, perfil familiar, inventario, biblioteca y planificación de mochilas de 72 horas. No reemplaza a los servicios de emergencia, profesionales médicos ni instrucciones oficiales.
   </div>
 </section>
 
@@ -486,7 +490,7 @@
   <button class="back" onclick="home()">← Inicio</button>
   <h2>🔄 Centro de actualizaciones</h2>
   <div class="updateStatusCard">
-    <div><span>Versión instalada</span><strong id="installedVersion">1.5.2</strong></div>
+    <div><span>Versión instalada</span><strong id="installedVersion">1.6.0</strong></div>
     <div><span>Versión disponible</span><strong id="availableVersion">Comprobar</strong></div>
     <div><span>Modo offline</span><strong id="offlineCacheStatus">Verificando…</strong></div>
   </div>
@@ -533,6 +537,26 @@
     <div id="waterResult" class="resultBox">La reserva se actualizará al cargar el inventario.</div>
   </div>
   <div class="panel amber"><strong>Importante:</strong> el cálculo es orientativo. El calor, la actividad física, la preparación de alimentos, la higiene y las necesidades individuales pueden aumentar el consumo.</div>
+</section>
+
+
+<section id="kits72" class="section searchable">
+  <button class="back" onclick="home()">← Inicio</button>
+  <div class="sectionHeader"><div><h2>🎒 Mochilas y kits de 72 horas</h2><p>Compará el kit comercial, verificá lo recibido y armá una lista propia para 3 personas.</p></div><span class="offlineLibraryBadge">DATOS LOCALES</span></div>
+  <div class="kitStats">
+    <div class="mapStat"><strong id="kitsPurchasedCount">1</strong><span>Kit comprado</span></div>
+    <div class="mapStat"><strong id="kitsVerifiedCount">0/18</strong><span>Componentes verificados</span></div>
+    <div class="mapStat"><strong id="kitPlanDeclared">0%</strong><span>Cobertura declarada</span></div>
+    <div class="mapStat"><strong id="kitPlanVerified">0%</strong><span>Cobertura verificada</span></div>
+  </div>
+  <div class="panel amber"><strong>Estado inicial:</strong> el Ready America 70285 está registrado como “En camino”. Cuando llegue, marcá cada componente únicamente después de verlo y controlar su fecha.</div>
+  <div id="kits72Cards" class="kitModuleCards"></div>
+  <div class="panel"><strong>Separación importante:</strong> EDY distingue la reserva de agua almacenada en casa del agua que realmente se puede transportar. El plan de tres personas usa ambas cifras por separado.</div>
+</section>
+
+<section id="kitDetail" class="section">
+  <button class="back" onclick="openSection('kits72')">← Mochilas 72 h</button>
+  <div id="kitDetailContent"></div>
 </section>
 
 <section id="energia" class="section searchable">
@@ -624,10 +648,11 @@
   <button class="navCrisis" onclick="enterCrisisMode()"><span>🚨</span><small>Crisis</small></button>
 </nav>
 
-<footer>EDY Offline · v1.5.2 · Botiquín familiar y Modo Crisis</footer>
-<script src="storage.js?v=1.5.2"></script>
-<script src="calculator.js?v=1.5.2"></script>
-<script src="media.js?v=1.5.2"></script>
-<script src="app.js?v=1.5.2"></script>
+<footer>EDY Offline · v1.6.0 · Mochilas de 72 horas</footer>
+<script src="storage.js?v=1.6.0"></script>
+<script src="calculator.js?v=1.6.0"></script>
+<script src="media.js?v=1.6.0"></script>
+<script src="app.js?v=1.6.0"></script>
+<script src="kits.js?v=1.6.0"></script>
 </body>
 </html>

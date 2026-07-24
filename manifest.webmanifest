@@ -14,6 +14,6 @@
       "purpose": "any maskable"
     }
   ],
-  "description": "Centro de Supervivencia Digital Familiar offline con inventario, perfil familiar, compras inteligentes y modo crisis.",
-  "version": "1.5.2"
+  "description": "Centro de Supervivencia Digital Familiar offline con inventario, perfil familiar, mochilas de 72 horas, biblioteca y modo crisis.",
+  "version": "1.6.0"
 }

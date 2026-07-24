@@ -1,5 +1,5 @@
-const APP_VERSION='1.5.2';
-const APP_NAME='Botiquín familiar, compras y Modo Crisis';
+const APP_VERSION='1.6.0';
+const APP_NAME='Mochilas de 72 horas y planificación familiar';
 function put(id,value){const el=document.getElementById(id);if(el)el.textContent=value}
 
 const sections=[...document.querySelectorAll('.section')];
@@ -22,9 +22,11 @@ function openSection(id){
  if(id==='checklists')renderChecklists();
  if(id==='diagnostico')renderDiagnostic();
  if(id==='compras')renderShoppingList();
+ if(id==='kits72')window.EDYKits?.render?.();
+ if(id==='kitDetail')window.EDYKits?.render?.();
  scrollTo(0,0)
 }
-function home(){document.getElementById('search').value='';loadStatus();renderHomePendings();renderOperationsHome();renderFamilyHomeSummary();renderAssistantHomeAlerts();renderTodayStrip();renderHomeChecklistProgress();renderReadinessInsights();renderShoppingHome();openSection('home')}
+function home(){document.getElementById('search').value='';loadStatus();renderHomePendings();renderOperationsHome();renderFamilyHomeSummary();renderAssistantHomeAlerts();renderTodayStrip();renderHomeChecklistProgress();renderReadinessInsights();renderShoppingHome();window.EDYKits?.renderHome?.();window.EDYKits?.renderOperation?.();openSection('home')}
 document.getElementById('search').addEventListener('input',e=>{
  const raw=e.target.value.trim();const q=normalizeText(raw);if(!q){home();return}
  const sectionsFound=[...document.querySelectorAll('.searchable')].filter(s=>normalizeText(s.innerText).includes(q));
@@ -57,10 +59,10 @@ function loadStatus(){
  if(badge){badge.className='overallBadge '+(d.level||'green');badge.textContent=d.level==='red'?'EMERGENCIA':d.level==='amber'?'ATENCIÓN':'NORMAL';}
  const map={green:'OK',amber:'ATENCIÓN',red:'CRÍTICO'};
  [['Water','water'],['Energy','energy'],['Comms','comms'],['Health','health']].forEach(([cap,key])=>{
-   const st=d[key+'Status']||'green';
-   document.getElementById(key+'Value').textContent=map[st];
-   document.getElementById(key+'Detail').textContent=d[key+'Text']||'Sin registrar';
-   setDot('dot'+cap,st);
+   const st=d[key+'Status']||'green',detail=d[key+'Text']||'';
+   document.getElementById(key+'Value').textContent=(d.updated||detail)?map[st]:'SIN DATOS';
+   document.getElementById(key+'Detail').textContent=detail||'Sin registrar';
+   setDot('dot'+cap,(d.updated||detail)?st:'neutral');
  });
  nameInput.value=d.name||''; levelInput.value=d.level||'green';
  waterStatus.value=d.waterStatus||'green'; waterText.value=d.waterText||'';
@@ -297,7 +299,7 @@ const ec=EDYStorage.get('energy_calc');if(ec){batteryWh.value=ec.wh;batteryPerce
 
 let inventoryBase=[];
 let currentItemId=null;
-const INVENTORY_SEED_VERSION='1.5.2';
+const INVENTORY_SEED_VERSION='1.6.0';
 
 function statusText(status){
  return {available:'Disponible',incoming:'En camino',review:'Revisar',missing:'Falta'}[status]||status;
@@ -460,6 +462,7 @@ function saveInventory(list,logMessage='Inventario actualizado'){
  renderShoppingList();
  renderShoppingHome();
  if(EDYStorage.get('crisis_mode',false))renderCrisisCritical();
+ window.EDYKits?.render?.();window.EDYKits?.renderHome?.();window.EDYKits?.renderOperation?.();
 }
 async function loadInventory(){
  try{
@@ -818,6 +821,7 @@ function renderMaintenance(){
  box.innerHTML=items.length?items.map(x=>`<div class="maintenanceCard ${x.state}"><div><strong>${x.i.critical?'⭐ ':''}${escapeHTML(x.i.name)}</strong><small>${escapeHTML(x.label)}${x.i.responsible?` · Responsable: ${escapeHTML(x.i.responsible)}`:''}</small></div><button class="miniAction" onclick="openItem('${escapeJS(x.i.id)}')">Abrir</button></div>`).join(''):'<div class="panel">Todavía no hay fechas de revisión o garantía registradas.</div>';
 }
 async function getAllBackupData(){
+ const kitData=window.EDYKits?.exportData?.()||{};
  return {
   version:APP_VERSION,
   exportedAt:new Date().toISOString(),
@@ -830,7 +834,8 @@ async function getAllBackupData(){
   activeEmergency:EDYStorage.get('active_emergency',null),
   checklists:getChecklists(),
   family:getFamilyProfile(),
-  photos:await EDYMedia.getAllPhotos()
+  photos:await EDYMedia.getAllPhotos(),
+  ...kitData
  };
 }
 async function exportEDYBackup(){
@@ -861,6 +866,7 @@ function importEDYBackup(event){
    EDYStorage.set('timeline',Array.isArray(data.timeline)?data.timeline:[]);
    EDYStorage.set('checklists',Array.isArray(data.checklists)?data.checklists:getChecklists());
    if(Array.isArray(data.family))EDYStorage.set('family_profile',data.family.map(normalizeFamilyMember));
+   window.EDYKits?.importData?.(data);
    await EDYMedia.replaceAll(Array.isArray(data.photos)?data.photos:[]);
    if(data.activeEmergency)EDYStorage.set('active_emergency',data.activeEmergency);else EDYStorage.remove('active_emergency');
    EDYStorage.set('last_backup',new Date().toLocaleString('es-AR'));
@@ -888,7 +894,7 @@ function renderTodayStrip(){
 }
 function renderAllBetaViews(){
  renderInventory();renderMap();renderOperationsHome();renderAssistantAlerts();renderAssistantHomeAlerts();
- renderPendings();renderHomePendings();renderTimeline();renderMaintenance();renderBackupStatus();renderTodayStrip();renderChecklists();renderHomeChecklistProgress();renderFamily();renderFamilyHomeSummary();renderReadinessInsights();renderDiagnostic();renderShoppingList();renderShoppingHome();
+ renderPendings();renderHomePendings();renderTimeline();renderMaintenance();renderBackupStatus();renderTodayStrip();renderChecklists();renderHomeChecklistProgress();renderFamily();renderFamilyHomeSummary();renderReadinessInsights();renderDiagnostic();renderShoppingList();renderShoppingHome();window.EDYKits?.render?.();window.EDYKits?.renderHome?.();window.EDYKits?.renderOperation?.();
 }
 function enterCrisisMode(){
  EDYStorage.set('crisis_mode',true);

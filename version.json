@@ -1,6 +1,6 @@
 {
-  "version": "1.5.2",
-  "name": "Botiquín familiar y Modo Crisis",
+  "version": "1.6.0",
+  "name": "Mochilas de 72 horas",
   "released": "2026-07-24",
-  "notes": "Agrega el botiquín Lisfar Care, su lote, vencimiento, fotografía y el detalle de los 12 tipos de elementos declarados en la etiqueta."
+  "notes": "Incorpora el kit Ready America 70285, auditoría de contenido y un plan editable de 72 horas para 3 personas."
 }

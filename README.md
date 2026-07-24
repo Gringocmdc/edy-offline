@@ -1,32 +1,33 @@
-# EDY Offline v1.5.2
+# EDY Offline v1.6.0
 
-Actualización de mantenimiento de la línea 1.5.
+Actualización principal dedicada a mochilas y kits de 72 horas.
 
 ## Novedades
-- Mantiene la lista de compras inteligente y el Modo Crisis de la versión 1.5.
-- Incorpora 3 elementos confirmados al inventario:
-  - Sierra manual de cadena con asas y estuche.
-  - Kit compacto de supervivencia “Survival Grenade” A073.
-  - Pulsera de supervivencia con brújula y paracord.
-- Incluye fotografías de referencia para los tres productos, disponibles sin conexión.
-- El kit A073 queda registrado como un único kit sellado, con el contenido declarado en la tarjeta y pendiente de verificación física.
-- Conserva el inventario, el perfil familiar, los movimientos, las fotos privadas, los documentos y los respaldos locales.
+- Incorpora al inventario el **Ready America 72 Hour Deluxe**, modelo **70285**, comprado para evaluar.
+- Estado inicial: **En camino**.
+- Registra los 18 tipos de componentes declarados por el fabricante y permite verificarlos uno por uno al recibir el kit.
+- Agrega el módulo **Mochilas 72 h** con dos vistas:
+  - auditoría del kit comercial para 2 personas;
+  - plan propio editable para 3 personas.
+- Compara cobertura declarada y cobertura físicamente verificada.
+- Separa la reserva de agua en casa del agua portátil.
+- Genera y comparte la lista de faltantes.
+- Crea una checklist de armado dentro de EDY.
+- Incluye el módulo de mochilas en el respaldo local.
+- Corrige textos antiguos de versión y evita mostrar “OK” cuando el estado del hogar todavía no fue registrado.
 
 ## Publicación
 1. Exportar un respaldo desde EDY.
-2. Subir todos los archivos y carpetas de este paquete a la raíz del repositorio de GitHub Pages, reemplazando los anteriores.
+2. Subir todos los archivos y carpetas del ZIP a la raíz del repositorio, reemplazando los anteriores.
 3. Esperar la publicación de GitHub Pages.
-4. Abrir `actualizar.html` una sola vez para renovar los archivos de la aplicación sin borrar los datos locales.
+4. Abrir `actualizar.html` una sola vez.
 
 ## Comprobación
-La cabecera debe mostrar `1.5.2` y el inventario base debe contener 25 productos.
+- La cabecera debe mostrar `1.6.0`.
+- El inventario base debe contener **26 productos**.
+- Debe aparecer el acceso **Mochilas 72 h**.
+- El kit Ready America debe figurar como **En camino** hasta marcarlo recibido.
 
-
-## Novedad v1.5.2
-
-- Botiquín de primeros auxilios **Lisfar Care**.
-- Lote registrado: **260230**.
-- Vencimiento general: **10/2027**.
-- Fotografía de referencia disponible sin conexión.
-- Detalle visible de los 12 tipos de elementos declarados en la etiqueta.
-- La actualización agrega el botiquín sin borrar ni duplicar el inventario local existente.
+## Fuentes de la plantilla
+- Ready America, ficha oficial del modelo 70285.
+- Ready.gov, guía general para armar un kit de emergencia.

@@ -1256,5 +1256,198 @@
         "notes": "Contenido declarado en la etiqueta."
       }
     ]
+  },
+  {
+    "id": "starter-ready-america-70285",
+    "starter": true,
+    "name": "Kit de emergencia 72 horas para 2 personas",
+    "brand": "Ready America",
+    "model": "70285 · 72 Hour Deluxe",
+    "category": "Mochilas",
+    "status": "incoming",
+    "qty": 1,
+    "unit": "kit",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": true,
+    "minStock": 1,
+    "targetStock": 1,
+    "purchaseDate": "2026-07-24",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 90,
+    "image": "assets/ready-america-70285.webp",
+    "notes": "Comprado para evaluar el contenido real y usarlo como referencia para armar un kit propio de 72 horas para 3 personas. Estado inicial: en camino. El contenido declarado debe verificarse físicamente al recibir y abrir.",
+    "lots": [
+      {
+        "id": "starter-ready-america-70285-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 1,
+        "purchaseDate": "2026-07-24",
+        "expiryDate": "",
+        "notes": "Compra confirmada; kit en camino."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-ready-america-70285-purchase",
+        "type": "purchase",
+        "qty": 1,
+        "date": "2026-07-24T20:00:00-03:00",
+        "note": "Compra de un kit para evaluación y comparación."
+      }
+    ],
+    "contents": [
+      {
+        "id": "ready-70285-food-bars",
+        "name": "Barra de alimento de emergencia · 2400 kcal",
+        "qty": 2,
+        "unit": "unidades",
+        "expiryDate": "",
+        "notes": "Vida útil declarada de 5 años desde fabricación; verificar fecha real."
+      },
+      {
+        "id": "ready-70285-water-pouches",
+        "name": "Bolsas de agua de emergencia · 4,225 oz",
+        "qty": 6,
+        "unit": "unidades",
+        "expiryDate": "",
+        "notes": "Volumen total aproximado: 0,75 L. Vida útil declarada de 5 años."
+      },
+      {
+        "id": "ready-70285-water-tablets",
+        "name": "Tabletas potabilizadoras",
+        "qty": 1,
+        "unit": "frasco",
+        "expiryDate": "",
+        "notes": "Capacidad declarada: hasta 25 qt (aprox. 23,7 L)."
+      },
+      {
+        "id": "ready-70285-lightsticks",
+        "name": "Barras luminosas de 12 h",
+        "qty": 2,
+        "unit": "unidades",
+        "expiryDate": "",
+        "notes": ""
+      },
+      {
+        "id": "ready-70285-bio-bag",
+        "name": "Bolsa para residuos biológicos",
+        "qty": 1,
+        "unit": "unidad",
+        "expiryDate": "",
+        "notes": ""
+      },
+      {
+        "id": "ready-70285-gloves",
+        "name": "Guantes de nitrilo · 10 pulgadas",
+        "qty": 4,
+        "unit": "unidades",
+        "expiryDate": "",
+        "notes": ""
+      },
+      {
+        "id": "ready-70285-masks",
+        "name": "Mascarillas para polvo",
+        "qty": 2,
+        "unit": "unidades",
+        "expiryDate": "",
+        "notes": "La publicación menciona N95; verificar el marcado del producto."
+      },
+      {
+        "id": "ready-70285-first-aid",
+        "name": "Botiquín de primeros auxilios · 33 piezas",
+        "qty": 1,
+        "unit": "kit",
+        "expiryDate": "",
+        "notes": "Verificar contenido y vencimientos."
+      },
+      {
+        "id": "ready-70285-multitool",
+        "name": "Multiherramienta de bolsillo",
+        "qty": 1,
+        "unit": "unidad",
+        "expiryDate": "",
+        "notes": ""
+      },
+      {
+        "id": "ready-70285-duct-tape",
+        "name": "Cinta multipropósito · 10 yardas",
+        "qty": 1,
+        "unit": "rollo",
+        "expiryDate": "",
+        "notes": ""
+      },
+      {
+        "id": "ready-70285-whistle",
+        "name": "Silbato multifunción",
+        "qty": 1,
+        "unit": "unidad",
+        "expiryDate": "",
+        "notes": "La descripción comercial puede variar; verificar físicamente."
+      },
+      {
+        "id": "ready-70285-ponchos",
+        "name": "Ponchos de emergencia",
+        "qty": 2,
+        "unit": "unidades",
+        "expiryDate": "",
+        "notes": ""
+      },
+      {
+        "id": "ready-70285-blankets",
+        "name": "Mantas térmicas de supervivencia",
+        "qty": 2,
+        "unit": "unidades",
+        "expiryDate": "",
+        "notes": ""
+      },
+      {
+        "id": "ready-70285-matches",
+        "name": "Fósforos resistentes al agua",
+        "qty": 1,
+        "unit": "caja",
+        "expiryDate": "",
+        "notes": ""
+      },
+      {
+        "id": "ready-70285-power",
+        "name": "Estación de emergencia a manivela",
+        "qty": 1,
+        "unit": "unidad",
+        "expiryDate": "",
+        "notes": "Linterna, radio AM/FM, sirena y cargador según fabricante."
+      },
+      {
+        "id": "ready-70285-bottle",
+        "name": "Botella reutilizable sin BPA · 32 oz",
+        "qty": 1,
+        "unit": "unidad",
+        "expiryDate": "",
+        "notes": "Aproximadamente 0,95 L."
+      },
+      {
+        "id": "ready-70285-hygiene",
+        "name": "Kits personales de higiene",
+        "qty": 2,
+        "unit": "kits",
+        "expiryDate": "",
+        "notes": "Contenido variable; verificar al abrir."
+      },
+      {
+        "id": "ready-70285-backpack",
+        "name": "Mochila Ready America",
+        "qty": 1,
+        "unit": "unidad",
+        "expiryDate": "",
+        "notes": "Dimensiones oficiales aproximadas: 14 × 10 × 6 pulgadas."
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 1,
+    "packageUnit": "kit"
   }
 ]

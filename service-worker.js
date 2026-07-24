@@ -1,10 +1,10 @@
-const APP_VERSION='1.5.2';
+const APP_VERSION='1.6.0';
 const CACHE=`edy-offline-v${APP_VERSION}`;
 const FILES=[
  './','./index.html','./manifest.webmanifest','./icon.svg',
  `./styles.css?v=${APP_VERSION}`,`./storage.js?v=${APP_VERSION}`,`./calculator.js?v=${APP_VERSION}`,`./media.js?v=${APP_VERSION}`,`./app.js?v=${APP_VERSION}`,
- `./manuals.json?v=${APP_VERSION}`,`./inventory.json?v=${APP_VERSION}`,'./zones.json','./checklists.json',
- './manuales/Manual_Maestro_EDY_Biblioteca_Offline.pdf','./manuales/Checklist_Botiquin_Familiar_EDY.pdf','./assets/ductac-tacsa-48mm-9m.webp','./assets/sierra-manual-cadena.webp','./assets/kit-supervivencia-grenade-a073.webp','./assets/pulsera-supervivencia-brujula.webp','./assets/botiquin-lisfar-primeros-auxilios.webp'
+ `./manuals.json?v=${APP_VERSION}`,`./inventory.json?v=${APP_VERSION}`,`./kits.js?v=${APP_VERSION}`,'./zones.json','./checklists.json',
+ './manuales/Manual_Maestro_EDY_Biblioteca_Offline.pdf','./manuales/Checklist_Botiquin_Familiar_EDY.pdf','./assets/ductac-tacsa-48mm-9m.webp','./assets/sierra-manual-cadena.webp','./assets/kit-supervivencia-grenade-a073.webp','./assets/pulsera-supervivencia-brujula.webp','./assets/botiquin-lisfar-primeros-auxilios.webp','./assets/ready-america-70285.webp'
 ];
 
 self.addEventListener('install',event=>{
