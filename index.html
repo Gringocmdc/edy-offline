@@ -7,13 +7,13 @@
   <title>EDY Offline</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=1.4.0">
+  <link rel="stylesheet" href="styles.css?v=1.5.2">
 </head>
 <body>
 <header>
   <div class="brand">
     <div><h1>EDY</h1><p>Centro de Supervivencia Digital Familiar</p></div>
-    <div class="headerActions"><button class="versionBadge versionButton" onclick="openSection('actualizaciones')" title="Centro de actualizaciones">1.4.0</button><div class="pill">OFFLINE</div></div>
+    <div class="headerActions"><button class="versionBadge versionButton" onclick="openSection('actualizaciones')" title="Centro de actualizaciones">1.5.2</button><div class="pill">OFFLINE</div></div>
   </div>
   <input id="search" placeholder="Buscar: apagón, agua, energía, evacuación…">
 </header>
@@ -95,6 +95,9 @@
   <div class="titleRow"><h2>Recomendaciones de EDY</h2><button class="back" onclick="openSection('diagnostico')">Ver diagnóstico</button></div>
   <div id="readinessInsights" class="readinessInsights"></div>
 
+  <div class="titleRow"><h2>Lista de compras</h2><button class="back" onclick="openSection('compras')">Ver completa</button></div>
+  <div id="shoppingHomeSummary" class="shoppingHomeSummary"></div>
+
   <div class="titleRow"><h2>Alertas inteligentes</h2><button class="back" onclick="openSection('asistente')">Abrir asistente</button></div>
   <div id="assistantHomeAlerts" class="assistantHomeAlerts"></div>
 
@@ -106,6 +109,7 @@
     <div class="card mapFeatured" onclick="openSection('mapa')"><div class="icon">🗺️</div><h3>Mapa</h3><p>Ubicación física de equipos y reservas.</p></div>
     <div class="card assistantFeatured" onclick="openSection('asistente')"><div class="icon">🧠</div><h3>Asistente EDY</h3><p>Consulta inventario y protocolos sin Internet.</p></div>
     <div class="card inventoryFeatured" onclick="openSection('inventario')"><div class="icon">📦</div><h3>Inventario</h3><p>Equipos, estados y cantidades.</p></div>
+    <div class="card shoppingFeatured" onclick="openSection('compras')"><div class="icon">🛒</div><h3>Compras</h3><p>Faltantes según mínimos y objetivos.</p></div>
     <div class="card" onclick="openSection('agua')"><div class="icon">💧</div><h3>Agua</h3><p>Reserva y autonomía.</p></div>
     <div class="card" onclick="openSection('energia')"><div class="icon">⚡</div><h3>Energía</h3><p>Baterías y consumos.</p></div>
     <div class="card" onclick="openSection('biblioteca')"><div class="icon">📚</div><h3>Biblioteca</h3><p>Consulta offline.</p></div>
@@ -230,6 +234,13 @@
     <h2>¿Qué está ocurriendo?</h2>
     <p>Elegí una situación para abrir el protocolo inmediato.</p>
   </div>
+  <div class="crisisMetrics">
+    <div><span>💧 Agua</span><strong id="crisisWater">0 L</strong><small id="crisisWaterDays">0 días</small></div>
+    <div><span>👨‍👩‍👦 Grupo</span><strong id="crisisFamily">Sin configurar</strong></div>
+    <div><span>🛒 Compras</span><strong id="crisisShopping">0</strong></div>
+    <div><span>⭐ Críticos faltantes</span><strong id="crisisMissing">0</strong></div>
+  </div>
+  <div class="crisisPrioritiesBox"><h3>Prioridades actuales</h3><div id="crisisPriorities"></div></div>
   <div class="crisisGrid">
     <button onclick="activateEmergency('power')">🔌<strong>Corte de energía</strong></button>
     <button onclick="activateEmergency('water')">🚱<strong>Falta de agua</strong></button>
@@ -361,6 +372,15 @@
 </section>
 
 
+<section id="compras" class="section searchable">
+  <button class="back" onclick="home()">← Inicio</button>
+  <div class="sectionHeader"><div><h2>🛒 Lista de Compras Inteligente</h2><p>Se genera automáticamente comparando el stock actual con el mínimo y el objetivo de cada producto.</p></div><button class="action" onclick="exportShoppingText()">Compartir lista</button></div>
+  <div class="shoppingStats"><div><strong id="shoppingCount">0</strong><span>Productos sugeridos</span></div><div><strong id="shoppingCritical">0</strong><span>Críticos</span></div></div>
+  <div class="panel"><strong>Cómo funciona:</strong> abrí cualquier producto y definí “Stock mínimo” o “Stock objetivo”. EDY calcula automáticamente cuánto falta comprar.</div>
+  <div class="field"><label>Buscar en la lista</label><input id="shoppingSearch" placeholder="Ej.: arroz, agua, cinta…" oninput="renderShoppingList()"></div>
+  <div id="shoppingAutoList" class="shoppingAutoList"></div>
+</section>
+
 <section id="inventario" class="section">
   <button class="back" onclick="home()">← Inicio</button>
   <div class="inventoryHeader">
@@ -466,7 +486,7 @@
   <button class="back" onclick="home()">← Inicio</button>
   <h2>🔄 Centro de actualizaciones</h2>
   <div class="updateStatusCard">
-    <div><span>Versión instalada</span><strong id="installedVersion">1.4.0</strong></div>
+    <div><span>Versión instalada</span><strong id="installedVersion">1.5.2</strong></div>
     <div><span>Versión disponible</span><strong id="availableVersion">Comprobar</strong></div>
     <div><span>Modo offline</span><strong id="offlineCacheStatus">Verificando…</strong></div>
   </div>
@@ -604,10 +624,10 @@
   <button class="navCrisis" onclick="enterCrisisMode()"><span>🚨</span><small>Crisis</small></button>
 </nav>
 
-<footer>EDY Offline · v1.4.0 · Perfil familiar e inventario conectado</footer>
-<script src="storage.js?v=1.4.0"></script>
-<script src="calculator.js?v=1.4.0"></script>
-<script src="media.js?v=1.4.0"></script>
-<script src="app.js?v=1.4.0"></script>
+<footer>EDY Offline · v1.5.2 · Botiquín familiar y Modo Crisis</footer>
+<script src="storage.js?v=1.5.2"></script>
+<script src="calculator.js?v=1.5.2"></script>
+<script src="media.js?v=1.5.2"></script>
+<script src="app.js?v=1.5.2"></script>
 </body>
 </html>

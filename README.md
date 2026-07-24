@@ -1,28 +1,32 @@
-# EDY Offline v1.4.0
+# EDY Offline v1.5.2
 
-Centro de Preparación Digital Familiar, diseñado para funcionar como PWA y conservar los datos principales en el dispositivo.
+Actualización de mantenimiento de la línea 1.5.
 
-## Novedades de esta versión
+## Novedades
+- Mantiene la lista de compras inteligente y el Modo Crisis de la versión 1.5.
+- Incorpora 3 elementos confirmados al inventario:
+  - Sierra manual de cadena con asas y estuche.
+  - Kit compacto de supervivencia “Survival Grenade” A073.
+  - Pulsera de supervivencia con brújula y paracord.
+- Incluye fotografías de referencia para los tres productos, disponibles sin conexión.
+- El kit A073 queda registrado como un único kit sellado, con el contenido declarado en la tarjeta y pendiente de verificación física.
+- Conserva el inventario, el perfil familiar, los movimientos, las fotos privadas, los documentos y los respaldos locales.
 
-- Perfil familiar local con 5 personas y 2 mascotas como base editable.
-- Roles de emergencia, mochilas, documentación y necesidades por integrante.
-- Autonomía de agua calculada desde el inventario y el consumo configurado en el perfil familiar.
-- Inventario inicial ampliado a 21 productos.
-- Nuevo registro: 2 litros de alcohol etílico bactericida Araucaria (2 botellas de 1 L).
-- Módulo Agua conectado a los 5 bidones Manantial de Oro de 20 L (100 L).
-- Centro de actualizaciones con comprobación de versión y actualización segura.
-- Página `actualizar.html` para renovar los archivos temporales sin borrar datos locales.
-- Biblioteca con 21 manuales y dos PDF incluidos para consulta offline.
-- Respaldo ampliado para incluir el perfil familiar.
+## Publicación
+1. Exportar un respaldo desde EDY.
+2. Subir todos los archivos y carpetas de este paquete a la raíz del repositorio de GitHub Pages, reemplazando los anteriores.
+3. Esperar la publicación de GitHub Pages.
+4. Abrir `actualizar.html` una sola vez para renovar los archivos de la aplicación sin borrar los datos locales.
 
-## Primera actualización desde una versión anterior
+## Comprobación
+La cabecera debe mostrar `1.5.2` y el inventario base debe contener 25 productos.
 
-Después de subir todos los archivos a GitHub, abrir una vez:
 
-`https://gringocmdc.github.io/edy-offline/actualizar.html`
+## Novedad v1.5.2
 
-Esa página elimina únicamente los archivos temporales de EDY y vuelve a descargar la aplicación. No borra el inventario, el perfil familiar ni los documentos privados.
-
-## Privacidad
-
-El repositorio y GitHub Pages son públicos. No subir domicilios, teléfonos privados, documentación personal, información médica identificable, contraseñas, ubicaciones sensibles ni inventarios regulados. Los datos familiares detallados deben cargarse dentro de la aplicación, donde quedan guardados localmente.
+- Botiquín de primeros auxilios **Lisfar Care**.
+- Lote registrado: **260230**.
+- Vencimiento general: **10/2027**.
+- Fotografía de referencia disponible sin conexión.
+- Detalle visible de los 12 tipos de elementos declarados en la etiqueta.
+- La actualización agrega el botiquín sin borrar ni duplicar el inventario local existente.

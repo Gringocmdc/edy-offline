@@ -1,6 +1,6 @@
 {
-  "version": "1.4.0",
-  "name": "Perfil familiar e inventario conectado",
-  "released": "2026-07-23",
-  "notes": "Perfil familiar, autonomía de agua por integrante, alcohol Araucaria y actualización segura."
+  "version": "1.5.2",
+  "name": "Botiquín familiar y Modo Crisis",
+  "released": "2026-07-24",
+  "notes": "Agrega el botiquín Lisfar Care, su lote, vencimiento, fotografía y el detalle de los 12 tipos de elementos declarados en la etiqueta."
 }

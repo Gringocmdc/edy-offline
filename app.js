@@ -1,5 +1,6 @@
-const APP_VERSION='1.4.0';
-const APP_NAME='Perfil familiar e inventario conectado';
+const APP_VERSION='1.5.2';
+const APP_NAME='Botiquín familiar, compras y Modo Crisis';
+function put(id,value){const el=document.getElementById(id);if(el)el.textContent=value}
 
 const sections=[...document.querySelectorAll('.section')];
 function openSection(id){
@@ -20,9 +21,10 @@ function openSection(id){
  if(id==='crisisCenter')renderCrisisCritical();
  if(id==='checklists')renderChecklists();
  if(id==='diagnostico')renderDiagnostic();
+ if(id==='compras')renderShoppingList();
  scrollTo(0,0)
 }
-function home(){document.getElementById('search').value='';loadStatus();renderHomePendings();renderOperationsHome();renderFamilyHomeSummary();renderAssistantHomeAlerts();renderTodayStrip();renderHomeChecklistProgress();renderReadinessInsights();openSection('home')}
+function home(){document.getElementById('search').value='';loadStatus();renderHomePendings();renderOperationsHome();renderFamilyHomeSummary();renderAssistantHomeAlerts();renderTodayStrip();renderHomeChecklistProgress();renderReadinessInsights();renderShoppingHome();openSection('home')}
 document.getElementById('search').addEventListener('input',e=>{
  const raw=e.target.value.trim();const q=normalizeText(raw);if(!q){home();return}
  const sectionsFound=[...document.querySelectorAll('.searchable')].filter(s=>normalizeText(s.innerText).includes(q));
@@ -99,7 +101,7 @@ function findManualMatches(query){
 async function loadManuals(){
  const box=document.getElementById('manualList');
  try{
-  const r=await fetch('manuals.json?v=1.4.0');if(!r.ok)throw new Error('Biblioteca no disponible');
+  const r=await fetch(`manuals.json?v=${APP_VERSION}`);if(!r.ok)throw new Error('Biblioteca no disponible');
   manualsData=await r.json();
   const select=document.getElementById('manualCategory');
   if(select){
@@ -216,7 +218,7 @@ function getFamilyProfile(){return (EDYStorage.get('family_profile',[])||[]).map
 function saveFamilyProfile(list,message='Perfil familiar actualizado'){
  EDYStorage.set('family_profile',(list||[]).map(normalizeFamilyMember));
  addTimelineEntry('family','👨‍👩‍👦',message);
- renderFamily();renderFamilyHomeSummary();renderOperationsHome();renderWaterInventory();renderReadinessInsights();renderDiagnostic();
+ renderFamily();renderFamilyHomeSummary();renderOperationsHome();renderWaterInventory();renderReadinessInsights();renderDiagnostic();if(EDYStorage.get('crisis_mode',false))renderCrisisCritical();
 }
 function familyHumans(){return getFamilyProfile().filter(x=>x.kind!=='pet')}
 function familyPets(){return getFamilyProfile().filter(x=>x.kind==='pet')}
@@ -295,7 +297,7 @@ const ec=EDYStorage.get('energy_calc');if(ec){batteryWh.value=ec.wh;batteryPerce
 
 let inventoryBase=[];
 let currentItemId=null;
-const INVENTORY_SEED_VERSION='1.4.0';
+const INVENTORY_SEED_VERSION='1.5.2';
 
 function statusText(status){
  return {available:'Disponible',incoming:'En camino',review:'Revisar',missing:'Falta'}[status]||status;
@@ -348,6 +350,16 @@ function currentQuantity(item){
  if(Array.isArray(item?.lots))return roundStock(item.lots.reduce((sum,lot)=>sum+Math.max(0,Number(lot.qty)||0),0));
  return Math.max(0,roundStock(item?.qty));
 }
+function normalizeKitContent(content,index,item){
+ return {
+  id:String(content?.id||`${item.id||'item'}-content-${index+1}`),
+  name:String(content?.name||'Contenido sin nombre'),
+  qty:Math.max(0,roundStock(content?.qty??1)),
+  unit:String(content?.unit||'unidad'),
+  expiryDate:normalizeExpiry(content?.expiryDate||''),
+  notes:String(content?.notes||'')
+ };
+}
 function normalizeInventoryItem(item){
  const base={...item};
  base.id=String(base.id||`custom-${Date.now()}-${Math.random().toString(36).slice(2,7)}`);
@@ -357,6 +369,7 @@ function normalizeInventoryItem(item){
  base.category=String(base.category||'Otros');
  base.unit=String(base.unit||'unidad');
  base.notes=String(base.notes||'');
+ base.image=String(base.image||'');
  base.location=String(base.location||'Sin registrar');
  base.critical=Boolean(base.critical);
  base.minStock=numberOrNull(base.minStock);
@@ -369,7 +382,8 @@ function normalizeInventoryItem(item){
  base.serial=String(base.serial||'');
  base.reviewIntervalDays=Number(base.reviewIntervalDays)||0;
  base.zone=base.zone||inferZoneForItem(base);
- base.movements=Array.isArray(base.movements)?base.movements:[];
+ base.movements=Array.isArray(base.movements)?base.movements.map(m=>({...m})):[];
+ base.contents=Array.isArray(base.contents)?base.contents.map((content,index)=>normalizeKitContent(content,index,base)):[];
  const oldQty=Math.max(0,roundStock(base.qty));
  if(Array.isArray(base.lots)&&base.lots.length){
   base.lots=base.lots.map((lot,index)=>normalizeLot(lot,index,base));
@@ -398,6 +412,38 @@ function mergeStarterItems(saved,{force=false}={}){
  EDYStorage.set('inventory_seed_version',INVENTORY_SEED_VERSION);
  return merged;
 }
+function migrateDuctacPurchase150(list){
+ const items=(Array.isArray(list)?list:[]).map(normalizeInventoryItem);
+ const item=items.find(x=>x.id==='starter-cinta-tacsa')||items.find(x=>normalizeText(`${x.brand} ${x.name} ${x.model}`).includes('tacsa')&&normalizeText(`${x.name} ${x.model}`).includes('ductac'));
+ if(!item)return items;
+ const purchaseId='starter-cinta-tacsa-purchase-20260724';
+ const lotId='starter-cinta-tacsa-lot-2';
+ const hasPurchaseMovement=(item.movements||[]).some(m=>m.id===purchaseId)||
+  (item.movements||[]).some(m=>m.type==='purchase'&&Number(m.qty)>=4&&String(m.date||'').slice(0,10)==='2026-07-24');
+ const hasPurchaseLot=(item.lots||[]).some(l=>l.id===lotId)||
+  (item.lots||[]).some(l=>Number(l.qty)>=4&&String(l.purchaseDate||'')==='2026-07-24');
+ item.model=item.model&&normalizeText(item.model).includes('48 mm')?item.model:'DUCTAC 48 mm × 9 m';
+ item.image=item.image||'assets/ductac-tacsa-48mm-9m.webp';
+ if(item.minStock===null)item.minStock=2;
+ if(item.targetStock===null)item.targetStock=6;
+ let lotAdded=false;
+ if(!hasPurchaseLot&&currentQuantity(item)<6){
+  item.lots=Array.isArray(item.lots)?item.lots:[];
+  item.lots.push({id:lotId,lotNumber:'Sin registrar',qty:4,purchaseDate:'2026-07-24',expiryDate:'',notes:'4 rollos grises de 48 mm × 9 m.'});
+  lotAdded=true;
+ }
+ if(!hasPurchaseMovement&&(lotAdded||hasPurchaseLot)){
+  item.movements=Array.isArray(item.movements)?item.movements:[];
+  item.movements.push({id:purchaseId,type:'purchase',qty:4,date:'2026-07-24T08:00:00-03:00',note:'Compra confirmada: 4 rollos grises'});
+ }
+ item.qty=currentQuantity(item);
+ item.status=item.qty>0?'available':'missing';
+ item.packageCount=Math.max(Number(item.packageCount)||0,item.qty);
+ const note='2 verdes del inventario inicial y 4 grises incorporados el 24/07/2026.';
+ if(!normalizeText(item.notes).includes('4 grises'))item.notes=[item.notes,note].filter(Boolean).join(' ');
+ return items;
+}
+function applyInventoryMigrations(list){return migrateDuctacPurchase150(list)}
 function saveInventory(list,logMessage='Inventario actualizado'){
  const normalized=(Array.isArray(list)?list:[]).map(normalizeInventoryItem);
  EDYStorage.set('inventory',normalized);
@@ -411,6 +457,9 @@ function saveInventory(list,logMessage='Inventario actualizado'){
  renderDiagnostic();
  renderTodayStrip();
  renderWaterInventory();
+ renderShoppingList();
+ renderShoppingHome();
+ if(EDYStorage.get('crisis_mode',false))renderCrisisCritical();
 }
 async function loadInventory(){
  try{
@@ -418,7 +467,7 @@ async function loadInventory(){
   if(!r.ok)throw new Error('Inventario base no disponible');
   inventoryBase=(await r.json()).map(normalizeInventoryItem);
   const saved=EDYStorage.get('inventory',null);
-  const merged=mergeStarterItems(saved);
+  const merged=applyInventoryMigrations(mergeStarterItems(saved));
   EDYStorage.set('inventory',merged);
   renderInventory();renderAssistantAlerts();renderAssistantHomeAlerts();renderWaterInventory();
   return merged;
@@ -434,7 +483,7 @@ function restoreStarterInventory(){
  if(!inventoryBase.length){alert('El inventario base todavía no está disponible. Recargá EDY e intentá nuevamente.');return}
  if(!confirm('Se agregarán únicamente los productos iniciales que falten. No se borrará ningún dato local.'))return;
  const before=getInventory().length;
- const merged=mergeStarterItems(getInventory(),{force:true});
+ const merged=applyInventoryMigrations(mergeStarterItems(getInventory(),{force:true}));
  EDYStorage.set('inventory',merged);
  const added=merged.length-before;
  addTimelineEntry('inventory','📦',`Inventario inicial restaurado: ${added} productos agregados`);
@@ -443,7 +492,8 @@ function restoreStarterInventory(){
 }
 function itemSearchText(item){
  const lots=(item.lots||[]).map(l=>`${l.lotNumber} ${l.expiryDate} ${l.notes}`).join(' ');
- return normalizeText([item.name,item.brand,item.model,item.category,item.notes,item.location,item.unit,lots].join(' '));
+ const contents=(item.contents||[]).map(c=>`${c.name} ${c.qty} ${c.unit} ${c.expiryDate||''} ${c.notes||''}`).join(' ');
+ return normalizeText([item.name,item.brand,item.model,item.category,item.notes,item.location,item.unit,lots,contents].join(' '));
 }
 function nextExpiry(item){
  return (item.lots||[]).filter(l=>Number(l.qty)>0&&l.expiryDate).sort((a,b)=>expiryTimestamp(a.expiryDate)-expiryTimestamp(b.expiryDate))[0]?.expiryDate||'';
@@ -461,7 +511,7 @@ function isLowStock(item){
 function formatStockNumber(value){return new Intl.NumberFormat('es-AR',{maximumFractionDigits:3}).format(Number(value)||0)}
 function unitLabel(unit,qty){
  const raw=String(unit||'unidad'),key=normalizeText(raw);if(Math.abs(Number(qty)||0)===1)return raw;
- return {unidad:'unidades',lata:'latas',barra:'barras',caja:'cajas',paquete:'paquetes',rollo:'rollos',frasco:'frascos',botella:'botellas'}[key]||raw;
+ return {unidad:'unidades',lata:'latas',barra:'barras',caja:'cajas',paquete:'paquetes',rollo:'rollos',frasco:'frascos',botella:'botellas',kit:'kits',envase:'envases',sobre:'sobres',tira:'tiras',venda:'vendas',par:'pares'}[key]||raw;
 }
 function formatQuantity(item){const qty=currentQuantity(item);return `${formatStockNumber(qty)} ${escapeHTML(unitLabel(item.unit,qty))}`}
 function stockBadges(item){
@@ -497,7 +547,7 @@ function renderInventory(){
  refreshInventoryThumbnails();
 }
 function categoryIcon(cat){
- return {'Despensa':'🍚','Energía':'⚡','Agua':'💧','Limpieza':'🧴','Higiene':'🧼','Comunicaciones':'📡','Herramientas':'🛠️','Botiquín':'🩺','Alimentos':'🍲','Mochilas':'🎒','Mascotas':'🐶','Vehículos':'🚗','Documentación':'📄','Otros':'📦'}[cat]||'📦';
+ return {'Despensa':'🍚','Energía':'⚡','Agua':'💧','Limpieza':'🧴','Higiene':'🧼','Comunicaciones':'📡','Herramientas':'🛠️','Kits de emergencia':'🎒','Orientación y señalización':'🧭','Botiquín':'🩺','Alimentos':'🍲','Mochilas':'🎒','Mascotas':'🐶','Vehículos':'🚗','Documentación':'📄','Otros':'📦'}[cat]||'📦';
 }
 function stockTargetText(item){
  const min=numberOrNull(item.minStock),target=numberOrNull(item.targetStock);
@@ -518,6 +568,11 @@ function renderLots(item){
  if(!lots.length)return '<div class="panel">No hay lotes cargados.</div>';
  return `<div class="lotList">${lots.map(l=>{const days=daysUntilExpiry(l.expiryDate);const state=days!==null&&days<0?'expired':days!==null&&days<=180?'soon':'';return `<div class="lotRow ${state}"><div><strong>Lote ${escapeHTML(l.lotNumber||'Sin registrar')}</strong><small>${l.purchaseDate?`Compra: ${formatExpiry(l.purchaseDate)} · `:''}${l.expiryDate?`Vence: ${formatExpiry(l.expiryDate)}`:'Sin vencimiento'}${l.notes?` · ${escapeHTML(l.notes)}`:''}</small></div><span>${formatStockNumber(l.qty)} ${escapeHTML(unitLabel(item.unit,l.qty))}</span></div>`}).join('')}</div>`;
 }
+function renderKitContents(item){
+ const contents=Array.isArray(item?.contents)?item.contents:[];
+ if(!contents.length)return '';
+ return `<div class="titleRow"><h3>Contenido declarado del kit</h3><span class="categoryCount">${contents.length} tipos</span></div><div class="lotList">${contents.map(c=>`<div class="lotRow"><div><strong>${escapeHTML(c.name)}</strong><small>${c.expiryDate?`Vence: ${formatExpiry(c.expiryDate)}`:'Incluido en el kit'}${c.notes?` · ${escapeHTML(c.notes)}`:''}</small></div><span>${formatStockNumber(c.qty)} ${escapeHTML(unitLabel(c.unit,c.qty))}</span></div>`).join('')}</div>`;
+}
 function movementLabel(type){return {initial:'Inventario inicial',purchase:'Compra / ingreso',consume:'Consumo',adjustment:'Ajuste'}[type]||'Movimiento'}
 function renderMovements(item){
  const rows=(item.movements||[]).slice().sort((a,b)=>String(b.date||'').localeCompare(String(a.date||''))).slice(0,10);
@@ -532,6 +587,7 @@ async function openItem(id){
  <div class="stockActionGrid"><div class="stockActionCard"><h3>➕ Agregar compra o lote</h3><div class="stockForm"><label>Cantidad<input id="addStockAmount" type="number" min="0" step="any" placeholder="Ej.: 5"></label><label>Número de lote<input id="addStockLot" placeholder="Opcional"></label><label>Fecha de compra<input id="addStockPurchase" type="date"></label><label>Vencimiento<input id="addStockExpiry" inputmode="numeric" placeholder="AAAA-MM-DD o AAAA-MM"></label><label class="wide">Nota<input id="addStockNote" placeholder="Ej.: 2 paquetes de 500 g"></label></div><button class="action" onclick="addStockFromForm()">Agregar al stock</button></div>
  <div class="stockActionCard consumeCard"><h3>➖ Consumir stock</h3><p class="small">EDY descuenta primero el lote que vence antes (FIFO).</p><div class="quickConsume">${quickConsumeButtons(i)}</div><div class="inline"><input id="consumeStockAmount" type="number" min="0" step="any" placeholder="Cantidad personalizada"><button class="action secondary" onclick="consumeCustomFromForm()">Consumir</button></div></div></div>
  <div class="titleRow"><h3>Lotes y vencimientos</h3><span class="categoryCount">${(i.lots||[]).length} lotes</span></div>${renderLots(i)}
+ ${renderKitContents(i)}
  <div class="titleRow"><h3>Datos del producto</h3></div><div class="detailGrid"><div class="detailField"><span>Estado</span><select id="editStatus" class="editSelect"><option value="available" ${i.status==='available'?'selected':''}>Disponible</option><option value="incoming" ${i.status==='incoming'?'selected':''}>En camino</option><option value="review" ${i.status==='review'?'selected':''}>Revisar</option><option value="missing" ${i.status==='missing'?'selected':''}>Falta</option></select></div><div class="detailField"><span>Unidad</span><input id="editUnit" class="editInput" value="${escapeAttr(i.unit)}"></div><div class="detailField"><span>Stock mínimo</span><input id="editMinStock" class="editInput" type="number" min="0" step="any" value="${i.minStock??''}" placeholder="Sin definir"></div><div class="detailField"><span>Stock objetivo</span><input id="editTargetStock" class="editInput" type="number" min="0" step="any" value="${i.targetStock??''}" placeholder="Sin definir"></div><div class="detailField"><span>Zona</span><select id="editZone" class="editSelect">${zoneOptions(i.zone)}</select></div><div class="detailField"><span>Ubicación exacta</span><input id="editLocation" class="editInput" value="${escapeAttr(i.location||'')}" placeholder="Se guarda solo en este dispositivo"></div><div class="detailField"><span>Marca</span><input id="editBrand" class="editInput" value="${escapeAttr(i.brand||'')}"></div><div class="detailField"><span>Modelo / presentación</span><input id="editModel" class="editInput" value="${escapeAttr(i.model||'')}"></div><div class="detailField"><span>Número de serie</span><input id="editSerial" class="editInput" value="${escapeAttr(i.serial||'')}" placeholder="Solo local"></div><div class="detailField"><span>Última revisión</span><input id="editLastReviewDate" class="editInput" type="date" value="${escapeAttr(i.lastReviewDate||'')}"></div><div class="detailField"><span>Próxima revisión</span><input id="editReviewDate" class="editInput" type="date" value="${escapeAttr(i.reviewDate||'')}"></div><div class="detailField"><span>Frecuencia de revisión</span><select id="editReviewInterval" class="editSelect">${reviewIntervalOptions(i.reviewIntervalDays)}</select></div><div class="detailField"><span>Garantía hasta</span><input id="editWarrantyUntil" class="editInput" type="date" value="${escapeAttr(i.warrantyUntil||'')}"></div><div class="detailField"><span>Responsable</span><input id="editResponsible" class="editInput" value="${escapeAttr(i.responsible||'')}" placeholder="Responsable familiar"></div><div class="detailField checkField"><label><input id="editCritical" type="checkbox" ${i.critical?'checked':''}> Elemento crítico</label></div></div><div class="detailNotes"><strong>Observaciones</strong><textarea id="editNotes" class="editInput">${escapeHTML(i.notes||'')}</textarea></div><div class="actions"><button class="action" onclick="saveCurrentItem()">Guardar cambios</button><button class="action secondary" onclick="deleteCurrentItem()">Eliminar</button></div>
  <div class="titleRow"><h3>Historial de movimientos</h3></div>${renderMovements(i)}</div>`;
  openSection('itemDetail');await renderItemPhoto(id);
@@ -606,9 +662,20 @@ async function handleItemPhoto(event){
  if(!file.type.startsWith('image/')){alert('Seleccioná una imagen.');return}
  try{const data=await compressImage(file);await EDYMedia.putPhoto(currentItemId,data);await renderItemPhoto(currentItemId);refreshInventoryThumbnails();addTimelineEntry('inventory','📷','Fotografía actualizada');}catch{alert('No se pudo guardar la fotografía.')}event.target.value='';
 }
-async function renderItemPhoto(id){const box=document.getElementById('itemPhotoPreview');if(!box)return;const data=await EDYMedia.getPhoto(id);box.innerHTML=data?`<img src="${data}" alt="Fotografía local del elemento">`:'<div class="itemPhotoEmpty"><span>📷</span>Sin fotografía</div>'}
-async function deleteItemPhoto(){if(!currentItemId)return;if(!confirm('¿Quitar la fotografía local?'))return;await EDYMedia.deletePhoto(currentItemId);await renderItemPhoto(currentItemId);refreshInventoryThumbnails();addTimelineEntry('inventory','📷','Fotografía eliminada')}
-async function refreshInventoryThumbnails(){for(const el of document.querySelectorAll('[data-photo-item]')){const id=el.dataset.photoItem,data=await EDYMedia.getPhoto(id);if(data)el.innerHTML=`<img src="${data}" alt="">`}}
+function starterImageForItem(id){return getInventory().find(x=>x.id===id)?.image||''}
+async function renderItemPhoto(id){
+ const box=document.getElementById('itemPhotoPreview');if(!box)return;
+ const data=await EDYMedia.getPhoto(id),fallback=starterImageForItem(id),src=data||fallback;
+ box.innerHTML=src?`<img src="${escapeAttr(src)}" alt="Fotografía del elemento">`:'<div class="itemPhotoEmpty"><span>📷</span>Sin fotografía</div>';
+}
+async function deleteItemPhoto(){if(!currentItemId)return;if(!confirm('¿Quitar la fotografía local? La imagen de referencia del producto, si existe, seguirá visible.'))return;await EDYMedia.deletePhoto(currentItemId);await renderItemPhoto(currentItemId);refreshInventoryThumbnails();addTimelineEntry('inventory','📷','Fotografía local eliminada')}
+async function refreshInventoryThumbnails(){
+ const items=getInventory();
+ for(const el of document.querySelectorAll('[data-photo-item]')){
+  const id=el.dataset.photoItem,data=await EDYMedia.getPhoto(id),fallback=items.find(x=>x.id===id)?.image||'',src=data||fallback;
+  if(src)el.innerHTML=`<img src="${escapeAttr(src)}" alt="">`;
+ }
+}
 function dateISOFromNow(days){const d=new Date();d.setDate(d.getDate()+Number(days||0));return d.toISOString().slice(0,10)}
 function todayISO(){return new Date().toISOString().slice(0,10)}
 function markReviewedToday(){
@@ -660,12 +727,54 @@ function buildReadinessInsights(){
  if(unlocated.length)out.push({level:'attention',icon:'🗺️',title:`${unlocated.length} elemento${unlocated.length===1?' sin zona':'s sin zona'}`,detail:'Asignar ubicaciones reduce el tiempo de búsqueda en una emergencia.',action:"openZone('__unlocated__')"});
  if(!o.updated)out.push({level:'attention',icon:'🧭',title:'Centro de Operaciones sin configurar',detail:'Cargá agua, personas, alimentos y energía para calcular autonomía.',action:"openSection('operaciones')"});
  if(familyReadinessScore()<70)out.push({level:'attention',icon:'👨‍👩‍👦',title:'Perfil familiar por completar',detail:'Revisá mochilas, documentación y necesidades de cada integrante.',action:"openSection('familia')"});
+ const shopping=getAutomaticShoppingList();if(shopping.length)out.push({level:'attention',icon:'🛒',title:`${shopping.length} compra${shopping.length===1?'':'s'} sugerida${shopping.length===1?'':'s'}`,detail:'El stock actual está por debajo del mínimo u objetivo configurado.',action:"openSection('compras')"});
  const last=EDYStorage.get('last_backup','Nunca');if(last==='Nunca')out.push({level:'attention',icon:'💾',title:'Todavía no hay un respaldo',detail:'Exportá una copia antes de cargar más información privada.',action:"openSection('respaldo')"});
  if(!out.length)out.push({level:'good',icon:'✅',title:'No se detectaron puntos críticos',detail:'Mantené las revisiones y actualizá el inventario cuando haya cambios.',action:"openSection('mantenimiento')"});
  return out;
 }
 function renderReadinessInsights(){const box=document.getElementById('readinessInsights');if(!box)return;const insights=buildReadinessInsights().slice(0,4);box.innerHTML=insights.map(x=>`<div class="insightCard ${x.level}" onclick="${x.action}"><div class="insightIcon">${x.icon}</div><div><strong>${escapeHTML(x.title)}</strong><small>${escapeHTML(x.detail)}</small></div><span>›</span></div>`).join('');const score=computeIntegratedReadiness(),ring=document.getElementById('integratedScoreRing');if(ring)ring.style.setProperty('--score',score);const el=document.getElementById('integratedScore');if(el)el.textContent=score+'%';const text=document.getElementById('integratedScoreText');if(text)text.textContent=score>=80?'Preparación sólida. Mantené revisiones y respaldos.':score>=50?'Base intermedia. EDY detectó aspectos por completar.':'Faltan datos o elementos esenciales por organizar.'}
 function renderDiagnostic(){const score=computeIntegratedReadiness(),ring=document.getElementById('diagnosticRing'),el=document.getElementById('diagnosticScore'),title=document.getElementById('diagnosticTitle'),text=document.getElementById('diagnosticText'),box=document.getElementById('diagnosticList');if(!ring||!box)return;ring.style.setProperty('--score',score);el.textContent=score+'%';title.textContent=score>=80?'Preparación sólida':score>=50?'Preparación intermedia':'Preparación inicial';text.textContent='El puntaje combina autonomía, inventario, ubicaciones, mantenimiento y checklists.';box.innerHTML=buildReadinessInsights().map(x=>`<div class="insightCard ${x.level}" onclick="${x.action}"><div class="insightIcon">${x.icon}</div><div><strong>${escapeHTML(x.title)}</strong><small>${escapeHTML(x.detail)}</small></div><span>›</span></div>`).join('')}
+
+
+function shoppingNeedForItem(item){
+ const i=normalizeInventoryItem(item),qty=currentQuantity(i),target=Number(i.targetStock),min=Number(i.minStock);
+ const goal=Number.isFinite(target)&&target>0?target:(Number.isFinite(min)&&min>0?min:null);
+ if(goal===null||qty>=goal)return null;
+ return {...i,currentQty:qty,goalQty:goal,missingQty:roundStock(goal-qty),reason:Number.isFinite(target)&&target>0?'Objetivo':'Mínimo'};
+}
+function getAutomaticShoppingList(){return getInventory().map(shoppingNeedForItem).filter(Boolean).sort((a,b)=>Number(b.critical)-Number(a.critical)||a.category.localeCompare(b.category,'es')||a.name.localeCompare(b.name,'es'))}
+function shoppingLine(item){return `<article class="shoppingItem ${item.critical?'critical':''}"><div class="shoppingIcon">${categoryIcon(item.category)}</div><div class="shoppingBody"><strong>${escapeHTML(item.name)}</strong><small>${escapeHTML(item.brand||item.model||item.category)} · ${escapeHTML(item.reason)} ${formatStockNumber(item.goalQty)} ${escapeHTML(unitLabel(item.unit,item.goalQty))}</small><div class="shoppingProgress"><span style="width:${Math.min(100,Math.round(item.currentQty/item.goalQty*100))}%"></span></div><p>Tenés ${formatStockNumber(item.currentQty)} · Comprar <b>${formatStockNumber(item.missingQty)} ${escapeHTML(unitLabel(item.unit,item.missingQty))}</b></p></div><button onclick="openItem('${escapeJS(item.id)}')">Abrir</button></article>`}
+function renderShoppingList(){
+ const list=getAutomaticShoppingList(),box=document.getElementById('shoppingAutoList');if(!box)return;
+ const q=normalizeText(document.getElementById('shoppingSearch')?.value||'');
+ const filtered=list.filter(i=>!q||itemSearchText(i).includes(q));
+ put('shoppingCount',list.length);put('shoppingCritical',list.filter(i=>i.critical).length);
+ box.innerHTML=filtered.length?filtered.map(shoppingLine).join(''):'<div class="panel good">✅ No hay compras automáticas pendientes con los objetivos configurados.</div>';
+}
+function renderShoppingHome(){
+ const box=document.getElementById('shoppingHomeSummary');if(!box)return;const list=getAutomaticShoppingList(),critical=list.filter(i=>i.critical);
+ box.innerHTML=list.length?`<div class="shoppingHomeCard" onclick="openSection('compras')"><div><strong>🛒 ${list.length} compra${list.length===1?'':'s'} sugerida${list.length===1?'':'s'}</strong><small>${critical.length?`${critical.length} corresponde${critical.length===1?'':'n'} a elementos críticos.`:'Según stock mínimo y objetivo.'}</small></div><span>Ver lista ›</span></div>`:`<div class="shoppingHomeCard ready" onclick="openSection('compras')"><div><strong>✅ Objetivos de stock cubiertos</strong><small>Definí mínimos y objetivos en cada producto para ampliar el control.</small></div><span>Abrir ›</span></div>`;
+}
+function exportShoppingText(){
+ const list=getAutomaticShoppingList();if(!list.length){alert('No hay compras automáticas pendientes.');return}
+ const text=['LISTA DE COMPRAS EDY',new Date().toLocaleDateString('es-AR'),''].concat(list.map(i=>`☐ ${i.name}: ${formatStockNumber(i.missingQty)} ${unitLabel(i.unit,i.missingQty)} (${i.reason.toLowerCase()} ${formatStockNumber(i.goalQty)})`)).join('\n');
+ if(navigator.share){navigator.share({title:'Lista de compras EDY',text}).catch(()=>{});return}
+ navigator.clipboard?.writeText(text).then(()=>alert('Lista copiada.')).catch(()=>prompt('Copiá la lista:',text));
+}
+function crisisSummary(){
+ const o=EDYStorage.get('operations',{}),water=effectiveWaterLiters(o),days=waterDays(o),shopping=getAutomaticShoppingList(),criticalMissing=getInventory().filter(i=>i.critical&&i.status!=='available').length;
+ return {water,days,shopping:shopping.length,criticalMissing,family:`${familyHumans().length} personas · ${familyPets().length} mascotas`};
+}
+function renderCrisisDashboard(){
+ const x=crisisSummary();put('crisisWater',`${formatStockNumber(x.water)} L`);put('crisisWaterDays',`${x.days.toFixed(1)} días`);put('crisisFamily',x.family);put('crisisShopping',x.shopping);put('crisisMissing',x.criticalMissing);
+ const box=document.getElementById('crisisPriorities');if(!box)return;const priorities=[];
+ if(x.days<3)priorities.push('Prioridad inmediata: asegurar agua potable adicional.');
+ if(x.criticalMissing)priorities.push(`Resolver ${x.criticalMissing} elemento${x.criticalMissing===1?'':'s'} crítico${x.criticalMissing===1?'':'s'} no disponible${x.criticalMissing===1?'':'s'}.`);
+ if(x.shopping)priorities.push(`Revisar ${x.shopping} compra${x.shopping===1?'':'s'} sugerida${x.shopping===1?'':'s'} por stock.`);
+ if(familyReadinessScore()<70)priorities.push('Completar mochilas, documentación y necesidades familiares.');
+ if(!priorities.length)priorities.push('Mantener comunicaciones, conservar recursos y revisar avisos oficiales.');
+ box.innerHTML=priorities.map((p,i)=>`<div><span>${i+1}</span><p>${escapeHTML(p)}</p></div>`).join('');
+}
 
 function addTimelineEntry(type,icon,title,detail=''){
  const list=EDYStorage.get('timeline',[]);
@@ -744,7 +853,7 @@ function importEDYBackup(event){
    const data=JSON.parse(reader.result);
    if(!data.inventory||!Array.isArray(data.inventory))throw new Error('Formato inválido');
    if(!confirm('Esto reemplazará los datos locales actuales. ¿Continuar?'))return;
-   EDYStorage.set('inventory',data.inventory);
+   EDYStorage.set('inventory',applyInventoryMigrations(mergeStarterItems(data.inventory,{force:true})));
    EDYStorage.set('zones',Array.isArray(data.zones)?data.zones:getZones());
    EDYStorage.set('operations',data.operations||{});
    EDYStorage.set('status',data.status||{});
@@ -779,7 +888,7 @@ function renderTodayStrip(){
 }
 function renderAllBetaViews(){
  renderInventory();renderMap();renderOperationsHome();renderAssistantAlerts();renderAssistantHomeAlerts();
- renderPendings();renderHomePendings();renderTimeline();renderMaintenance();renderBackupStatus();renderTodayStrip();renderChecklists();renderHomeChecklistProgress();renderFamily();renderFamilyHomeSummary();renderReadinessInsights();renderDiagnostic();
+ renderPendings();renderHomePendings();renderTimeline();renderMaintenance();renderBackupStatus();renderTodayStrip();renderChecklists();renderHomeChecklistProgress();renderFamily();renderFamilyHomeSummary();renderReadinessInsights();renderDiagnostic();renderShoppingList();renderShoppingHome();
 }
 function enterCrisisMode(){
  EDYStorage.set('crisis_mode',true);
@@ -794,6 +903,7 @@ function exitCrisisMode(){
  home();
 }
 function renderCrisisCritical(){
+ renderCrisisDashboard();
  const box=document.getElementById('crisisCriticalList');if(!box)return;
  const items=getInventory().filter(i=>i.critical&&i.status==='available').slice(0,12);
  box.innerHTML=items.length?`<div class="crisisCriticalGrid">${items.map(i=>`<div class="crisisCriticalItem"><strong>${escapeHTML(i.name)}</strong><small>${escapeHTML(zoneName(i.zone))} · ${escapeHTML(i.location||'Sin detalle')}</small></div>`).join('')}</div>`:'<p>No hay elementos críticos marcados como disponibles.</p>';
@@ -1066,6 +1176,10 @@ function assistantAsk(prefill){
    const tasks=pending.length?`<div class="assistantCallout"><strong>Tareas activas:</strong><br>${pending.slice(0,5).map(p=>'• '+escapeHTML(p.text)).join('<br>')}</div>`:'';
    assistantReply('Pendientes y faltantes',`<p>${missing.length} elemento${missing.length===1?'':'s'} requieren atención.</p>`,html+tasks);
    return;
+ }
+ if(/\b(comprar|compras|falta comprar|lista de compras|stock bajo)\b/.test(q)){
+   const list=getAutomaticShoppingList();
+   assistantReply('Lista de compras',list.length?`<p>EDY detectó <strong>${list.length} compra${list.length===1?'':'s'} sugerida${list.length===1?'':'s'}</strong> según los mínimos y objetivos configurados.</p><ul>${list.slice(0,8).map(i=>`<li>${escapeHTML(i.name)}: comprar ${formatStockNumber(i.missingQty)} ${escapeHTML(unitLabel(i.unit,i.missingQty))}</li>`).join('')}</ul>`:'<p>No hay compras automáticas pendientes con los objetivos configurados.</p>',`<div class="assistantCallout"><button class="action" onclick="openSection('compras')">Abrir lista de compras</button></div>`);return;
  }
  if(/\b(familia|integrantes|personas|mascotas|miembros|mochilas)\b/.test(q)){
    const members=getFamilyProfile(),humans=familyHumans(),pets=familyPets();

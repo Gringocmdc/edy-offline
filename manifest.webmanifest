@@ -14,6 +14,6 @@
       "purpose": "any maskable"
     }
   ],
-  "description": "Sistema familiar offline con inventario por lotes, perfil familiar, agua conectada, manuales, checklists y actualización segura.",
-  "version": "1.4.0"
+  "description": "Centro de Supervivencia Digital Familiar offline con inventario, perfil familiar, compras inteligentes y modo crisis.",
+  "version": "1.5.2"
 }

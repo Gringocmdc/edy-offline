@@ -740,16 +740,16 @@
     "starter": true,
     "name": "Cinta multipropósito DUCTAC",
     "brand": "TACSA",
-    "model": "TACSA",
+    "model": "DUCTAC 48 mm × 9 m",
     "category": "Herramientas",
     "status": "available",
-    "qty": 2,
+    "qty": 6,
     "unit": "rollo",
     "zone": "home",
     "location": "Sin registrar",
     "critical": false,
-    "minStock": null,
-    "targetStock": null,
+    "minStock": 2,
+    "targetStock": 6,
     "purchaseDate": "",
     "lastReviewDate": "",
     "reviewDate": "",
@@ -757,7 +757,7 @@
     "responsible": "",
     "serial": "",
     "reviewIntervalDays": 0,
-    "notes": "2 rollos verdes de 48 mm × 9 m.",
+    "notes": "6 rollos de 48 mm × 9 m: 2 verdes del inventario inicial y 4 grises incorporados el 24/07/2026.",
     "lots": [
       {
         "id": "starter-cinta-tacsa-lot-1",
@@ -766,9 +766,24 @@
         "purchaseDate": "",
         "expiryDate": "",
         "notes": "2 rollos verdes de 48 mm × 9 m."
+      },
+      {
+        "id": "starter-cinta-tacsa-lot-2",
+        "lotNumber": "Sin registrar",
+        "qty": 4,
+        "purchaseDate": "2026-07-24",
+        "expiryDate": "",
+        "notes": "4 rollos grises de 48 mm × 9 m."
       }
     ],
     "movements": [
+      {
+        "id": "starter-cinta-tacsa-purchase-20260724",
+        "type": "purchase",
+        "qty": 4,
+        "date": "2026-07-24T08:00:00-03:00",
+        "note": "Compra confirmada: 4 rollos grises"
+      },
       {
         "id": "starter-cinta-tacsa-initial",
         "type": "initial",
@@ -777,9 +792,10 @@
         "note": "Inventario inicial confirmado"
       }
     ],
-    "packageCount": 2,
+    "packageCount": 6,
     "packageSize": 9,
-    "packageUnit": "m"
+    "packageUnit": "m",
+    "image": "assets/ductac-tacsa-48mm-9m.webp"
   },
   {
     "id": "starter-prolongador-multinorma",
@@ -966,5 +982,279 @@
     "packageSize": 1,
     "packageUnit": "L",
     "containerType": "Botella"
+  },
+  {
+    "id": "starter-sierra-manual-cadena",
+    "starter": true,
+    "name": "Sierra manual de cadena",
+    "brand": "Sin registrar",
+    "model": "Sierra de bolsillo con mangos y estuche",
+    "category": "Herramientas",
+    "status": "available",
+    "qty": 1,
+    "unit": "unidad",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": 0,
+    "targetStock": 1,
+    "purchaseDate": "2026-07-24",
+    "lastReviewDate": "2026-07-24",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 180,
+    "notes": "Sierra manual formada por una cadena dentada con dos asas y estuche negro. Revisar los eslabones, uniones y mangos, y probarla de forma controlada antes de depender de ella en una emergencia.",
+    "lots": [
+      {
+        "id": "starter-sierra-manual-cadena-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 1,
+        "purchaseDate": "2026-07-24",
+        "expiryDate": "",
+        "notes": "Unidad recibida con estuche negro."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-sierra-manual-cadena-purchase-20260724",
+        "type": "purchase",
+        "qty": 1,
+        "date": "2026-07-24T12:00:00-03:00",
+        "note": "Compra recibida y confirmada por fotografía"
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 1,
+    "packageUnit": "unidad",
+    "image": "assets/sierra-manual-cadena.webp"
+  },
+  {
+    "id": "starter-kit-supervivencia-grenade-a073",
+    "starter": true,
+    "name": "Kit compacto de supervivencia",
+    "brand": "Sin registrar",
+    "model": "Survival Grenade · A073",
+    "category": "Kits de emergencia",
+    "status": "available",
+    "qty": 1,
+    "unit": "kit",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": 0,
+    "targetStock": 1,
+    "purchaseDate": "2026-07-24",
+    "lastReviewDate": "2026-07-24",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "A073",
+    "reviewIntervalDays": 180,
+    "notes": "Kit recibido cerrado. La tarjeta declara: mosquetón, papel de aluminio, mini cuchillo de aro, alambre de cobre, iniciador de fuego, línea de pesca, paracord, emerillones, anzuelos y flotadores. Verificar físicamente el contenido, la cantidad y el funcionamiento antes de depender del kit.",
+    "lots": [
+      {
+        "id": "starter-kit-supervivencia-grenade-a073-lot-1",
+        "lotNumber": "A073",
+        "qty": 1,
+        "purchaseDate": "2026-07-24",
+        "expiryDate": "",
+        "notes": "Kit compacto sellado; contenido pendiente de verificación práctica."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-kit-supervivencia-grenade-a073-purchase-20260724",
+        "type": "purchase",
+        "qty": 1,
+        "date": "2026-07-24T12:00:00-03:00",
+        "note": "Kit recibido y confirmado por fotografías"
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 1,
+    "packageUnit": "kit",
+    "image": "assets/kit-supervivencia-grenade-a073.webp"
+  },
+  {
+    "id": "starter-pulsera-supervivencia-brujula",
+    "starter": true,
+    "name": "Pulsera de supervivencia con brújula",
+    "brand": "Sin registrar",
+    "model": "Pulsera negra de paracord con brújula integrada",
+    "category": "Orientación y señalización",
+    "status": "available",
+    "qty": 1,
+    "unit": "unidad",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": 0,
+    "targetStock": 1,
+    "purchaseDate": "2026-07-24",
+    "lastReviewDate": "2026-07-24",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 180,
+    "notes": "Pulsera negra con brújula integrada y cordón tipo paracord. En la fotografía no se distingue un reloj; registrar otras funciones solo después de verificarlas. Comparar la brújula con una referencia confiable antes de usarla para orientación.",
+    "lots": [
+      {
+        "id": "starter-pulsera-supervivencia-brujula-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 1,
+        "purchaseDate": "2026-07-24",
+        "expiryDate": "",
+        "notes": "Unidad recibida en bolsa transparente."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-pulsera-supervivencia-brujula-purchase-20260724",
+        "type": "purchase",
+        "qty": 1,
+        "date": "2026-07-24T12:00:00-03:00",
+        "note": "Compra recibida y confirmada por fotografía"
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 1,
+    "packageUnit": "unidad",
+    "image": "assets/pulsera-supervivencia-brujula.webp"
+  },
+  {
+    "id": "starter-botiquin-lisfar-primeros-auxilios",
+    "starter": true,
+    "name": "Botiquín de primeros auxilios",
+    "brand": "Lisfar Care",
+    "model": "Botiquín básico en caja plástica",
+    "category": "Botiquín",
+    "status": "available",
+    "qty": 1,
+    "unit": "kit",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": true,
+    "minStock": 1,
+    "targetStock": 1,
+    "purchaseDate": "2026-07-24",
+    "lastReviewDate": "2026-07-24",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 90,
+    "notes": "Botiquín básico de primeros auxilios Lisfar Care. Lote 260230. Vencimiento general indicado: 10/2027. Mantener cerrado, seco y accesible para adultos responsables; revisar periódicamente sellos, faltantes y vencimientos. El contenido fue registrado según la etiqueta fotografiada.",
+    "lots": [
+      {
+        "id": "starter-botiquin-lisfar-primeros-auxilios-lot-1",
+        "lotNumber": "260230",
+        "qty": 1,
+        "purchaseDate": "2026-07-24",
+        "expiryDate": "2027-10",
+        "notes": "Caja completa con contenido declarado en la etiqueta."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-botiquin-lisfar-primeros-auxilios-purchase-20260724",
+        "type": "purchase",
+        "qty": 1,
+        "date": "2026-07-24T16:00:00-03:00",
+        "note": "Compra recibida y confirmada por fotografía"
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 1,
+    "packageUnit": "kit",
+    "image": "assets/botiquin-lisfar-primeros-auxilios.webp",
+    "contents": [
+      {
+        "id": "starter-botiquin-lisfar-primeros-auxilios-content-1",
+        "name": "Agua oxigenada 10 vol. · 100 cc",
+        "qty": 1,
+        "unit": "frasco",
+        "notes": "Contenido declarado en la etiqueta."
+      },
+      {
+        "id": "starter-botiquin-lisfar-primeros-auxilios-content-2",
+        "name": "Alcohol en gel",
+        "qty": 1,
+        "unit": "envase",
+        "notes": "Contenido declarado en la etiqueta."
+      },
+      {
+        "id": "starter-botiquin-lisfar-primeros-auxilios-content-3",
+        "name": "Sobres de gasa 10 × 10 cm",
+        "qty": 2,
+        "unit": "sobre",
+        "notes": "Contenido declarado en la etiqueta."
+      },
+      {
+        "id": "starter-botiquin-lisfar-primeros-auxilios-content-4",
+        "name": "Tira de apósitos protectores · 10 unidades",
+        "qty": 1,
+        "unit": "tira",
+        "notes": "La tira contiene 10 apósitos."
+      },
+      {
+        "id": "starter-botiquin-lisfar-primeros-auxilios-content-5",
+        "name": "Venda tipo Cambric · 5 cm",
+        "qty": 1,
+        "unit": "venda",
+        "notes": "Contenido declarado en la etiqueta."
+      },
+      {
+        "id": "starter-botiquin-lisfar-primeros-auxilios-content-6",
+        "name": "Tela adhesiva",
+        "qty": 1,
+        "unit": "unidad",
+        "notes": "Medida no indicada en la cara visible de la etiqueta."
+      },
+      {
+        "id": "starter-botiquin-lisfar-primeros-auxilios-content-7",
+        "name": "Bajalengua",
+        "qty": 1,
+        "unit": "unidad",
+        "notes": "Contenido declarado en la etiqueta."
+      },
+      {
+        "id": "starter-botiquin-lisfar-primeros-auxilios-content-8",
+        "name": "Pompones de algodón",
+        "qty": 4,
+        "unit": "unidad",
+        "notes": "Contenido declarado en la etiqueta."
+      },
+      {
+        "id": "starter-botiquin-lisfar-primeros-auxilios-content-9",
+        "name": "Esponja de viaje",
+        "qty": 1,
+        "unit": "unidad",
+        "notes": "Contenido declarado en la etiqueta."
+      },
+      {
+        "id": "starter-botiquin-lisfar-primeros-auxilios-content-10",
+        "name": "Guantes descartables",
+        "qty": 1,
+        "unit": "par",
+        "notes": "Contenido declarado en la etiqueta."
+      },
+      {
+        "id": "starter-botiquin-lisfar-primeros-auxilios-content-11",
+        "name": "Tijera chica Lisfar",
+        "qty": 1,
+        "unit": "unidad",
+        "notes": "Contenido declarado en la etiqueta."
+      },
+      {
+        "id": "starter-botiquin-lisfar-primeros-auxilios-content-12",
+        "name": "Goma para ligaduras",
+        "qty": 1,
+        "unit": "unidad",
+        "notes": "Contenido declarado en la etiqueta."
+      }
+    ]
   }
 ]
