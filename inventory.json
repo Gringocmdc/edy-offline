@@ -872,5 +872,52 @@
     "packageCount": 1,
     "packageSize": 18,
     "packageUnit": "mm"
+  },
+  {
+    "id": "starter-agua-manantial-de-oro-20l",
+    "starter": true,
+    "name": "Agua potable en bidón",
+    "brand": "Manantial de Oro",
+    "model": "Bidón retornable de 20 L",
+    "category": "Agua",
+    "status": "available",
+    "qty": 100,
+    "unit": "L",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": true,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "",
+    "lastReviewDate": "2026-07-23",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 30,
+    "notes": "5 bidones de 20 litros. Total disponible confirmado: 100 litros.",
+    "lots": [
+      {
+        "id": "starter-agua-manantial-de-oro-20l-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 100,
+        "purchaseDate": "",
+        "expiryDate": "",
+        "notes": "5 bidones retornables de 20 litros cada uno."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-agua-manantial-de-oro-20l-initial",
+        "type": "initial",
+        "qty": 100,
+        "date": "2026-07-23T20:36:00-03:00",
+        "note": "Inventario inicial confirmado: 5 bidones de 20 L"
+      }
+    ],
+    "packageCount": 5,
+    "packageSize": 20,
+    "packageUnit": "L",
+    "containerType": "Bidón retornable"
   }
 ]

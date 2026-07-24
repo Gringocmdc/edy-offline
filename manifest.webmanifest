@@ -1,5 +1,5 @@
 {
-  "name": "EDY - Centro de Supervivencia Digital Familiar",
+  "name": "EDY Offline - Centro de Preparación Familiar",
   "short_name": "EDY",
   "start_url": "./",
   "scope": "./",
@@ -14,5 +14,6 @@
       "purpose": "any maskable"
     }
   ],
-  "description": "Sistema familiar offline con inventario privado, checklists, mantenimiento y respuesta ante emergencias."
+  "description": "Sistema familiar offline con inventario por lotes, agua conectada, 21 manuales, checklists y respuesta ante emergencias.",
+  "version": "1.3.0"
 }

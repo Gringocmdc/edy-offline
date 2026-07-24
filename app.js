@@ -6,6 +6,8 @@ function openSection(id){
  target.classList.add('active');
  if(id==='asistente'){renderAssistantAlerts();document.getElementById('assistantQuery')?.focus()}
  if(id==='inventario')renderInventory();
+ if(id==='agua')renderWaterInventory();
+ if(id==='biblioteca'){renderManuals();renderPrivateManuals()}
  if(id==='mapa')renderMap();
  if(id==='nuevoItem')populateZoneSelect('newItemZone');
  if(id==='timeline')renderTimeline();
@@ -21,8 +23,10 @@ document.getElementById('search').addEventListener('input',e=>{
  const raw=e.target.value.trim();const q=normalizeText(raw);if(!q){home();return}
  const sectionsFound=[...document.querySelectorAll('.searchable')].filter(s=>normalizeText(s.innerText).includes(q));
  const inventoryFound=getInventory().filter(i=>itemSearchText(normalizeInventoryItem(i)).includes(q)).slice(0,8);
+ const manualFound=findManualMatches(raw).slice(0,6);
  const rows=[
    ...inventoryFound.map(i=>`<button class="result" onclick="openItem('${i.id}')"><strong>📦 ${escapeHTML(i.name)}</strong><br><span class="small">${escapeHTML(i.category)} · ${escapeHTML(i.location||'Sin registrar')}</span></button>`),
+   ...manualFound.map(m=>`<button class="result" onclick="openManual('${escapeJS(m.id)}')"><strong>${escapeHTML(m.icon||'📘')} ${escapeHTML(m.title)}</strong><br><span class="small">Manual offline · ${escapeHTML(m.category||'Biblioteca')}</span></button>`),
    ...sectionsFound.map(s=>`<button class="result" onclick="openSection('${s.id}')"><strong>${escapeHTML(s.querySelector('h2').innerText)}</strong><br><span class="small">Abrir sección</span></button>`)
  ];
  document.getElementById('list').innerHTML=rows.length?rows.join(''):`<div class="panel">No se encontraron resultados. <button class="miniAction" onclick="openSection('asistente');assistantAsk('${escapeJS(raw)}')">Consultar a EDY</button></div>`;
@@ -72,15 +76,103 @@ function renderHomePendings(){
 function addPending(){const t=pendingInput.value.trim();if(!t)return;const list=EDYStorage.get('pendings',[]);list.push({text:t,done:false});EDYStorage.set('pendings',list);pendingInput.value='';renderPendings();renderHomePendings()}
 function togglePending(i){const list=EDYStorage.get('pendings',[]);list[i].done=!list[i].done;EDYStorage.set('pendings',list);renderPendings();renderHomePendings()}
 function deletePending(i){const list=EDYStorage.get('pendings',[]);list.splice(i,1);EDYStorage.set('pendings',list);renderPendings();renderHomePendings()}
+let manualsData=[];
+const PRIVATE_LIBRARY_DB='edy-private-library';
+const PRIVATE_LIBRARY_STORE='manuals';
+
+function manualSearchText(manual){
+ return normalizeText([manual.title,manual.category,manual.priority,manual.summary,...(manual.keywords||[]),...(manual.sections||[]).flatMap(section=>[section.title,...(section.items||[])])].join(' '));
+}
+function findManualMatches(query){
+ const q=normalizeText(query||'');if(!q)return manualsData.slice();
+ const words=q.split(/\s+/).filter(w=>w.length>=3&&!['como','para','ante','hacer','tengo','necesito','manual','guia'].includes(w));
+ return manualsData.map(manual=>{
+  const text=manualSearchText(manual);
+  const score=(text.includes(q)?5:0)+words.reduce((sum,w)=>sum+(text.includes(w)?1:0),0)+(normalizeText(manual.title).includes(q)?4:0);
+  return {manual,score};
+ }).filter(x=>x.score>0).sort((a,b)=>b.score-a.score||a.manual.title.localeCompare(b.manual.title,'es')).map(x=>x.manual);
+}
 async function loadManuals(){
- try{const r=await fetch('manuals.json');const data=await r.json();manualList.innerHTML=data.map(x=>`<div class="panel"><strong>${x.title}</strong><p>${x.summary}</p></div>`).join('')}catch{manualList.innerHTML='<div class="panel">Biblioteca no disponible.</div>'}
+ const box=document.getElementById('manualList');
+ try{
+  const r=await fetch('manuals.json?v=1.3.0');if(!r.ok)throw new Error('Biblioteca no disponible');
+  manualsData=await r.json();
+  const select=document.getElementById('manualCategory');
+  if(select){
+   const selected=select.value;
+   const categories=[...new Set(manualsData.map(x=>x.category).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));
+   select.innerHTML='<option value="">Todas las categorías</option>'+categories.map(cat=>`<option value="${escapeAttr(cat)}">${escapeHTML(cat)}</option>`).join('');
+   select.value=categories.includes(selected)?selected:'';
+  }
+  renderManuals();renderPrivateManuals();
+ }catch(e){if(box)box.innerHTML='<div class="panel">La biblioteca local no pudo cargarse. Recargá EDY una vez con conexión para almacenarla sin Internet.</div>'}
+}
+function renderManuals(){
+ const box=document.getElementById('manualList');if(!box)return;
+ const query=document.getElementById('manualSearch')?.value||'';
+ const category=document.getElementById('manualCategory')?.value||'';
+ const rows=findManualMatches(query).filter(m=>!category||m.category===category);
+ const count=document.getElementById('manualCount');if(count)count.textContent=rows.length;
+ box.innerHTML=rows.length?rows.map(m=>`<article class="manualCard" onclick="openManual('${escapeJS(m.id)}')">
+  <div class="manualCardTop"><span class="manualIcon">${escapeHTML(m.icon||'📘')}</span><span class="manualPriority ${normalizeText(m.priority||'')}">${escapeHTML(m.priority||'Consulta')}</span></div>
+  <h3>${escapeHTML(m.title)}</h3><p>${escapeHTML(m.summary||'')}</p>
+  <div class="manualCardFoot"><span>${escapeHTML(m.category||'Biblioteca')}</span><strong>Abrir →</strong></div>
+ </article>`).join(''):'<div class="panel">No se encontraron manuales con esos filtros.</div>';
+}
+function openManual(id){
+ const m=manualsData.find(x=>x.id===id);if(!m)return;
+ const sections=(m.sections||[]).map(section=>`<section class="manualSection"><h3>${escapeHTML(section.title)}</h3><ul>${(section.items||[]).map(item=>`<li>${escapeHTML(item)}</li>`).join('')}</ul></section>`).join('');
+ const sources=(m.sources||[]).map(source=>`<a href="${escapeAttr(source.url)}" target="_blank" rel="noopener">${escapeHTML(source.name)} ↗</a>`).join('');
+ document.getElementById('manualDetailContent').innerHTML=`<article class="manualDetailCard">
+  <header><div class="manualDetailIcon">${escapeHTML(m.icon||'📘')}</div><div><span class="manualKicker">${escapeHTML(m.category||'Biblioteca')} · ${escapeHTML(m.priority||'Consulta')}</span><h2>${escapeHTML(m.title)}</h2><p>${escapeHTML(m.summary||'')}</p></div></header>
+  <div class="manualOfflineNotice">✅ Este contenido está incluido en EDY y puede consultarse sin Internet.</div>
+  ${sections}
+  <div class="manualSources"><h3>Fuentes oficiales</h3><p>Los enlaces requieren conexión y se incluyen para verificar o ampliar la información.</p>${sources||'<span>Sin enlaces registrados.</span>'}</div>
+  <div class="panel amber"><strong>Alcance:</strong> guía orientativa de preparación. Ante una emergencia real, seguí las indicaciones de las autoridades y servicios profesionales.</div>
+ </article>`;
+ openSection('manualDetail');
+}
+function openPrivateLibraryDB(){
+ return new Promise((resolve,reject)=>{
+  const request=indexedDB.open(PRIVATE_LIBRARY_DB,1);
+  request.onupgradeneeded=()=>{const db=request.result;if(!db.objectStoreNames.contains(PRIVATE_LIBRARY_STORE))db.createObjectStore(PRIVATE_LIBRARY_STORE,{keyPath:'id'})};
+  request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);
+ });
+}
+async function getPrivateManuals(){
+ try{const db=await openPrivateLibraryDB();return await new Promise((resolve,reject)=>{const tx=db.transaction(PRIVATE_LIBRARY_STORE,'readonly');const req=tx.objectStore(PRIVATE_LIBRARY_STORE).getAll();req.onsuccess=()=>resolve(req.result||[]);req.onerror=()=>reject(req.error)})}catch{return []}
+}
+async function importPrivateManual(event){
+ const file=event.target.files?.[0];event.target.value='';if(!file)return;
+ if(file.type!=='application/pdf'){alert('Seleccioná un archivo PDF.');return}
+ if(file.size>40*1024*1024&&!confirm('El PDF supera 40 MB y ocupará bastante espacio local. ¿Guardarlo igualmente?'))return;
+ try{
+  const db=await openPrivateLibraryDB();
+  const record={id:`private-${Date.now()}-${Math.random().toString(36).slice(2,7)}`,name:file.name,size:file.size,added:new Date().toISOString(),blob:file};
+  await new Promise((resolve,reject)=>{const tx=db.transaction(PRIVATE_LIBRARY_STORE,'readwrite');tx.objectStore(PRIVATE_LIBRARY_STORE).put(record);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)});
+  addTimelineEntry('library','🔒',`PDF privado agregado: ${file.name}`);renderPrivateManuals();
+ }catch(e){alert('No se pudo guardar el PDF en este dispositivo. Revisá el espacio disponible.')}
+}
+async function renderPrivateManuals(){
+ const box=document.getElementById('privateManualList');if(!box)return;
+ const rows=(await getPrivateManuals()).sort((a,b)=>String(b.added).localeCompare(String(a.added)));
+ box.innerHTML=rows.length?`<div class="privateManualGrid">${rows.map(x=>`<div class="privateManualRow"><div><strong>📄 ${escapeHTML(x.name)}</strong><small>${(x.size/1024/1024).toFixed(1)} MB · guardado ${new Date(x.added).toLocaleDateString('es-AR')}</small></div><div><button class="miniAction" onclick="openPrivateManual('${escapeJS(x.id)}')">Abrir</button><button class="miniAction danger" onclick="deletePrivateManual('${escapeJS(x.id)}')">Eliminar</button></div></div>`).join('')}</div>`:'<div class="panel privateEmpty">No hay documentos privados importados.</div>';
+}
+async function openPrivateManual(id){
+ const db=await openPrivateLibraryDB();const record=await new Promise((resolve,reject)=>{const tx=db.transaction(PRIVATE_LIBRARY_STORE,'readonly');const req=tx.objectStore(PRIVATE_LIBRARY_STORE).get(id);req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)});if(!record?.blob)return;
+ const url=URL.createObjectURL(record.blob);window.open(url,'_blank','noopener');setTimeout(()=>URL.revokeObjectURL(url),60000);
+}
+async function deletePrivateManual(id){
+ if(!confirm('¿Eliminar este PDF privado del dispositivo?'))return;
+ const db=await openPrivateLibraryDB();await new Promise((resolve,reject)=>{const tx=db.transaction(PRIVATE_LIBRARY_STORE,'readwrite');tx.objectStore(PRIVATE_LIBRARY_STORE).delete(id);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)});renderPrivateManuals();
 }
 const wc=EDYStorage.get('water_calc');if(wc){waterLiters.value=wc.liters;waterPeople.value=wc.people;waterPerPerson.value=wc.per}
+['waterPeople','waterPerPerson'].forEach(id=>document.getElementById(id)?.addEventListener('input',renderWaterInventory));
 const ec=EDYStorage.get('energy_calc');if(ec){batteryWh.value=ec.wh;batteryPercent.value=ec.percent;loadWatts.value=ec.watts;efficiency.value=ec.eff}
 
 let inventoryBase=[];
 let currentItemId=null;
-const INVENTORY_SEED_VERSION='1.2.1';
+const INVENTORY_SEED_VERSION='1.3.0';
 
 function statusText(status){
  return {available:'Disponible',incoming:'En camino',review:'Revisar',missing:'Falta'}[status]||status;
@@ -195,6 +287,7 @@ function saveInventory(list,logMessage='Inventario actualizado'){
  renderReadinessInsights();
  renderDiagnostic();
  renderTodayStrip();
+ renderWaterInventory();
 }
 async function loadInventory(){
  try{
@@ -204,11 +297,11 @@ async function loadInventory(){
   const saved=EDYStorage.get('inventory',null);
   const merged=mergeStarterItems(saved);
   EDYStorage.set('inventory',merged);
-  renderInventory();renderAssistantAlerts();renderAssistantHomeAlerts();
+  renderInventory();renderAssistantAlerts();renderAssistantHomeAlerts();renderWaterInventory();
   return merged;
  }catch(e){
   const saved=EDYStorage.get('inventory',[]);
-  if(Array.isArray(saved)&&saved.length){EDYStorage.set('inventory',saved.map(normalizeInventoryItem));renderInventory();return getInventory()}
+  if(Array.isArray(saved)&&saved.length){EDYStorage.set('inventory',saved.map(normalizeInventoryItem));renderInventory();renderWaterInventory();return getInventory()}
   const box=document.getElementById('inventoryCategories');
   if(box)box.innerHTML='<div class="panel">No se pudo cargar el inventario base. Revisá la conexión una vez y volvé a abrir EDY.</div>';
   return [];
@@ -222,7 +315,7 @@ function restoreStarterInventory(){
  EDYStorage.set('inventory',merged);
  const added=merged.length-before;
  addTimelineEntry('inventory','📦',`Inventario inicial restaurado: ${added} productos agregados`);
- renderInventory();renderOperationsHome();renderAssistantAlerts();
+ renderInventory();renderOperationsHome();renderAssistantAlerts();renderWaterInventory();
  alert(added?`Se agregaron ${added} productos.`:'El inventario inicial ya estaba completo.');
 }
 function itemSearchText(item){
@@ -492,7 +585,7 @@ function renderMaintenance(){
 }
 async function getAllBackupData(){
  return {
-  version:'1.2.1',
+  version:'1.3.0',
   exportedAt:new Date().toISOString(),
   inventory:getInventory(),
   zones:getZones(),
@@ -803,6 +896,9 @@ function assistantInventoryRows(items){
     <button class="miniAction" onclick="openItem('${escapeJS(i.id)}')">Ver</button>
    </div>`).join('')}</div>`;
 }
+function assistantManualRows(items){
+ return `<div class="assistantList">${items.map(m=>`<div class="assistantResultItem"><div><strong>${escapeHTML(m.icon||'📘')} ${escapeHTML(m.title)}</strong><small>${escapeHTML(m.category||'Biblioteca')} · disponible offline</small></div><button class="miniAction" onclick="openManual('${escapeJS(m.id)}')">Leer</button></div>`).join('')}</div>`;
+}
 function assistantReply(title,body,extra=''){
  const box=document.getElementById('assistantAnswer');if(!box)return;
  box.innerHTML=`<div class="assistantResponse">
@@ -845,11 +941,11 @@ function assistantAsk(prefill){
    return;
  }
  if(/\b(agua|litros|hidrata|filtro)\b/.test(q)){
-   const days=o.updated?waterDays(o):0;
+   const totalWater=effectiveWaterLiters(o),days=waterDays(o);
    const waterItems=inv.filter(i=>normalizeText(i.category)==='agua');
    assistantReply('Situación del agua',
-     o.updated?`<p>Tenés registrados <strong>${o.waterLiters} litros</strong> para ${o.people} personas: aproximadamente <strong>${days.toFixed(1)} días</strong> al consumo configurado.</p>`:'<p>Todavía no cargaste la cantidad de agua en el Centro de Operaciones.</p>',
-     waterItems.length?assistantInventoryRows(waterItems):''
+     totalWater>0?`<p>Tenés registrados <strong>${formatStockNumber(totalWater)} litros</strong> para ${Number(o.people)||5} personas: aproximadamente <strong>${days.toFixed(1)} días</strong> al consumo configurado.</p>`:'<p>Todavía no cargaste agua potable en el inventario.</p>',
+     (waterItems.length?assistantInventoryRows(waterItems):'')+`<div class="assistantCallout"><button class="action" onclick="openSection('agua')">Abrir módulo de agua</button></div>`
    );return;
  }
  if(/\b(energia|luz|apag|bateria|solar|electric)\b/.test(q)){
@@ -886,13 +982,17 @@ function assistantAsk(prefill){
      assistantInventoryRows(inv.filter(i=>i.critical).slice(0,8)));return;
  }
 
+ const manualMatches=findManualMatches(raw).slice(0,5);
+ if(manualMatches.length){
+   assistantReply('Encontré estos manuales offline','<p>La Biblioteca EDY contiene información relacionada con tu consulta.</p>',assistantManualRows(manualMatches));return;
+ }
  const matches=findInventoryMatches(q);
  if(matches.length){
    assistantReply('Encontré estas coincidencias','<p>Resultados obtenidos del inventario local.</p>',assistantInventoryRows(matches));return;
  }
  assistantReply('No encontré una respuesta directa',
    '<p>Probá consultar por el nombre de un equipo, una categoría o una situación concreta.</p>',
-   '<div class="assistantCallout">Ejemplos: “filtros”, “qué falta comprar”, “autonomía de agua”, “corte de energía” o “evacuación”.</div>');
+   '<div class="assistantCallout">Ejemplos: “dengue”, “monóxido”, “filtros”, “qué falta comprar”, “autonomía de agua” o “evacuación”.</div>');
 }
 
 
@@ -955,6 +1055,61 @@ function finishEmergency(){
  home();
 }
 
+function waterUnitToLiters(item){
+ const qty=currentQuantity(item),unit=normalizeText(item.unit||'');
+ if(['l','lt','lts','litro','litros'].includes(unit))return qty;
+ if(['ml','mililitro','mililitros'].includes(unit))return qty/1000;
+ if(Number(item.packageSize)>0&&normalizeText(item.packageUnit||'')==='l')return qty*Number(item.packageSize);
+ return 0;
+}
+function inventoryWaterItems(){return getInventory().map(normalizeInventoryItem).filter(i=>normalizeText(i.category)==='agua'&&waterUnitToLiters(i)>0)}
+function inventoryWaterLiters(){return roundStock(inventoryWaterItems().reduce((sum,item)=>sum+waterUnitToLiters(item),0))}
+function effectiveWaterLiters(o={}){const inventoryLiters=inventoryWaterLiters();return inventoryLiters>0?inventoryLiters:(Number(o.waterLiters)||0)}
+function waterDisplaySummary(){
+ const items=inventoryWaterItems();if(!items.length)return 'Sin bidones registrados';
+ if(items.length===1){const i=items[0],total=waterUnitToLiters(i),size=Number(i.packageSize)||0;if(size>0){const full=Math.floor(total/size),open=roundStock(total-full*size);return open>0?`${full} ${full===1?'bidón':'bidones'} completo${full===1?'':'s'} + ${formatStockNumber(open)} L en uso`:`${full} ${full===1?'bidón':'bidones'} de ${formatStockNumber(size)} L`}}
+ return `${items.length} productos de agua potable`;
+}
+function renderWaterInventory(){
+ const total=inventoryWaterLiters();
+ const liters=document.getElementById('waterInventoryLiters'),packages=document.getElementById('waterInventoryPackages'),daysEl=document.getElementById('waterInventoryDays');
+ if(liters)liters.textContent=`${formatStockNumber(total)} L`;if(packages)packages.textContent=waterDisplaySummary();
+ const people=Math.max(1,Number(document.getElementById('waterPeople')?.value)||Number(getOperations().people)||5);
+ const per=Math.max(.5,Number(document.getElementById('waterPerPerson')?.value)||Number(getOperations().waterPerPerson)||3);
+ if(daysEl)daysEl.textContent=total>0?`${(total/(people*per)).toFixed(1)} días`:'—';
+ const source=document.getElementById('waterInventorySource');
+ if(total>0){const input=document.getElementById('waterLiters');if(input)input.value=total;if(source)source.textContent='Valor sincronizado automáticamente desde el inventario.'}
+ else if(source)source.textContent='Sin agua potable registrada en el inventario.';
+}
+function syncWaterCalculatorFromInventory(){
+ const total=inventoryWaterLiters();if(total<=0){alert('No hay agua potable cargada en el inventario.');return}
+ document.getElementById('waterLiters').value=total;calculateWater();renderWaterInventory();
+}
+function adjustWaterInventory(delta){
+ const amount=Number(delta);if(!Number.isFinite(amount)||amount===0)return;
+ const list=getInventory().map(normalizeInventoryItem);
+ let item=list.find(i=>i.id==='starter-agua-manantial-de-oro-20l')||list.find(i=>normalizeText(i.category)==='agua'&&['l','litro','litros'].includes(normalizeText(i.unit)));
+ if(!item){const base=inventoryBase.find(i=>i.id==='starter-agua-manantial-de-oro-20l');item=base?cloneData(base):normalizeInventoryItem({id:'starter-agua-manantial-de-oro-20l',name:'Agua potable en bidón',brand:'Manantial de Oro',model:'Bidón retornable de 20 L',category:'Agua',status:'missing',qty:0,unit:'L',critical:true,packageSize:20,packageUnit:'L',containerType:'Bidón retornable',lots:[],movements:[]});list.push(item)}
+ const before=currentQuantity(item);
+ if(amount>0){
+  item.lots.push({id:`${item.id}-lot-${Date.now()}`,lotNumber:'Sin registrar',qty:roundStock(amount),purchaseDate:todayISO(),expiryDate:'',notes:amount===20?'1 bidón de 20 L':'Ingreso de agua potable'});
+  addMovement(item,'purchase',amount,amount===20?'Se agregó 1 bidón de 20 L':'Ingreso rápido desde módulo Agua');
+ }else{
+  let remaining=Math.min(before,Math.abs(amount));const consumed=remaining;
+  item.lots.sort((a,b)=>expiryTimestamp(a.expiryDate)-expiryTimestamp(b.expiryDate));
+  for(const lot of item.lots){if(remaining<=0)break;const take=Math.min(Number(lot.qty)||0,remaining);lot.qty=roundStock((Number(lot.qty)||0)-take);remaining=roundStock(remaining-take)}
+  addMovement(item,'consume',-consumed,Math.abs(amount)===20?'Se descontó 1 bidón de 20 L':'Consumo rápido desde módulo Agua');
+  if(Math.abs(amount)>before)alert(`Solo había ${formatStockNumber(before)} L disponibles. Se descontó el stock existente.`);
+ }
+ item.qty=currentQuantity(item);item.packageCount=Number(item.packageSize)>0?roundStock(item.qty/Number(item.packageSize)):item.packageCount;item.status=item.qty>0?'available':'missing';
+ const changed=amount>0?amount:Math.min(before,Math.abs(amount));
+ saveInventory(list,`${amount>0?'Agua agregada':'Agua consumida'}: ${formatStockNumber(changed)} L`);
+ renderWaterInventory();calculateWater();
+}
+function consumeWaterCustom(){
+ const raw=prompt('¿Cuántos litros querés descontar?','5');if(raw===null)return;const amount=Number(String(raw).replace(',','.'));if(!Number.isFinite(amount)||amount<=0){alert('Ingresá una cantidad válida mayor que cero.');return}adjustWaterInventory(-amount);
+}
+
 function getOperations(){return EDYStorage.get('operations',{})}
 function saveOperations(){
  const data={
@@ -976,9 +1131,9 @@ function clearOperations(){
  if(!confirm('¿Borrar los valores del Centro de Operaciones?'))return;
  EDYStorage.remove('operations');loadOperationsForm();renderOperationsResult();renderOperationsHome();
 }
-function waterDays(o){return o.people&&o.waterPerPerson?o.waterLiters/(o.people*o.waterPerPerson):0}
+function waterDays(o={}){const people=Math.max(1,Number(o.people)||5),per=Math.max(.5,Number(o.waterPerPerson)||3);return effectiveWaterLiters(o)/(people*per)}
 function scoreOperations(o){
- if(!o || !o.updated)return 0;
+ o=o||{};
  const wd=waterDays(o);
  const water=Math.min(100,wd/14*100);
  const food=Math.min(100,(o.foodDays||0)/14*100);
@@ -990,18 +1145,19 @@ function scoreOperations(o){
 function loadOperationsForm(){
  const o=getOperations();
  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.value=v};
- set('opsWaterLiters',o.waterLiters??'');set('opsPeople',o.people??5);set('opsWaterPerPerson',o.waterPerPerson??3);
+ set('opsWaterLiters',effectiveWaterLiters(o)||'');set('opsPeople',o.people??5);set('opsWaterPerPerson',o.waterPerPerson??3);
  set('opsFoodDays',o.foodDays??'');set('opsEnergyHours',o.energyHours??'');set('opsComms',o.comms??100);
  set('opsHealthPercent',o.healthPercent??'');set('opsPets',o.pets??100);
 }
 function renderOperationsResult(){
  const box=document.getElementById('operationsResult');if(!box)return;
  const o=getOperations();
- if(!o.updated){box.innerHTML='<div class="panel">Todavía no hay datos calculados.</div>';return}
+ const totalWater=effectiveWaterLiters(o);
+ if(!o.updated&&!totalWater){box.innerHTML='<div class="panel">Todavía no hay datos calculados.</div>';return}
  const wd=waterDays(o),score=scoreOperations(o);
  box.innerHTML=`<div class="opsResultCard"><h3>Resultado actual: ${score}%</h3>
   <div class="opsBar"><span style="width:${score}%"></span></div>
-  <p><strong>Agua:</strong> ${wd.toFixed(1)} días para ${o.people} personas.</p>
+  <p><strong>Agua:</strong> ${formatStockNumber(totalWater)} L · ${wd.toFixed(1)} días para ${Number(o.people)||5} personas.</p>
   <p><strong>Alimentos:</strong> ${o.foodDays} días.</p>
   <p><strong>Energía:</strong> ${o.energyHours} horas estimadas.</p>
   <p class="small">Última actualización: ${o.updated}</p></div>`;
@@ -1013,8 +1169,8 @@ function renderOperationsHome(){
  if(ring)ring.style.background=`conic-gradient(#2f9a58 ${score*3.6}deg, rgba(120,135,126,.22) 0deg)`;
  const put=(id,text)=>{const el=document.getElementById(id);if(el)el.textContent=text};
  put('readinessScore',score+'%');
- put('readinessMessage',!o.updated?'Completá los datos para calcularlo.':score>=80?'Preparación alta. Mantené las revisiones.':score>=50?'Preparación intermedia. Hay aspectos por mejorar.':'Preparación baja. Priorizá agua, alimentos y energía.');
- put('opWater',o.updated?waterDays(o).toFixed(1)+' días':'Sin registrar');
+ put('readinessMessage',!o.updated&&!effectiveWaterLiters(o)?'Completá los datos para calcularlo.':score>=80?'Preparación alta. Mantené las revisiones.':score>=50?'Preparación intermedia. Hay aspectos por mejorar.':'Preparación baja. Priorizá agua, alimentos y energía.');
+ put('opWater',effectiveWaterLiters(o)>0?`${waterDays(o).toFixed(1)} días · ${formatStockNumber(effectiveWaterLiters(o))} L`:'Sin registrar');
  put('opFood',o.updated?o.foodDays+' días':'Sin registrar');
  put('opEnergy',o.updated?o.energyHours+' horas':'Sin registrar');
  put('opComms',o.updated?(o.comms>=100?'Operativas':o.comms>0?'Limitadas':'No disponibles'):'Sin registrar');
@@ -1031,6 +1187,6 @@ if('serviceWorker' in navigator){
   if(reloadingForUpdate)return;reloadingForUpdate=true;window.location.reload();
  });
  window.addEventListener('load',async()=>{
-  try{const registration=await navigator.serviceWorker.register('./service-worker.js?v=1.2.1');registration.update()}catch(e){console.warn('No se pudo registrar el modo offline',e)}
+  try{const registration=await navigator.serviceWorker.register('./service-worker.js?v=1.3.0');registration.update()}catch(e){console.warn('No se pudo registrar el modo offline',e)}
  });
 }

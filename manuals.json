@@ -1,18 +1,1102 @@
 [
   {
-    "title": "Apagón",
-    "summary": "Prioridades de seguridad, ahorro de batería y uso responsable de la estación de energía."
+    "id": "plan-familiar",
+    "title": "Plan familiar de emergencias",
+    "icon": "🏠",
+    "category": "Preparación",
+    "priority": "Esencial",
+    "summary": "Cómo definir responsabilidades, puntos de encuentro, rutas y simulacros para que la familia no improvise.",
+    "keywords": [
+      "familia",
+      "plan",
+      "punto de encuentro",
+      "rutas",
+      "simulacro",
+      "reunificación"
+    ],
+    "sections": [
+      {
+        "title": "Preparar antes",
+        "items": [
+          "Dibujar un plano simple de la vivienda e identificar salidas, tablero eléctrico, llaves de paso y sectores peligrosos.",
+          "Definir un punto de encuentro cercano y otro fuera del barrio.",
+          "Asignar tareas realistas a cada adulto y tareas simples a los chicos.",
+          "Elegir un contacto externo que reciba mensajes de todos.",
+          "Practicar al menos una ruta en vehículo y una alternativa a pie."
+        ]
+      },
+      {
+        "title": "Cuando ocurre algo",
+        "items": [
+          "Reunir al grupo sin enviar a los chicos a buscar a otra persona.",
+          "Confirmar el tipo de emergencia mediante fuentes oficiales cuando haya tiempo.",
+          "Llevar medicamentos, llaves, teléfonos, agua, botiquín y elementos para las mascotas.",
+          "Usar el punto de encuentro acordado si las comunicaciones fallan."
+        ]
+      },
+      {
+        "title": "No hacer",
+        "items": [
+          "No cambiar el plan durante la crisis por rumores o audios sin fuente.",
+          "No volver por objetos reemplazables.",
+          "No publicar ubicación, dinero, documentos ni inventario sensible en redes."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "SINAGIR - Plan Familiar de Emergencias",
+        "url": "https://www.argentina.gob.ar/sinagir/plan-familiar-de-emergencias"
+      },
+      {
+        "name": "Ready.gov - Haga un plan",
+        "url": "https://www.ready.gov/es/haga-un-plan"
+      }
+    ]
   },
   {
-    "title": "Falta de agua",
-    "summary": "Separación de reservas, consumo prioritario y advertencias de potabilización."
+    "id": "kit-72h",
+    "title": "Kit de 72 horas y refugio en casa",
+    "icon": "🎒",
+    "category": "Preparación",
+    "priority": "Esencial",
+    "summary": "Qué reunir para permanecer en casa o evacuar durante los primeros tres días.",
+    "keywords": [
+      "mochila",
+      "72 horas",
+      "kit",
+      "evacuación",
+      "refugio",
+      "suministros"
+    ],
+    "sections": [
+      {
+        "title": "Base del kit",
+        "items": [
+          "Agua, alimentos conocidos que requieran poca cocción y abrelatas manual.",
+          "Linternas, radio, pilas, power banks y cables identificados.",
+          "Medicamentos habituales, botiquín, higiene, repelente y protección solar.",
+          "Documentación en copia impermeable, efectivo de baja denominación y contactos impresos.",
+          "Ropa, calzado, manta, silbato y elementos de lluvia.",
+          "Correas, transportadoras, alimento y documentación de las mascotas."
+        ]
+      },
+      {
+        "title": "Organización",
+        "items": [
+          "Distribuir el peso según edad y condición física.",
+          "Guardar el kit accesible, no en un lugar que dependa de ascensor o llave difícil.",
+          "Rotar alimentos, agua y medicamentos según sus fechas.",
+          "Probar que cada persona pueda caminar con su mochila."
+        ]
+      },
+      {
+        "title": "No hacer",
+        "items": [
+          "No llenar la mochila con herramientas duplicadas o elementos que nunca se practicaron.",
+          "No depender de una sola fuente de luz, fuego o energía."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Ready.gov - Prepare un kit",
+        "url": "https://www.ready.gov/es/kit"
+      },
+      {
+        "name": "FEMA - Guía detallada de preparación",
+        "url": "https://www.ready.gov/sites/default/files/2021-11/are-you-ready-guide_spanish.pdf"
+      }
+    ]
   },
   {
-    "title": "Evacuación",
-    "summary": "Lista rápida para reunir a la familia, mascotas, medicamentos y comunicaciones."
+    "id": "apagon",
+    "title": "Apagón prolongado",
+    "icon": "🔌",
+    "category": "Servicios",
+    "priority": "Esencial",
+    "summary": "Prioridades durante un corte de energía: seguridad, frío de alimentos, comunicaciones y uso racional de baterías.",
+    "keywords": [
+      "apagón",
+      "corte de luz",
+      "electricidad",
+      "heladera",
+      "batería",
+      "generador"
+    ],
+    "sections": [
+      {
+        "title": "Primeros minutos",
+        "items": [
+          "Verificar que no haya humo, chispas, olor a quemado, cables caídos o riesgo eléctrico.",
+          "Confirmar si el corte es solo de la vivienda o de la zona.",
+          "Desconectar equipos sensibles y dejar una luz encendida para detectar el regreso del servicio.",
+          "Mantener cerradas la heladera y el freezer."
+        ]
+      },
+      {
+        "title": "Administrar energía",
+        "items": [
+          "Priorizar iluminación LED, teléfonos, radio y equipos médicos.",
+          "Usar ventanas de comunicación en lugar de mantener todos los enlaces encendidos.",
+          "Reducir brillo, activar modo de bajo consumo y usar modo avión cuando no se necesite señal.",
+          "Reservar la estación de energía para cargas esenciales."
+        ]
+      },
+      {
+        "title": "Riesgos",
+        "items": [
+          "Operar generadores únicamente al aire libre y lejos de aberturas.",
+          "No usar hornallas, horno, braseros o carbón para calefaccionar ambientes.",
+          "Tratar cables caídos como energizados y mantenerse alejado."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Ready.gov - Hoja informativa sobre apagones",
+        "url": "https://www.ready.gov/sites/default/files/2024-08/ready.gov_power-outage_info-sheet_spanish.pdf"
+      },
+      {
+        "name": "CDC - Corte inesperado de electricidad",
+        "url": "https://www.cdc.gov/es/disasters/poweroutage/needtoknow.html"
+      }
+    ]
   },
   {
-    "title": "Tormenta fuerte",
-    "summary": "Refugio, carga preventiva de equipos y reducción de riesgos eléctricos."
+    "id": "agua-segura",
+    "title": "Agua segura: reserva, almacenamiento y tratamiento",
+    "icon": "💧",
+    "category": "Agua",
+    "priority": "Esencial",
+    "summary": "Cómo contabilizar, conservar y tratar agua cuando el suministro es dudoso o está interrumpido.",
+    "keywords": [
+      "agua",
+      "potabilizar",
+      "hervir",
+      "cloro",
+      "filtro",
+      "bidón",
+      "almacenamiento"
+    ],
+    "sections": [
+      {
+        "title": "Reserva doméstica",
+        "items": [
+          "Separar agua potable de agua para limpieza o descarga sanitaria.",
+          "Usar recipientes aptos para alimentos, limpios, cerrados y protegidos del sol y sustancias químicas.",
+          "Rotular fecha, capacidad y estado de cada recipiente.",
+          "Evitar introducir vasos o manos; servir por pico o canilla limpia."
+        ]
+      },
+      {
+        "title": "Si el agua es dudosa",
+        "items": [
+          "Seguir primero las indicaciones de la autoridad sanitaria local.",
+          "Retirar sólidos visibles mediante filtrado previo; esto no elimina microorganismos.",
+          "Hervir o desinfectar solo con métodos e instrucciones confiables.",
+          "Un filtro tiene límites: revisar qué contaminantes elimina y respetar su mantenimiento."
+        ]
+      },
+      {
+        "title": "Señales de descarte",
+        "items": [
+          "No consumir agua con olor químico, combustible, color anormal o contacto con inundación.",
+          "No asumir que el agua transparente es segura.",
+          "Ante diarrea, vómitos o signos de deshidratación, buscar asistencia médica."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "OPS - Almacenamiento domiciliario de agua en emergencias",
+        "url": "https://www.paho.org/sites/default/files/2019-12/Nota-tecnica-sobre-agua-saneamiento-higiene-08.pdf"
+      },
+      {
+        "name": "OPS - Tratamiento de emergencia de agua en el hogar",
+        "url": "https://www.paho.org/sites/default/files/2019-12/Nota-tecnica-sobre-agua-saneamiento-higiene-10.pdf"
+      },
+      {
+        "name": "Ready.gov - Agua",
+        "url": "https://www.ready.gov/es/water-spanish"
+      }
+    ]
+  },
+  {
+    "id": "inundacion",
+    "title": "Inundación, anegamiento y crecida",
+    "icon": "🌊",
+    "category": "Clima",
+    "priority": "Alta",
+    "summary": "Cómo actuar ante agua que sube, calles anegadas o crecidas de ríos y arroyos.",
+    "keywords": [
+      "inundación",
+      "crecida",
+      "anegamiento",
+      "río",
+      "arroyo",
+      "lluvia"
+    ],
+    "sections": [
+      {
+        "title": "Antes y al recibir alerta",
+        "items": [
+          "Cargar teléfonos y reunir radio, documentos, medicamentos, agua y llaves.",
+          "Subir equipos, alimentos y documentos por encima del nivel probable de agua.",
+          "Preparar una salida temprana hacia terreno alto por rutas que no dependan de puentes o cauces.",
+          "Seguir avisos oficiales y no rumores."
+        ]
+      },
+      {
+        "title": "Durante",
+        "items": [
+          "No caminar, nadar ni conducir por agua en movimiento o caminos inundados.",
+          "Alejarse de postes, cables y tableros eléctricos mojados.",
+          "Si el agua ingresa, evitar sótanos y plantas bajas y pedir ayuda para evacuar.",
+          "Informar si alguien tiene movilidad reducida."
+        ]
+      },
+      {
+        "title": "Después",
+        "items": [
+          "No consumir agua ni alimentos que hayan tocado agua de inundación.",
+          "No reconectar electricidad hasta una revisión segura.",
+          "Usar guantes y calzado cerrado durante la limpieza."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "SINAGIR - Qué hacer en caso de inundación",
+        "url": "https://www.argentina.gob.ar/sinagir/riesgos-frecuentes/inundacion/que-hacer"
+      },
+      {
+        "name": "Ready.gov - Inundaciones",
+        "url": "https://www.ready.gov/es/inundaciones"
+      }
+    ]
+  },
+  {
+    "id": "tormenta",
+    "title": "Tormenta eléctrica, viento y granizo",
+    "icon": "⛈️",
+    "category": "Clima",
+    "priority": "Alta",
+    "summary": "Refugio, protección de equipos y conducta segura ante rayos, ráfagas y granizo.",
+    "keywords": [
+      "tormenta",
+      "rayos",
+      "granizo",
+      "viento",
+      "ráfagas",
+      "árboles"
+    ],
+    "sections": [
+      {
+        "title": "Preparar",
+        "items": [
+          "Consultar alertas meteorológicas oficiales.",
+          "Asegurar objetos exteriores y estacionar lejos de árboles, carteles y estructuras inestables.",
+          "Cargar teléfonos, linternas y baterías antes del evento.",
+          "Elegir un ambiente interior alejado de ventanas."
+        ]
+      },
+      {
+        "title": "Durante",
+        "items": [
+          "Cuando se escuchen truenos, ingresar a un edificio o vehículo cerrado.",
+          "Alejarse de ventanas, balcones, árboles aislados, agua y objetos metálicos exteriores.",
+          "Desenchufar equipos solo si puede hacerse antes de la tormenta y sin riesgo.",
+          "No salir a observar o filmar daños."
+        ]
+      },
+      {
+        "title": "Después",
+        "items": [
+          "Evitar cables caídos, ramas tensionadas y charcos cercanos a instalaciones eléctricas.",
+          "Revisar techo y árboles desde un lugar seguro; llamar a profesionales para tareas de altura."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Ready.gov - Tormentas eléctricas, rayos y granizo",
+        "url": "https://www.ready.gov/sites/default/files/2024-08/ready-gov_thunderstorm_info-sheet_spanish.pdf"
+      },
+      {
+        "name": "Servicio Meteorológico Nacional",
+        "url": "https://www.smn.gob.ar/"
+      }
+    ]
+  },
+  {
+    "id": "incendio-vivienda",
+    "title": "Incendio en la vivienda",
+    "icon": "🔥",
+    "category": "Incendios",
+    "priority": "Esencial",
+    "summary": "Evacuación inmediata, humo, uso limitado del extintor y recuento familiar.",
+    "keywords": [
+      "incendio",
+      "fuego",
+      "humo",
+      "extintor",
+      "evacuar",
+      "bomberos"
+    ],
+    "sections": [
+      {
+        "title": "Acción inmediata",
+        "items": [
+          "Alertar a todos, salir por la vía más cercana y cerrar puertas al pasar si es posible.",
+          "Si hay humo, desplazarse agachado cerca del suelo.",
+          "No usar ascensor y no volver a ingresar.",
+          "Reunirse en el punto acordado y realizar recuento."
+        ]
+      },
+      {
+        "title": "Extintor",
+        "items": [
+          "Usarlo solo si el fuego es pequeño, se conoce su manejo y existe una salida libre detrás.",
+          "Si no se controla de inmediato, abandonar el intento y evacuar."
+        ]
+      },
+      {
+        "title": "Si no puede salir",
+        "items": [
+          "Ingresar a una habitación alejada del foco, cerrar y sellar la puerta contra el humo.",
+          "Llamar a emergencias e indicar ubicación exacta dentro de la vivienda.",
+          "Señalizar desde una ventana sin exponerse al humo."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "SINAGIR - Qué hacer en caso de incendio estructural",
+        "url": "https://www.argentina.gob.ar/sinagir/incendios-estructurales/que-hacer"
+      },
+      {
+        "name": "Argentina.gob.ar - Emergencias",
+        "url": "https://www.argentina.gob.ar/tema/emergencias"
+      }
+    ]
+  },
+  {
+    "id": "incendio-forestal-humo",
+    "title": "Incendio forestal, interfase y humo",
+    "icon": "🌲",
+    "category": "Incendios",
+    "priority": "Alta",
+    "summary": "Preparación de la vivienda, salida temprana y reducción de exposición al humo.",
+    "keywords": [
+      "incendio forestal",
+      "humo",
+      "ceniza",
+      "monte",
+      "evacuación",
+      "N95"
+    ],
+    "sections": [
+      {
+        "title": "Reducir riesgo",
+        "items": [
+          "Mantener pasto corto y retirar hojas, ramas y materiales combustibles próximos a la vivienda.",
+          "Mantener accesibles mangueras, agua, documentos y mochilas.",
+          "No encender fuego en sequía ni abandonar fogatas o brasas."
+        ]
+      },
+      {
+        "title": "Cuando hay humo o fuego cercano",
+        "items": [
+          "Seguir órdenes oficiales y evacuar temprano si se indica.",
+          "Cerrar ventanas y ventilaciones; usar recirculación si el equipo lo permite.",
+          "Suspender actividad física exterior y proteger especialmente a niños, mayores y personas con afecciones respiratorias.",
+          "Conducir con baja velocidad y luces bajas si la visibilidad se reduce."
+        ]
+      },
+      {
+        "title": "No hacer",
+        "items": [
+          "No regresar a zonas quemadas sin autorización.",
+          "No esperar a ver llamas si la ruta puede quedar comprometida.",
+          "No usar una máscara como sustituto de evacuar cuando existe peligro directo."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Servicio Nacional de Manejo del Fuego - Prevención",
+        "url": "https://www.argentina.gob.ar/servicio-nacional-de-manejo-del-fuego/recomendaciones-para-prevenir-incendios-forestales"
+      },
+      {
+        "name": "Ministerio de Salud - Recomendaciones por humo",
+        "url": "https://www.argentina.gob.ar/noticias/recomendaciones-del-ministerio-de-salud-por-la-presencia-de-humo-en-varias-provincias-del"
+      }
+    ]
+  },
+  {
+    "id": "primeros-auxilios",
+    "title": "Primeros auxilios: evaluación inicial",
+    "icon": "🩺",
+    "category": "Salud",
+    "priority": "Esencial",
+    "summary": "Secuencia simple para protegerse, evaluar a la persona y pedir ayuda profesional.",
+    "keywords": [
+      "primeros auxilios",
+      "herido",
+      "consciente",
+      "respira",
+      "emergencia",
+      "seguridad"
+    ],
+    "sections": [
+      {
+        "title": "Secuencia básica",
+        "items": [
+          "Evaluar la escena antes de acercarse; no convertirse en otra víctima.",
+          "Comprobar si la persona responde y si respira normalmente.",
+          "Pedir ayuda y llamar al servicio de emergencias local, indicando ubicación y estado de la persona.",
+          "Controlar sangrado visible con presión directa y mantener a la persona abrigada.",
+          "No mover a una persona con posible lesión de columna salvo peligro inmediato."
+        ]
+      },
+      {
+        "title": "Señales críticas",
+        "items": [
+          "Inconsciencia, dificultad respiratoria, sangrado abundante, convulsión, dolor intenso de pecho o traumatismo grave requieren ayuda urgente.",
+          "Seguir las instrucciones del operador de emergencias."
+        ]
+      },
+      {
+        "title": "Límite del manual",
+        "items": [
+          "Este contenido no reemplaza un curso práctico de primeros auxilios y RCP.",
+          "No realizar procedimientos invasivos para los que no se tiene formación."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Ministerio de Salud - Primeros auxilios",
+        "url": "https://www.argentina.gob.ar/salud/primerosauxilios"
+      },
+      {
+        "name": "OMS - Atención Básica de Emergencias",
+        "url": "https://www.who.int/es/teams/integrated-health-services/clinical-services-and-systems/emergency-and-critical-care/bec"
+      }
+    ]
+  },
+  {
+    "id": "hemorragias-heridas",
+    "title": "Hemorragias y heridas",
+    "icon": "🩹",
+    "category": "Salud",
+    "priority": "Alta",
+    "summary": "Control inicial del sangrado y cuidados básicos hasta recibir asistencia.",
+    "keywords": [
+      "hemorragia",
+      "sangrado",
+      "herida",
+      "presión",
+      "venda",
+      "torniquete"
+    ],
+    "sections": [
+      {
+        "title": "Sangrado visible",
+        "items": [
+          "Usar guantes si están disponibles.",
+          "Aplicar presión firme y continua con gasa o tela limpia.",
+          "Si el material se empapa, agregar más encima sin retirar el primero.",
+          "Solicitar ayuda urgente si el sangrado es abundante, no se detiene o la persona presenta palidez, confusión o debilidad."
+        ]
+      },
+      {
+        "title": "Heridas menores",
+        "items": [
+          "Lavar con agua segura y jabón suave alrededor de la lesión.",
+          "Cubrir con apósito limpio y vigilar signos de infección."
+        ]
+      },
+      {
+        "title": "Precauciones",
+        "items": [
+          "No retirar objetos clavados; estabilizarlos y esperar asistencia.",
+          "El torniquete requiere entrenamiento y se reserva para hemorragias graves de extremidades cuando la presión directa no controla el sangrado o no es posible aplicarla.",
+          "Registrar la hora si se coloca un torniquete y no aflojarlo repetidamente."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Ministerio de Salud - Primeros auxilios",
+        "url": "https://www.argentina.gob.ar/salud/primerosauxilios"
+      },
+      {
+        "name": "DINESA - Botiquín de primeros auxilios",
+        "url": "https://www.argentina.gob.ar/salud/dinesa/recomendaciones/botiquin"
+      }
+    ]
+  },
+  {
+    "id": "rcp-atragantamiento",
+    "title": "RCP y atragantamiento: guía de orientación",
+    "icon": "❤️",
+    "category": "Salud",
+    "priority": "Alta",
+    "summary": "Cómo reconocer una emergencia vital y actuar siguiendo al operador hasta la llegada de ayuda.",
+    "keywords": [
+      "RCP",
+      "reanimación",
+      "DEA",
+      "atragantamiento",
+      "asfixia",
+      "compresiones"
+    ],
+    "sections": [
+      {
+        "title": "Persona inconsciente que no respira normalmente",
+        "items": [
+          "Llamar a emergencias o pedir a otra persona que llame y busque un DEA.",
+          "Iniciar compresiones en el centro del pecho si se cuenta con formación; seguir las instrucciones telefónicas del operador.",
+          "Usar el DEA apenas esté disponible y obedecer sus indicaciones de voz.",
+          "Continuar hasta que llegue ayuda, la persona muestre signos de vida o sea imposible seguir."
+        ]
+      },
+      {
+        "title": "Atragantamiento",
+        "items": [
+          "Si la persona tose con fuerza o puede hablar, permitir que siga tosiendo y vigilar.",
+          "Si no puede respirar, hablar o toser eficazmente, pedir ayuda inmediata y aplicar las maniobras apropiadas solo si se conocen.",
+          "Si pierde el conocimiento, iniciar la secuencia indicada por emergencias y RCP."
+        ]
+      },
+      {
+        "title": "Importante",
+        "items": [
+          "Las maniobras cambian según adulto, niño, lactante, embarazo y contextura.",
+          "Realizar un curso presencial y practicar con maniquíes es indispensable."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Ministerio de Salud - Primeros auxilios",
+        "url": "https://www.argentina.gob.ar/salud/primerosauxilios"
+      },
+      {
+        "name": "OMS - Atención Básica de Emergencias",
+        "url": "https://www.who.int/es/teams/integrated-health-services/clinical-services-and-systems/emergency-and-critical-care/bec"
+      }
+    ]
+  },
+  {
+    "id": "calor-deshidratacion",
+    "title": "Ola de calor y deshidratación",
+    "icon": "🌡️",
+    "category": "Salud",
+    "priority": "Alta",
+    "summary": "Prevención, señales de alarma y medidas iniciales ante calor intenso.",
+    "keywords": [
+      "calor",
+      "deshidratación",
+      "golpe de calor",
+      "temperatura",
+      "verano",
+      "hidratación"
+    ],
+    "sections": [
+      {
+        "title": "Prevenir",
+        "items": [
+          "Tomar agua con frecuencia sin esperar a tener sed.",
+          "Evitar actividad física intensa y exposición directa al sol en las horas más calurosas.",
+          "Usar ropa liviana y permanecer en ambientes ventilados o frescos.",
+          "Nunca dejar niños ni mascotas en vehículos cerrados.",
+          "Controlar especialmente a niños, mayores, personas con enfermedades crónicas y mascotas."
+        ]
+      },
+      {
+        "title": "Señales de alarma",
+        "items": [
+          "Temperatura corporal muy alta, confusión, desmayo, vómitos persistentes, piel muy caliente o deterioro rápido requieren atención urgente.",
+          "Trasladar a un lugar fresco, retirar exceso de ropa y enfriar mientras llega ayuda."
+        ]
+      },
+      {
+        "title": "Cortes de luz",
+        "items": [
+          "Identificar de antemano la habitación más fresca.",
+          "Reservar agua y energía para ventilación, comunicaciones y necesidades médicas prioritarias."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Ministerio de Salud - Olas de calor",
+        "url": "https://www.argentina.gob.ar/salud/verano/olas-de-calor"
+      },
+      {
+        "name": "Ministerio de Salud - Recomendaciones ante ola de calor",
+        "url": "https://www.argentina.gob.ar/noticias/recomendaciones-del-ministerio-de-salud-ante-la-ola-de-calor"
+      }
+    ]
+  },
+  {
+    "id": "dengue",
+    "title": "Dengue: prevención y signos de alarma",
+    "icon": "🦟",
+    "category": "Salud",
+    "priority": "Alta",
+    "summary": "Control de criaderos, protección contra mosquitos y señales que requieren consulta inmediata.",
+    "keywords": [
+      "dengue",
+      "mosquito",
+      "Aedes",
+      "repelente",
+      "fiebre",
+      "criaderos"
+    ],
+    "sections": [
+      {
+        "title": "Prevenir",
+        "items": [
+          "Eliminar o cubrir recipientes que acumulen agua y renovar bebederos con frecuencia.",
+          "Usar repelente según el rótulo, mosquiteros y ropa que cubra la piel cuando corresponda.",
+          "Mantener patios, canaletas y desagües sin objetos que junten agua."
+        ]
+      },
+      {
+        "title": "Ante fiebre o sospecha",
+        "items": [
+          "Consultar a un profesional y mantener hidratación.",
+          "No automedicarse con aspirina ni antiinflamatorios sin indicación médica.",
+          "Vigilar la evolución incluso cuando baja la fiebre."
+        ]
+      },
+      {
+        "title": "Signos de alarma",
+        "items": [
+          "Dolor abdominal intenso, vómitos persistentes, sangrado de mucosas, somnolencia marcada, irritabilidad o dificultad respiratoria requieren atención inmediata."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Ministerio de Salud - Dengue",
+        "url": "https://www.argentina.gob.ar/salud/dengue"
+      },
+      {
+        "name": "Ministerio de Salud - Síntomas y signos de alarma",
+        "url": "https://www.argentina.gob.ar/sintomas-y-signos-de-alarma"
+      }
+    ]
+  },
+  {
+    "id": "animales-ponzonosos",
+    "title": "Serpientes, arañas y animales ponzoñosos",
+    "icon": "🐍",
+    "category": "Salud",
+    "priority": "Alta",
+    "summary": "Qué hacer y qué evitar ante una mordedura o picadura potencialmente venenosa.",
+    "keywords": [
+      "serpiente",
+      "araña",
+      "escorpión",
+      "picadura",
+      "mordedura",
+      "veneno"
+    ],
+    "sections": [
+      {
+        "title": "Acción inmediata",
+        "items": [
+          "Solicitar ayuda médica de inmediato.",
+          "Mantener a la persona tranquila y con el menor movimiento posible.",
+          "Retirar anillos, pulseras, calzado u objetos que puedan apretar si aparece hinchazón.",
+          "Lavar suavemente con agua y jabón si la autoridad sanitaria lo indica."
+        ]
+      },
+      {
+        "title": "No hacer",
+        "items": [
+          "No realizar torniquetes, cortes, succión ni aplicar sustancias caseras.",
+          "No dar alcohol ni medicamentos sin indicación.",
+          "No intentar capturar o manipular al animal; una foto a distancia solo si es segura."
+        ]
+      },
+      {
+        "title": "Prevenir",
+        "items": [
+          "Usar botas y pantalón largo en zonas de vegetación.",
+          "No introducir manos en huecos, leña, piedras o rincones sin inspección.",
+          "Mantener patios, depósitos y alimento de mascotas ordenados para reducir refugios y roedores."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Ministerio de Salud - Envenenamiento por serpiente",
+        "url": "https://www.argentina.gob.ar/salud/glosario/envenenamientoserpiente"
+      },
+      {
+        "name": "ANLIS - Primeros auxilios ante animales ponzoñosos",
+        "url": "https://www.argentina.gob.ar/salud/anlis/inpb/accidentes-con-animales-ponzonosos/primeros-auxilios"
+      }
+    ]
+  },
+  {
+    "id": "alimentos-apagon",
+    "title": "Seguridad de alimentos durante un apagón",
+    "icon": "🥫",
+    "category": "Alimentos",
+    "priority": "Alta",
+    "summary": "Cómo conservar el frío, decidir qué consumir primero y evitar intoxicaciones.",
+    "keywords": [
+      "alimentos",
+      "heladera",
+      "freezer",
+      "apagón",
+      "cadena de frío",
+      "comida"
+    ],
+    "sections": [
+      {
+        "title": "Mientras no hay electricidad",
+        "items": [
+          "Mantener cerradas la heladera y el freezer tanto como sea posible.",
+          "Agrupar alimentos fríos y usar conservadoras con hielo seguro si el corte se prolonga.",
+          "Consumir primero alimentos perecederos solo mientras se mantengan a temperatura segura.",
+          "Anotar la hora aproximada de inicio del corte."
+        ]
+      },
+      {
+        "title": "Descartar cuando haya duda",
+        "items": [
+          "No probar un alimento para decidir si es seguro.",
+          "Descartar alimentos perecederos que hayan permanecido demasiado tiempo a temperatura inadecuada o presenten envase alterado.",
+          "Los alimentos o medicamentos que requieran refrigeración deben seguir las indicaciones específicas del fabricante o profesional."
+        ]
+      },
+      {
+        "title": "Preparar antes",
+        "items": [
+          "Mantener termómetro en heladera/freezer si es posible.",
+          "Guardar parte de la reserva en alimentos estables que no dependan de frío."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "CDC - Corte inesperado de electricidad",
+        "url": "https://www.cdc.gov/es/disasters/poweroutage/needtoknow.html"
+      }
+    ]
+  },
+  {
+    "id": "mascotas",
+    "title": "Mascotas en emergencias",
+    "icon": "🐶",
+    "category": "Familia",
+    "priority": "Alta",
+    "summary": "Plan, mochila, identificación y evacuación segura para perros y otras mascotas.",
+    "keywords": [
+      "mascotas",
+      "perros",
+      "correa",
+      "transportadora",
+      "alimento",
+      "veterinario"
+    ],
+    "sections": [
+      {
+        "title": "Preparar",
+        "items": [
+          "Mantener collar o arnés, identificación y correas accesibles.",
+          "Preparar alimento, agua, recipiente, bolsas, manta, medicamentos y copia de vacunas.",
+          "Tener transportadora o método seguro de traslado.",
+          "Guardar una foto reciente y contacto veterinario."
+        ]
+      },
+      {
+        "title": "Durante",
+        "items": [
+          "Ingresar a las mascotas ante la primera señal de tormenta o peligro.",
+          "No soltarlas durante evacuación; el ruido y el estrés pueden cambiar su conducta.",
+          "No dejarlas encerradas en una vivienda evacuada salvo que una autoridad indique lo contrario y no exista alternativa segura."
+        ]
+      },
+      {
+        "title": "Plan familiar",
+        "items": [
+          "Definir quién toma cada mascota y quién carga su kit.",
+          "Practicar el ingreso a la transportadora y el traslado en vehículo."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Ready.gov - Prepare a sus mascotas para los desastres",
+        "url": "https://www.ready.gov/es/cuidado-de-los-animales"
+      }
+    ]
+  },
+  {
+    "id": "comunicaciones",
+    "title": "Comunicaciones sin Internet",
+    "icon": "📡",
+    "category": "Comunicaciones",
+    "priority": "Alta",
+    "summary": "Cómo ahorrar batería, reunificar a la familia y recibir información cuando la red falla.",
+    "keywords": [
+      "radio",
+      "SMS",
+      "WhatsApp",
+      "señal",
+      "internet",
+      "comunicaciones",
+      "contacto"
+    ],
+    "sections": [
+      {
+        "title": "Plan",
+        "items": [
+          "Tener contactos esenciales impresos y un contacto externo de reunificación.",
+          "Acordar horarios y canales de comunicación, además de puntos de encuentro.",
+          "Descargar mapas offline y guardar copias físicas de las rutas."
+        ]
+      },
+      {
+        "title": "Ahorrar energía y red",
+        "items": [
+          "Priorizar mensajes de texto breves sobre llamadas prolongadas.",
+          "Usar SMS si los datos no funcionan.",
+          "Activar modo de bajo consumo, reducir brillo y usar modo avión entre ventanas de comunicación.",
+          "Escuchar radio en horarios definidos en lugar de mantener equipos encendidos constantemente."
+        ]
+      },
+      {
+        "title": "Información confiable",
+        "items": [
+          "Contrastar audios o cadenas con autoridades, medios confiables y alertas oficiales.",
+          "No difundir información que no pueda verificarse."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "SINAGIR - Plan Familiar de Emergencias",
+        "url": "https://www.argentina.gob.ar/sinagir/plan-familiar-de-emergencias"
+      },
+      {
+        "name": "Ready.gov - Haga un plan",
+        "url": "https://www.ready.gov/es/haga-un-plan"
+      }
+    ]
+  },
+  {
+    "id": "evacuacion-vehiculo",
+    "title": "Evacuación y vehículo",
+    "icon": "🚗",
+    "category": "Evacuación",
+    "priority": "Alta",
+    "summary": "Decidir cuándo salir, cargar lo esencial y evitar quedar atrapado en rutas peligrosas.",
+    "keywords": [
+      "evacuación",
+      "vehículo",
+      "combustible",
+      "ruta",
+      "salida",
+      "tránsito"
+    ],
+    "sections": [
+      {
+        "title": "Preparar",
+        "items": [
+          "Mantener combustible suficiente y el vehículo con mantenimiento al día.",
+          "Guardar linterna, agua, botiquín, cable de carga, chaleco reflectante y documentación.",
+          "Planificar tres rutas: principal, alternativa y una opción a pie.",
+          "Identificar puentes, arroyos, árboles grandes y sectores que se anegan."
+        ]
+      },
+      {
+        "title": "Salir",
+        "items": [
+          "Evacuar temprano cuando la autoridad lo indique o exista peligro evidente.",
+          "Llevar personas, medicamentos, agua, comunicaciones, llaves y mascotas antes que equipamiento pesado.",
+          "No cruzar agua, humo denso, fuego, cables caídos o barreras oficiales.",
+          "Si el vehículo queda inmovilizado, evaluar un lugar seguro antes de abandonarlo."
+        ]
+      },
+      {
+        "title": "Conducción con humo",
+        "items": [
+          "Reducir velocidad, aumentar distancia, usar luces bajas y evitar adelantamientos.",
+          "No detenerse en banquinas con visibilidad reducida salvo emergencia."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Agencia Nacional de Seguridad Vial - Conducción con humo",
+        "url": "https://www.argentina.gob.ar/noticias/precaucion-por-humo-estas-son-las-recomendaciones-de-la-ansv-para-una-conduccion-segura"
+      },
+      {
+        "name": "SINAGIR - Plan Familiar de Emergencias",
+        "url": "https://www.argentina.gob.ar/sinagir/plan-familiar-de-emergencias"
+      }
+    ]
+  },
+  {
+    "id": "monoxido-generadores",
+    "title": "Monóxido de carbono y generadores",
+    "icon": "☠️",
+    "category": "Servicios",
+    "priority": "Alta",
+    "summary": "Prevención de intoxicación al usar combustión, calefacción o generación eléctrica.",
+    "keywords": [
+      "monóxido",
+      "generador",
+      "brasero",
+      "gas",
+      "combustión",
+      "ventilación"
+    ],
+    "sections": [
+      {
+        "title": "Reglas esenciales",
+        "items": [
+          "Operar generadores y motores a combustión únicamente al aire libre, lejos de puertas, ventanas y ventilaciones.",
+          "No usar horno, hornallas, carbón, brasero o parrilla para calefaccionar interiores.",
+          "Mantener artefactos y conductos revisados por técnicos habilitados.",
+          "Instalar detectores de monóxido donde corresponda y probarlos periódicamente."
+        ]
+      },
+      {
+        "title": "Señales posibles",
+        "items": [
+          "Dolor de cabeza, mareos, debilidad, náuseas, confusión o somnolencia en varias personas pueden indicar exposición.",
+          "Salir inmediatamente al aire libre, pedir ayuda y no volver hasta que el lugar sea declarado seguro."
+        ]
+      },
+      {
+        "title": "No confiar en los sentidos",
+        "items": [
+          "El monóxido no tiene olor ni color.",
+          "Abrir una ventana no vuelve seguro el uso de un generador dentro de la vivienda o el garaje."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Ministerio de Salud - Intoxicación por monóxido de carbono",
+        "url": "https://www.argentina.gob.ar/salud/glosario/intoxicacionpormonoxidodecarbono"
+      }
+    ]
+  },
+  {
+    "id": "apoyo-psicologico",
+    "title": "Estrés y primera ayuda psicológica",
+    "icon": "🧠",
+    "category": "Salud",
+    "priority": "Media",
+    "summary": "Apoyo práctico y humano para reducir desorganización, miedo y sobrecarga durante una crisis.",
+    "keywords": [
+      "estrés",
+      "ansiedad",
+      "miedo",
+      "niños",
+      "psicológico",
+      "crisis"
+    ],
+    "sections": [
+      {
+        "title": "Ayudar",
+        "items": [
+          "Acercarse con calma, presentarse y preguntar qué necesita la persona.",
+          "Escuchar sin presionar para que relate lo ocurrido.",
+          "Dar información simple, verdadera y útil sobre los próximos pasos.",
+          "Ayudar a contactar familiares, servicios y apoyos concretos.",
+          "Mantener rutinas simples para niños cuando sea posible."
+        ]
+      },
+      {
+        "title": "Evitar",
+        "items": [
+          "No prometer que todo estará bien ni inventar información.",
+          "No juzgar reacciones, discutir rumores o forzar decisiones rápidas si no hay peligro inmediato.",
+          "No dejar sola a una persona con riesgo de hacerse daño o desorientación grave."
+        ]
+      },
+      {
+        "title": "Cuidar al cuidador",
+        "items": [
+          "Alternar tareas, descansar, hidratarse y hablar con alguien de confianza.",
+          "Buscar apoyo profesional si el malestar es intenso, persiste o impide funcionar."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "OMS - Primera ayuda psicológica",
+        "url": "https://www.who.int/es/publications/i/item/9789241548205"
+      },
+      {
+        "name": "OMS - Salud mental en emergencias",
+        "url": "https://www.who.int/es/news-room/fact-sheets/detail/mental-health-in-emergencies"
+      }
+    ]
+  },
+  {
+    "id": "documentos-respaldo",
+    "title": "Documentos, efectivo y respaldo digital",
+    "icon": "📄",
+    "category": "Preparación",
+    "priority": "Media",
+    "summary": "Cómo conservar copias útiles sin exponer información privada en una aplicación pública.",
+    "keywords": [
+      "documentos",
+      "DNI",
+      "pasaporte",
+      "efectivo",
+      "respaldo",
+      "privacidad",
+      "USB"
+    ],
+    "sections": [
+      {
+        "title": "Copias",
+        "items": [
+          "Guardar copias de identificación, pólizas, recetas, contactos y datos de mascotas en un sobre impermeable.",
+          "Mantener un respaldo digital cifrado en una ubicación separada.",
+          "Llevar efectivo de baja denominación para interrupciones de pagos electrónicos."
+        ]
+      },
+      {
+        "title": "Privacidad",
+        "items": [
+          "No publicar domicilios, documentos completos, números de serie, información médica identificable ni inventarios sensibles.",
+          "Los archivos privados deben importarse y almacenarse localmente, no incluirse en el repositorio público.",
+          "Proteger los respaldos con contraseña y revisar quién puede acceder."
+        ]
+      },
+      {
+        "title": "Revisión",
+        "items": [
+          "Actualizar cuando cambien documentos, medicamentos, seguros o contactos.",
+          "Probar que los archivos puedan abrirse sin Internet."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Ready.gov - Preparación financiera",
+        "url": "https://www.ready.gov/es/node/11779"
+      },
+      {
+        "name": "SINAGIR - Plan Familiar de Emergencias",
+        "url": "https://www.argentina.gob.ar/sinagir/plan-familiar-de-emergencias"
+      }
+    ]
   }
 ]

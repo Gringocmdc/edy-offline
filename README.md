@@ -1,19 +1,21 @@
-# EDY Offline v1.2.1 — Inventario por lotes
+# EDY Offline v1.3.0
 
-## Novedades
-- Inventario inicial real con 19 productos domésticos confirmados.
-- Categorías de despensa, higiene, botiquín y herramientas.
-- Control por lotes con fecha de compra y vencimiento.
-- Botones para agregar compras y consumir stock.
-- Consumo FIFO: descuenta primero el lote que vence antes.
-- Atajos de consumo de 250 g, 500 g y 1 kg cuando corresponde.
-- Historial de ingresos y consumos por producto.
-- Campos de stock mínimo y stock objetivo.
-- Búsqueda por producto, marca, lote, vencimiento y notas.
-- Indicadores de stock bajo, producto vencido o próximo a vencer.
-- Migración automática: conserva los datos locales existentes y agrega solo los productos iniciales que falten.
-- Botón “Restaurar inventario base” para volver a incorporar productos faltantes sin borrar datos personales.
-- Actualización reforzada del modo offline para evitar que GitHub Pages siga mostrando una versión anterior.
+Centro de Preparación Digital Familiar, diseñado para funcionar como PWA y conservar los datos principales en el dispositivo.
+
+## Novedades de esta versión
+
+- Inventario inicial de 20 productos, incluido **Manantial de Oro: 5 bidones de 20 L (100 L)**.
+- Módulo Agua conectado al inventario: suma, consumo rápido y cálculo de autonomía.
+- Biblioteca con **21 manuales interactivos**, búsqueda local y categorías.
+- Manual Maestro EDY y checklist de botiquín incluidos como PDF para consulta offline.
+- Importación de PDFs privados mediante IndexedDB: quedan solamente en el dispositivo y no se publican en GitHub.
+- Asistente EDY conectado al inventario, al agua y a la biblioteca local.
+- Caché offline actualizado a v1.3.0.
+
+## Publicación en GitHub Pages
+
+Subir todos los archivos del ZIP a la raíz del repositorio y reemplazar los anteriores. La primera apertura después de publicar debe realizarse con conexión para que el navegador descargue y almacene la nueva versión.
 
 ## Privacidad
-El repositorio incluye únicamente un inventario doméstico no sensible. No contiene domicilios, ubicaciones exactas, armas, municiones, números de serie ni documentación personal. Las fotografías, ubicaciones exactas y cambios posteriores se guardan localmente en el dispositivo.
+
+El repositorio y GitHub Pages son públicos. No subir domicilios, teléfonos privados, documentación personal, información médica identificable, contraseñas, ubicaciones sensibles ni inventarios regulados. Para documentos familiares usar la función **Documentos privados** de la Biblioteca, que guarda el PDF solo en el navegador del dispositivo.

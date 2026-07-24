@@ -7,13 +7,13 @@
   <title>EDY Offline</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=1.2.1">
+  <link rel="stylesheet" href="styles.css?v=1.3.0">
 </head>
 <body>
 <header>
   <div class="brand">
     <div><h1>EDY</h1><p>Centro de Supervivencia Digital Familiar</p></div>
-    <div class="headerActions"><span class="versionBadge">1.2.1</span><div class="pill">OFFLINE</div></div>
+    <div class="headerActions"><span class="versionBadge">1.3.0</span><div class="pill">OFFLINE</div></div>
   </div>
   <input id="search" placeholder="Buscar: apagón, agua, energía, evacuación…">
 </header>
@@ -316,7 +316,7 @@
   <div id="assistantAlerts"></div>
 
   <div class="assistantDisclaimer">
-    EDY v0.8 usa reglas y búsqueda local. No reemplaza a los servicios de emergencia, profesionales médicos ni instrucciones oficiales.
+    EDY v1.3 usa reglas, búsqueda local y una biblioteca preventiva offline. No reemplaza a los servicios de emergencia, profesionales médicos ni instrucciones oficiales.
   </div>
 </section>
 
@@ -438,17 +438,29 @@
 </section>
 
 <section id="agua" class="section searchable">
-  <button class="back" onclick="home()">← Inicio</button><h2>💧 Reserva de agua</h2>
+  <button class="back" onclick="home()">← Inicio</button>
+  <div class="sectionHeader"><div><h2>💧 Reserva de agua</h2><p>El total se obtiene automáticamente del inventario de agua potable.</p></div><button class="action secondary" onclick="openItem('starter-agua-manantial-de-oro-20l')">Ver producto</button></div>
+  <div class="waterInventoryHero">
+    <div class="waterDrop">💧</div>
+    <div><span>Agua potable registrada</span><strong id="waterInventoryLiters">0 L</strong><p id="waterInventoryPackages">Sin bidones registrados</p></div>
+    <div class="waterDaysBadge"><span>Autonomía</span><strong id="waterInventoryDays">—</strong></div>
+  </div>
+  <div class="waterQuickActions">
+    <button onclick="adjustWaterInventory(20)">➕ 1 bidón · 20 L</button>
+    <button onclick="adjustWaterInventory(-20)">➖ 1 bidón · 20 L</button>
+    <button onclick="adjustWaterInventory(-5)">Consumir 5 L</button>
+    <button onclick="consumeWaterCustom()">Otra cantidad</button>
+  </div>
   <div class="calculator">
     <div class="formGrid">
-      <div class="field"><label>Litros disponibles</label><input id="waterLiters" type="number" min="0" step="1" placeholder="180"></div>
+      <div class="field"><label>Litros disponibles</label><input id="waterLiters" type="number" min="0" step="1" placeholder="100"><small id="waterInventorySource">Sincronizado con el inventario cuando hay agua cargada.</small></div>
       <div class="field"><label>Personas</label><input id="waterPeople" type="number" min="1" step="1" value="5"></div>
-      <div class="field"><label>Litros por persona por día</label><input id="waterPerPerson" type="number" min="1" step="0.5" value="4"></div>
+      <div class="field"><label>Litros por persona por día</label><input id="waterPerPerson" type="number" min="0.5" step="0.5" value="3"></div>
     </div>
-    <div class="actions"><button class="action" onclick="calculateWater()">Calcular autonomía</button></div>
-    <div id="waterResult" class="resultBox">Ingresá la reserva disponible.</div>
+    <div class="actions"><button class="action" onclick="calculateWater()">Calcular autonomía</button><button class="action secondary" onclick="syncWaterCalculatorFromInventory()">Usar inventario</button></div>
+    <div id="waterResult" class="resultBox">La reserva se actualizará al cargar el inventario.</div>
   </div>
-  <div class="panel amber"><strong>Importante:</strong> el cálculo es orientativo y contempla bebida y preparación mínima de alimentos, no higiene completa.</div>
+  <div class="panel amber"><strong>Importante:</strong> el cálculo es orientativo y contempla bebida y preparación mínima de alimentos. La higiene, el calor, la actividad física y las mascotas pueden aumentar el consumo.</div>
 </section>
 
 <section id="energia" class="section searchable">
@@ -505,7 +517,29 @@
 <label class="check"><input type="checkbox" data-key="to3"><span>Cargar iPad y teléfonos.</span></label>
 <label class="check"><input type="checkbox" data-key="to4"><span>Reunir linternas, agua, botiquín y llaves.</span></label></section>
 
-<section id="biblioteca" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>📚 Biblioteca</h2><div id="manualList"></div></section>
+<section id="biblioteca" class="section searchable">
+  <button class="back" onclick="home()">← Inicio</button>
+  <div class="sectionHeader"><div><h2>📚 Biblioteca EDY Offline</h2><p>Protocolos completos incluidos en la aplicación y disponibles sin Internet.</p></div><span class="offlineLibraryBadge">21 MANUALES OFFLINE</span></div>
+  <div class="libraryDownloads">
+    <a class="libraryDownload" href="manuales/Manual_Maestro_EDY_Biblioteca_Offline.pdf" target="_blank" rel="noopener"><span>📘</span><div><strong>Manual Maestro EDY</strong><small>PDF completo · uso offline</small></div></a>
+    <a class="libraryDownload" href="manuales/Checklist_Botiquin_Familiar_EDY.pdf" target="_blank" rel="noopener"><span>🩹</span><div><strong>Checklist de botiquín</strong><small>PDF imprimible</small></div></a>
+  </div>
+  <div class="libraryTools">
+    <input id="manualSearch" placeholder="Buscar: apagón, agua, dengue, incendio…" oninput="renderManuals()">
+    <select id="manualCategory" onchange="renderManuals()"><option value="">Todas las categorías</option></select>
+  </div>
+  <div class="manualStats"><span><strong id="manualCount">0</strong> manuales</span><span>✅ Contenido precargado</span><span>🔎 Búsqueda local</span></div>
+  <div id="manualList" class="manualGrid"></div>
+  <div class="privateManualPanel">
+    <div><h3>🔒 Documentos privados</h3><p>Importá PDFs personales para guardarlos solo en este dispositivo. No se publican en GitHub.</p></div>
+    <label class="action fileAction">Agregar PDF privado<input id="privateManualInput" type="file" accept="application/pdf" hidden onchange="importPrivateManual(event)"></label>
+  </div>
+  <div id="privateManualList"></div>
+</section>
+<section id="manualDetail" class="section">
+  <button class="back" onclick="openSection('biblioteca')">← Biblioteca</button>
+  <div id="manualDetailContent"></div>
+</section>
 <section id="salud" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🩺 Salud</h2><div class="panel"><p>Proteger, alertar y socorrer. No reemplaza atención médica.</p></div></section>
 <section id="comunicaciones" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>📡 Comunicaciones</h2><div class="panel"><ul><li>Modo de bajo consumo.</li><li>Brillo mínimo legible.</li><li>Modo avión cuando no se necesiten enlaces.</li><li>Usar enlaces de alto consumo solo en ventanas de comunicación.</li></ul></div></section>
 <section id="mascotas" class="section searchable"><button class="back" onclick="home()">← Inicio</button><h2>🐶 Mascotas</h2><div class="panel"><ul><li>Correas o transportadoras accesibles.</li><li>Agua, alimento y manta.</li><li>No soltarlas durante una evacuación.</li></ul></div></section>
@@ -520,10 +554,10 @@
   <button class="navCrisis" onclick="enterCrisisMode()"><span>🚨</span><small>Crisis</small></button>
 </nav>
 
-<footer>EDY Offline · v1.2.1 · Inventario por lotes</footer>
-<script src="storage.js?v=1.2.1"></script>
-<script src="calculator.js?v=1.2.1"></script>
-<script src="media.js?v=1.2.1"></script>
-<script src="app.js?v=1.2.1"></script>
+<footer>EDY Offline · v1.3.0 · Agua y Biblioteca Offline</footer>
+<script src="storage.js?v=1.3.0"></script>
+<script src="calculator.js?v=1.3.0"></script>
+<script src="media.js?v=1.3.0"></script>
+<script src="app.js?v=1.3.0"></script>
 </body>
 </html>
