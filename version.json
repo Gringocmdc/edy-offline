@@ -1,6 +1,6 @@
 {
-  "version": "1.6.0",
-  "name": "Mochilas de 72 horas",
-  "released": "2026-07-24",
-  "notes": "Incorpora el kit Ready America 70285, auditoría de contenido y un plan editable de 72 horas para 3 personas."
+  "version": "2.0.0",
+  "name": "Centro Inteligente del Hogar",
+  "released": "2026-07-25",
+  "notes": "Actualización acumulativa: perfil privado del hogar, agua potable y fija separadas, cisterna/tanques/pozo, perfil de riesgos, prioridades inteligentes y migración directa desde 1.5.x o 1.6.x."
 }

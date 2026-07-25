@@ -1449,5 +1449,144 @@
     "packageCount": 1,
     "packageSize": 1,
     "packageUnit": "kit"
+  },
+  {
+    "id": "starter-bic-maxi-j6-12",
+    "starter": true,
+    "name": "Encendedores BIC Maxi",
+    "brand": "BIC",
+    "model": "MAXI J6 · descartables · varios colores",
+    "category": "Fuego",
+    "status": "available",
+    "qty": 12,
+    "unit": "unidad",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": true,
+    "minStock": 3,
+    "targetStock": 12,
+    "purchaseDate": "2026-07-25",
+    "lastReviewDate": "2026-07-25",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 180,
+    "notes": "Blíster confirmado de 12 encendedores BIC Maxi J6 de varios colores. El envase indica hasta 3000 encendidas por unidad. Contienen gas inflamable bajo presión: mantener fuera del alcance de niños, lejos del calor y del sol; no perforar ni incinerar y comprobar que la llama quede apagada después de cada uso.",
+    "lots": [
+      {
+        "id": "starter-bic-maxi-j6-12-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 12,
+        "purchaseDate": "2026-07-25",
+        "expiryDate": "",
+        "notes": "Un blíster de 12 unidades, colores surtidos."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-bic-maxi-j6-12-purchase-20260725",
+        "type": "purchase",
+        "qty": 12,
+        "date": "2026-07-25T13:00:00-03:00",
+        "note": "Compra confirmada: blíster de 12 encendedores BIC Maxi J6."
+      }
+    ],
+    "packageCount": 12,
+    "packageSize": 1,
+    "packageUnit": "unidad",
+    "image": "assets/bic-maxi-j6-12.webp"
+  },
+  {
+    "id": "starter-forza-fpp-t702",
+    "starter": true,
+    "name": "Estación de energía portátil",
+    "brand": "Forza",
+    "model": "FPP-T702 · 700 W · 551 Wh",
+    "category": "Energía",
+    "status": "review",
+    "qty": 1,
+    "unit": "unidad",
+    "zone": "energy",
+    "location": "Sin registrar",
+    "critical": true,
+    "minStock": 1,
+    "targetStock": 1,
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 90,
+    "notes": "Estación portátil confirmada. Capacidad nominal 551 Wh y potencia declarada 700 W. Falta el cable de alimentación de corriente alterna; comprobar carga, salidas, autonomía y compatibilidad antes de depender de ella.",
+    "lots": [
+      {
+        "id": "starter-forza-fpp-t702-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 1,
+        "purchaseDate": "",
+        "expiryDate": "",
+        "notes": "Equipo registrado; cable CA pendiente."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-forza-fpp-t702-initial",
+        "type": "initial",
+        "qty": 1,
+        "date": "2026-07-25T20:00:00-03:00",
+        "note": "Equipo confirmado en inventario EDY."
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 1,
+    "packageUnit": "unidad"
+  },
+  {
+    "id": "starter-spica-sur-60",
+    "starter": true,
+    "name": "Kit de panel solar portátil",
+    "brand": "SPICA",
+    "model": "SUR-60",
+    "category": "Energía",
+    "status": "review",
+    "qty": 1,
+    "unit": "kit",
+    "zone": "energy",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": 0,
+    "targetStock": 1,
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 180,
+    "notes": "Kit solar confirmado. Potencia nominal y conectores deben verificarse físicamente. Probar compatibilidad real con la estación Forza y registrar tiempo de carga en condiciones locales.",
+    "lots": [
+      {
+        "id": "starter-spica-sur-60-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 1,
+        "purchaseDate": "",
+        "expiryDate": "",
+        "notes": "Kit pendiente de prueba y documentación."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-spica-sur-60-initial",
+        "type": "initial",
+        "qty": 1,
+        "date": "2026-07-25T20:00:00-03:00",
+        "note": "Equipo confirmado en inventario EDY."
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 1,
+    "packageUnit": "kit"
   }
 ]

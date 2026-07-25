@@ -14,6 +14,6 @@
       "purpose": "any maskable"
     }
   ],
-  "description": "Centro de Supervivencia Digital Familiar offline con inventario, perfil familiar, mochilas de 72 horas, biblioteca y modo crisis.",
-  "version": "1.6.0"
+  "description": "Centro de gestión familiar offline con inventario, agua potable y fija, infraestructura, riesgos, contactos, mochilas, biblioteca, respaldo y modo crisis.",
+  "version": "2.0.0"
 }

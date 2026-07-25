@@ -7,13 +7,13 @@
   <title>EDY Offline</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=1.6.0">
+  <link rel="stylesheet" href="styles.css?v=2.0.0">
 </head>
 <body>
 <header>
   <div class="brand">
     <div><h1>EDY</h1><p>Centro de Supervivencia Digital Familiar</p></div>
-    <div class="headerActions"><button class="versionBadge versionButton" onclick="openSection('actualizaciones')" title="Centro de actualizaciones">1.6.0</button><div class="pill">OFFLINE</div></div>
+    <div class="headerActions"><button class="versionBadge versionButton" onclick="openSection('actualizaciones')" title="Centro de actualizaciones">2.0.0</button><div class="pill">OFFLINE</div></div>
   </div>
   <input id="search" placeholder="Buscar: apagón, agua, energía, evacuación…">
 </header>
@@ -57,7 +57,8 @@
       </div>
     </div>
     <div class="operationsGrid">
-      <div class="operationMetric"><span>💧 Agua</span><strong id="opWater">Sin registrar</strong></div>
+      <div class="operationMetric"><span>💧 Agua potable</span><strong id="opWater">Sin registrar</strong></div>
+      <div class="operationMetric"><span>🚿 Agua de uso general</span><strong id="opWaterGeneral">Sin configurar</strong></div>
       <div class="operationMetric"><span>🍲 Alimentos</span><strong id="opFood">Sin registrar</strong></div>
       <div class="operationMetric"><span>⚡ Energía</span><strong id="opEnergy">Sin registrar</strong></div>
       <div class="operationMetric"><span>📡 Comunicaciones</span><strong id="opComms">Sin registrar</strong></div>
@@ -66,6 +67,8 @@
       <div class="operationMetric"><span>🗺️ Ubicaciones</span><strong id="opZones">0 zonas</strong></div>
       <div class="operationMetric"><span>👨‍👩‍👦 Familia</span><strong id="opFamily">Sin configurar</strong></div>
       <div class="operationMetric"><span>🎒 Mochilas 72 h</span><strong id="opKits">Sin registrar</strong></div>
+      <div class="operationMetric"><span>☎️ Contactos</span><strong id="opContacts">Sin configurar</strong></div>
+      <div class="operationMetric"><span>⚠️ Riesgo principal</span><strong id="opRisk">Sin evaluar</strong></div>
     </div>
   </div>
 
@@ -79,6 +82,8 @@
   </div>
   <div class="titleRow"><h2>Perfil familiar</h2><button class="back" onclick="openSection('familia')">Administrar</button></div>
   <div id="familyHomeSummary" class="familyHomeSummary"></div>
+  <div class="titleRow"><h2>Contactos de emergencia</h2><button class="back" onclick="openSection('contactos')">Administrar</button></div>
+  <div id="contactsHomeSummary" class="contactsHomeSummary"></div>
   <div class="titleRow"><h2>Mochilas de 72 horas</h2><button class="back" onclick="openSection('kits72')">Administrar</button></div>
   <div id="kitsHomeSummary" class="kitsHomeSummary"></div>
   <div class="titleRow"><h2>Estado del hogar</h2><button class="back" onclick="openSection('estado')">Actualizar</button></div>
@@ -114,10 +119,13 @@
     <div class="card inventoryFeatured" onclick="openSection('inventario')"><div class="icon">📦</div><h3>Inventario</h3><p>Equipos, estados y cantidades.</p></div>
     <div class="card kitsFeatured" onclick="openSection('kits72')"><div class="icon">🎒</div><h3>Mochilas 72 h</h3><p>Auditoría del kit comprado y plan para 3 personas.</p></div>
     <div class="card shoppingFeatured" onclick="openSection('compras')"><div class="icon">🛒</div><h3>Compras</h3><p>Faltantes según mínimos y objetivos.</p></div>
+    <div class="card householdFeatured" onclick="openSection('hogar')"><div class="icon">🏡</div><h3>Mi hogar</h3><p>Infraestructura, agua y datos privados.</p></div>
+    <div class="card riskFeatured" onclick="openSection('riesgos')"><div class="icon">⚠️</div><h3>Riesgos</h3><p>Prioridades locales y preparación.</p></div>
     <div class="card" onclick="openSection('agua')"><div class="icon">💧</div><h3>Agua</h3><p>Reserva y autonomía.</p></div>
     <div class="card" onclick="openSection('energia')"><div class="icon">⚡</div><h3>Energía</h3><p>Baterías y consumos.</p></div>
     <div class="card" onclick="openSection('biblioteca')"><div class="icon">📚</div><h3>Biblioteca</h3><p>Consulta offline.</p></div>
     <div class="card familyFeatured" onclick="openSection('familia')"><div class="icon">👨‍👩‍👦</div><h3>Familia</h3><p>Integrantes, roles y preparación.</p></div>
+    <div class="card contactsFeatured" onclick="openSection('contactos')"><div class="icon">☎️</div><h3>Contactos</h3><p>Familia, emergencias y tarjeta de billetera.</p></div>
     <div class="card" onclick="openSection('mascotas')"><div class="icon">🐶</div><h3>Mascotas</h3><p>Evacuación y cuidado.</p></div>
     <div class="card" onclick="openSection('estado')"><div class="icon">🏠</div><h3>Estado</h3><p>Actualizar el hogar.</p></div>
     <div class="card operationsFeatured" onclick="openSection('operaciones')"><div class="icon">🧭</div><h3>Operaciones</h3><p>Autonomía y preparación.</p></div>
@@ -141,6 +149,9 @@
     <button class="emergencyOption" onclick="activateEmergency('evacuation')"><span>🚗</span><strong>Evacuar</strong></button>
     <button class="emergencyOption" onclick="activateEmergency('injury')"><span>🩹</span><strong>Hay un herido</strong></button>
     <button class="emergencyOption" onclick="activateEmergency('storm')"><span>⛈️</span><strong>Tormenta fuerte</strong></button>
+    <button class="emergencyOption" onclick="activateEmergency('flood')"><span>🌊</span><strong>Anegamiento</strong></button>
+    <button class="emergencyOption" onclick="activateEmergency('fire')"><span>🔥</span><strong>Incendio</strong></button>
+    <button class="emergencyOption" onclick="activateEmergency('heat')"><span>🌡️</span><strong>Calor extremo</strong></button>
     <button class="emergencyOption" onclick="openSection('biblioteca')"><span>📚</span><strong>Consultar manual</strong></button>
   </div>
 </section>
@@ -219,7 +230,7 @@
     <p>Exportá todos los datos locales de EDY a un archivo JSON. Ese archivo puede guardarse en Archivos, iCloud Drive o una memoria externa.</p>
   </div>
   <div class="backupGrid">
-    <button class="backupCard" onclick="exportEDYBackup()"><span>⬇️</span><strong>Exportar respaldo</strong><small>Descarga un archivo con inventario, zonas, tareas, operaciones e historial.</small></button>
+    <button class="backupCard" onclick="exportEDYBackup()"><span>⬇️</span><strong>Exportar respaldo</strong><small>Descarga inventario, perfil del hogar, agua, riesgos, contactos privados, familia, zonas, tareas, operaciones e historial.</small></button>
     <label class="backupCard"><span>⬆️</span><strong>Importar respaldo</strong><small>Restaurar EDY desde un archivo previamente exportado.</small><input id="backupFileInput" type="file" accept=".json,application/json" onchange="importEDYBackup(event)"></label>
   </div>
   <div class="backupStatus">
@@ -239,7 +250,8 @@
     <p>Elegí una situación para abrir el protocolo inmediato.</p>
   </div>
   <div class="crisisMetrics">
-    <div><span>💧 Agua</span><strong id="crisisWater">0 L</strong><small id="crisisWaterDays">0 días</small></div>
+    <div><span>💧 Potable</span><strong id="crisisWater">0 L</strong><small id="crisisWaterDays">0 días</small></div>
+    <div><span>🚿 Uso general</span><strong id="crisisGeneralWater">Sin registrar</strong><small id="crisisWaterSource">Fuente sin configurar</small></div>
     <div><span>👨‍👩‍👦 Grupo</span><strong id="crisisFamily">Sin configurar</strong></div>
     <div><span>🛒 Compras</span><strong id="crisisShopping">0</strong></div>
     <div><span>⭐ Críticos faltantes</span><strong id="crisisMissing">0</strong></div>
@@ -251,10 +263,15 @@
     <button onclick="activateEmergency('evacuation')">🚗<strong>Evacuación</strong></button>
     <button onclick="activateEmergency('injury')">🩹<strong>Persona herida</strong></button>
     <button onclick="activateEmergency('storm')">⛈️<strong>Tormenta fuerte</strong></button>
+    <button onclick="activateEmergency('flood')">🌊<strong>Anegamiento</strong></button>
+    <button onclick="activateEmergency('fire')">🔥<strong>Incendio</strong></button>
+    <button onclick="activateEmergency('heat')">🌡️<strong>Calor extremo</strong></button>
     <button onclick="openSection('mapa')">🗺️<strong>Mapa</strong></button>
+    <button onclick="openSection('contactos')">☎️<strong>Contactos</strong></button>
     <button onclick="openCriticalInventory()">⭐<strong>Inventario crítico</strong></button>
     <button onclick="openChecklist('evacuation-10')">✅<strong>Checklist de salida</strong></button><button onclick="openSection('asistente')">🧠<strong>Asistente EDY</strong></button>
   </div>
+  <div class="crisisEssentials"><h3>Contactos prioritarios</h3><div id="crisisContacts"></div></div>
   <div class="crisisEssentials">
     <h3>Elementos críticos disponibles</h3>
     <div id="crisisCriticalList"></div>
@@ -322,6 +339,8 @@
       <button onclick="assistantAsk('¿Dónde está la estación de energía?')">Estación de energía</button>
       <button onclick="assistantAsk('¿Qué hago ante un corte de energía?')">Corte de energía</button>
       <button onclick="assistantAsk('¿Qué necesito para evacuar?')">Evacuación</button>
+      <button onclick="assistantAsk('¿Cuánta agua fija tengo?')">Cisterna y tanques</button>
+      <button onclick="assistantAsk('¿Cuál es mi riesgo principal?')">Riesgo principal</button>
     </div>
   </div>
 
@@ -339,7 +358,7 @@
   <div id="assistantAlerts"></div>
 
   <div class="assistantDisclaimer">
-    EDY v1.6 usa reglas, búsqueda local, perfil familiar, inventario, biblioteca y planificación de mochilas de 72 horas. No reemplaza a los servicios de emergencia, profesionales médicos ni instrucciones oficiales.
+    EDY 2.0 analiza datos locales del hogar, riesgos, agua, inventario, contactos, familia, biblioteca y mochilas de 72 horas. No reemplaza a los servicios de emergencia, profesionales médicos ni instrucciones oficiales.
   </div>
 </section>
 
@@ -425,8 +444,8 @@
     <div class="field"><label>Marca</label><input id="newItemBrand" placeholder="Ej.: Tío João"></div>
     <div class="field"><label>Categoría</label><select id="newItemCategory">
       <option>Despensa</option><option>Agua</option><option>Energía</option><option>Limpieza</option><option>Higiene</option>
-      <option>Botiquín</option><option>Comunicaciones</option><option>Herramientas</option>
-      <option>Mochilas</option><option>Mascotas</option><option>Vehículos</option><option>Documentación</option><option>Otros</option>
+      <option>Botiquín</option><option>Comunicaciones</option><option>Herramientas</option><option>Fuego</option>
+      <option>Kits de emergencia</option><option>Orientación y señalización</option><option>Infraestructura</option><option>Mochilas</option><option>Mascotas</option><option>Vehículos</option><option>Documentación</option><option>Otros</option>
     </select></div>
     <div class="field"><label>Estado</label><select id="newItemStatus">
       <option value="available">Disponible</option><option value="incoming">En camino</option>
@@ -452,6 +471,50 @@
     <div class="field wide"><label>Observaciones</label><textarea id="newItemNotes" placeholder="Presentación, cantidad de paquetes u otra información"></textarea></div>
   </div>
   <div class="actions"><button class="action" onclick="addInventoryItem()">Guardar producto</button></div>
+</section>
+
+
+<section id="contactos" class="section searchable">
+  <button class="back" onclick="home()">← Inicio</button>
+  <div class="sectionHeader"><div><h2>☎️ Contactos de Emergencia</h2><p>Familia, servicios públicos y salud. Los teléfonos privados quedan solamente en este dispositivo.</p></div><button class="action" onclick="openContact()">Agregar contacto</button></div>
+  <div class="contactSummaryGrid">
+    <div class="summaryCard"><strong id="contactsTotal">0</strong><span>Total</span></div>
+    <div class="summaryCard available"><strong id="contactsFamily">0</strong><span>Familia</span></div>
+    <div class="summaryCard critical"><strong id="contactsPublic">0</strong><span>Emergencias</span></div>
+    <div class="summaryCard incoming"><strong id="contactsWallet">0</strong><span>En tarjeta</span></div>
+  </div>
+  <div class="panel privacyUpgrade"><strong>Privacidad:</strong> los teléfonos familiares no están incluidos en los archivos públicos de GitHub. Importalos con el archivo privado y mantenelo fuera del repositorio.</div>
+  <div class="contactTools">
+    <label class="action fileAction">Importar contactos privados<input type="file" accept=".json,application/json" onchange="importContactsFile(event)"></label>
+    <button class="action secondary" onclick="exportContacts()">Exportar contactos</button>
+    <button class="action secondary" onclick="printWalletCard()">🪪 Imprimir tarjeta de billetera</button>
+  </div>
+  <div class="manualToolbar">
+    <div class="field"><label>Buscar</label><input id="contactsSearch" placeholder="Nombre, apodo o teléfono" oninput="renderContacts()"></div>
+    <div class="field"><label>Tipo</label><select id="contactsCategory" onchange="renderContacts()"><option value="">Todos</option><option value="family">Familia</option><option value="public">Emergencias públicas</option><option value="health">Salud</option><option value="support">Apoyo y servicios</option></select></div>
+  </div>
+  <div id="contactsList" class="contactsList"></div>
+</section>
+
+<section id="contactEdit" class="section">
+  <button class="back" onclick="openSection('contactos')">← Contactos</button>
+  <h2 id="contactEditTitle">Agregar contacto</h2>
+  <input id="contactId" type="hidden">
+  <div class="formGrid">
+    <div class="field"><label>Nombre completo</label><input id="contactName" placeholder="Nombre y apellido"></div>
+    <div class="field"><label>Apodo o nombre corto</label><input id="contactAlias" placeholder="Ej.: Chuchi"></div>
+    <div class="field"><label>Vínculo o función</label><input id="contactRelation" placeholder="Ej.: esposa, hijo, hospital"></div>
+    <div class="field"><label>Tipo</label><select id="contactCategory"><option value="family">Familia</option><option value="public">Emergencia pública</option><option value="health">Salud</option><option value="support">Apoyo y servicios</option></select></div>
+    <div class="field"><label>Número para marcar</label><input id="contactPhone" inputmode="tel" placeholder="+5493757…"></div>
+    <div class="field"><label>Número visible</label><input id="contactDisplayPhone" inputmode="tel" placeholder="+54 9 3757 …"></div>
+    <div class="field"><label>Dirección</label><input id="contactAddress" placeholder="Opcional"></div>
+    <div class="field"><label>Prioridad</label><input id="contactPriority" type="number" min="1" max="99" value="5"><small>1 aparece primero.</small></div>
+    <div class="field checkField"><label><input id="contactWhatsapp" type="checkbox" checked> Tiene WhatsApp</label></div>
+    <div class="field checkField"><label><input id="contactCanCall" type="checkbox" checked> Se puede llamar</label></div>
+    <div class="field checkField"><label><input id="contactWallet" type="checkbox" checked> Incluir en tarjeta</label></div>
+    <div class="field wide"><label>Observaciones privadas</label><textarea id="contactNotes" placeholder="Ej.: no puede atender llamadas; usar WhatsApp"></textarea></div>
+  </div>
+  <div class="actions"><button class="action" onclick="saveContact()">Guardar contacto</button><button id="deleteContactButton" class="action secondary" onclick="deleteContact()" hidden>Eliminar</button></div>
 </section>
 
 <section id="familia" class="section searchable">
@@ -490,7 +553,7 @@
   <button class="back" onclick="home()">← Inicio</button>
   <h2>🔄 Centro de actualizaciones</h2>
   <div class="updateStatusCard">
-    <div><span>Versión instalada</span><strong id="installedVersion">1.6.0</strong></div>
+    <div><span>Versión instalada</span><strong id="installedVersion">2.0.0</strong></div>
     <div><span>Versión disponible</span><strong id="availableVersion">Comprobar</strong></div>
     <div><span>Modo offline</span><strong id="offlineCacheStatus">Verificando…</strong></div>
   </div>
@@ -514,12 +577,73 @@
   <div class="actions"><button class="action" onclick="saveStatus()">Guardar estado</button><button class="action secondary" onclick="clearStatus()">Borrar datos locales</button></div>
 </section>
 
+
+<section id="hogar" class="section searchable">
+  <button class="back" onclick="home()">← Inicio</button>
+  <div class="sectionHeader"><div><h2>🏡 Mi hogar</h2><p>Datos privados, infraestructura y capacidad de respuesta. Nada de esta ficha se publica en GitHub.</p></div><span class="localBadge">SOLO LOCAL</span></div>
+  <div class="householdHero">
+    <div><span>Ubicación</span><strong id="householdLocationSummary">Sin importar</strong><small id="householdTypeSummary">Perfil privado pendiente</small></div>
+    <div><span>Capacidad hídrica instalada</span><strong id="householdWaterCapacity">0 L</strong><small id="householdWaterCurrent">Volumen actual sin registrar</small></div>
+    <div><span>Fuente de reposición</span><strong id="householdWellSummary">Sin configurar</strong><small id="householdPumpSummary">Dependencia energética pendiente</small></div>
+  </div>
+  <div class="privateImportPanel">
+    <div><strong>Importar perfil privado de EDY</strong><p>Puede incluir domicilio, contactos familiares, infraestructura de agua y perfil de riesgos. Guardalo en Archivos o iCloud; no lo subas al repositorio.</p></div>
+    <label class="action fileAction">Importar archivo privado<input id="privateProfileInput" type="file" accept=".json,application/json" onchange="importPrivateProfile(event)"></label>
+    <button class="action secondary" onclick="exportPrivateProfile()">Exportar perfil privado</button>
+  </div>
+  <div class="formGrid">
+    <div class="field wide"><label>Dirección o referencia privada</label><input id="householdAddress" placeholder="Se guarda solamente en este dispositivo"></div>
+    <div class="field"><label>Localidad</label><input id="householdCity" placeholder="Ej.: Puerto Iguazú"></div>
+    <div class="field"><label>Provincia / país</label><input id="householdRegion" placeholder="Ej.: Misiones, Argentina"></div>
+    <div class="field"><label>Tipo de inmueble</label><input id="householdType" placeholder="Ej.: vivienda urbana"></div>
+    <div class="field"><label>¿El sistema de agua abastece otras unidades?</label><select id="householdSharedWater"><option value="unknown">Sin confirmar</option><option value="yes">Sí</option><option value="no">No</option></select></div>
+    <div class="field"><label>Agua reservada exclusivamente para la familia (L)</label><input id="householdFamilyReservedWater" type="number" min="0" step="1" placeholder="Opcional"></div>
+    <div class="field checkField"><label><input id="householdWalletAddress" type="checkbox"> Incluir dirección completa en la tarjeta de billetera</label></div>
+    <div class="field wide"><label>Observaciones privadas</label><textarea id="householdNotes" placeholder="Accesos, vecinos, alquileres, particularidades del inmueble…"></textarea></div>
+  </div>
+  <div class="actions"><button class="action" onclick="saveHouseholdProfile()">Guardar perfil del hogar</button></div>
+
+  <div class="titleRow"><h2>Sistema de agua fija</h2><button class="back" onclick="openSection('agua')">Abrir módulo de agua</button></div>
+  <div class="formGrid">
+    <div class="field"><label>Capacidad de cisterna (L)</label><input id="waterCisternCapacity" type="number" min="0" step="1"></div>
+    <div class="field"><label>Volumen actual en cisterna (L)</label><input id="waterCisternCurrent" type="number" min="0" step="1" placeholder="Dejar vacío si no se midió"></div>
+    <div class="field"><label>Cantidad de tanques</label><input id="waterTankCount" type="number" min="0" step="1"></div>
+    <div class="field"><label>Capacidad por tanque (L)</label><input id="waterTankCapacity" type="number" min="0" step="1"></div>
+    <div class="field"><label>Volumen actual total en tanques (L)</label><input id="waterTanksCurrent" type="number" min="0" step="1" placeholder="Dejar vacío si no se midió"></div>
+    <div class="field"><label>Pozo propio</label><select id="waterWellAvailable"><option value="unknown">Sin confirmar</option><option value="yes">Disponible</option><option value="no">No disponible</option></select></div>
+    <div class="field"><label>Tipo de bombeo</label><select id="waterPumpType"><option value="unknown">Sin registrar</option><option value="electric">Eléctrico</option><option value="manual">Manual</option><option value="mixed">Eléctrico + alternativa</option></select></div>
+    <div class="field"><label>¿La bomba funciona con energía de respaldo?</label><select id="waterPumpBackup"><option value="unknown">Pendiente de comprobar</option><option value="yes">Sí</option><option value="no">No</option></select></div>
+    <div class="field"><label>Consumo diario de agua de uso general (L/día)</label><input id="waterTechnicalDailyUse" type="number" min="0" step="1" placeholder="Para calcular autonomía"></div>
+    <div class="field wide"><label>Notas del sistema</label><textarea id="waterSystemNotes" placeholder="Bomba, llaves de paso, mantenimiento, calidad, distribución…"></textarea></div>
+  </div>
+  <div class="actions"><button class="action" onclick="saveWaterSystem()">Guardar sistema de agua</button></div>
+</section>
+
+<section id="riesgos" class="section searchable">
+  <button class="back" onclick="home()">← Inicio</button>
+  <div class="sectionHeader"><div><h2>⚠️ Perfil de riesgos</h2><p>Prioriza escenarios relevantes para la vivienda. Es una herramienta organizativa, no un mapa oficial de amenazas.</p></div><button class="action" onclick="resetRiskProfile()">Restaurar perfil inicial</button></div>
+  <div class="riskHero">
+    <div><span>Riesgo principal pendiente</span><strong id="riskTopName">Sin evaluar</strong><small id="riskTopReason">Importá o configurá el perfil local.</small></div>
+    <div><span>Cobertura general</span><strong id="riskCoverageScore">0%</strong><small>Según acciones marcadas y recursos registrados</small></div>
+    <div><span>Prioridades abiertas</span><strong id="riskOpenActions">0</strong><small>Acciones preventivas pendientes</small></div>
+  </div>
+  <div class="riskLegend"><span class="riskVeryHigh">Muy alta</span><span class="riskHigh">Alta</span><span class="riskMedium">Media</span><span class="riskLow">Baja / no prioritaria</span></div>
+  <div id="riskCards" class="riskCards"></div>
+  <div class="panel amber"><strong>Criterio:</strong> EDY combina la prioridad del escenario con la preparación registrada. Tsunami, actividad volcánica y terremoto destructivo quedan como baja o no prioritaria para este perfil, pero pueden editarse.</div>
+</section>
+
+<section id="riskDetail" class="section">
+  <button class="back" onclick="openSection('riesgos')">← Riesgos</button>
+  <div id="riskDetailContent"></div>
+</section>
+
 <section id="agua" class="section searchable">
   <button class="back" onclick="home()">← Inicio</button>
-  <div class="sectionHeader"><div><h2>💧 Reserva de agua</h2><p>El total se obtiene automáticamente del inventario y el consumo del perfil familiar.</p></div><button class="back" onclick="openItem('starter-agua-manantial-de-oro-20l')">Ver producto</button></div>
-  <div class="waterInventoryHero">
-    <div><span>Agua potable registrada</span><strong id="waterInventoryLiters">0 L</strong><small id="waterInventoryPackages">Sin bidones registrados</small></div>
-    <div><span>Autonomía familiar</span><strong id="waterInventoryDays">—</strong><small id="waterFamilyDaily">Perfil familiar sin configurar</small></div>
+  <div class="sectionHeader"><div><h2>💧 Sistema de agua</h2><p>EDY separa el agua potable de la capacidad fija para higiene, limpieza y otros usos.</p></div><button class="back" onclick="openSection('hogar')">Configurar infraestructura</button></div>
+  <div class="waterV2Grid">
+    <article class="waterV2Card potable"><span>Agua potable</span><strong id="waterInventoryLiters">0 L</strong><small id="waterInventoryPackages">Sin bidones registrados</small><b id="waterInventoryDays">—</b><em>autonomía para beber y cocinar</em></article>
+    <article class="waterV2Card technical"><span>Capacidad de uso general</span><strong id="waterTechnicalCapacity">0 L</strong><small id="waterTechnicalCurrent">Volumen actual sin medir</small><b id="waterTechnicalDays">—</b><em>autonomía sanitaria si se configura consumo</em></article>
+    <article class="waterV2Card source"><span>Reposición</span><strong id="waterWellStatus">Sin configurar</strong><small id="waterPumpStatus">Bomba sin registrar</small><b id="waterResilienceStatus">PENDIENTE</b><em>resiliencia del sistema</em></article>
   </div>
   <div class="waterQuickActions">
     <button class="action" onclick="adjustWaterInventory(20)">➕ 1 bidón · 20 L</button>
@@ -527,18 +651,18 @@
     <button class="action secondary" onclick="adjustWaterInventory(-5)">Consumir 5 L</button>
     <button class="action secondary" onclick="consumeWaterCustom()">Otra cantidad</button>
   </div>
+  <div class="waterV2Summary" id="waterSystemSummary"></div>
   <div class="calculator">
     <div class="formGrid">
-      <div class="field"><label>Litros disponibles</label><input id="waterLiters" type="number" min="0" step="1" placeholder="180"><small id="waterInventorySource">Sincronizado con el inventario cuando hay agua cargada.</small></div>
+      <div class="field"><label>Litros potables disponibles</label><input id="waterLiters" type="number" min="0" step="1" placeholder="100"><small id="waterInventorySource">Sincronizado con el inventario.</small></div>
       <div class="field"><label>Personas</label><input id="waterPeople" type="number" min="1" step="1" value="5"></div>
-      <div class="field"><label>Litros por persona por día</label><input id="waterPerPerson" type="number" min="0.5" step="0.25" value="3"></div>
+      <div class="field"><label>Litros potables por persona por día</label><input id="waterPerPerson" type="number" min="0.5" step="0.25" value="3"></div>
     </div>
-    <div class="actions"><button class="action" onclick="calculateWater()">Calcular manualmente</button><button class="action secondary" onclick="syncWaterCalculatorFromInventory()">Usar inventario</button><button class="action secondary" onclick="openSection('familia')">Editar perfil familiar</button></div>
-    <div id="waterResult" class="resultBox">La reserva se actualizará al cargar el inventario.</div>
+    <div class="actions"><button class="action" onclick="calculateWater()">Calcular potable</button><button class="action secondary" onclick="syncWaterCalculatorFromInventory()">Usar inventario</button><button class="action secondary" onclick="openSection('familia')">Editar familia</button></div>
+    <div id="waterResult" class="resultBox">La reserva potable se actualizará con el inventario.</div>
   </div>
-  <div class="panel amber"><strong>Importante:</strong> el cálculo es orientativo. El calor, la actividad física, la preparación de alimentos, la higiene y las necesidades individuales pueden aumentar el consumo.</div>
+  <div class="panel amber"><strong>Importante:</strong> 13.000 litros de capacidad no significan 13.000 litros disponibles en todo momento. Registrá el nivel actual y la parte que efectivamente corresponde a la familia, especialmente si el sistema abastece otras unidades.</div>
 </section>
-
 
 <section id="kits72" class="section searchable">
   <button class="back" onclick="home()">← Inicio</button>
@@ -648,11 +772,12 @@
   <button class="navCrisis" onclick="enterCrisisMode()"><span>🚨</span><small>Crisis</small></button>
 </nav>
 
-<footer>EDY Offline · v1.6.0 · Mochilas de 72 horas</footer>
-<script src="storage.js?v=1.6.0"></script>
-<script src="calculator.js?v=1.6.0"></script>
-<script src="media.js?v=1.6.0"></script>
-<script src="app.js?v=1.6.0"></script>
-<script src="kits.js?v=1.6.0"></script>
+<footer>EDY Offline · v2.0.0 · Centro Inteligente del Hogar</footer>
+<script src="storage.js?v=2.0.0"></script>
+<script src="calculator.js?v=2.0.0"></script>
+<script src="media.js?v=2.0.0"></script>
+<script src="app.js?v=2.0.0"></script>
+<script src="kits.js?v=2.0.0"></script>
+<script src="v2.js?v=2.0.0"></script>
 </body>
 </html>

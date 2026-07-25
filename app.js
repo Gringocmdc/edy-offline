@@ -1,5 +1,5 @@
-const APP_VERSION='1.6.0';
-const APP_NAME='Mochilas de 72 horas y planificación familiar';
+const APP_VERSION='2.0.0';
+const APP_NAME='Centro Inteligente del Hogar';
 function put(id,value){const el=document.getElementById(id);if(el)el.textContent=value}
 
 const sections=[...document.querySelectorAll('.section')];
@@ -23,17 +23,21 @@ function openSection(id){
  if(id==='diagnostico')renderDiagnostic();
  if(id==='compras')renderShoppingList();
  if(id==='kits72')window.EDYKits?.render?.();
+ if(id==='contactos')renderContacts();
+ if(id==='contactEdit')renderContacts();
  if(id==='kitDetail')window.EDYKits?.render?.();
  scrollTo(0,0)
 }
-function home(){document.getElementById('search').value='';loadStatus();renderHomePendings();renderOperationsHome();renderFamilyHomeSummary();renderAssistantHomeAlerts();renderTodayStrip();renderHomeChecklistProgress();renderReadinessInsights();renderShoppingHome();window.EDYKits?.renderHome?.();window.EDYKits?.renderOperation?.();openSection('home')}
+function home(){document.getElementById('search').value='';loadStatus();renderHomePendings();renderOperationsHome();renderFamilyHomeSummary();renderContactsHome();renderAssistantHomeAlerts();renderTodayStrip();renderHomeChecklistProgress();renderReadinessInsights();renderShoppingHome();window.EDYKits?.renderHome?.();window.EDYKits?.renderOperation?.();openSection('home')}
 document.getElementById('search').addEventListener('input',e=>{
  const raw=e.target.value.trim();const q=normalizeText(raw);if(!q){home();return}
  const sectionsFound=[...document.querySelectorAll('.searchable')].filter(s=>normalizeText(s.innerText).includes(q));
  const inventoryFound=getInventory().filter(i=>itemSearchText(normalizeInventoryItem(i)).includes(q)).slice(0,8);
  const manualFound=findManualMatches(raw).slice(0,6);
+ const contactFound=getContacts().filter(c=>contactSearchText(c).includes(q)).slice(0,6);
  const rows=[
    ...inventoryFound.map(i=>`<button class="result" onclick="openItem('${i.id}')"><strong>📦 ${escapeHTML(i.name)}</strong><br><span class="small">${escapeHTML(i.category)} · ${escapeHTML(i.location||'Sin registrar')}</span></button>`),
+   ...contactFound.map(c=>`<button class="result" onclick="openContact('${escapeJS(c.id)}')"><strong>☎️ ${escapeHTML(contactDisplayName(c))}</strong><br><span class="small">${escapeHTML(contactCategoryLabel(c.category))} · ${escapeHTML(contactPhoneLabel(c))}</span></button>`),
    ...manualFound.map(m=>`<button class="result" onclick="openManual('${escapeJS(m.id)}')"><strong>${escapeHTML(m.icon||'📘')} ${escapeHTML(m.title)}</strong><br><span class="small">Manual offline · ${escapeHTML(m.category||'Biblioteca')}</span></button>`),
    ...sectionsFound.map(s=>`<button class="result" onclick="openSection('${s.id}')"><strong>${escapeHTML(s.querySelector('h2').innerText)}</strong><br><span class="small">Abrir sección</span></button>`)
  ];
@@ -175,6 +179,104 @@ async function deletePrivateManual(id){
  const db=await openPrivateLibraryDB();await new Promise((resolve,reject)=>{const tx=db.transaction(PRIVATE_LIBRARY_STORE,'readwrite');tx.objectStore(PRIVATE_LIBRARY_STORE).delete(id);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)});renderPrivateManuals();
 }
 
+
+const CONTACTS_SEED_VERSION='2.0.0';
+const PUBLIC_CONTACT_DEFAULTS=[
+ {id:'public-911',name:'Central de Emergencias',alias:'911',relation:'Policía y emergencias generales',category:'public',phone:'911',displayPhone:'911',whatsapp:false,canCall:true,priority:1,wallet:true,notes:'Para delitos, accidentes y otras emergencias.',source:'Argentina.gob.ar'},
+ {id:'public-100',name:'Bomberos',alias:'100',relation:'Incendios y rescate',category:'public',phone:'100',displayPhone:'100',whatsapp:false,canCall:true,priority:2,wallet:true,notes:'Línea nacional de Bomberos.',source:'Argentina.gob.ar'},
+ {id:'public-103',name:'Defensa Civil',alias:'103',relation:'Desastres y asistencia civil',category:'public',phone:'103',displayPhone:'103',whatsapp:false,canCall:true,priority:3,wallet:true,notes:'Derrumbes, inundaciones, refugio y asistencia.',source:'Argentina.gob.ar'},
+ {id:'public-106',name:'Emergencia Náutica / Prefectura',alias:'106',relation:'Emergencias en ríos y navegación',category:'public',phone:'106',displayPhone:'106',whatsapp:false,canCall:true,priority:4,wallet:false,notes:'Emergencia náutica nacional.',source:'Argentina.gob.ar'},
+ {id:'public-107',name:'Emergencias Médicas',alias:'107',relation:'Ambulancia y urgencias médicas',category:'health',phone:'107',displayPhone:'107',whatsapp:false,canCall:true,priority:1,wallet:true,notes:'Servicio de emergencias médicas.',source:'Ministerio de Salud de Misiones'},
+ {id:'health-modular-iguazu',name:'Hospital Modular Turístico Pto. Iguazú',alias:'Hospital Modular',relation:'Centro de salud',category:'health',phone:'+543757337404',displayPhone:'03757 33-7404',whatsapp:false,canCall:true,priority:5,wallet:false,address:'Av. San Martín 125, Puerto Iguazú',notes:'Contacto institucional publicado por Salud Pública de Misiones.',source:'Ministerio de Salud Pública de Misiones'}
+];
+function normalizeContact(contact){
+ const category=['family','public','health','support'].includes(contact?.category)?contact.category:'support';
+ const phone=String(contact?.phone||'').trim();
+ return {
+  id:String(contact?.id||`contact-${Date.now()}-${Math.random().toString(36).slice(2,7)}`),
+  name:String(contact?.name||'Contacto'),alias:String(contact?.alias||''),relation:String(contact?.relation||''),category,
+  phone,displayPhone:String(contact?.displayPhone||phone),whatsapp:Boolean(contact?.whatsapp),canCall:contact?.canCall!==false,
+  priority:Math.max(1,Number(contact?.priority)||9),wallet:Boolean(contact?.wallet),address:String(contact?.address||''),
+  notes:String(contact?.notes||''),source:String(contact?.source||''),private:contact?.private===true
+ };
+}
+function seedContacts(){
+ const saved=EDYStorage.get('contacts',null);
+ if(!Array.isArray(saved)){
+  EDYStorage.set('contacts',PUBLIC_CONTACT_DEFAULTS.map(normalizeContact));
+  EDYStorage.set('contacts_seed_version',CONTACTS_SEED_VERSION);return;
+ }
+ const normalized=saved.map(normalizeContact),ids=new Set(normalized.map(x=>x.id));
+ PUBLIC_CONTACT_DEFAULTS.forEach(c=>{if(!ids.has(c.id))normalized.push(normalizeContact(c))});
+ EDYStorage.set('contacts',normalized);EDYStorage.set('contacts_seed_version',CONTACTS_SEED_VERSION);
+}
+function getContacts(){return (EDYStorage.get('contacts',[])||[]).map(normalizeContact)}
+function saveContacts(list,message='Contactos actualizados'){
+ EDYStorage.set('contacts',(list||[]).map(normalizeContact));
+ addTimelineEntry('contacts','☎️',message);renderContacts();renderContactsHome();renderOperationsHome();renderCrisisContacts();renderReadinessInsights();renderDiagnostic();
+}
+function contactCategoryLabel(category){return {family:'Familia',public:'Emergencia pública',health:'Salud',support:'Apoyo y servicios'}[category]||'Contacto'}
+function contactDisplayName(c){return c.alias?`${c.name} (${c.alias})`:c.name}
+function contactPhoneLabel(c){return c.displayPhone||c.phone||'Sin número'}
+function contactSearchText(c){return normalizeText([c.name,c.alias,c.relation,c.category,c.phone,c.displayPhone,c.address,c.notes].join(' '))}
+function contactPhoneHref(c){const raw=String(c.phone||'').trim();return raw.startsWith('+')?'+'+raw.slice(1).replace(/\D/g,''):raw.replace(/\D/g,'')}
+function contactWhatsappHref(c){const digits=String(c.phone||'').replace(/\D/g,'');return digits?`https://wa.me/${digits}`:''}
+function renderContacts(){
+ const box=document.getElementById('contactsList');if(!box)return;
+ const query=normalizeText(document.getElementById('contactsSearch')?.value||'');
+ const filter=document.getElementById('contactsCategory')?.value||'';
+ const list=getContacts().filter(c=>(!filter||c.category===filter)&&(!query||contactSearchText(c).includes(query))).sort((a,b)=>a.priority-b.priority||contactDisplayName(a).localeCompare(contactDisplayName(b),'es'));
+ const all=getContacts();
+ const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
+ set('contactsTotal',all.length);set('contactsFamily',all.filter(c=>c.category==='family').length);set('contactsPublic',all.filter(c=>c.category==='public').length);set('contactsWallet',all.filter(c=>c.wallet).length);
+ box.innerHTML=list.length?list.map(c=>`<article class="contactCard ${c.private?'private':''}">
+  <button class="contactMain" onclick="openContact('${escapeJS(c.id)}')"><span class="contactAvatar">${c.category==='family'?'👨‍👩‍👦':c.category==='health'?'🩺':c.category==='public'?'🚨':'☎️'}</span><span><strong>${escapeHTML(contactDisplayName(c))}</strong><small>${escapeHTML(c.relation||contactCategoryLabel(c.category))}</small><b>${escapeHTML(contactPhoneLabel(c))}</b></span></button>
+  <div class="contactActions">${c.canCall&&c.phone?`<button onclick="callContact('${escapeJS(c.id)}')">📞 Llamar</button>`:''}${c.whatsapp&&c.phone?`<button onclick="whatsappContact('${escapeJS(c.id)}')">💬 WhatsApp</button>`:''}<button onclick="copyContactPhone('${escapeJS(c.id)}')">⧉ Copiar</button></div>
+ </article>`).join(''):'<div class="panel">No se encontraron contactos con esos filtros.</div>';
+}
+function renderContactsHome(){
+ const box=document.getElementById('contactsHomeSummary');if(!box)return;
+ const list=getContacts(),family=list.filter(c=>c.category==='family'),wallet=list.filter(c=>c.wallet);
+ box.innerHTML=`<div class="contactsHomeCard" onclick="openSection('contactos')"><div><strong>${family.length?`${family.length} contactos familiares`:'Familia sin importar'}</strong><small>${list.length} contactos totales · ${wallet.length} incluidos en la tarjeta</small></div><span>Abrir ›</span></div>`;
+}
+function openContact(id=''){
+ const c=id?getContacts().find(x=>x.id===id):null;
+ const set=(field,value)=>{const el=document.getElementById(field);if(el)el.value=value??''};
+ set('contactId',c?.id||'');set('contactName',c?.name||'');set('contactAlias',c?.alias||'');set('contactRelation',c?.relation||'');set('contactCategory',c?.category||'family');set('contactPhone',c?.phone||'');set('contactDisplayPhone',c?.displayPhone||'');set('contactAddress',c?.address||'');set('contactPriority',c?.priority||5);set('contactNotes',c?.notes||'');
+ const checks={contactWhatsapp:c?.whatsapp??true,contactCanCall:c?.canCall??true,contactWallet:c?.wallet??true};Object.entries(checks).forEach(([id,v])=>{const el=document.getElementById(id);if(el)el.checked=Boolean(v)});
+ const title=document.getElementById('contactEditTitle');if(title)title.textContent=c?'Editar contacto':'Agregar contacto';
+ const del=document.getElementById('deleteContactButton');if(del)del.hidden=!c||c.private!==true;
+ openSection('contactEdit');
+}
+function saveContact(){
+ const id=document.getElementById('contactId').value||`contact-${Date.now()}`;
+ const name=document.getElementById('contactName').value.trim();const phone=document.getElementById('contactPhone').value.trim();if(!name||!phone){alert('Ingresá nombre y teléfono.');return}
+ const existing=getContacts(),old=existing.find(c=>c.id===id);
+ const c=normalizeContact({id,name,alias:document.getElementById('contactAlias').value.trim(),relation:document.getElementById('contactRelation').value.trim(),category:document.getElementById('contactCategory').value,phone,displayPhone:document.getElementById('contactDisplayPhone').value.trim()||phone,address:document.getElementById('contactAddress').value.trim(),priority:document.getElementById('contactPriority').value,notes:document.getElementById('contactNotes').value.trim(),whatsapp:document.getElementById('contactWhatsapp').checked,canCall:document.getElementById('contactCanCall').checked,wallet:document.getElementById('contactWallet').checked,private:old?.private!==false,source:old?.source||''});
+ const idx=existing.findIndex(x=>x.id===id);if(idx>=0)existing[idx]=c;else existing.push(c);saveContacts(existing,`${idx>=0?'Contacto actualizado':'Contacto agregado'}: ${contactDisplayName(c)}`);openSection('contactos');
+}
+function deleteContact(){const id=document.getElementById('contactId').value,c=getContacts().find(x=>x.id===id);if(!c?.private||!confirm(`¿Eliminar a ${contactDisplayName(c)}?`))return;saveContacts(getContacts().filter(x=>x.id!==id),`Contacto eliminado: ${contactDisplayName(c)}`);openSection('contactos')}
+function callContact(id){const c=getContacts().find(x=>x.id===id);if(!c?.phone||!c.canCall)return;window.location.href=`tel:${contactPhoneHref(c)}`}
+function whatsappContact(id){const c=getContacts().find(x=>x.id===id),url=c?contactWhatsappHref(c):'';if(url)window.open(url,'_blank','noopener')}
+function copyContactPhone(id){const c=getContacts().find(x=>x.id===id);if(!c)return;const text=`${contactDisplayName(c)}: ${contactPhoneLabel(c)}`;navigator.clipboard?.writeText(text).then(()=>alert('Contacto copiado.')).catch(()=>prompt('Copiá el contacto:',text))}
+function mergeContacts(imported){
+ const current=getContacts(),byId=new Map(current.map(c=>[c.id,c]));
+ imported.map(normalizeContact).forEach(c=>{c.private=true;byId.set(c.id,c)});return [...byId.values()];
+}
+function importContactsFile(event){
+ const file=event.target.files?.[0];event.target.value='';if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result),rows=Array.isArray(data)?data:data.contacts;if(!Array.isArray(rows))throw new Error('Formato inválido');const privateRows=rows.map(x=>({...x,private:true}));saveContacts(mergeContacts(privateRows),`${privateRows.length} contactos privados importados`);alert(`Se importaron ${privateRows.length} contactos. Quedaron guardados solamente en este dispositivo.`)}catch{alert('No se pudo importar el archivo de contactos.')}};reader.readAsText(file);
+}
+function exportContacts(){
+ const privateRows=getContacts().filter(c=>c.private);const data={type:'edy-private-contacts',version:'1.0',exportedAt:new Date().toISOString(),contacts:privateRows};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`EDY-contactos-privados-${new Date().toISOString().slice(0,10)}.json`;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+}
+function printWalletCard(){
+ const contacts=getContacts().filter(c=>c.wallet).sort((a,b)=>a.priority-b.priority),family=contacts.filter(c=>c.category==='family').slice(0,6),official=contacts.filter(c=>c.category!=='family').slice(0,6);if(!family.length){alert('Primero importá o cargá los contactos familiares.');return}
+ const rows=list=>list.map(c=>`<div class="row"><span>${escapeHTML(c.alias||c.name)}</span><b>${escapeHTML(contactPhoneLabel(c))}</b></div>`).join('');
+ const win=window.open('','_blank');if(!win){alert('Safari bloqueó la tarjeta. Habilitá las ventanas emergentes e intentá nuevamente.');return}
+ win.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Tarjeta de emergencia</title><style>@page{size:A4;margin:10mm}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#111}.sheet{display:flex;gap:8mm;flex-wrap:wrap}.card{box-sizing:border-box;width:85.6mm;height:54mm;border:1px solid #111;border-radius:3mm;padding:4mm;overflow:hidden}.head{display:flex;justify-content:space-between;border-bottom:1px solid #bbb;padding-bottom:2mm;margin-bottom:2mm}.head strong{font-size:13pt}.head span{font-size:8pt}.row{display:flex;justify-content:space-between;gap:3mm;font-size:9pt;padding:1.1mm 0;border-bottom:.2mm solid #ddd}.row span{font-weight:650}.row b{white-space:nowrap}.note{font-size:7.5pt;margin-top:2mm;line-height:1.25}.screen{margin:0 0 8mm}.screen button{padding:10px 16px;font-size:16px}@media print{.screen{display:none}}</style></head><body><div class="screen"><button onclick="window.print()">Imprimir / Guardar PDF</button></div><div class="sheet"><section class="card"><div class="head"><strong>Familia Dell’Era</strong><span>CONTACTOS</span></div>${rows(family)}<div class="note">En una emergencia, comunicarse primero por llamada o WhatsApp según disponibilidad.</div></section><section class="card"><div class="head"><strong>Emergencias</strong><span>PUERTO IGUAZÚ</span></div>${rows(official)}<div class="note">Indicá ubicación exacta, qué ocurrió, cuántas personas están afectadas y un teléfono de contacto.</div></section></div></body></html>`);win.document.close();setTimeout(()=>win.focus(),200);
+}
+function renderCrisisContacts(){const box=document.getElementById('crisisContacts');if(!box)return;const list=getContacts().filter(c=>c.wallet).sort((a,b)=>a.priority-b.priority).slice(0,8);box.innerHTML=list.length?`<div class="crisisContactGrid">${list.map(c=>`<button onclick="${c.canCall?`callContact('${escapeJS(c.id)}')`:`whatsappContact('${escapeJS(c.id)}')`}"><strong>${escapeHTML(c.alias||c.name)}</strong><small>${escapeHTML(contactPhoneLabel(c))}</small></button>`).join('')}</div>`:'<p>No hay contactos prioritarios registrados.</p>'}
+
 const FAMILY_SEED_VERSION='1.4.0';
 const FAMILY_DEFAULTS=[
  {id:'family-dario',name:'Darío',kind:'adult',relation:'Padre',dailyWater:3,emergencyRole:'Coordinación general',backpack:'partial',documents:'partial',medication:'na',notes:''},
@@ -299,7 +401,7 @@ const ec=EDYStorage.get('energy_calc');if(ec){batteryWh.value=ec.wh;batteryPerce
 
 let inventoryBase=[];
 let currentItemId=null;
-const INVENTORY_SEED_VERSION='1.6.0';
+const INVENTORY_SEED_VERSION='2.0.0';
 
 function statusText(status){
  return {available:'Disponible',incoming:'En camino',review:'Revisar',missing:'Falta'}[status]||status;
@@ -550,7 +652,7 @@ function renderInventory(){
  refreshInventoryThumbnails();
 }
 function categoryIcon(cat){
- return {'Despensa':'🍚','Energía':'⚡','Agua':'💧','Limpieza':'🧴','Higiene':'🧼','Comunicaciones':'📡','Herramientas':'🛠️','Kits de emergencia':'🎒','Orientación y señalización':'🧭','Botiquín':'🩺','Alimentos':'🍲','Mochilas':'🎒','Mascotas':'🐶','Vehículos':'🚗','Documentación':'📄','Otros':'📦'}[cat]||'📦';
+ return {'Despensa':'🍚','Energía':'⚡','Agua':'💧','Limpieza':'🧴','Higiene':'🧼','Comunicaciones':'📡','Herramientas':'🛠️','Fuego':'🔥','Kits de emergencia':'🎒','Orientación y señalización':'🧭','Botiquín':'🩺','Alimentos':'🍲','Mochilas':'🎒','Mascotas':'🐶','Vehículos':'🚗','Documentación':'📄','Otros':'📦'}[cat]||'📦';
 }
 function stockTargetText(item){
  const min=numberOrNull(item.minStock),target=numberOrNull(item.targetStock);
@@ -730,6 +832,7 @@ function buildReadinessInsights(){
  if(unlocated.length)out.push({level:'attention',icon:'🗺️',title:`${unlocated.length} elemento${unlocated.length===1?' sin zona':'s sin zona'}`,detail:'Asignar ubicaciones reduce el tiempo de búsqueda en una emergencia.',action:"openZone('__unlocated__')"});
  if(!o.updated)out.push({level:'attention',icon:'🧭',title:'Centro de Operaciones sin configurar',detail:'Cargá agua, personas, alimentos y energía para calcular autonomía.',action:"openSection('operaciones')"});
  if(familyReadinessScore()<70)out.push({level:'attention',icon:'👨‍👩‍👦',title:'Perfil familiar por completar',detail:'Revisá mochilas, documentación y necesidades de cada integrante.',action:"openSection('familia')"});
+ if(!getContacts().some(c=>c.category==='family'))out.push({level:'attention',icon:'☎️',title:'Contactos familiares sin importar',detail:'Cargá los teléfonos privados y prepará la tarjeta de billetera.',action:"openSection('contactos')"});
  const shopping=getAutomaticShoppingList();if(shopping.length)out.push({level:'attention',icon:'🛒',title:`${shopping.length} compra${shopping.length===1?'':'s'} sugerida${shopping.length===1?'':'s'}`,detail:'El stock actual está por debajo del mínimo u objetivo configurado.',action:"openSection('compras')"});
  const last=EDYStorage.get('last_backup','Nunca');if(last==='Nunca')out.push({level:'attention',icon:'💾',title:'Todavía no hay un respaldo',detail:'Exportá una copia antes de cargar más información privada.',action:"openSection('respaldo')"});
  if(!out.length)out.push({level:'good',icon:'✅',title:'No se detectaron puntos críticos',detail:'Mantené las revisiones y actualizá el inventario cuando haya cambios.',action:"openSection('mantenimiento')"});
@@ -834,6 +937,7 @@ async function getAllBackupData(){
   activeEmergency:EDYStorage.get('active_emergency',null),
   checklists:getChecklists(),
   family:getFamilyProfile(),
+  contacts:getContacts(),
   photos:await EDYMedia.getAllPhotos(),
   ...kitData
  };
@@ -866,6 +970,7 @@ function importEDYBackup(event){
    EDYStorage.set('timeline',Array.isArray(data.timeline)?data.timeline:[]);
    EDYStorage.set('checklists',Array.isArray(data.checklists)?data.checklists:getChecklists());
    if(Array.isArray(data.family))EDYStorage.set('family_profile',data.family.map(normalizeFamilyMember));
+   if(Array.isArray(data.contacts))EDYStorage.set('contacts',data.contacts.map(normalizeContact));
    window.EDYKits?.importData?.(data);
    await EDYMedia.replaceAll(Array.isArray(data.photos)?data.photos:[]);
    if(data.activeEmergency)EDYStorage.set('active_emergency',data.activeEmergency);else EDYStorage.remove('active_emergency');
@@ -894,7 +999,7 @@ function renderTodayStrip(){
 }
 function renderAllBetaViews(){
  renderInventory();renderMap();renderOperationsHome();renderAssistantAlerts();renderAssistantHomeAlerts();
- renderPendings();renderHomePendings();renderTimeline();renderMaintenance();renderBackupStatus();renderTodayStrip();renderChecklists();renderHomeChecklistProgress();renderFamily();renderFamilyHomeSummary();renderReadinessInsights();renderDiagnostic();renderShoppingList();renderShoppingHome();window.EDYKits?.render?.();window.EDYKits?.renderHome?.();window.EDYKits?.renderOperation?.();
+ renderPendings();renderHomePendings();renderTimeline();renderMaintenance();renderBackupStatus();renderTodayStrip();renderChecklists();renderHomeChecklistProgress();renderFamily();renderFamilyHomeSummary();renderContacts();renderContactsHome();renderCrisisContacts();renderReadinessInsights();renderDiagnostic();renderShoppingList();renderShoppingHome();window.EDYKits?.render?.();window.EDYKits?.renderHome?.();window.EDYKits?.renderOperation?.();
 }
 function enterCrisisMode(){
  EDYStorage.set('crisis_mode',true);
@@ -909,7 +1014,7 @@ function exitCrisisMode(){
  home();
 }
 function renderCrisisCritical(){
- renderCrisisDashboard();
+ renderCrisisDashboard();renderCrisisContacts();
  const box=document.getElementById('crisisCriticalList');if(!box)return;
  const items=getInventory().filter(i=>i.critical&&i.status==='available').slice(0,12);
  box.innerHTML=items.length?`<div class="crisisCriticalGrid">${items.map(i=>`<div class="crisisCriticalItem"><strong>${escapeHTML(i.name)}</strong><small>${escapeHTML(zoneName(i.zone))} · ${escapeHTML(i.location||'Sin detalle')}</small></div>`).join('')}</div>`:'<p>No hay elementos críticos marcados como disponibles.</p>';
@@ -1187,6 +1292,11 @@ function assistantAsk(prefill){
    const list=getAutomaticShoppingList();
    assistantReply('Lista de compras',list.length?`<p>EDY detectó <strong>${list.length} compra${list.length===1?'':'s'} sugerida${list.length===1?'':'s'}</strong> según los mínimos y objetivos configurados.</p><ul>${list.slice(0,8).map(i=>`<li>${escapeHTML(i.name)}: comprar ${formatStockNumber(i.missingQty)} ${escapeHTML(unitLabel(i.unit,i.missingQty))}</li>`).join('')}</ul>`:'<p>No hay compras automáticas pendientes con los objetivos configurados.</p>',`<div class="assistantCallout"><button class="action" onclick="openSection('compras')">Abrir lista de compras</button></div>`);return;
  }
+ if(/\b(telefono|telefonos|contacto|contactos|llamar|whatsapp|numero)\b/.test(q)){
+   const matches=getContacts().filter(c=>contactSearchText(c).split(' ').some(w=>w.length>2&&q.includes(w))).sort((a,b)=>a.priority-b.priority).slice(0,8);
+   const list=matches.length?matches:getContacts().filter(c=>c.wallet).sort((a,b)=>a.priority-b.priority).slice(0,8);
+   assistantReply('Contactos de emergencia',list.length?`<p>Encontré <strong>${list.length} contacto${list.length===1?'':'s'}</strong>.</p>`:'<p>Todavía no hay contactos privados cargados.</p>',list.length?`<div class="assistantList">${list.map(c=>`<div class="assistantResultItem"><div><strong>☎️ ${escapeHTML(contactDisplayName(c))}</strong><small>${escapeHTML(contactPhoneLabel(c))} · ${escapeHTML(contactCategoryLabel(c.category))}</small></div><button class="miniAction" onclick="openContact('${escapeJS(c.id)}')">Ver</button></div>`).join('')}</div><div class="assistantCallout"><button class="action" onclick="openSection('contactos')">Abrir contactos</button></div>`:'');return;
+ }
  if(/\b(familia|integrantes|personas|mascotas|miembros|mochilas)\b/.test(q)){
    const members=getFamilyProfile(),humans=familyHumans(),pets=familyPets();
    assistantReply('Perfil familiar',`<p>Hay <strong>${humans.length} personas</strong> y <strong>${pets.length} mascotas</strong>. El consumo planificado de agua es de <strong>${formatStockNumber(familyDailyWater())} L por día</strong>.</p>`,
@@ -1248,7 +1358,7 @@ function assistantAsk(prefill){
 }
 
 
-const emergencyProtocols={
+const emergencyProtocols=window.emergencyProtocols={
  power:{
   title:'Corte de energía',emoji:'🔌',
   intro:'Priorizá iluminación, frío de alimentos, comunicaciones y consumo mínimo.',
@@ -1435,6 +1545,7 @@ function renderOperationsHome(){
  put('opInventory',`${available}/${total} disponibles`);
  put('opZones',`${getZones().length} zonas`);
  put('opFamily',`${familyHumans().length} personas · ${familyPets().length} mascotas`);
+ put('opContacts',`${getContacts().filter(c=>c.category==='family').length} familiares · ${getContacts().filter(c=>c.wallet).length} prioritarios`);
  renderReadinessInsights();
 }
 
@@ -1489,9 +1600,9 @@ function forceSafeUpdate(){
  window.location.href=`actualizar.html?t=${Date.now()}`;
 }
 
-seedFamilyProfile();
-loadStatus();renderPendings();renderHomePendings();renderFamily();renderFamilyHomeSummary();loadManuals();Promise.all([loadZones(),loadChecklists()]).then(()=>loadInventory()).then(()=>{renderAllBetaViews();if(EDYStorage.get('crisis_mode',false)){document.body.classList.add('crisisMode')}});loadOperationsForm();renderOperationsResult();renderOperationsHome();renderAssistantAlerts();renderAssistantHomeAlerts();renderTodayStrip();renderBackupStatus();
-if('serviceWorker' in navigator){
+seedContacts();seedFamilyProfile();
+loadStatus();renderPendings();renderHomePendings();renderFamily();renderFamilyHomeSummary();renderContacts();renderContactsHome();loadManuals();Promise.all([loadZones(),loadChecklists()]).then(()=>loadInventory()).then(()=>{renderAllBetaViews();if(EDYStorage.get('crisis_mode',false)){document.body.classList.add('crisisMode')}});loadOperationsForm();renderOperationsResult();renderOperationsHome();renderAssistantAlerts();renderAssistantHomeAlerts();renderTodayStrip();renderBackupStatus();
+if('serviceWorker' in navigator && navigator.serviceWorker){
  let reloadingForUpdate=false;
  navigator.serviceWorker.addEventListener('controllerchange',()=>{
   if(reloadingForUpdate)return;reloadingForUpdate=true;window.location.reload();
