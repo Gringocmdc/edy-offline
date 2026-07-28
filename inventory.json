@@ -687,7 +687,10 @@
     ],
     "packageCount": 2,
     "packageSize": 70,
-    "packageUnit": "g"
+    "packageUnit": "g",
+    "ageGroup": "Familia",
+    "useGuide": "Higiene externa o aplicación de productos sobre piel sana.",
+    "safetyGuide": "No colocar algodón suelto directamente dentro de una herida abierta porque puede dejar fibras; para heridas usar gasa estéril."
   },
   {
     "id": "starter-band-aid",
@@ -733,7 +736,10 @@
     ],
     "packageCount": 2,
     "packageSize": 40,
-    "packageUnit": "unidad"
+    "packageUnit": "unidad",
+    "ageGroup": "Familia",
+    "useGuide": "Cubrir cortes o raspaduras pequeños, superficiales y ya limpios.",
+    "safetyGuide": "No cerrar heridas profundas, mordeduras, pinchazos, quemaduras importantes o heridas con suciedad incrustada. Cambiar si se moja o ensucia y consultar ante enrojecimiento creciente, pus, fiebre o dolor intenso."
   },
   {
     "id": "starter-cinta-tacsa",
@@ -981,7 +987,10 @@
     "packageCount": 2,
     "packageSize": 1,
     "packageUnit": "L",
-    "containerType": "Botella"
+    "containerType": "Botella",
+    "ageGroup": "Uso doméstico",
+    "useGuide": "Desinfección general de superficies según el rótulo del producto.",
+    "safetyGuide": "No ingerir, no mezclar con otros productos, no usar en alimentos ni dentro de heridas. Es inflamable y debe mantenerse lejos del fuego y del alcance de niños."
   },
   {
     "id": "starter-sierra-manual-cadena",
@@ -2058,6 +2067,721 @@
     ],
     "packageCount": 1,
     "packageSize": 100,
+    "packageUnit": "ml",
+    "activeIngredient": "Ibuprofeno 4% (40 mg/ml)",
+    "ageGroup": "Pediátrico",
+    "useGuide": "Fiebre, dolor o inflamación en niños únicamente con dosis calculada por peso y según indicación del pediatra o prospecto.",
+    "safetyGuide": "No combinar con ibuprofeno 600 mg, ketorolaco, diclofenac, aspirina u otros AINE. Evitar si el niño está deshidratado, tiene enfermedad renal, úlcera, alergia a AINE o posible dengue. Usar siempre el dosificador."
+  },
+  {
+    "id": "starter-buscapina-duo-20",
+    "starter": true,
+    "name": "Buscapina DÚO",
+    "brand": "Buscapina",
+    "model": "Hioscina N-butilbromuro 10 mg + paracetamol 500 mg · 20 comprimidos",
+    "category": "Botiquín",
+    "status": "available",
+    "qty": 20,
+    "unit": "comprimido",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "2026-07-28",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 30,
+    "notes": "1 envase con 20 comprimidos. Vencimiento 02/2029.",
+    "activeIngredient": "Hioscina N-butilbromuro 10 mg + paracetamol 500 mg",
+    "useGuide": "Orientación general: dolor abdominal tipo cólico o espasmo en adultos, siempre respetando el prospecto.",
+    "safetyGuide": "Contiene paracetamol: no combinar con Tafirol ni con otros productos que también tengan paracetamol. No usar para ocultar dolor abdominal intenso, persistente o acompañado de fiebre, vómitos continuos, sangre, abdomen duro o desmayo.",
+    "ageGroup": "Adultos",
+    "medicalOnly": false,
+    "lots": [
+      {
+        "id": "starter-buscapina-duo-20-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 20,
+        "purchaseDate": "2026-07-28",
+        "expiryDate": "2029-02",
+        "notes": "1 envase con 20 comprimidos. Vencimiento 02/2029."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-buscapina-duo-20-purchase-20260728",
+        "type": "purchase",
+        "qty": 20,
+        "date": "2026-07-28T13:00:00-03:00",
+        "note": "Compra confirmada e incorporada en EDY 2.2.3"
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 20,
+    "packageUnit": "comprimidos"
+  },
+  {
+    "id": "starter-caladryl-incoloro-70g",
+    "starter": true,
+    "name": "Caladryl Incoloro",
+    "brand": "Caladryl",
+    "model": "Difenhidramina HCl + óxido de zinc · crema 70 g",
+    "category": "Botiquín",
+    "status": "available",
+    "qty": 1,
+    "unit": "pomo",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "2026-07-28",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 30,
+    "notes": "1 pomo de crema de 70 g. Vencimiento 10/2028.",
+    "activeIngredient": "Difenhidramina clorhidrato + óxido de zinc",
+    "useGuide": "Orientación general: alivio local de picazón e irritación leve de la piel, por ejemplo picaduras, alergia de contacto leve o quemadura solar menor.",
+    "safetyGuide": "Solo uso externo. Evitar ojos, boca, mucosas, heridas abiertas, piel infectada y áreas extensas. Suspender si irrita o empeora.",
+    "ageGroup": "Adultos",
+    "medicalOnly": false,
+    "lots": [
+      {
+        "id": "starter-caladryl-incoloro-70g-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 1,
+        "purchaseDate": "2026-07-28",
+        "expiryDate": "2028-10",
+        "notes": "1 pomo de crema de 70 g. Vencimiento 10/2028."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-caladryl-incoloro-70g-purchase-20260728",
+        "type": "purchase",
+        "qty": 1,
+        "date": "2026-07-28T13:00:00-03:00",
+        "note": "Compra confirmada e incorporada en EDY 2.2.3"
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 70,
+    "packageUnit": "g"
+  },
+  {
+    "id": "starter-reliveran-gotas-5permil-20ml",
+    "starter": true,
+    "name": "Reliverán Adultos gotas",
+    "brand": "Reliverán",
+    "model": "Metoclopramida clorhidrato · solución gotas 5‰ · 20 ml",
+    "category": "Botiquín",
+    "status": "available",
+    "qty": 1,
+    "unit": "frasco",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "2026-07-28",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 30,
+    "notes": "1 frasco de 20 ml. Vencimiento 11/2027. Se registra como 5‰, que es la denominación oficial habitual de Reliverán Adultos gotas; confirmar en una foto del envase si fuera distinto.",
+    "activeIngredient": "Metoclopramida clorhidrato 5‰",
+    "useGuide": "Orientación general: náuseas o vómitos únicamente cuando fue indicado previamente por un profesional.",
+    "safetyGuide": "No improvisar dosis. Puede provocar somnolencia, inquietud o movimientos involuntarios. En niños, embarazo, enfermedad neurológica, obstrucción o sangrado digestivo, usar solo con indicación médica.",
+    "ageGroup": "Adultos",
+    "medicalOnly": true,
+    "lots": [
+      {
+        "id": "starter-reliveran-gotas-5permil-20ml-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 1,
+        "purchaseDate": "2026-07-28",
+        "expiryDate": "2027-11",
+        "notes": "1 frasco de 20 ml. Vencimiento 11/2027. Se registra como 5‰, que es la denominación oficial habitual de Reliverán Adultos gotas; confirmar en una foto del envase si fuera distinto."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-reliveran-gotas-5permil-20ml-purchase-20260728",
+        "type": "purchase",
+        "qty": 1,
+        "date": "2026-07-28T13:00:00-03:00",
+        "note": "Compra confirmada e incorporada en EDY 2.2.3"
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 20,
     "packageUnit": "ml"
+  },
+  {
+    "id": "starter-sales-rehidratacion-oral-28g-x4",
+    "starter": true,
+    "name": "Sales de rehidratación oral",
+    "brand": "Sin registrar",
+    "model": "Sobres de 28 g · 4 unidades",
+    "category": "Botiquín",
+    "status": "available",
+    "qty": 4,
+    "unit": "sobre",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": true,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "2026-07-28",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 30,
+    "notes": "4 sobres de 28 g cada uno. Vencimiento 09/2027.",
+    "activeIngredient": "Sales de rehidratación oral",
+    "useGuide": "Primera medida para reponer agua y sales en diarrea o vómitos cuando la persona puede beber.",
+    "safetyGuide": "Preparar cada sobre exactamente con la cantidad de agua potable indicada en el envase. No dividir el polvo “a ojo”, no agregar azúcar extra y descartar la solución según el plazo indicado. Buscar atención si hay signos de deshidratación, sangre, fiebre alta, somnolencia o imposibilidad de beber.",
+    "ageGroup": "Familia",
+    "medicalOnly": false,
+    "lots": [
+      {
+        "id": "starter-sales-rehidratacion-oral-28g-x4-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 4,
+        "purchaseDate": "2026-07-28",
+        "expiryDate": "2027-09",
+        "notes": "4 sobres de 28 g cada uno. Vencimiento 09/2027."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-sales-rehidratacion-oral-28g-x4-purchase-20260728",
+        "type": "purchase",
+        "qty": 4,
+        "date": "2026-07-28T13:00:00-03:00",
+        "note": "Compra confirmada e incorporada en EDY 2.2.3"
+      }
+    ],
+    "packageCount": 4,
+    "packageSize": 28,
+    "packageUnit": "g"
+  },
+  {
+    "id": "starter-muelita-forte-benzocaina-20-10g",
+    "starter": true,
+    "name": "Muelita Forte",
+    "brand": "Muelita",
+    "model": "Benzocaína 20% · gel tópico oral 10 g · adultos",
+    "category": "Botiquín",
+    "status": "available",
+    "qty": 1,
+    "unit": "pomo",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "2026-07-28",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 30,
+    "notes": "1 pomo de 10 g. Anestésico local tópico para adultos. Vencimiento 11/2029.",
+    "activeIngredient": "Benzocaína 20%",
+    "useGuide": "Alivio temporal y localizado del dolor dental o de encías en adultos mientras se consigue atención odontológica.",
+    "safetyGuide": "No usar en niños ni tragar. Usar la mínima cantidad indicada en el prospecto y por poco tiempo. La benzocaína puede causar metahemoglobinemia; labios o piel azulados/grisáceos, falta de aire, mareo o cansancio intenso requieren urgencia.",
+    "ageGroup": "Adultos",
+    "medicalOnly": false,
+    "lots": [
+      {
+        "id": "starter-muelita-forte-benzocaina-20-10g-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 1,
+        "purchaseDate": "2026-07-28",
+        "expiryDate": "2029-11",
+        "notes": "1 pomo de 10 g. Anestésico local tópico para adultos. Vencimiento 11/2029."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-muelita-forte-benzocaina-20-10g-purchase-20260728",
+        "type": "purchase",
+        "qty": 1,
+        "date": "2026-07-28T13:00:00-03:00",
+        "note": "Compra confirmada e incorporada en EDY 2.2.3"
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 10,
+    "packageUnit": "g"
+  },
+  {
+    "id": "starter-loratadina-10mg-x20",
+    "starter": true,
+    "name": "Loratadina 10 mg",
+    "brand": "Sin registrar",
+    "model": "Loratadina 10 mg · 20 comprimidos",
+    "category": "Botiquín",
+    "status": "available",
+    "qty": 20,
+    "unit": "comprimido",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "2026-07-28",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 30,
+    "notes": "20 comprimidos. Vencimiento 10/2027.",
+    "activeIngredient": "Loratadina 10 mg",
+    "useGuide": "Orientación general: síntomas de alergia como estornudos, secreción nasal, picazón o urticaria leve.",
+    "safetyGuide": "No reemplaza la adrenalina ni la atención urgente ante dificultad para respirar, hinchazón de lengua o garganta, desmayo o alergia grave. Puede causar somnolencia en algunas personas.",
+    "ageGroup": "Adultos",
+    "medicalOnly": false,
+    "lots": [
+      {
+        "id": "starter-loratadina-10mg-x20-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 20,
+        "purchaseDate": "2026-07-28",
+        "expiryDate": "2027-10",
+        "notes": "20 comprimidos. Vencimiento 10/2027."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-loratadina-10mg-x20-purchase-20260728",
+        "type": "purchase",
+        "qty": 20,
+        "date": "2026-07-28T13:00:00-03:00",
+        "note": "Compra confirmada e incorporada en EDY 2.2.3"
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 20,
+    "packageUnit": "comprimidos"
+  },
+  {
+    "id": "starter-loperamida-2mg-x20",
+    "starter": true,
+    "name": "Loperamida 2 mg",
+    "brand": "Sin registrar",
+    "model": "Loperamida clorhidrato 2 mg · 20 comprimidos",
+    "category": "Botiquín",
+    "status": "available",
+    "qty": 20,
+    "unit": "comprimido",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "2026-07-28",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 30,
+    "notes": "20 comprimidos. Vencimiento 01/2028.",
+    "activeIngredient": "Loperamida clorhidrato 2 mg",
+    "useGuide": "Orientación general: diarrea aguda sin signos de alarma en adultos, por tiempo corto y siguiendo el prospecto; la rehidratación oral sigue siendo prioritaria.",
+    "safetyGuide": "No usar si hay sangre o moco, fiebre alta, dolor abdominal intenso, abdomen distendido, diarrea tras antibióticos o sospecha de infección invasiva. No dar a niños sin indicación médica. No exceder la dosis: puede causar alteraciones graves del ritmo cardíaco.",
+    "ageGroup": "Adultos",
+    "medicalOnly": false,
+    "lots": [
+      {
+        "id": "starter-loperamida-2mg-x20-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 20,
+        "purchaseDate": "2026-07-28",
+        "expiryDate": "2028-01",
+        "notes": "20 comprimidos. Vencimiento 01/2028."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-loperamida-2mg-x20-purchase-20260728",
+        "type": "purchase",
+        "qty": 20,
+        "date": "2026-07-28T13:00:00-03:00",
+        "note": "Compra confirmada e incorporada en EDY 2.2.3"
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 20,
+    "packageUnit": "comprimidos"
+  },
+  {
+    "id": "starter-tafirol-paracetamol-500-x10",
+    "starter": true,
+    "name": "Tafirol 500 mg",
+    "brand": "Tafirol",
+    "model": "Paracetamol 500 mg · 10 comprimidos",
+    "category": "Botiquín",
+    "status": "available",
+    "qty": 10,
+    "unit": "comprimido",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "2026-07-28",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 30,
+    "notes": "10 comprimidos. Vencimiento 11/2028.",
+    "activeIngredient": "Paracetamol 500 mg",
+    "useGuide": "Orientación general: fiebre o dolor leve a moderado en adultos, siguiendo el rótulo o una indicación médica.",
+    "safetyGuide": "No combinar con Buscapina DÚO, Tafirol 1 g ni otros medicamentos que contengan paracetamol. El exceso puede causar daño hepático. Ante sospecha de dengue, es la opción analgésica habitual si no está contraindicada, pero debe acompañarse de hidratación y vigilancia de signos de alarma.",
+    "ageGroup": "Adultos",
+    "medicalOnly": false,
+    "lots": [
+      {
+        "id": "starter-tafirol-paracetamol-500-x10-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 10,
+        "purchaseDate": "2026-07-28",
+        "expiryDate": "2028-11",
+        "notes": "10 comprimidos. Vencimiento 11/2028."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-tafirol-paracetamol-500-x10-purchase-20260728",
+        "type": "purchase",
+        "qty": 10,
+        "date": "2026-07-28T13:00:00-03:00",
+        "note": "Compra confirmada e incorporada en EDY 2.2.3"
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 10,
+    "packageUnit": "comprimidos"
+  },
+  {
+    "id": "starter-ibuprofeno-600-x30",
+    "starter": true,
+    "name": "Ibuprofeno 600 mg",
+    "brand": "Sin registrar",
+    "model": "Ibuprofeno 600 mg · 30 comprimidos",
+    "category": "Botiquín",
+    "status": "available",
+    "qty": 30,
+    "unit": "comprimido",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "2026-07-28",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 30,
+    "notes": "30 comprimidos. Vencimiento 05/2029. Presentación de dosis alta para adultos.",
+    "activeIngredient": "Ibuprofeno 600 mg",
+    "useGuide": "Dolor e inflamación en adultos cuando fue indicado o cuando el prospecto permite su uso.",
+    "safetyGuide": "No combinar con ketorolaco, diclofenac, aspirina u otro AINE. Evitar en úlcera o sangrado digestivo, enfermedad renal, deshidratación, anticoagulantes, embarazo avanzado o alergia a AINE. No usar ante sospecha de dengue.",
+    "ageGroup": "Adultos",
+    "medicalOnly": true,
+    "lots": [
+      {
+        "id": "starter-ibuprofeno-600-x30-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 30,
+        "purchaseDate": "2026-07-28",
+        "expiryDate": "2029-05",
+        "notes": "30 comprimidos. Vencimiento 05/2029. Presentación de dosis alta para adultos."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-ibuprofeno-600-x30-purchase-20260728",
+        "type": "purchase",
+        "qty": 30,
+        "date": "2026-07-28T13:00:00-03:00",
+        "note": "Compra confirmada e incorporada en EDY 2.2.3"
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 30,
+    "packageUnit": "comprimidos"
+  },
+  {
+    "id": "starter-tafirol-paracetamol-1g",
+    "starter": true,
+    "name": "Tafirol 1 g",
+    "brand": "Tafirol",
+    "model": "Paracetamol 1 g · cantidad de comprimidos pendiente",
+    "category": "Botiquín",
+    "status": "available",
+    "qty": 1,
+    "unit": "caja",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "2026-07-28",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 30,
+    "notes": "1 caja. Vencimiento 08/2027. Falta confirmar cuántos comprimidos contiene.",
+    "activeIngredient": "Paracetamol 1 g",
+    "useGuide": "Presentación de alta concentración para fiebre o dolor en adultos, únicamente respetando prospecto o indicación médica.",
+    "safetyGuide": "No combinar con Tafirol 500 mg, Buscapina DÚO ni otros productos con paracetamol. Una sola tableta ya contiene 1.000 mg; extremar el control de la dosis diaria y evitar si existe enfermedad hepática salvo indicación profesional.",
+    "ageGroup": "Adultos",
+    "medicalOnly": true,
+    "lots": [
+      {
+        "id": "starter-tafirol-paracetamol-1g-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 1,
+        "purchaseDate": "2026-07-28",
+        "expiryDate": "2027-08",
+        "notes": "1 caja. Vencimiento 08/2027. Falta confirmar cuántos comprimidos contiene."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-tafirol-paracetamol-1g-purchase-20260728",
+        "type": "purchase",
+        "qty": 1,
+        "date": "2026-07-28T13:00:00-03:00",
+        "note": "Compra confirmada e incorporada en EDY 2.2.3"
+      }
+    ],
+    "packageCount": 1
+  },
+  {
+    "id": "starter-kemanat-ketorolaco-20-x10",
+    "starter": true,
+    "name": "Kemanat 20 mg",
+    "brand": "Kemanat",
+    "model": "Ketorolaco 20 mg · 10 comprimidos",
+    "category": "Botiquín",
+    "status": "available",
+    "qty": 10,
+    "unit": "comprimido",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "2026-07-28",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 30,
+    "notes": "10 comprimidos. Vencimiento 03/2029.",
+    "activeIngredient": "Ketorolaco 20 mg",
+    "useGuide": "Analgésico potente para dolor agudo moderado a intenso, solo por corto tiempo y bajo indicación médica.",
+    "safetyGuide": "No es para dolor leve ni crónico. No combinar con ibuprofeno, diclofenac, aspirina u otros AINE. Puede causar sangrado digestivo y daño renal; el tratamiento total con ketorolaco no debe superar 5 días. No usar ante sospecha de dengue.",
+    "ageGroup": "Adultos",
+    "medicalOnly": true,
+    "lots": [
+      {
+        "id": "starter-kemanat-ketorolaco-20-x10-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 10,
+        "purchaseDate": "2026-07-28",
+        "expiryDate": "2029-03",
+        "notes": "10 comprimidos. Vencimiento 03/2029."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-kemanat-ketorolaco-20-x10-purchase-20260728",
+        "type": "purchase",
+        "qty": 10,
+        "date": "2026-07-28T13:00:00-03:00",
+        "note": "Compra confirmada e incorporada en EDY 2.2.3"
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 10,
+    "packageUnit": "comprimidos"
+  },
+  {
+    "id": "starter-fabogesic-flexi-diclofenac-75-x15",
+    "starter": true,
+    "name": "Fabogesic Flexi 75",
+    "brand": "Fabogesic",
+    "model": "Diclofenac sódico 75 mg · 15 comprimidos",
+    "category": "Botiquín",
+    "status": "available",
+    "qty": 15,
+    "unit": "comprimido",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "2026-07-28",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 30,
+    "notes": "15 comprimidos informados. Vencimiento 05/2028.",
+    "activeIngredient": "Diclofenac sódico 75 mg",
+    "useGuide": "Dolor inflamatorio o musculoesquelético agudo en adultos, por tiempo corto y siguiendo el prospecto o indicación médica.",
+    "safetyGuide": "No combinar con ibuprofeno, ketorolaco, aspirina u otros AINE. Precaución especial con hipertensión, enfermedad cardíaca, renal, úlcera, anticoagulantes o embarazo. No usar ante sospecha de dengue.",
+    "ageGroup": "Adultos",
+    "medicalOnly": true,
+    "lots": [
+      {
+        "id": "starter-fabogesic-flexi-diclofenac-75-x15-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 15,
+        "purchaseDate": "2026-07-28",
+        "expiryDate": "2028-05",
+        "notes": "15 comprimidos informados. Vencimiento 05/2028."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-fabogesic-flexi-diclofenac-75-x15-purchase-20260728",
+        "type": "purchase",
+        "qty": 15,
+        "date": "2026-07-28T13:00:00-03:00",
+        "note": "Compra confirmada e incorporada en EDY 2.2.3"
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 15,
+    "packageUnit": "comprimidos"
+  },
+  {
+    "id": "starter-cetaxim-azitromicina-500-x12",
+    "starter": true,
+    "name": "Cetaxim 500",
+    "brand": "Cetaxim",
+    "model": "Azitromicina 500 mg · 12 comprimidos",
+    "category": "Botiquín",
+    "status": "available",
+    "qty": 12,
+    "unit": "comprimido",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "2026-07-28",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 30,
+    "notes": "Cantidad total informada: 12 comprimidos. Vencimiento 08/2027. La presentación comercial habitual puede venir en menos unidades; confirmar si son 2 cajas.",
+    "activeIngredient": "Azitromicina 500 mg",
+    "useGuide": "Antibiótico para determinadas infecciones bacterianas únicamente cuando lo prescribe un profesional.",
+    "safetyGuide": "No sirve para gripe, dengue ni otras infecciones virales. No iniciar “por las dudas”, no compartir y no guardar un tratamiento incompleto para otra enfermedad. Seguir exactamente la pauta indicada y consultar ante palpitaciones, desmayo, erupción o dificultad respiratoria.",
+    "ageGroup": "Adultos",
+    "medicalOnly": true,
+    "lots": [
+      {
+        "id": "starter-cetaxim-azitromicina-500-x12-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 12,
+        "purchaseDate": "2026-07-28",
+        "expiryDate": "2027-08",
+        "notes": "Cantidad total informada: 12 comprimidos. Vencimiento 08/2027. La presentación comercial habitual puede venir en menos unidades; confirmar si son 2 cajas."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-cetaxim-azitromicina-500-x12-purchase-20260728",
+        "type": "purchase",
+        "qty": 12,
+        "date": "2026-07-28T13:00:00-03:00",
+        "note": "Compra confirmada e incorporada en EDY 2.2.3"
+      }
+    ],
+    "packageSize": 12,
+    "packageUnit": "comprimidos"
+  },
+  {
+    "id": "starter-butefina-cefalexina-500-x16",
+    "starter": true,
+    "name": "Butefina 500 mg",
+    "brand": "Butefina",
+    "model": "Cefalexina 500 mg · 16 comprimidos",
+    "category": "Botiquín",
+    "status": "available",
+    "qty": 16,
+    "unit": "comprimido",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "2026-07-28",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 30,
+    "notes": "16 comprimidos. Vencimiento 02/2028.",
+    "activeIngredient": "Cefalexina 500 mg",
+    "useGuide": "Antibiótico cefalosporínico para infecciones bacterianas sensibles, solo con receta e indicación médica.",
+    "safetyGuide": "No sirve para virus. Informar alergia a cefalosporinas o penicilinas. Completar el tratamiento exactamente como fue indicado; consultar de urgencia ante hinchazón, falta de aire, ronchas generalizadas o diarrea intensa/persistente.",
+    "ageGroup": "Adultos",
+    "medicalOnly": true,
+    "lots": [
+      {
+        "id": "starter-butefina-cefalexina-500-x16-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 16,
+        "purchaseDate": "2026-07-28",
+        "expiryDate": "2028-02",
+        "notes": "16 comprimidos. Vencimiento 02/2028."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-butefina-cefalexina-500-x16-purchase-20260728",
+        "type": "purchase",
+        "qty": 16,
+        "date": "2026-07-28T13:00:00-03:00",
+        "note": "Compra confirmada e incorporada en EDY 2.2.3"
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 16,
+    "packageUnit": "comprimidos"
   }
 ]

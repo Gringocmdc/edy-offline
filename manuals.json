@@ -1098,5 +1098,172 @@
         "url": "https://www.argentina.gob.ar/sinagir/plan-familiar-de-emergencias"
       }
     ]
+  },
+  {
+    "id": "guia-segura-medicamentos-botiquin",
+    "title": "Guía segura de medicamentos del botiquín",
+    "icon": "💊",
+    "category": "Salud",
+    "priority": "Esencial",
+    "summary": "Orientación para reconocer qué hay en el stock, evitar combinaciones peligrosas y saber cuándo no automedicarse. No reemplaza una receta ni define dosis personales.",
+    "keywords": [
+      "medicamentos",
+      "botiquín",
+      "fiebre",
+      "dolor",
+      "diarrea",
+      "vómitos",
+      "alergia",
+      "picaduras",
+      "antibióticos",
+      "dengue",
+      "paracetamol",
+      "ibuprofeno"
+    ],
+    "sections": [
+      {
+        "title": "Reglas antes de usar cualquier medicamento",
+        "items": [
+          "Verificar nombre, principio activo, concentración, destinatario, alergias y vencimiento antes de administrar.",
+          "No usar una guía general para calcular dosis infantiles: en niños la dosis puede depender del peso y debe seguir el prospecto o la indicación profesional.",
+          "No mezclar medicamentos por marca: revisar el principio activo para evitar duplicar paracetamol o antiinflamatorios.",
+          "Los antibióticos, la metoclopramida, el ketorolaco y las presentaciones altas deben quedar bajo control de un adulto y usarse solo con indicación médica.",
+          "Ante embarazo, enfermedad renal, hepática, cardíaca, úlcera, anticoagulantes o alergias importantes, consultar antes de usar analgésicos o antiinflamatorios."
+        ]
+      },
+      {
+        "title": "Fiebre o dolor leve a moderado",
+        "items": [
+          "Tafirol 500 mg o Tafirol 1 g contienen paracetamol. Elegir una sola presentación y seguir el rótulo; Buscapina DÚO también contiene paracetamol y cuenta dentro del total.",
+          "Actron Pediátrico 4% es ibuprofeno para niños y debe dosificarse por peso con su dosificador. Ibuprofeno 600 mg es una presentación alta para adultos.",
+          "No tomar juntos ibuprofeno, diclofenac y ketorolaco: pertenecen al grupo de los AINE y aumenta el riesgo de sangrado, lesión renal y otros efectos adversos.",
+          "En Puerto Iguazú, ante fiebre con sospecha de dengue, no usar ibuprofeno, diclofenac ni ketorolaco. La recomendación oficial es paracetamol si no está contraindicado, hidratación y control de signos de alarma."
+        ]
+      },
+      {
+        "title": "Dolor de panza tipo cólico",
+        "items": [
+          "Buscapina DÚO puede orientar a cólico o espasmo abdominal moderado en adultos, siguiendo el prospecto.",
+          "Como contiene paracetamol, no combinarla con Tafirol ni con otros productos con paracetamol.",
+          "No “tapar” dolor fuerte o persistente, abdomen rígido, dolor localizado, fiebre, vómitos repetidos, sangre, desmayo o embarazo: requieren evaluación médica."
+        ]
+      },
+      {
+        "title": "Diarrea, vómitos y deshidratación",
+        "items": [
+          "Las sales de rehidratación oral son la prioridad para reponer agua y electrolitos. Preparar el sobre completo exactamente con el volumen de agua indicado.",
+          "Loperamida puede considerarse solo en adultos con diarrea aguda sin sangre, fiebre alta ni dolor abdominal intenso, por poco tiempo y siguiendo el prospecto.",
+          "Reliverán (metoclopramida) debe usarse solo si fue indicado. Puede causar somnolencia o movimientos involuntarios y no se debe improvisar la dosis en niños.",
+          "Ir a una guardia si no puede retener líquidos, hay poca orina, ojos hundidos, somnolencia, sangre, dolor intenso, fiebre alta o signos de shock."
+        ]
+      },
+      {
+        "title": "Alergia, picazón o picaduras",
+        "items": [
+          "Loratadina sirve para síntomas alérgicos leves como estornudos, secreción nasal, picazón o urticaria.",
+          "Caladryl Incoloro es para uso externo en irritación o picazón localizada; no usar en ojos, mucosas, heridas ni grandes superficies.",
+          "Dificultad respiratoria, hinchazón de lengua o garganta, voz apagada, desmayo o empeoramiento rápido son una emergencia: llamar al 107/911."
+        ]
+      },
+      {
+        "title": "Dolor dental",
+        "items": [
+          "Muelita Forte con benzocaína es solo para alivio temporal localizado en adultos; no resuelve caries, infección ni absceso.",
+          "No usar en niños, no tragar ni exceder el rótulo. Coloración azul/gris de labios o piel, falta de aire o mareo tras usar benzocaína requieren urgencia.",
+          "Dolor con hinchazón de cara, fiebre, pus, dificultad para abrir la boca, tragar o respirar requiere odontólogo o guardia."
+        ]
+      },
+      {
+        "title": "Dolor inflamatorio fuerte",
+        "items": [
+          "Ibuprofeno 600 mg, Fabogesic Flexi 75 (diclofenac) y Kemanat 20 (ketorolaco) no se combinan entre sí.",
+          "Ketorolaco se reserva para dolor agudo moderado a intenso y por un máximo total de 5 días; no es para dolor crónico o leve.",
+          "Evitar AINE si hay úlcera, sangrado digestivo, enfermedad renal, deshidratación, anticoagulantes, embarazo avanzado, alergia a AINE o sospecha de dengue."
+        ]
+      },
+      {
+        "title": "Antibióticos del stock",
+        "items": [
+          "Cetaxim 500 contiene azitromicina y Butefina 500 contiene cefalexina. Ambos son para infecciones bacterianas específicas diagnosticadas por un profesional.",
+          "No usarlos para resfrío, gripe, dengue o fiebre sin diagnóstico. No compartir, no iniciar con sobrantes y no cambiar la duración indicada.",
+          "Si un médico los prescribe, completar exactamente el esquema. Ronchas generalizadas, hinchazón, falta de aire o diarrea intensa requieren consulta urgente."
+        ]
+      },
+      {
+        "title": "Curaciones y limpieza",
+        "items": [
+          "Curativos Band-Aid: para cortes o raspaduras pequeños y limpios. Cambiar si se moja o ensucia.",
+          "Algodón: útil para higiene externa, pero no dentro de una herida abierta; allí se prefiere gasa estéril.",
+          "Alcohol bactericida Araucaria: usar como producto de limpieza de superficies según el rótulo. No ingerir, no mezclar y no colocar dentro de heridas."
+        ]
+      },
+      {
+        "title": "Signos de alarma: no esperar",
+        "items": [
+          "Dificultad para respirar, confusión, convulsión, desmayo, sangrado, dolor de pecho, labios azulados, rigidez de cuello o reacción alérgica grave.",
+          "Fiebre con dolor abdominal intenso, vómitos persistentes, sangrado, somnolencia o empeoramiento después de bajar la fiebre, especialmente ante posible dengue.",
+          "Niño muy decaído, que no bebe, no orina, respira con dificultad o presenta movimientos involuntarios después de un medicamento.",
+          "En emergencia médica llamar al 107 o 911 y llevar los envases de lo administrado."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Ministerio de Salud de Argentina - Dengue: síntomas y signos de alarma",
+        "url": "https://www.argentina.gob.ar/sintomas-y-signos-de-alarma"
+      },
+      {
+        "name": "OMS - Sales de rehidratación oral",
+        "url": "https://www.who.int/publications/i/item/WHO-FCH-CAH-06.1"
+      },
+      {
+        "name": "MedlinePlus - Acetaminofeno / paracetamol",
+        "url": "https://medlineplus.gov/spanish/druginfo/meds/a681004-es.html"
+      },
+      {
+        "name": "MedlinePlus - Ibuprofeno",
+        "url": "https://medlineplus.gov/spanish/druginfo/meds/a682159-es.html"
+      },
+      {
+        "name": "MedlinePlus - Diclofenaco",
+        "url": "https://medlineplus.gov/spanish/druginfo/meds/a689002-es.html"
+      },
+      {
+        "name": "MedlinePlus - Ketorolaco",
+        "url": "https://medlineplus.gov/spanish/druginfo/meds/a693001-es.html"
+      },
+      {
+        "name": "MedlinePlus - Loperamida",
+        "url": "https://medlineplus.gov/spanish/druginfo/meds/a682280-es.html"
+      },
+      {
+        "name": "MedlinePlus - Metoclopramida",
+        "url": "https://medlineplus.gov/spanish/druginfo/meds/a684035-es.html"
+      },
+      {
+        "name": "MedlinePlus - Loratadina",
+        "url": "https://medlineplus.gov/spanish/druginfo/meds/a697038-es.html"
+      },
+      {
+        "name": "MedlinePlus - Azitromicina",
+        "url": "https://medlineplus.gov/spanish/druginfo/meds/a697037-es.html"
+      },
+      {
+        "name": "MedlinePlus - Cefalexina",
+        "url": "https://medlineplus.gov/spanish/druginfo/meds/a682733-es.html"
+      },
+      {
+        "name": "FDA - Seguridad de benzocaína en niños",
+        "url": "https://www.fda.gov/consumers/consumer-updates/safely-soothing-teething-pain-in-infants-and-children"
+      },
+      {
+        "name": "Buscapina Argentina - Buscapina DÚO",
+        "url": "https://www.buscapina.com/es-ar/productos/buscapina-duo"
+      },
+      {
+        "name": "Gador - Reliverán",
+        "url": "https://www.gador.com.ar/productos/reliveran/"
+      }
+    ]
   }
 ]

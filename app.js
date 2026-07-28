@@ -1,4 +1,4 @@
-const APP_VERSION='2.2.2';
+const APP_VERSION='2.2.3';
 const APP_NAME='Centro de Energía y Respuesta';
 function put(id,value){const el=document.getElementById(id);if(el)el.textContent=value}
 
@@ -393,7 +393,7 @@ const ec=EDYStorage.get('energy_calc');if(ec){batteryWh.value=ec.wh;batteryPerce
 
 let inventoryBase=[];
 let currentItemId=null;
-const INVENTORY_SEED_VERSION='2.2.2';
+const INVENTORY_SEED_VERSION='2.2.3';
 
 function statusText(status){
  return {available:'Disponible',incoming:'En camino',review:'Revisar',missing:'Falta'}[status]||status;
@@ -465,6 +465,11 @@ function normalizeInventoryItem(item){
  base.category=String(base.category||'Otros');
  base.unit=String(base.unit||'unidad');
  base.notes=String(base.notes||'');
+ base.activeIngredient=String(base.activeIngredient||'');
+ base.useGuide=String(base.useGuide||'');
+ base.safetyGuide=String(base.safetyGuide||'');
+ base.ageGroup=String(base.ageGroup||'');
+ base.medicalOnly=Boolean(base.medicalOnly);
  base.image=String(base.image||'');
  base.location=String(base.location||'Sin registrar');
  base.critical=Boolean(base.critical);
@@ -590,7 +595,7 @@ function restoreStarterInventory(){
 function itemSearchText(item){
  const lots=(item.lots||[]).map(l=>`${l.lotNumber} ${l.expiryDate} ${l.notes}`).join(' ');
  const contents=(item.contents||[]).map(c=>`${c.name} ${c.qty} ${c.unit} ${c.expiryDate||''} ${c.notes||''}`).join(' ');
- return normalizeText([item.name,item.brand,item.model,item.category,item.notes,item.location,item.unit,lots,contents].join(' '));
+ return normalizeText([item.name,item.brand,item.model,item.category,item.notes,item.activeIngredient,item.useGuide,item.safetyGuide,item.ageGroup,item.location,item.unit,lots,contents].join(' '));
 }
 function nextExpiry(item){
  return (item.lots||[]).filter(l=>Number(l.qty)>0&&l.expiryDate).sort((a,b)=>expiryTimestamp(a.expiryDate)-expiryTimestamp(b.expiryDate))[0]?.expiryDate||'';
@@ -670,6 +675,11 @@ function renderKitContents(item){
  if(!contents.length)return '';
  return `<div class="titleRow"><h3>Contenido declarado del kit</h3><span class="categoryCount">${contents.length} tipos</span></div><div class="lotList">${contents.map(c=>`<div class="lotRow"><div><strong>${escapeHTML(c.name)}</strong><small>${c.expiryDate?`Vence: ${formatExpiry(c.expiryDate)}`:'Incluido en el kit'}${c.notes?` · ${escapeHTML(c.notes)}`:''}</small></div><span>${formatStockNumber(c.qty)} ${escapeHTML(unitLabel(c.unit,c.qty))}</span></div>`).join('')}</div>`;
 }
+function renderMedicationOrientation(item){
+ if(!item.activeIngredient&&!item.useGuide&&!item.safetyGuide)return '';
+ const prescription=item.medicalOnly?'<span class="medicationTag warning">Solo con indicación médica</span>':'<span class="medicationTag">Consultar prospecto</span>';
+ return `<section class="medicationOrientation"><div class="medicationOrientationHead"><div><span>💊 Orientación del botiquín</span><h3>${escapeHTML(item.activeIngredient||item.name)}</h3></div>${prescription}</div>${item.ageGroup?`<p class="medicationAudience">Destinatario: <strong>${escapeHTML(item.ageGroup)}</strong></p>`:''}${item.useGuide?`<div><strong>Uso orientativo</strong><p>${escapeHTML(item.useGuide)}</p></div>`:''}${item.safetyGuide?`<div class="medicationWarning"><strong>Precauciones importantes</strong><p>${escapeHTML(item.safetyGuide)}</p></div>`:''}<small>Esta ficha organiza el stock y reduce errores; no reemplaza una receta, el prospecto ni la evaluación médica.</small></section>`;
+}
 function movementLabel(type){return {initial:'Inventario inicial',purchase:'Compra / ingreso',consume:'Consumo',adjustment:'Ajuste'}[type]||'Movimiento'}
 function renderMovements(item){
  const rows=(item.movements||[]).slice().sort((a,b)=>String(b.date||'').localeCompare(String(a.date||''))).slice(0,10);
@@ -685,6 +695,7 @@ async function openItem(id){
  <div class="stockActionCard consumeCard"><h3>➖ Consumir stock</h3><p class="small">EDY descuenta primero el lote que vence antes (FIFO).</p><div class="quickConsume">${quickConsumeButtons(i)}</div><div class="inline"><input id="consumeStockAmount" type="number" min="0" step="any" placeholder="Cantidad personalizada"><button class="action secondary" onclick="consumeCustomFromForm()">Consumir</button></div></div></div>
  <div class="titleRow"><h3>Lotes y vencimientos</h3><span class="categoryCount">${(i.lots||[]).length} lotes</span></div>${renderLots(i)}
  ${renderKitContents(i)}
+ ${renderMedicationOrientation(i)}
  <div class="titleRow"><h3>Datos del producto</h3></div><div class="detailGrid"><div class="detailField"><span>Estado</span><select id="editStatus" class="editSelect"><option value="available" ${i.status==='available'?'selected':''}>Disponible</option><option value="incoming" ${i.status==='incoming'?'selected':''}>En camino</option><option value="review" ${i.status==='review'?'selected':''}>Revisar</option><option value="missing" ${i.status==='missing'?'selected':''}>Falta</option></select></div><div class="detailField"><span>Unidad</span><input id="editUnit" class="editInput" value="${escapeAttr(i.unit)}"></div><div class="detailField"><span>Stock mínimo</span><input id="editMinStock" class="editInput" type="number" min="0" step="any" value="${i.minStock??''}" placeholder="Sin definir"></div><div class="detailField"><span>Stock objetivo</span><input id="editTargetStock" class="editInput" type="number" min="0" step="any" value="${i.targetStock??''}" placeholder="Sin definir"></div><div class="detailField"><span>Zona</span><select id="editZone" class="editSelect">${zoneOptions(i.zone)}</select></div><div class="detailField"><span>Ubicación exacta</span><input id="editLocation" class="editInput" value="${escapeAttr(i.location||'')}" placeholder="Se guarda solo en este dispositivo"></div><div class="detailField"><span>Marca</span><input id="editBrand" class="editInput" value="${escapeAttr(i.brand||'')}"></div><div class="detailField"><span>Modelo / presentación</span><input id="editModel" class="editInput" value="${escapeAttr(i.model||'')}"></div><div class="detailField"><span>Número de serie</span><input id="editSerial" class="editInput" value="${escapeAttr(i.serial||'')}" placeholder="Solo local"></div><div class="detailField"><span>Última revisión</span><input id="editLastReviewDate" class="editInput" type="date" value="${escapeAttr(i.lastReviewDate||'')}"></div><div class="detailField"><span>Próxima revisión</span><input id="editReviewDate" class="editInput" type="date" value="${escapeAttr(i.reviewDate||'')}"></div><div class="detailField"><span>Frecuencia de revisión</span><select id="editReviewInterval" class="editSelect">${reviewIntervalOptions(i.reviewIntervalDays)}</select></div><div class="detailField"><span>Garantía hasta</span><input id="editWarrantyUntil" class="editInput" type="date" value="${escapeAttr(i.warrantyUntil||'')}"></div><div class="detailField"><span>Responsable</span><input id="editResponsible" class="editInput" value="${escapeAttr(i.responsible||'')}" placeholder="Responsable familiar"></div><div class="detailField checkField"><label><input id="editCritical" type="checkbox" ${i.critical?'checked':''}> Elemento crítico</label></div></div><div class="detailNotes"><strong>Observaciones</strong><textarea id="editNotes" class="editInput">${escapeHTML(i.notes||'')}</textarea></div><div class="actions"><button class="action" onclick="saveCurrentItem()">Guardar cambios</button><button class="action secondary" onclick="deleteCurrentItem()">Eliminar</button></div>
  <div class="titleRow"><h3>Historial de movimientos</h3></div>${renderMovements(i)}</div>`;
  openSection('itemDetail');await renderItemPhoto(id);

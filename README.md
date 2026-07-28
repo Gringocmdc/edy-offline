@@ -1,4 +1,4 @@
-# EDY Offline v2.2.2
+# EDY Offline v2.2.3
 
 Actualización acumulativa del Centro de Supervivencia Digital Familiar.
 
@@ -31,6 +31,18 @@ No es necesario publicar versiones intermedias. El paquete conserva todas las fu
 - Fotografía incorporada al inventario.
 - Stock objetivo configurado en 2 frascos por tratarse de un medicamento de uso frecuente en los chicos; con 1 frasco disponible, EDY lo mostrará como stock bajo.
 - La ficha no almacena dosis: debe respetarse la indicación médica y la dosificación correspondiente al peso.
+
+## Nuevo en 2.2.3
+- 14 ingresos nuevos al botiquín: Buscapina DÚO, Caladryl Incoloro, Reliverán gotas, 4 sales de rehidratación oral, Muelita Forte, loratadina, loperamida, Tafirol 500 mg, ibuprofeno 600 mg, Tafirol 1 g, Kemanat 20 mg, Fabogesic Flexi 75, Cetaxim 500 y Butefina 500.
+- Cada medicamento tiene una ficha con principio activo, uso orientativo, destinatario y precauciones importantes.
+- Se enriquecieron las fichas de Actron Pediátrico, curativos Band-Aid, algodón y alcohol bactericida.
+- Nueva guía offline: **Guía segura de medicamentos del botiquín**, organizada por fiebre, dolor, cólicos, diarrea, vómitos, alergias, picaduras, dolor dental, antibióticos y signos de alarma.
+- Alerta específica para Puerto Iguazú: ante sospecha de dengue, no usar ibuprofeno, diclofenac ni ketorolaco; seguir la recomendación sanitaria de paracetamol si no está contraindicado y consultar ante signos de alarma.
+- Reliverán fue registrado como solución gotas **5‰** (no 5%), según la denominación oficial habitual; queda pendiente verificar la foto del envase.
+- Tafirol 1 g quedó con una caja disponible y cantidad de comprimidos pendiente de confirmar.
+
+## Alcance de la guía médica
+EDY no prescribe, no calcula dosis y no reemplaza al médico, pediatra, odontólogo, farmacéutico ni al prospecto. La guía sirve para evitar duplicaciones, reconocer principios activos, ordenar el stock y detectar situaciones en las que no corresponde automedicarse.
 
 ## Seguridad del generador
 El generador debe funcionar únicamente al aire libre y lejos de puertas, ventanas y entradas de aire. Nunca debe utilizarse dentro del depósito ni conectarse a un tomacorriente para retroalimentar la instalación. Una transferencia fija debe ser instalada por un electricista.

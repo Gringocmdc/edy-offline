@@ -1,6 +1,6 @@
 {
-  "version": "2.2.2",
-  "name": "Inventario de despensa, refugio y botiquín",
-  "released": "2026-07-27",
-  "notes": "Actualización acumulativa: conserva todos los ingresos de 2.2.1 y agrega Actron Pediátrico 4% (ibuprofeno), suspensión oral de 100 ml, vencimiento 01/2028, con fotografía y control de stock."
+  "version": "2.2.3",
+  "name": "Botiquín ampliado y guía segura de medicamentos",
+  "released": "2026-07-28",
+  "notes": "Actualización acumulativa: agrega 14 productos al botiquín, incorpora orientación de uso y precauciones en cada ficha, y suma una guía offline por situaciones. No contiene dosis personalizadas ni autoriza automedicación."
 }
