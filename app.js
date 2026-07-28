@@ -1,5 +1,5 @@
-const APP_VERSION='2.0.0';
-const APP_NAME='Centro Inteligente del Hogar';
+const APP_VERSION='2.2.2';
+const APP_NAME='Centro de Energía y Respuesta';
 function put(id,value){const el=document.getElementById(id);if(el)el.textContent=value}
 
 const sections=[...document.querySelectorAll('.section')];
@@ -273,20 +273,12 @@ function printWalletCard(){
  const contacts=getContacts().filter(c=>c.wallet).sort((a,b)=>a.priority-b.priority),family=contacts.filter(c=>c.category==='family').slice(0,6),official=contacts.filter(c=>c.category!=='family').slice(0,6);if(!family.length){alert('Primero importá o cargá los contactos familiares.');return}
  const rows=list=>list.map(c=>`<div class="row"><span>${escapeHTML(c.alias||c.name)}</span><b>${escapeHTML(contactPhoneLabel(c))}</b></div>`).join('');
  const win=window.open('','_blank');if(!win){alert('Safari bloqueó la tarjeta. Habilitá las ventanas emergentes e intentá nuevamente.');return}
- win.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Tarjeta de emergencia</title><style>@page{size:A4;margin:10mm}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#111}.sheet{display:flex;gap:8mm;flex-wrap:wrap}.card{box-sizing:border-box;width:85.6mm;height:54mm;border:1px solid #111;border-radius:3mm;padding:4mm;overflow:hidden}.head{display:flex;justify-content:space-between;border-bottom:1px solid #bbb;padding-bottom:2mm;margin-bottom:2mm}.head strong{font-size:13pt}.head span{font-size:8pt}.row{display:flex;justify-content:space-between;gap:3mm;font-size:9pt;padding:1.1mm 0;border-bottom:.2mm solid #ddd}.row span{font-weight:650}.row b{white-space:nowrap}.note{font-size:7.5pt;margin-top:2mm;line-height:1.25}.screen{margin:0 0 8mm}.screen button{padding:10px 16px;font-size:16px}@media print{.screen{display:none}}</style></head><body><div class="screen"><button onclick="window.print()">Imprimir / Guardar PDF</button></div><div class="sheet"><section class="card"><div class="head"><strong>Familia Dell’Era</strong><span>CONTACTOS</span></div>${rows(family)}<div class="note">En una emergencia, comunicarse primero por llamada o WhatsApp según disponibilidad.</div></section><section class="card"><div class="head"><strong>Emergencias</strong><span>PUERTO IGUAZÚ</span></div>${rows(official)}<div class="note">Indicá ubicación exacta, qué ocurrió, cuántas personas están afectadas y un teléfono de contacto.</div></section></div></body></html>`);win.document.close();setTimeout(()=>win.focus(),200);
+ win.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Tarjeta de emergencia</title><style>@page{size:A4;margin:10mm}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#111}.sheet{display:flex;gap:8mm;flex-wrap:wrap}.card{box-sizing:border-box;width:85.6mm;height:54mm;border:1px solid #111;border-radius:3mm;padding:4mm;overflow:hidden}.head{display:flex;justify-content:space-between;border-bottom:1px solid #bbb;padding-bottom:2mm;margin-bottom:2mm}.head strong{font-size:13pt}.head span{font-size:8pt}.row{display:flex;justify-content:space-between;gap:3mm;font-size:9pt;padding:1.1mm 0;border-bottom:.2mm solid #ddd}.row span{font-weight:650}.row b{white-space:nowrap}.note{font-size:7.5pt;margin-top:2mm;line-height:1.25}.screen{margin:0 0 8mm}.screen button{padding:10px 16px;font-size:16px}@media print{.screen{display:none}}</style></head><body><div class="screen"><button onclick="window.print()">Imprimir / Guardar PDF</button></div><div class="sheet"><section class="card"><div class="head"><strong>Familia</strong><span>CONTACTOS</span></div>${rows(family)}<div class="note">En una emergencia, comunicarse primero por llamada o WhatsApp según disponibilidad.</div></section><section class="card"><div class="head"><strong>Emergencias</strong><span>EMERGENCIAS</span></div>${rows(official)}<div class="note">Indicá ubicación exacta, qué ocurrió, cuántas personas están afectadas y un teléfono de contacto.</div></section></div></body></html>`);win.document.close();setTimeout(()=>win.focus(),200);
 }
 function renderCrisisContacts(){const box=document.getElementById('crisisContacts');if(!box)return;const list=getContacts().filter(c=>c.wallet).sort((a,b)=>a.priority-b.priority).slice(0,8);box.innerHTML=list.length?`<div class="crisisContactGrid">${list.map(c=>`<button onclick="${c.canCall?`callContact('${escapeJS(c.id)}')`:`whatsappContact('${escapeJS(c.id)}')`}"><strong>${escapeHTML(c.alias||c.name)}</strong><small>${escapeHTML(contactPhoneLabel(c))}</small></button>`).join('')}</div>`:'<p>No hay contactos prioritarios registrados.</p>'}
 
 const FAMILY_SEED_VERSION='1.4.0';
-const FAMILY_DEFAULTS=[
- {id:'family-dario',name:'Darío',kind:'adult',relation:'Padre',dailyWater:3,emergencyRole:'Coordinación general',backpack:'partial',documents:'partial',medication:'na',notes:''},
- {id:'family-eliana',name:'Eliana',kind:'adult',relation:'Madre',dailyWater:3,emergencyRole:'Documentación y cuidado familiar',backpack:'partial',documents:'partial',medication:'na',notes:''},
- {id:'family-alvaro',name:'Álvaro',kind:'child',relation:'Hijo',dailyWater:3,emergencyRole:'Apoyo en comunicaciones',backpack:'partial',documents:'partial',medication:'na',notes:''},
- {id:'family-felipe',name:'Felipe',kind:'child',relation:'Hijo',dailyWater:3,emergencyRole:'Apoyo en agua y listas',backpack:'partial',documents:'partial',medication:'na',notes:''},
- {id:'family-maximo',name:'Máximo',kind:'child',relation:'Hijo',dailyWater:3,emergencyRole:'Acompañado por un adulto',backpack:'partial',documents:'partial',medication:'na',notes:''},
- {id:'family-manchas',name:'Manchas',kind:'pet',relation:'Mascota',dailyWater:.25,emergencyRole:'Correa o transportadora',backpack:'na',documents:'partial',medication:'na',notes:''},
- {id:'family-bella',name:'Bella',kind:'pet',relation:'Mascota',dailyWater:.25,emergencyRole:'Correa o transportadora',backpack:'na',documents:'partial',medication:'na',notes:''}
-];
+const FAMILY_DEFAULTS=[];
 function normalizeFamilyMember(member){
  const kind=['adult','child','pet'].includes(member?.kind)?member.kind:'adult';
  const suggested={adult:3,child:3,pet:.25}[kind];
@@ -401,7 +393,7 @@ const ec=EDYStorage.get('energy_calc');if(ec){batteryWh.value=ec.wh;batteryPerce
 
 let inventoryBase=[];
 let currentItemId=null;
-const INVENTORY_SEED_VERSION='2.0.0';
+const INVENTORY_SEED_VERSION='2.2.2';
 
 function statusText(status){
  return {available:'Disponible',incoming:'En camino',review:'Revisar',missing:'Falta'}[status]||status;
@@ -652,7 +644,7 @@ function renderInventory(){
  refreshInventoryThumbnails();
 }
 function categoryIcon(cat){
- return {'Despensa':'🍚','Energía':'⚡','Agua':'💧','Limpieza':'🧴','Higiene':'🧼','Comunicaciones':'📡','Herramientas':'🛠️','Fuego':'🔥','Kits de emergencia':'🎒','Orientación y señalización':'🧭','Botiquín':'🩺','Alimentos':'🍲','Mochilas':'🎒','Mascotas':'🐶','Vehículos':'🚗','Documentación':'📄','Otros':'📦'}[cat]||'📦';
+ return {'Despensa':'🍚','Energía':'⚡','Agua':'💧','Limpieza':'🧴','Higiene':'🧼','Comunicaciones':'📡','Herramientas':'🛠️','Fuego':'🔥','Kits de emergencia':'🎒','Orientación y señalización':'🧭','Botiquín':'🩺','Control de insectos':'🦟','Alimentos':'🍲','Mochilas':'🎒','Mascotas':'🐶','Vehículos':'🚗','Documentación':'📄','Otros':'📦'}[cat]||'📦';
 }
 function stockTargetText(item){
  const min=numberOrNull(item.minStock),target=numberOrNull(item.targetStock);

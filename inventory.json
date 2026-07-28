@@ -1588,5 +1588,476 @@
     "packageCount": 1,
     "packageSize": 1,
     "packageUnit": "kit"
+  },
+  {
+    "id": "starter-generador-gamma-7500-ie",
+    "starter": true,
+    "name": "Generador eléctrico portátil",
+    "brand": "Gamma",
+    "model": "7500 IE · 6,0 kW continuos · 7,0 kW máximos",
+    "category": "Energía",
+    "status": "available",
+    "qty": 1,
+    "unit": "unidad",
+    "zone": "energy",
+    "location": "Sin registrar",
+    "critical": true,
+    "minStock": 1,
+    "targetStock": 1,
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 30,
+    "notes": "Generador confirmado mediante fotografías. Placa: 220 V CA, 50 Hz, monofásico, potencia continua 6,0 kW, potencia máxima 7,0 kW, velocidad nominal 3.000 rpm, salida 12 V CC de 8,3 A y peso 87 kg. Cuenta con arranque eléctrico, AVR y protección automática por bajo nivel de aceite. Combustible y consumo real: pendientes de confirmar. Antes de arrancar, controlar aceite. Operar únicamente al aire libre y lejos de puertas, ventanas y entradas de aire; nunca dentro del depósito ni conectado a un tomacorriente de la vivienda para retroalimentar la instalación.",
+    "lots": [
+      {
+        "id": "starter-generador-gamma-7500-ie-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 1,
+        "purchaseDate": "",
+        "expiryDate": "",
+        "notes": "Equipo confirmado en inventario EDY 2.2."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-generador-gamma-7500-ie-initial",
+        "type": "initial",
+        "qty": 1,
+        "date": "2026-07-26T17:00:00-03:00",
+        "note": "Generador Gamma 7500 IE incorporado mediante fotografías."
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 1,
+    "packageUnit": "unidad",
+    "image": "assets/generador-gamma-7500-ie.webp",
+    "specs": {
+      "voltageAC": 220,
+      "frequencyHz": 50,
+      "continuousPowerW": 6000,
+      "maximumPowerW": 7000,
+      "nominalRpm": 3000,
+      "phase": 1,
+      "dcVoltage": 12,
+      "dcCurrentA": 8.3,
+      "weightKg": 87,
+      "electricStart": true,
+      "avr": true,
+      "lowOilProtection": true,
+      "fuelType": "unknown"
+    }
+  },
+  {
+    "id": "starter-raid-espirales-country-12",
+    "starter": true,
+    "name": "Espirales repelentes contra mosquitos",
+    "brand": "Raid",
+    "model": "Country · doble acción · caja de 12 espirales",
+    "category": "Control de insectos",
+    "status": "available",
+    "qty": 12,
+    "unit": "espiral",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": 4,
+    "targetStock": 12,
+    "purchaseDate": "2026-07-26",
+    "lastReviewDate": "2026-07-26",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 180,
+    "notes": "Una caja con 12 espirales Raid Country, insecticida y repelente contra mosquitos. El envase declara 12 noches. Vencimiento confirmado: 30/01/2028. Usar siguiendo el rótulo, en un lugar ventilado, sobre el soporte adecuado y lejos de niños, mascotas, alimentos y materiales inflamables.",
+    "lots": [
+      {
+        "id": "starter-raid-espirales-country-12-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 12,
+        "purchaseDate": "2026-07-26",
+        "expiryDate": "2028-01-30",
+        "notes": "Caja de 12 espirales; hasta 12 noches según el envase."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-raid-espirales-country-12-purchase-20260726",
+        "type": "purchase",
+        "qty": 12,
+        "date": "2026-07-26T17:00:00-03:00",
+        "note": "Caja de Raid Espirales Country incorporada al inventario."
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 12,
+    "packageUnit": "espirales",
+    "image": "assets/raid-espirales-country-12.webp"
+  },
+  {
+    "id": "starter-miel-pura-abeja-1kg",
+    "starter": true,
+    "name": "Miel pura de abeja",
+    "brand": "Sin registrar",
+    "model": "100% miel de abeja",
+    "category": "Despensa",
+    "status": "available",
+    "qty": 1,
+    "unit": "kg",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "2026-07-27",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 0,
+    "notes": "1 envase de 1 kg. Envasada el 23/02/2026. El producto no declara fecha de vencimiento.",
+    "lots": [
+      {
+        "id": "starter-miel-pura-abeja-1kg-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 1,
+        "purchaseDate": "2026-07-27",
+        "expiryDate": "",
+        "notes": "Envasada el 23/02/2026; sin vencimiento declarado."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-miel-pura-abeja-1kg-purchase-20260727",
+        "type": "purchase",
+        "qty": 1,
+        "date": "2026-07-27T09:00:00-03:00",
+        "note": "Compra confirmada: 1 envase de 1 kg"
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 1,
+    "packageUnit": "kg"
+  },
+  {
+    "id": "starter-sal-fina-dos-anclas",
+    "starter": true,
+    "name": "Sal fina para cocina",
+    "brand": "Dos Anclas",
+    "model": "Sal fina",
+    "category": "Despensa",
+    "status": "available",
+    "qty": 1,
+    "unit": "paquete",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": true,
+    "minStock": 1,
+    "targetStock": 2,
+    "purchaseDate": "2026-07-27",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 0,
+    "notes": "Industria Argentina. Elaborada el 16/01/2026. Vida útil indicada: 5 años. Peso del paquete pendiente de registrar.",
+    "lots": [
+      {
+        "id": "starter-sal-fina-dos-anclas-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 1,
+        "purchaseDate": "2026-07-27",
+        "expiryDate": "2031-01-16",
+        "notes": "Elaborada el 16/01/2026; vencimiento calculado a 5 años."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-sal-fina-dos-anclas-purchase-20260727",
+        "type": "purchase",
+        "qty": 1,
+        "date": "2026-07-27T09:00:00-03:00",
+        "note": "Compra confirmada: 1 paquete"
+      }
+    ],
+    "packageCount": 1
+  },
+  {
+    "id": "starter-mermelada-damasco-arcor",
+    "starter": true,
+    "name": "Mermelada de damasco",
+    "brand": "Arcor",
+    "model": "Libre de gluten",
+    "category": "Despensa",
+    "status": "available",
+    "qty": 2,
+    "unit": "frasco",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "2026-07-27",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 0,
+    "notes": "2 frascos de 454 g cada uno. Contenido total: 908 g. Libre de gluten.",
+    "lots": [
+      {
+        "id": "starter-mermelada-damasco-arcor-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 2,
+        "purchaseDate": "2026-07-27",
+        "expiryDate": "2028-03-11",
+        "notes": "2 frascos de 454 g."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-mermelada-damasco-arcor-purchase-20260727",
+        "type": "purchase",
+        "qty": 2,
+        "date": "2026-07-27T09:00:00-03:00",
+        "note": "Compra confirmada: 2 frascos de 454 g"
+      }
+    ],
+    "packageCount": 2,
+    "packageSize": 454,
+    "packageUnit": "g"
+  },
+  {
+    "id": "starter-mermelada-membrillo-la-campagnola",
+    "starter": true,
+    "name": "Mermelada de membrillo",
+    "brand": "La Campagnola",
+    "model": "Mermelada de membrillo",
+    "category": "Despensa",
+    "status": "available",
+    "qty": 2,
+    "unit": "frasco",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "2026-07-27",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 0,
+    "notes": "2 frascos de 700 g cada uno. Contenido total: 1,4 kg.",
+    "lots": [
+      {
+        "id": "starter-mermelada-membrillo-la-campagnola-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 2,
+        "purchaseDate": "2026-07-27",
+        "expiryDate": "2028-05-03",
+        "notes": "2 frascos de 700 g."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-mermelada-membrillo-la-campagnola-purchase-20260727",
+        "type": "purchase",
+        "qty": 2,
+        "date": "2026-07-27T09:00:00-03:00",
+        "note": "Compra confirmada: 2 frascos de 700 g"
+      }
+    ],
+    "packageCount": 2,
+    "packageSize": 700,
+    "packageUnit": "g"
+  },
+  {
+    "id": "starter-guantes-recoleccion-residuos",
+    "starter": true,
+    "name": "Guantes para recolección de residuos",
+    "brand": "Sin registrar",
+    "model": "Guantes de limpieza",
+    "category": "Protección personal",
+    "status": "available",
+    "qty": 18,
+    "unit": "guante",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": 6,
+    "targetStock": 18,
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 0,
+    "notes": "18 guantes destinados a recolección de basura y tareas de limpieza. Compra anterior; fecha, marca y material pendientes de registrar.",
+    "lots": [
+      {
+        "id": "starter-guantes-recoleccion-residuos-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 18,
+        "purchaseDate": "",
+        "expiryDate": "",
+        "notes": "Cantidad declarada: 18 guantes."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-guantes-recoleccion-residuos-initial",
+        "type": "initial",
+        "qty": 18,
+        "date": "2026-07-27T12:00:00-03:00",
+        "note": "Stock declarado para incorporar al inventario"
+      }
+    ],
+    "packageCount": 18
+  },
+  {
+    "id": "starter-carpa-sumax-6-personas",
+    "starter": true,
+    "name": "Carpa para 6 personas",
+    "brand": "Sumax Sports",
+    "model": "Carpa hexagonal 6 personas",
+    "category": "Refugio",
+    "status": "review",
+    "qty": 1,
+    "unit": "unidad",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": true,
+    "minStock": 1,
+    "targetStock": 1,
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 90,
+    "notes": "Capacidad: 6 personas. Planta aproximada: 290 × 280 cm, lado superior 200 cm. Altura: 160 cm. Medida guardada: 90 × 20 × 20 cm. Peso: 5,6 kg. Exterior: tejido Oxford 210D. Piso: PE impermeable 120G. Varetas: 8,5 mm. Pendiente armarla y verificar estacas, varetas, cierres, costuras y estado del piso.",
+    "image": "assets/carpa-sumax-6-personas.webp",
+    "lots": [
+      {
+        "id": "starter-carpa-sumax-6-personas-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 1,
+        "purchaseDate": "",
+        "expiryDate": "",
+        "notes": "Carpa físicamente disponible; revisión de contenido pendiente."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-carpa-sumax-6-personas-initial",
+        "type": "initial",
+        "qty": 1,
+        "date": "2026-07-27T12:00:00-03:00",
+        "note": "Carpa existente incorporada al inventario"
+      }
+    ],
+    "packageCount": 1
+  },
+  {
+    "id": "starter-bolsa-dormir-individual",
+    "starter": true,
+    "name": "Bolsa de dormir individual",
+    "brand": "Sin registrar",
+    "model": "Para 1 persona",
+    "category": "Refugio",
+    "status": "review",
+    "qty": 1,
+    "unit": "unidad",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": 1,
+    "targetStock": 5,
+    "purchaseDate": "",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 90,
+    "notes": "Bolsa de dormir para una persona declarada previamente. Marca, modelo, temperatura de confort, material y fotografía pendientes de registrar.",
+    "lots": [
+      {
+        "id": "starter-bolsa-dormir-individual-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 1,
+        "purchaseDate": "",
+        "expiryDate": "",
+        "notes": "Stock declarado; especificaciones pendientes."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-bolsa-dormir-individual-initial",
+        "type": "initial",
+        "qty": 1,
+        "date": "2026-07-27T12:00:00-03:00",
+        "note": "Elemento declarado previamente e incorporado al inventario"
+      }
+    ],
+    "packageCount": 1
+  },
+  {
+    "id": "starter-actron-pediatrico-4-100ml",
+    "starter": true,
+    "name": "Actron Pediátrico 4%",
+    "brand": "Actron",
+    "model": "Ibuprofeno 4% · suspensión oral 100 ml",
+    "category": "Botiquín",
+    "status": "available",
+    "qty": 1,
+    "unit": "frasco",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": 1,
+    "targetStock": 2,
+    "purchaseDate": "2026-07-27",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 30,
+    "notes": "Suspensión oral pediátrica de ibuprofeno 4%, frasco de 100 ml con dosificador y tapa segura. Uso frecuente por los chicos. Vencimiento informado: enero de 2028. La dosis no se guarda en EDY: seguir siempre la indicación médica y la dosificación correspondiente al peso.",
+    "image": "assets/actron-pediatrico-4-100ml.webp",
+    "lots": [
+      {
+        "id": "starter-actron-pediatrico-4-100ml-lot-1",
+        "lotNumber": "Pendiente de confirmar",
+        "qty": 1,
+        "purchaseDate": "2026-07-27",
+        "expiryDate": "2028-01",
+        "notes": "1 frasco de 100 ml. Fecha de vencimiento confirmada por Darío: 01/2028."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-actron-pediatrico-4-100ml-purchase-20260727",
+        "type": "purchase",
+        "qty": 1,
+        "date": "2026-07-27T13:00:00-03:00",
+        "note": "Compra confirmada: 1 frasco de 100 ml"
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 100,
+    "packageUnit": "ml"
   }
 ]

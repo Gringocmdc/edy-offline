@@ -7,13 +7,13 @@
   <title>EDY Offline</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=2.0.0">
+  <link rel="stylesheet" href="styles.css?v=2.2.2">
 </head>
 <body>
 <header>
   <div class="brand">
     <div><h1>EDY</h1><p>Centro de Supervivencia Digital Familiar</p></div>
-    <div class="headerActions"><button class="versionBadge versionButton" onclick="openSection('actualizaciones')" title="Centro de actualizaciones">2.0.0</button><div class="pill">OFFLINE</div></div>
+    <div class="headerActions"><button class="versionBadge versionButton" onclick="openSection('actualizaciones')" title="Centro de actualizaciones">2.2.2</button><div class="pill">OFFLINE</div></div>
   </div>
   <input id="search" placeholder="Buscar: apagón, agua, energía, evacuación…">
 </header>
@@ -94,6 +94,8 @@
     <div class="status" onclick="openSection('salud')"><div class="statusTop"><strong>Botiquín</strong><span id="dotHealth" class="dot"></span></div><div id="healthValue" class="statusValue">OK</div><div id="healthDetail" class="small">Sin registrar</div></div>
   </div>
 
+  <div class="titleRow"><h2>Energía y protección</h2><button class="back" onclick="openSection('centroEnergia')">Abrir centro</button></div>
+  <div id="v22HomeStrip" class="v22HomeStrip"></div>
 
   <div class="titleRow"><h2>Plan de preparación</h2><button class="back" onclick="openSection('checklists')">Abrir listas</button></div>
   <div class="prepPanel">
@@ -122,13 +124,14 @@
     <div class="card householdFeatured" onclick="openSection('hogar')"><div class="icon">🏡</div><h3>Mi hogar</h3><p>Infraestructura, agua y datos privados.</p></div>
     <div class="card riskFeatured" onclick="openSection('riesgos')"><div class="icon">⚠️</div><h3>Riesgos</h3><p>Prioridades locales y preparación.</p></div>
     <div class="card" onclick="openSection('agua')"><div class="icon">💧</div><h3>Agua</h3><p>Reserva y autonomía.</p></div>
-    <div class="card" onclick="openSection('energia')"><div class="icon">⚡</div><h3>Energía</h3><p>Baterías y consumos.</p></div>
+    <div class="card energyFeatured" onclick="openSection('centroEnergia')"><div class="icon">⚡</div><h3>Centro de Energía</h3><p>Generador, Forza, combustible y cargas críticas.</p></div>
     <div class="card" onclick="openSection('biblioteca')"><div class="icon">📚</div><h3>Biblioteca</h3><p>Consulta offline.</p></div>
     <div class="card familyFeatured" onclick="openSection('familia')"><div class="icon">👨‍👩‍👦</div><h3>Familia</h3><p>Integrantes, roles y preparación.</p></div>
     <div class="card contactsFeatured" onclick="openSection('contactos')"><div class="icon">☎️</div><h3>Contactos</h3><p>Familia, emergencias y tarjeta de billetera.</p></div>
     <div class="card" onclick="openSection('mascotas')"><div class="icon">🐶</div><h3>Mascotas</h3><p>Evacuación y cuidado.</p></div>
     <div class="card" onclick="openSection('estado')"><div class="icon">🏠</div><h3>Estado</h3><p>Actualizar el hogar.</p></div>
     <div class="card operationsFeatured" onclick="openSection('operaciones')"><div class="icon">🧭</div><h3>Operaciones</h3><p>Autonomía y preparación.</p></div>
+    <div class="card simulatorFeatured" onclick="openSection('simulador')"><div class="icon">🧪</div><h3>Simulador</h3><p>Probá apagones, tormentas, falta de agua y evacuación.</p></div>
     <div class="card checklistFeatured" onclick="openSection('checklists')"><div class="icon">✅</div><h3>Checklists</h3><p>Listas de preparación y evacuación.</p></div>
     <div class="card timelineFeatured" onclick="openSection('timeline')"><div class="icon">🕒</div><h3>Actividad</h3><p>Historial de cambios y revisiones.</p></div>
     <div class="card maintenanceFeatured" onclick="openSection('mantenimiento')"><div class="icon">🔧</div><h3>Mantenimiento</h3><p>Revisiones próximas y vencidas.</p></div>
@@ -144,7 +147,7 @@
     <p>Elegí lo que está ocurriendo. EDY mostrará solo las acciones prioritarias.</p>
   </div>
   <div class="emergencyGrid">
-    <button class="emergencyOption" onclick="activateEmergency('power')"><span>🔌</span><strong>Corte de energía</strong></button>
+    <button class="emergencyOption" onclick="openSection('modoApagon')"><span>🔌</span><strong>Corte de energía</strong></button>
     <button class="emergencyOption" onclick="activateEmergency('water')"><span>🚱</span><strong>Falta de agua</strong></button>
     <button class="emergencyOption" onclick="activateEmergency('evacuation')"><span>🚗</span><strong>Evacuar</strong></button>
     <button class="emergencyOption" onclick="activateEmergency('injury')"><span>🩹</span><strong>Hay un herido</strong></button>
@@ -258,7 +261,7 @@
   </div>
   <div class="crisisPrioritiesBox"><h3>Prioridades actuales</h3><div id="crisisPriorities"></div></div>
   <div class="crisisGrid">
-    <button onclick="activateEmergency('power')">🔌<strong>Corte de energía</strong></button>
+    <button onclick="openSection('modoApagon')">🔌<strong>Corte de energía</strong></button>
     <button onclick="activateEmergency('water')">🚱<strong>Falta de agua</strong></button>
     <button onclick="activateEmergency('evacuation')">🚗<strong>Evacuación</strong></button>
     <button onclick="activateEmergency('injury')">🩹<strong>Persona herida</strong></button>
@@ -358,7 +361,7 @@
   <div id="assistantAlerts"></div>
 
   <div class="assistantDisclaimer">
-    EDY 2.0 analiza datos locales del hogar, riesgos, agua, inventario, contactos, familia, biblioteca y mochilas de 72 horas. No reemplaza a los servicios de emergencia, profesionales médicos ni instrucciones oficiales.
+    EDY 2.2 analiza datos locales del hogar, riesgos, agua, inventario, contactos, familia, biblioteca y mochilas de 72 horas. No reemplaza a los servicios de emergencia, profesionales médicos ni instrucciones oficiales.
   </div>
 </section>
 
@@ -387,6 +390,26 @@
     <button class="action secondary" onclick="clearOperations()">Borrar valores</button>
   </div>
   <div id="operationsResult" class="operationsResult"></div>
+</section>
+
+<section id="simulador" class="section searchable">
+  <button class="back" onclick="home()">← Inicio</button>
+  <div class="sectionHeader"><div><h2>🧪 Simulador de Emergencias</h2><p>Compara un escenario con el inventario y la configuración local del hogar. Funciona sin Internet.</p></div><span class="localBadge">SOLO LOCAL</span></div>
+  <div class="panel amber"><strong>Importante:</strong> es una herramienta de planificación. No reemplaza alertas oficiales, evaluaciones técnicas ni instrucciones de los servicios de emergencia.</div>
+  <div class="formGrid">
+    <div class="field"><label>Escenario</label><select id="simScenario"><option value="blackout">Apagón prolongado</option><option value="storm">Tormenta severa</option><option value="water">Interrupción de agua</option><option value="evacuation">Evacuación rápida</option></select></div>
+    <div class="field"><label>Duración estimada (días)</label><input id="simDays" type="number" min="1" max="30" value="3"></div>
+    <div class="field"><label>Personas</label><input id="simPeople" type="number" min="1" value="5"></div>
+    <div class="field"><label>Agua potable por persona/día (L)</label><input id="simLiters" type="number" min="1" step="0.5" value="3"></div>
+    <div class="field"><label>Alimentos declarados (días)</label><input id="simFood" type="number" min="0" placeholder="Ej.: 15"></div>
+    <div class="field"><label>Autonomía eléctrica estimada (horas)</label><input id="simEnergy" type="number" min="0" placeholder="Ej.: 24"></div>
+  </div>
+  <div class="actions"><button class="action" onclick="runEmergencySimulation()">Ejecutar simulación</button></div>
+  <div id="simResult" class="simResult"><div class="panel">Elegí un escenario y tocá <strong>Ejecutar simulación</strong>.</div></div>
+  <div class="titleRow"><h2>🚗 Plan de evacuación en 15 minutos</h2><span id="evac15Progress" class="localBadge">0/8</span></div>
+  <div class="panel"><p>Usá esta lista para practicar. Marcá únicamente acciones que la familia realmente pueda realizar.</p></div>
+  <div id="evac15List" class="evac15List"></div>
+  <div class="actions"><button class="action secondary" onclick="resetEvacuationPlan()">Reiniciar práctica</button></div>
 </section>
 
 <section id="activeEmergency" class="section emergencyActiveSection">
@@ -444,7 +467,7 @@
     <div class="field"><label>Marca</label><input id="newItemBrand" placeholder="Ej.: Tío João"></div>
     <div class="field"><label>Categoría</label><select id="newItemCategory">
       <option>Despensa</option><option>Agua</option><option>Energía</option><option>Limpieza</option><option>Higiene</option>
-      <option>Botiquín</option><option>Comunicaciones</option><option>Herramientas</option><option>Fuego</option>
+      <option>Botiquín</option><option>Control de insectos</option><option>Comunicaciones</option><option>Herramientas</option><option>Fuego</option>
       <option>Kits de emergencia</option><option>Orientación y señalización</option><option>Infraestructura</option><option>Mochilas</option><option>Mascotas</option><option>Vehículos</option><option>Documentación</option><option>Otros</option>
     </select></div>
     <div class="field"><label>Estado</label><select id="newItemStatus">
@@ -553,7 +576,7 @@
   <button class="back" onclick="home()">← Inicio</button>
   <h2>🔄 Centro de actualizaciones</h2>
   <div class="updateStatusCard">
-    <div><span>Versión instalada</span><strong id="installedVersion">2.0.0</strong></div>
+    <div><span>Versión instalada</span><strong id="installedVersion">2.2.2</strong></div>
     <div><span>Versión disponible</span><strong id="availableVersion">Comprobar</strong></div>
     <div><span>Modo offline</span><strong id="offlineCacheStatus">Verificando…</strong></div>
   </div>
@@ -683,6 +706,81 @@
   <div id="kitDetailContent"></div>
 </section>
 
+
+<section id="centroEnergia" class="section searchable">
+  <button class="back" onclick="home()">← Inicio</button>
+  <div class="sectionHeader">
+    <div><h2>⚡ Centro de Energía</h2><p>Generador Gamma, respaldo silencioso, combustible, mantenimiento y cargas críticas. Todo queda guardado localmente.</p></div>
+    <span class="localBadge">EDY 2.2</span>
+  </div>
+  <div id="energyOverview" class="energyOverview"></div>
+
+  <div class="energySafety">
+    <strong>☠️ Seguridad con monóxido de carbono</strong>
+    <p>El lugar de la fotografía puede servir para guardar el generador, pero <b>no para hacerlo funcionar</b>. Usalo únicamente al aire libre, lejos de puertas, ventanas y entradas de aire. Nunca lo conectes a un tomacorriente para alimentar la instalación de la casa; una transferencia debe instalarla un electricista.</p>
+  </div>
+
+  <div class="titleRow"><h2>Fuentes registradas</h2><button class="back" onclick="openSection('inventario')">Ver inventario</button></div>
+  <div id="energySourceCards" class="energySourceCards"></div>
+
+  <div class="energyTwoColumns">
+    <div class="energyPanel">
+      <div class="titleRow"><h3>⛽ Combustible y operación</h3><div id="generatorFuelSummary" class="generatorFuelSummary"></div></div>
+      <div class="formGrid">
+        <div class="field"><label>Combustible</label><select id="genFuelType"><option value="unknown">Sin confirmar</option><option value="gasoline">Nafta</option><option value="diesel">Diésel</option><option value="gas">Gas</option></select></div>
+        <div class="field"><label>Litros almacenados</label><input id="genStoredLiters" type="number" min="0" step="0.1" placeholder="Ej.: 20"></div>
+        <div class="field"><label>Consumo real (L/h)</label><input id="genConsumptionLph" type="number" min="0" step="0.1" placeholder="Medir durante una prueba"></div>
+        <div class="field"><label>Fecha de carga</label><input id="genFuelStoredDate" type="date"></div>
+        <div class="field"><label>Próxima rotación</label><input id="genNextFuelRotation" type="date"></div>
+        <div class="field"><label>Ubicación local</label><input id="genLocation" placeholder="Solo se guarda en este dispositivo"></div>
+      </div>
+      <div class="actions"><button class="action secondary" onclick="markFuelRotationToday()">Roté el combustible hoy</button></div>
+    </div>
+
+    <div class="energyPanel">
+      <div class="titleRow"><h3>🔧 Mantenimiento del Gamma</h3><button class="miniAction" onclick="markGeneratorTestToday()">Prueba realizada hoy</button></div>
+      <div class="formGrid">
+        <div class="field"><label>Última prueba de arranque</label><input id="genLastTest" type="date"></div>
+        <div class="field"><label>Último cambio de aceite</label><input id="genLastOilChange" type="date"></div>
+        <div class="field"><label>Horas acumuladas</label><input id="genEngineHours" type="number" min="0" step="0.1" placeholder="Ej.: 12,5"></div>
+        <div class="field"><label>Próximo service a las</label><input id="genNextServiceHours" type="number" min="0" step="0.1" placeholder="Según manual"></div>
+        <div class="field"><label>Batería de arranque</label><select id="genBatteryStatus"><option value="unknown">Sin revisar</option><option value="good">Correcta</option><option value="weak">Débil</option><option value="replace">Reemplazar</option></select></div>
+        <div class="field"><label>Nivel / estado del aceite</label><select id="genOilStatus"><option value="unknown">Sin revisar</option><option value="good">Correcto</option><option value="low">Bajo</option><option value="change">Cambiar</option></select></div>
+        <div class="field wide"><label>Observaciones</label><textarea id="genNotes" placeholder="Ruidos, reparaciones, prueba con carga, etc."></textarea></div>
+      </div>
+      <div id="generatorMaintenanceStatus" class="generatorMaintenanceStatus"></div>
+    </div>
+  </div>
+
+  <div class="energyPanel energyLoadsPanel">
+    <div class="sectionHeader"><div><h3>🔌 Planificador de cargas críticas</h3><p>Los valores iniciales son orientativos. Reemplazalos por la potencia indicada en la placa de cada equipo.</p></div><button class="action secondary" onclick="addEnergyLoad()">Agregar equipo</button></div>
+    <div class="formGrid compactEnergyForm">
+      <div class="field"><label>Fuente a evaluar</label><select id="energySource" onchange="changeEnergySource(this.value)"><option value="gamma">Generador Gamma</option><option value="forza">Forza FPP-T702</option></select></div>
+      <div class="field"><label>Batería actual de la Forza (%)</label><input id="forzaBatteryPercent" type="number" min="0" max="100" value="100" onchange="changeForzaBattery(this.value)"></div>
+    </div>
+    <div id="energyLoads" class="energyLoads"></div>
+    <div id="energyLoadResult" class="energyLoadResult"></div>
+    <div class="actions"><button class="action secondary" onclick="resetEnergyLoads()">Restaurar valores orientativos</button><button class="action" onclick="saveEnergyCenter()">Guardar centro de energía</button></div>
+  </div>
+
+  <div class="energyActionCards">
+    <button onclick="openSection('modoApagon')"><span>🔌</span><strong>Abrir modo apagón</strong><small>Plan por etapas para las primeras 72 horas.</small></button>
+    <button onclick="openSection('energia')"><span>🔋</span><strong>Calculadora simple</strong><small>Autonomía de la Forza según consumo.</small></button>
+    <button onclick="openItem('starter-raid-espirales-country-12')"><span>🦟</span><strong>Raid Espirales Country</strong><small>12 espirales · vence 30/01/2028.</small></button>
+  </div>
+  <div class="actions"><button class="action secondary" onclick="resetEnergyCenter()">Restablecer datos locales de 2.2</button></div>
+</section>
+
+<section id="modoApagon" class="section searchable">
+  <button class="back" onclick="home()">← Inicio</button>
+  <div class="sectionHeader"><div><h2>🔌 Modo Apagón</h2><p>Panel operativo para organizar seguridad, energía, agua, alimentos y comunicaciones durante las primeras 72 horas.</p></div><span id="blackoutProgress" class="localBadge">0/18</span></div>
+  <div id="blackoutStatus" class="blackoutStatus"></div>
+  <div class="panel red"><strong>Prioridad absoluta:</strong> si hay olor a combustible, humo, cables dañados o riesgo eléctrico, no uses el equipo. El generador produce monóxido de carbono y debe funcionar solamente al aire libre.</div>
+  <div id="blackoutSummary" class="blackoutSummary"></div>
+  <div id="blackoutChecklist" class="blackoutChecklist"></div>
+  <div class="actions"><button class="action secondary" onclick="resetBlackoutPlan()">Desmarcar checklist</button><button class="action" onclick="openSection('centroEnergia')">Centro de energía</button></div>
+</section>
+
 <section id="energia" class="section searchable">
   <button class="back" onclick="home()">← Inicio</button><h2>⚡ Autonomía de energía</h2>
   <div class="calculator">
@@ -772,12 +870,14 @@
   <button class="navCrisis" onclick="enterCrisisMode()"><span>🚨</span><small>Crisis</small></button>
 </nav>
 
-<footer>EDY Offline · v2.0.0 · Centro Inteligente del Hogar</footer>
-<script src="storage.js?v=2.0.0"></script>
-<script src="calculator.js?v=2.0.0"></script>
-<script src="media.js?v=2.0.0"></script>
-<script src="app.js?v=2.0.0"></script>
-<script src="kits.js?v=2.0.0"></script>
-<script src="v2.js?v=2.0.0"></script>
+<footer>EDY Offline · v2.2.2 · Centro de Energía y Respuesta</footer>
+<script src="storage.js?v=2.2.2"></script>
+<script src="calculator.js?v=2.2.2"></script>
+<script src="media.js?v=2.2.2"></script>
+<script src="app.js?v=2.2.2"></script>
+<script src="kits.js?v=2.2.2"></script>
+<script src="v2.js?v=2.2.2"></script>
+<script src="v21.js?v=2.2.2"></script>
+<script src="v22.js?v=2.2.2"></script>
 </body>
 </html>

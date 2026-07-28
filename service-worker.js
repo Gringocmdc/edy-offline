@@ -1,10 +1,10 @@
-const APP_VERSION='2.0.0';
+const APP_VERSION='2.2.2';
 const CACHE=`edy-offline-v${APP_VERSION}`;
 const FILES=[
  './','./index.html','./manifest.webmanifest','./icon.svg',
  `./styles.css?v=${APP_VERSION}`,`./storage.js?v=${APP_VERSION}`,`./calculator.js?v=${APP_VERSION}`,`./media.js?v=${APP_VERSION}`,`./app.js?v=${APP_VERSION}`,
- `./manuals.json?v=${APP_VERSION}`,`./inventory.json?v=${APP_VERSION}`,`./kits.js?v=${APP_VERSION}`,`./v2.js?v=${APP_VERSION}`,'./zones.json','./checklists.json',
- './manuales/Manual_Maestro_EDY_Biblioteca_Offline.pdf','./manuales/Checklist_Botiquin_Familiar_EDY.pdf','./assets/ductac-tacsa-48mm-9m.webp','./assets/sierra-manual-cadena.webp','./assets/kit-supervivencia-grenade-a073.webp','./assets/pulsera-supervivencia-brujula.webp','./assets/botiquin-lisfar-primeros-auxilios.webp','./assets/ready-america-70285.webp','./assets/bic-maxi-j6-12.webp'
+ `./manuals.json?v=${APP_VERSION}`,`./inventory.json?v=${APP_VERSION}`,`./kits.js?v=${APP_VERSION}`,`./v2.js?v=${APP_VERSION}`,`./v21.js?v=${APP_VERSION}`,`./v22.js?v=${APP_VERSION}`,'./zones.json','./checklists.json',
+ './manuales/Manual_Maestro_EDY_Biblioteca_Offline.pdf','./manuales/Checklist_Botiquin_Familiar_EDY.pdf','./assets/ductac-tacsa-48mm-9m.webp','./assets/sierra-manual-cadena.webp','./assets/kit-supervivencia-grenade-a073.webp','./assets/pulsera-supervivencia-brujula.webp','./assets/botiquin-lisfar-primeros-auxilios.webp','./assets/ready-america-70285.webp','./assets/bic-maxi-j6-12.webp','./assets/generador-gamma-7500-ie.webp','./assets/raid-espirales-country-12.webp','./assets/carpa-sumax-6-personas.webp','./assets/actron-pediatrico-4-100ml.webp'
 ];
 
 self.addEventListener('install',event=>{
