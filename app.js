@@ -1,4 +1,4 @@
-const APP_VERSION='2.2.3';
+const APP_VERSION='2.4.0';
 const APP_NAME='Centro de Energía y Respuesta';
 function put(id,value){const el=document.getElementById(id);if(el)el.textContent=value}
 
@@ -393,7 +393,7 @@ const ec=EDYStorage.get('energy_calc');if(ec){batteryWh.value=ec.wh;batteryPerce
 
 let inventoryBase=[];
 let currentItemId=null;
-const INVENTORY_SEED_VERSION='2.2.3';
+const INVENTORY_SEED_VERSION='2.4.0';
 
 function statusText(status){
  return {available:'Disponible',incoming:'En camino',review:'Revisar',missing:'Falta'}[status]||status;

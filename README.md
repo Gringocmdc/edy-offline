@@ -1,4 +1,4 @@
-# EDY Offline v2.2.3
+# EDY Offline v2.4.0
 
 Actualización acumulativa del Centro de Supervivencia Digital Familiar.
 
@@ -56,3 +56,30 @@ El ZIP público no contiene dirección exacta, teléfonos familiares, números d
 3. Abrir `actualizar.html` una sola vez.
 4. Volver a entrar a EDY y abrir **Centro de Energía**.
 5. Registrar combustible, consumo real y fecha de la última prueba.
+
+
+## Nuevo en 2.3.1 - Biblioteca Familiar Dell'Era
+- Nueve manuales PDF imprimibles: primeros auxilios, medicamentos, selva, principiantes, limpieza segura de armas, cocina, pesca legal, rutas regionales y reparaciones básicas del auto.
+- Índice maestro con orden de impresión y próximos volúmenes recomendados.
+- Nueve nuevas fichas buscables en la Biblioteca EDY (31 manuales breves en total).
+- Esquemas offline de corredores de Misiones, Estado de Paraná (Brasil) y Paraguay. No reemplazan mapas oficiales; antes de viajar se debe verificar estado de rutas, fronteras y clima.
+- Fuentes oficiales y códigos QR dentro de cada PDF para actualizar información cuando haya Internet.
+- Todos los documentos mantienen un enfoque preventivo y familiar, sin dosis médicas personalizadas ni instrucciones de modificación de armas.
+
+
+## Nuevo en 2.3.1 - Mascotas y paneles solares
+- Manual 10 personalizado para Bella y Manchas: emergencias, evacuación, botiquín y medicamentos solo con receta veterinaria.
+- Manual 11 de paneles solares: compatibilidad con Forza, instalación segura, uso, mantenimiento y diagnóstico básico.
+- Índice maestro actualizado con 11 manuales.
+
+
+## Nuevo en 2.4.0 - Biblioteca Familiar Completa
+- Versión acumulativa: reemplaza directamente a la 2.3.1.
+- 35 manuales PDF familiares e institucionales.
+- 24 manuales nuevos: supervivencia urbana, apagones, tormentas e inundaciones, incendios, radio, agua segura, alimentos, huerta, electricidad, plomería, costura, nudos, orientación, fauna, plantas, generadores, herramientas, seguridad pasiva, evacuación, documentos, niños, adultos mayores, EcoIguazú y ADAVI.
+- Biblioteca buscable ampliada a 57 fichas offline.
+- Índice Maestro 2.4.0 con orden de impresión y entrenamiento anual.
+- Manual Maestro actualizado con reglas de privacidad, respaldo y simulacros.
+
+## Alcance y seguridad
+Los manuales son guías de preparación. No reemplazan a médicos, veterinarios, electricistas, mecánicos, bomberos, autoridades, manuales de fabricante ni capacitaciones prácticas. Las secciones de seguridad del hogar priorizan resguardo, detección y evacuación; no incluyen tácticas de confrontación.

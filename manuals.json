@@ -1265,5 +1265,2297 @@
         "url": "https://www.gador.com.ar/productos/reliveran/"
       }
     ]
+  },
+  {
+    "id": "manual-primeros-auxilios-ampliado",
+    "title": "Manual ampliado de primeros auxilios",
+    "icon": "🩹",
+    "category": "Salud",
+    "priority": "Crítica",
+    "summary": "Respuesta inicial, RCP, heridas, quemaduras, trauma, picaduras y signos de alarma. PDF imprimible incluido.",
+    "keywords": [
+      "primeros auxilios",
+      "RCP",
+      "herida",
+      "quemadura",
+      "fractura",
+      "emergencia"
+    ],
+    "sections": [
+      {
+        "title": "Secuencia inicial",
+        "items": [
+          "Proteger, alertar y socorrer.",
+          "Comprobar respuesta, respiración y hemorragias graves.",
+          "Pedir ayuda profesional temprano."
+        ]
+      },
+      {
+        "title": "PDF",
+        "items": [
+          "Abrir Manual 01 en la zona de descargas de la Biblioteca."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "manual-medicamentos-ampliado",
+    "title": "Manual ampliado de medicamentos básicos",
+    "icon": "💊",
+    "category": "Salud",
+    "priority": "Alta",
+    "summary": "Organiza el botiquín EDY, evita duplicaciones y explica cuándo no automedicarse.",
+    "keywords": [
+      "medicamentos",
+      "botiquín",
+      "paracetamol",
+      "ibuprofeno",
+      "antibiótico"
+    ],
+    "sections": [
+      {
+        "title": "Reglas",
+        "items": [
+          "Verificar persona, medicamento, dosis indicada, hora y vía.",
+          "No duplicar principios activos.",
+          "Registrar cada administración."
+        ]
+      },
+      {
+        "title": "PDF",
+        "items": [
+          "Abrir Manual 02 en la zona de descargas."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "manual-selva-ampliado",
+    "title": "Supervivencia en la Selva Paranaense",
+    "icon": "🌿",
+    "category": "Supervivencia",
+    "priority": "Alta",
+    "summary": "Prevención, protocolo STOP, agua, refugio, calor, animales y señalización.",
+    "keywords": [
+      "selva",
+      "perdido",
+      "STOP",
+      "serpiente",
+      "sendero"
+    ],
+    "sections": [
+      {
+        "title": "Si te perdés",
+        "items": [
+          "Detenerse, pensar, observar y planificar.",
+          "Conservar energía y señalizar.",
+          "No comer plantas desconocidas."
+        ]
+      },
+      {
+        "title": "PDF",
+        "items": [
+          "Abrir Manual 03."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "manual-principiantes-ampliado",
+    "title": "Supervivencia para principiantes",
+    "icon": "🧭",
+    "category": "Preparación",
+    "priority": "Alta",
+    "summary": "Prioridades familiares, plan de 72 horas, roles y decisión de evacuar.",
+    "keywords": [
+      "principiante",
+      "72 horas",
+      "roles",
+      "evacuación"
+    ],
+    "sections": [
+      {
+        "title": "Prioridades",
+        "items": [
+          "Seguridad, salud, refugio, agua, comunicación, alimento y energía.",
+          "Practicar procedimientos además de comprar equipo."
+        ]
+      },
+      {
+        "title": "PDF",
+        "items": [
+          "Abrir Manual 04."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "manual-limpieza-armas",
+    "title": "Limpieza segura de armas",
+    "icon": "🧰",
+    "category": "Seguridad",
+    "priority": "Alta",
+    "summary": "Mantenimiento de campo, descarga, humedad y registro; solo adultos habilitados.",
+    "keywords": [
+      "limpieza",
+      "armas",
+      "mantenimiento",
+      "corrosión"
+    ],
+    "sections": [
+      {
+        "title": "Seguridad",
+        "items": [
+          "Separar toda munición.",
+          "Verificar recámara y alimentación.",
+          "Seguir el manual exacto del fabricante."
+        ]
+      },
+      {
+        "title": "Límites",
+        "items": [
+          "No realizar modificaciones ni reparaciones internas."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "manual-cocina-emergencia",
+    "title": "Cocina básica y de emergencia",
+    "icon": "🍲",
+    "category": "Alimentos",
+    "priority": "Alta",
+    "summary": "Higiene, recetas de despensa y cocina con poca agua y energía.",
+    "keywords": [
+      "cocina",
+      "arroz",
+      "pasta",
+      "corte de luz",
+      "alimentos"
+    ],
+    "sections": [
+      {
+        "title": "Clave",
+        "items": [
+          "Manos y agua seguras.",
+          "Una olla, tapa y porciones pequeñas.",
+          "No cocinar con carbón o generador en interiores."
+        ]
+      },
+      {
+        "title": "PDF",
+        "items": [
+          "Abrir Manual 06."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "manual-pesca-legal",
+    "title": "Pesca legal y obtención responsable de alimento",
+    "icon": "🎣",
+    "category": "Alimentos",
+    "priority": "Media",
+    "summary": "Licencia, veda, seguridad en ríos y conservación. La caza está prohibida en Misiones.",
+    "keywords": [
+      "pesca",
+      "licencia",
+      "veda",
+      "caza",
+      "alimento"
+    ],
+    "sections": [
+      {
+        "title": "Legalidad",
+        "items": [
+          "Licencia vigente, veda, tallas y cupos.",
+          "No cazar fauna silvestre en Misiones."
+        ]
+      },
+      {
+        "title": "PDF",
+        "items": [
+          "Abrir Manual 07."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "manual-rutas-regionales",
+    "title": "Rutas y evacuación regional",
+    "icon": "🗺️",
+    "category": "Evacuación",
+    "priority": "Alta",
+    "summary": "Corredores principales de Misiones, Paraná y Paraguay, cruces y hoja de ruta.",
+    "keywords": [
+      "rutas",
+      "Misiones",
+      "Paraná",
+      "Paraguay",
+      "frontera",
+      "evacuación"
+    ],
+    "sections": [
+      {
+        "title": "Planificación",
+        "items": [
+          "Ruta principal y dos alternativas.",
+          "No depender del mismo puente o frontera.",
+          "Verificar estado oficial antes de salir."
+        ]
+      },
+      {
+        "title": "PDF",
+        "items": [
+          "Abrir Manual 08 con esquemas offline."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "manual-auto-basico",
+    "title": "Reparaciones básicas del auto",
+    "icon": "🚗",
+    "category": "Vehículo",
+    "priority": "Alta",
+    "summary": "Arranque, neumático, temperatura, fusibles, barro y seguridad en ruta.",
+    "keywords": [
+      "auto",
+      "batería",
+      "rueda",
+      "motor",
+      "fusible",
+      "barro"
+    ],
+    "sections": [
+      {
+        "title": "Primero",
+        "items": [
+          "Salir del tránsito, usar balizas y señalización.",
+          "No trabajar bajo el auto sostenido solo por el gato."
+        ]
+      },
+      {
+        "title": "PDF",
+        "items": [
+          "Abrir Manual 09."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "manual-mascotas-bella-manchas",
+    "title": "Mascotas: Bella y Manchas",
+    "icon": "🐾",
+    "category": "Mascotas",
+    "priority": "Alta",
+    "summary": "Primeros auxilios, evacuación, botiquín veterinario y lista segura de medicamentos.",
+    "keywords": [
+      "Bella",
+      "Manchas",
+      "mascotas",
+      "perros",
+      "chihuahua",
+      "veterinario",
+      "botiquín"
+    ],
+    "sections": [
+      {
+        "title": "Regla principal",
+        "items": [
+          "No administrar medicamentos humanos ni veterinarios sin indicación específica.",
+          "Mantener peso, vacunas, alergias y contacto veterinario actualizados.",
+          "Abrir Manual 10."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "manual-paneles-solares",
+    "title": "Paneles solares: instalación, uso y mantenimiento",
+    "icon": "☀️",
+    "category": "Energía",
+    "priority": "Alta",
+    "summary": "Compatibilidad con Forza, uso portátil, limpieza, diagnóstico y límites de reparación segura.",
+    "keywords": [
+      "solar",
+      "panel",
+      "Forza",
+      "energía",
+      "instalación",
+      "mantenimiento",
+      "reparación"
+    ],
+    "sections": [
+      {
+        "title": "Seguridad",
+        "items": [
+          "El panel produce corriente con luz.",
+          "Techo, 220 V, tableros y baterías grandes requieren profesional.",
+          "Abrir Manual 11."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "manual-supervivencia-urbana-y-continuidad-familiar",
+    "title": "Supervivencia urbana y continuidad familiar",
+    "icon": "🏙️",
+    "category": "Preparación",
+    "priority": "Alta",
+    "summary": "Plan práctico para permanecer seguros en casa, moverse con criterio y evitar decisiones impulsivas durante una crisis urbana.",
+    "keywords": [
+      "urbano",
+      "ciudad",
+      "saqueo",
+      "servicios",
+      "refugio",
+      "movilidad",
+      "crisis"
+    ],
+    "sections": [
+      {
+        "title": "1. Prioridades de la primera hora",
+        "items": [
+          "Seguridad - Confirmar que no haya incendio, fuga de gas, violencia cercana, cables caídos ni daño estructural.",
+          "Familia - Ubicar a cada integrante y activar el contacto fuera de la zona.",
+          "Información - Escuchar fuentes oficiales; anotar hora, alcance y duración estimada.",
+          "Recursos - Contar agua, alimentos, medicamentos, energía, efectivo y combustible.",
+          "Decisión - Permanecer en casa salvo peligro directo, orden de evacuación o necesidad médica.",
+          "Regla EDY: No salir a “ver qué pasa”. En una crisis urbana, la exposición innecesaria suele aumentar el riesgo."
+        ]
+      },
+      {
+        "title": "2. Refugio en casa",
+        "items": [
+          "Cerrar accesos sin bloquear una salida de emergencia. Mantener llaves, calzado y linternas a mano.",
+          "Elegir una habitación interior como punto familiar, con radio, agua, botiquín y cargadores.",
+          "Usar iluminación discreta y evitar mostrar reservas o equipos desde la calle.",
+          "Separar una zona limpia para cocinar y otra para residuos y elementos mojados.",
+          "Conservar una rutina: comidas, higiene, información y descanso en horarios definidos."
+        ]
+      },
+      {
+        "title": "3. Movilidad y abastecimiento",
+        "items": [
+          "Antes de salir, definir objetivo, ruta, alternativa, hora de regreso y medio de contacto.",
+          "No circular por zonas inundadas, disturbios, incendios, derrames o cables caídos.",
+          "Llevar identificación, agua, teléfono, linterna, efectivo pequeño y un botiquín mínimo.",
+          "Evitar filas tensas y compras impulsivas; priorizar agua, medicamentos y combustible seguro.",
+          "Mantener el vehículo con más de medio tanque cuando haya alertas o interrupciones sostenidas."
+        ]
+      },
+      {
+        "title": "4. Convivencia y seguridad comunitaria",
+        "items": [
+          "Coordinar con vecinos conocidos sin difundir inventarios, ausencias ni datos privados.",
+          "Establecer una señal simple para pedir ayuda y otra para indicar que todo está bien.",
+          "No confrontar grupos ni perseguir sospechosos. Llamar a emergencias y resguardarse.",
+          "Registrar incidentes, daños y gastos con hora y fotografías solo cuando sea seguro."
+        ]
+      },
+      {
+        "title": "5. Checklist de 24 horas",
+        "items": [
+          "Familia localizada - □",
+          "Agua contabilizada - □",
+          "Medicamentos separados - □",
+          "Fuentes de información verificadas - □",
+          "Baterías cargadas - □",
+          "Puertas y ventanas revisadas - □"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Plan Familiar de Emergencias - SINAGIR",
+        "url": "https://www.argentina.gob.ar/sinagir/plan-familiar-de-emergencias"
+      },
+      {
+        "name": "Kit de Emergencias - SINAGIR",
+        "url": "https://www.argentina.gob.ar/sinagir/kit-de-emergencias"
+      },
+      {
+        "name": "Preparedness Starts at Home - Ready.gov",
+        "url": "https://www.ready.gov/"
+      }
+    ]
+  },
+  {
+    "id": "manual-apagones-prolongados-72-horas-y-mas",
+    "title": "Apagones prolongados: 72 horas y más",
+    "icon": "🔦",
+    "category": "Energía",
+    "priority": "Esencial",
+    "summary": "Protocolo familiar para sostener servicios esenciales y evitar monóxido, incendios, alimentos inseguros y agotamiento de baterías.",
+    "keywords": [
+      "apagón",
+      "corte de luz",
+      "generador",
+      "forza",
+      "batería",
+      "heladera",
+      "monóxido"
+    ],
+    "sections": [
+      {
+        "title": "1. Activación por etapas",
+        "items": [
+          "0-15 min - Verificar alcance, desenchufar equipos sensibles y localizar linternas.",
+          "15-60 min - Confirmar familia, cerrar heladera, preparar radio y contar energía disponible.",
+          "1-6 h - Definir cargas críticas, cocinar perecederos prioritarios y conservar agua.",
+          "6-24 h - Aplicar ventanas de carga y comunicación; evaluar combustible y pronóstico.",
+          "24-72 h - Racionar, rotar descanso, revisar higiene, seguridad y necesidad de evacuación.",
+          "Más de 72 h - Reevaluar abastecimiento, salud, clima, red vial y apoyo comunitario."
+        ]
+      },
+      {
+        "title": "2. Plan de cargas críticas",
+        "items": [
+          "1 - Vida y seguridad - Iluminación mínima, teléfonos, radio, equipos médicos imprescindibles.",
+          "2 - Operación - iPad EDY, módem/Starlink en ventanas, ventilador si el calor lo exige.",
+          "3 - Confort - Televisor, electrodomésticos menores y cargas postergables.",
+          "No conectar - Estufas eléctricas, hornos, pavas o bombas sin cálculo de potencia y pico.",
+          "Anotar potencia nominal y pico de arranque. No superar la potencia continua de la fuente.",
+          "Cargar varios dispositivos juntos durante una ventana corta y luego apagar inversores.",
+          "Mantener una reserva mínima de batería para comunicación y luz nocturna."
+        ]
+      },
+      {
+        "title": "3. Generador y monóxido de carbono",
+        "items": [
+          "PELIGRO: El generador funciona únicamente al aire libre, lejos de puertas, ventanas, galerías cerradas y entradas de aire. Nunca dentro de la casa, depósito o garaje, aunque la puerta esté abierta.",
+          "No retroalimentar la casa enchufando el generador a un tomacorriente. Una transferencia fija requiere electricista.",
+          "Usar cables adecuados para exterior, completamente extendidos y sin daños.",
+          "Apagar y enfriar antes de cargar combustible. Guardar combustible en recipientes homologados y separados de la vivienda.",
+          "Instalar detectores de monóxido con batería y probarlos mensualmente."
+        ]
+      },
+      {
+        "title": "4. Heladera, congelador y alimentos",
+        "items": [
+          "Mantener puertas cerradas. Marcar en una hoja cada apertura para reducirlas.",
+          "Luego de un corte prolongado, descartar perecederos si no puede confirmarse temperatura segura.",
+          "No probar un alimento para decidir si es seguro. Desechar envases hinchados, dañados o contaminados.",
+          "Priorizar consumo de alimentos refrigerados, luego congelados y finalmente secos/enlatados."
+        ]
+      },
+      {
+        "title": "5. Registro de energía",
+        "items": [
+          "",
+          "",
+          "",
+          ""
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "CDC - Qué hacer durante un apagón",
+        "url": "https://www.cdc.gov/natural-disasters/es/response/que-hacer-para-protegerse-durante-un-apagon.html"
+      },
+      {
+        "name": "ANMAT - Alimentos y agua en cortes de luz",
+        "url": "https://www.argentina.gob.ar/anmat/comunidad/seguridad-de-los-alimentos-y-del-agua-en-caso-de-emergencias-climaticas-y-cortes-de-luz"
+      },
+      {
+        "name": "Argentina - Monóxido de carbono",
+        "url": "https://www.argentina.gob.ar/salud/dinesa/recomendaciones/Intoxicacion-de-monoxido-de-carbono"
+      }
+    ]
+  },
+  {
+    "id": "manual-tormentas-severas-lluvias-intensas-e-inundaciones",
+    "title": "Tormentas severas, lluvias intensas e inundaciones",
+    "icon": "⛈️",
+    "category": "Clima",
+    "priority": "Esencial",
+    "summary": "Acciones antes, durante y después de tormentas, crecidas, anegamientos y vientos intensos.",
+    "keywords": [
+      "tormenta",
+      "inundación",
+      "lluvia",
+      "viento",
+      "rayo",
+      "crecida",
+      "anegamiento"
+    ],
+    "sections": [
+      {
+        "title": "1. Antes de la tormenta",
+        "items": [
+          "Seguir alertas oficiales y observar cambios locales: lluvia acumulada, viento, arroyos, desagües y tránsito.",
+          "Cargar equipos, retirar objetos sueltos, limpiar canaletas accesibles sin subir durante mal tiempo y asegurar mascotas.",
+          "Mover documentos, medicamentos, alimentos y equipos a niveles altos.",
+          "Preparar ruta hacia terreno alto y una alternativa que no dependa de puentes o pasos bajos."
+        ]
+      },
+      {
+        "title": "2. Durante",
+        "items": [
+          "Permanecer bajo techo, alejado de ventanas, chapas, árboles y estructuras inestables.",
+          "Desconectar equipos sensibles solo si el piso está seco y es seguro.",
+          "No usar duchas, griferías o equipos conectados durante actividad eléctrica intensa si hay riesgo de descarga.",
+          "No caminar ni conducir por agua en movimiento. Dar la vuelta y buscar otra ruta.",
+          "Si el agua ingresa, cortar electricidad desde un lugar seco únicamente si se sabe hacerlo sin exposición."
+        ]
+      },
+      {
+        "title": "3. Cuándo evacuar",
+        "items": [
+          "Orden oficial - Salir por la ruta indicada sin demoras.",
+          "Agua sube rápidamente - Evacuar temprano hacia zona alta; no esperar a que el vehículo quede atrapado.",
+          "Daño estructural o árbol sobre la vivienda - Alejarse de la zona afectada y pedir evaluación.",
+          "Cables, olor a gas o incendio - No tocar interruptores; retirarse y llamar a emergencias.",
+          "Persona vulnerable sin condiciones seguras - Trasladar antes de que empeoren caminos o comunicaciones."
+        ]
+      },
+      {
+        "title": "4. Después",
+        "items": [
+          "Tratar todo cable caído como energizado.",
+          "No reingresar a estructuras dañadas hasta contar con autorización o evaluación competente.",
+          "Usar guantes, botas y protección ocular para limpiar. Ventilar y documentar daños.",
+          "Desechar alimentos y medicamentos que tocaron agua de inundación.",
+          "Lavar y desinfectar superficies según indicaciones sanitarias; no mezclar lavandina con otros productos."
+        ]
+      },
+      {
+        "title": "5. Hoja de alerta familiar",
+        "items": [
+          "Fuente oficial principal",
+          "Punto alto 1",
+          "Punto alto 2",
+          "Ruta principal",
+          "Ruta alternativa",
+          "Persona que decide evacuación"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "SINAGIR - Lluvias intensas",
+        "url": "https://www.argentina.gob.ar/sinagir/riesgos-frecuentes/lluvias-intensas/que-hacer"
+      },
+      {
+        "name": "Argentina - Qué hacer en una inundación",
+        "url": "https://www.argentina.gob.ar/node/120204"
+      },
+      {
+        "name": "CDC - Después de una inundación",
+        "url": "https://www.cdc.gov/es/disasters/floods/after.html"
+      }
+    ]
+  },
+  {
+    "id": "manual-incendios-en-viviendas",
+    "title": "Incendios en viviendas",
+    "icon": "🔥",
+    "category": "Incendios",
+    "priority": "Esencial",
+    "summary": "Guía familiar para reducir el riesgo de incendio, salir rápido y evitar volver a entrar.",
+    "keywords": [
+      "incendio",
+      "humo",
+      "extintor",
+      "evacuación",
+      "gas",
+      "cocina"
+    ],
+    "sections": [
+      {
+        "title": "1. Prevención doméstica",
+        "items": [
+          "Instalar detectores de humo en zonas adecuadas y probarlos mensualmente.",
+          "No sobrecargar tomas ni usar cables dañados, adaptadores flojos o zapatillas recalentadas.",
+          "Mantener combustibles, aerosoles y solventes lejos de calor y chispas.",
+          "No dejar cocina, velas, espirales o cargadores defectuosos sin supervisión.",
+          "Guardar fósforos y encendedores fuera del alcance de los niños."
+        ]
+      },
+      {
+        "title": "2. Si hay humo o fuego",
+        "items": [
+          "Alarma o humo - Gritar “fuego”, reunir a quienes estén al alcance y evacuar.",
+          "Puerta caliente o humo debajo - No abrir. Usar otra salida.",
+          "Ambiente con humo - Avanzar agachado hacia la salida sin detenerse a buscar objetos.",
+          "Ropa en llamas - Detenerse, tirarse al piso y rodar; enfriar quemadura con agua corriente fresca.",
+          "Persona atrapada - No reingresar. Informar ubicación exacta a bomberos."
+        ]
+      },
+      {
+        "title": "3. Extintor: solo fuego pequeño y salida asegurada",
+        "items": [
+          "USAR SOLO SI: El fuego es incipiente, el extintor es adecuado, hay una salida libre detrás y otra persona ya llamó a bomberos. Si crece, produce mucho humo o genera duda: evacuar.",
+          "Retirar seguro, apuntar a la base, accionar y barrer de lado a lado desde distancia prudente.",
+          "No usar agua sobre electricidad energizada, aceite o combustible.",
+          "Después de cualquier uso, retirar el extintor para recarga o reemplazo."
+        ]
+      },
+      {
+        "title": "4. Plan de escape Dell’Era",
+        "items": [
+          "Dormitorios",
+          "Cocina / living",
+          "Depósito / garaje",
+          "Patio",
+          "Practicar dos veces al año, incluyendo una simulación nocturna sin correr.",
+          "El punto de reunión debe estar fuera, visible y lejos de humo, cables y tránsito.",
+          "Nadie vuelve a entrar por mascotas, documentos o equipos. Informar a bomberos."
+        ]
+      },
+      {
+        "title": "5. Después",
+        "items": [
+          "No reconectar gas ni electricidad por cuenta propia.",
+          "No consumir alimentos o medicamentos expuestos a humo, calor o químicos.",
+          "Documentar daños cuando bomberos autoricen el ingreso.",
+          "Revisar emocionalmente a niños y adultos; un incendio puede generar ansiedad posterior."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "SINAGIR - Riesgos frecuentes",
+        "url": "https://www.argentina.gob.ar/sinagir/riesgos-frecuentes"
+      },
+      {
+        "name": "Argentina - Emergencias y bomberos",
+        "url": "https://www.argentina.gob.ar/tema/emergencias"
+      },
+      {
+        "name": "CDC - Prevención de lesiones después de un desastre",
+        "url": "https://www.cdc.gov/es/disasters/injury/facts.html"
+      }
+    ]
+  },
+  {
+    "id": "manual-comunicaciones-por-radio-en-emergencias",
+    "title": "Comunicaciones por radio en emergencias",
+    "icon": "📻",
+    "category": "Comunicaciones",
+    "priority": "Alta",
+    "summary": "Cómo organizar radios, mensajes y horarios sin depender de Internet, respetando licencias y frecuencias autorizadas.",
+    "keywords": [
+      "radio",
+      "walkie talkie",
+      "enacom",
+      "frecuencia",
+      "comunicación",
+      "mensaje",
+      "emergencia"
+    ],
+    "sections": [
+      {
+        "title": "1. Principios",
+        "items": [
+          "Una radio no garantiza contacto: requiere equipos compatibles, baterías, ubicación, antena y un plan común.",
+          "Antes de transmitir, escuchar. Hablar breve, claro y con datos verificables.",
+          "Nunca divulgar direcciones, inventarios, documentos o movimientos sensibles en un canal abierto.",
+          "Mantener una tarjeta impresa con canal autorizado, horario de escucha y palabras simples acordadas."
+        ]
+      },
+      {
+        "title": "2. Legalidad en Argentina",
+        "items": [
+          "VERIFICAR ANTES DE USAR: La posibilidad de transmitir depende del servicio, frecuencia, potencia, homologación del equipo y autorización aplicable. Un equipo comprado en otro país puede usar bandas no habilitadas en Argentina. Consultar ENACOM antes de operar.",
+          "Radioaficionados: requieren licencia y deben operar dentro del reglamento y categoría correspondiente.",
+          "Banda Ciudadana y otros servicios pueden requerir alta o autorización específica.",
+          "No interferir servicios de emergencia, aeronáuticos, policiales, marítimos o de seguridad.",
+          "En una emergencia, seguir las instrucciones de autoridades y radio clubes habilitados."
+        ]
+      },
+      {
+        "title": "3. Formato de mensaje EDY",
+        "items": [
+          "1 - A quién llama - “Base familia, de vehículo 1”",
+          "2 - Ubicación general - “Estoy en punto B, sin dar domicilio por canal abierto”",
+          "3 - Estado - “Todos bien / necesito asistencia médica / ruta bloqueada”",
+          "4 - Necesidad - “Confirmar punto de reunión”",
+          "5 - Cierre - “Recibido, próximo contacto 09:30”"
+        ]
+      },
+      {
+        "title": "4. Plan de energía y alcance",
+        "items": [
+          "Guardar pilas separadas si el fabricante lo recomienda y rotarlas por fecha.",
+          "Usar potencia mínima suficiente cuando el equipo lo permita.",
+          "Buscar altura y despeje, pero nunca subir a techos, árboles o torres durante tormenta.",
+          "Programar ventanas de escucha para no agotar batería: por ejemplo, cada hora durante cinco minutos.",
+          "Realizar pruebas mensuales dentro de las condiciones legales autorizadas."
+        ]
+      },
+      {
+        "title": "5. Tarjeta familiar",
+        "items": [
+          "Equipo / modelo",
+          "Servicio y autorización",
+          "Canal o frecuencia autorizada",
+          "Horario de escucha",
+          "Contacto alternativo",
+          "Radio club / autoridad local"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "ENACOM - Radioaficionados",
+        "url": "https://www.enacom.gob.ar/radioaficionados_p127"
+      },
+      {
+        "name": "ENACOM - Reglamento de Radioaficionados",
+        "url": "https://www.enacom.gob.ar/nuevo-reglamento-de-radioficionados_p3301"
+      },
+      {
+        "name": "ENACOM - Alta Banda Ciudadana",
+        "url": "https://www.enacom.gob.ar/tramites/autorizaciones-solicitud-alta-operar-servicio-banda-ciudadana-sbc-_t16"
+      }
+    ]
+  },
+  {
+    "id": "manual-potabilizacion-almacenamiento-y-uso-de-agua-segura",
+    "title": "Potabilización, almacenamiento y uso de agua segura",
+    "icon": "💧",
+    "category": "Agua",
+    "priority": "Esencial",
+    "summary": "Manual para separar agua potable, tratar fuentes dudosas y evitar contaminación durante cortes o evacuaciones.",
+    "keywords": [
+      "agua",
+      "potabilizar",
+      "hervir",
+      "cloro",
+      "filtro",
+      "bidón",
+      "saneamiento"
+    ],
+    "sections": [
+      {
+        "title": "1. Jerarquía de fuentes",
+        "items": [
+          "1 - Agua embotellada cerrada y dentro de condiciones normales.",
+          "2 - Agua de red declarada segura por la autoridad.",
+          "3 - Agua almacenada correctamente en recipientes aptos.",
+          "4 - Agua dudosa tratada con un método confiable.",
+          "No usar - Agua con olor químico, combustible, espuma anormal o contacto con inundación industrial."
+        ]
+      },
+      {
+        "title": "2. Almacenamiento",
+        "items": [
+          "Usar recipientes aptos para alimentos, limpios, cerrados, rotulados y protegidos del sol.",
+          "Separar agua de beber/cocinar de agua para limpieza y descarga sanitaria.",
+          "No introducir manos o vasos dentro del bidón; usar pico o canilla limpia.",
+          "Inspeccionar tapas, olor, sedimentos y fugas. Rotar según el recipiente y la recomendación sanitaria.",
+          "Mantener químicos, combustibles y plaguicidas en otro sector."
+        ]
+      },
+      {
+        "title": "3. Tratamiento de agua dudosa",
+        "items": [
+          "PRIMERO: Seguir la indicación de la autoridad sanitaria. Filtrar sólidos visibles mejora la claridad, pero no vuelve potable el agua.",
+          "Hervido: cuando sea viable, llevar el agua a ebullición según la recomendación sanitaria vigente y dejar enfriar tapada.",
+          "Desinfección química: usar solo producto apto, concentración conocida y tabla oficial. La dosis cambia según concentración y turbidez.",
+          "Filtros: confirmar qué microorganismos y contaminantes retienen. Un filtro de sedimentos no elimina necesariamente virus o químicos.",
+          "Agua con contaminación química o combustible: no se vuelve segura hirviéndola; usar otra fuente."
+        ]
+      },
+      {
+        "title": "4. Higiene y saneamiento",
+        "items": [
+          "Priorizar lavado de manos en momentos críticos: antes de preparar comida y después del baño o manejar residuos.",
+          "Si el agua escasea, usar alcohol en gel cuando las manos no estén visiblemente sucias.",
+          "Separar residuos y excretas de la fuente de agua. Evitar que escurrimientos alcancen bidones o cocina.",
+          "Limpiar recipientes con productos adecuados sin mezclar químicos."
+        ]
+      },
+      {
+        "title": "5. Control de reserva Dell’Era",
+        "items": [
+          "Bidón 1 - 20 L - Beber/cocinar",
+          "Bidón 2 - 20 L - Beber/cocinar",
+          "Bidón 3 - 20 L - Beber/cocinar",
+          "Bidón 4 - 20 L - Higiene",
+          "Bidón 5 - 20 L - Higiene / reserva"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "OPS - Almacenamiento domiciliario de agua",
+        "url": "https://www.paho.org/es/documentos/almacenamiento-domiciliariofamiliar-agua-emergencias"
+      },
+      {
+        "name": "OPS - Agua en situaciones de emergencia",
+        "url": "https://www.paho.org/es/documentos/agua-situaciones-emergencia"
+      },
+      {
+        "name": "CDC - Agua segura durante apagones",
+        "url": "https://www.cdc.gov/es/disasters/poweroutage/needtoknow.html"
+      }
+    ]
+  },
+  {
+    "id": "manual-conservacion-rotacion-y-seguridad-de-alimentos",
+    "title": "Conservación, rotación y seguridad de alimentos",
+    "icon": "🥫",
+    "category": "Alimentos",
+    "priority": "Alta",
+    "summary": "Organización del stock de emergencia para consumir primero lo más próximo, reducir pérdidas y evitar intoxicaciones.",
+    "keywords": [
+      "alimentos",
+      "vencimiento",
+      "rotación",
+      "PEPS",
+      "heladera",
+      "plagas",
+      "stock"
+    ],
+    "sections": [
+      {
+        "title": "1. Sistema de rotación",
+        "items": [
+          "Aplicar PEPS: primero en entrar, primero en salir, ajustando por fecha real de vencimiento.",
+          "Rotular cada caja con producto, cantidad, vencimiento más cercano y fecha de revisión.",
+          "Separar alimentos de limpieza, combustibles, medicamentos y alimento de mascotas.",
+          "Registrar consumo doméstico normal para que el stock no quede olvidado."
+        ]
+      },
+      {
+        "title": "2. Condiciones de depósito",
+        "items": [
+          "Calor y humedad - Lugar fresco, seco, ventilado y sin sol directo; usar estantes separados del piso y pared.",
+          "Plagas - Envases cerrados, limpieza, inspección de heces, perforaciones, telarañas y olor.",
+          "Agua - Nada directamente en el piso; elevar reservas ante lluvias o filtraciones.",
+          "Golpes - No apilar latas o frascos de forma inestable.",
+          "Contaminación - No guardar pesticidas, combustibles o químicos junto a alimentos."
+        ]
+      },
+      {
+        "title": "3. Señales de descarte",
+        "items": [
+          "Latas hinchadas, con pérdidas, óxido profundo o golpes en costuras.",
+          "Frascos sin vacío, tapas levantadas, espuma, olor o color anormal.",
+          "Paquetes perforados, húmedos, con insectos o moho.",
+          "Perecederos que estuvieron fuera de temperatura segura por tiempo incierto.",
+          "Alimentos que tocaron agua de inundación. No probar para decidir."
+        ]
+      },
+      {
+        "title": "4. Corte de luz",
+        "items": [
+          "No abrir heladera o freezer salvo necesidad.",
+          "Trasladar perecederos a conservadora con hielo si el corte se prolonga y puede mantenerse frío.",
+          "Cocinar primero lo más vulnerable solo si hay agua segura y forma de cocción segura.",
+          "Registrar hora de inicio del corte y temperatura si se dispone de termómetro."
+        ]
+      },
+      {
+        "title": "5. Hoja de auditoría mensual",
+        "items": [
+          "Arroz/pastas",
+          "Conservas",
+          "Leche/harina",
+          "Azúcar/sal/miel",
+          "Snacks/mermeladas",
+          "Mascotas"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "ANMAT - Seguridad en emergencias y cortes",
+        "url": "https://www.argentina.gob.ar/anmat/comunidad/seguridad-de-los-alimentos-y-del-agua-en-caso-de-emergencias-climaticas-y-cortes-de-luz"
+      },
+      {
+        "name": "ANMAT - Manipulación segura",
+        "url": "https://www.argentina.gob.ar/anmat/comunidad/recomendaciones-para-la-manipulacion-segura-de-los-alimentos"
+      },
+      {
+        "name": "ANMAT - Manual 2025 de manipulación segura",
+        "url": "https://www.argentina.gob.ar/sites/default/files/anmat_manual_ma_2025.pdf"
+      }
+    ]
+  },
+  {
+    "id": "manual-huerta-familiar-y-autoproduccion-de-alimentos",
+    "title": "Huerta familiar y autoproducción de alimentos",
+    "icon": "🌱",
+    "category": "Producción",
+    "priority": "Media",
+    "summary": "Guía para iniciar una huerta doméstica que complemente reservas sin depender de una emergencia.",
+    "keywords": [
+      "huerta",
+      "semillas",
+      "compost",
+      "riego",
+      "plantines",
+      "verduras",
+      "prohuerta"
+    ],
+    "sections": [
+      {
+        "title": "1. Empezar pequeño",
+        "items": [
+          "Elegir un lugar con varias horas de luz, acceso a agua y drenaje.",
+          "Comenzar con uno o dos canteros o recipientes; ampliar después de sostener el cuidado.",
+          "Priorizar especies de consumo habitual, ciclo corto y adaptadas a la estación.",
+          "Proteger la huerta de mascotas, escurrimientos contaminados y zonas tratadas con químicos."
+        ]
+      },
+      {
+        "title": "2. Suelo y compost",
+        "items": [
+          "Mejorar estructura con compost maduro y cobertura vegetal seca.",
+          "No usar residuos de carne, grasas, heces de mascotas ni materiales enfermos en compost doméstico.",
+          "Mantener equilibrio entre material húmedo y seco; airear si aparece olor fuerte.",
+          "El compost listo debe verse homogéneo, oscuro y con olor a tierra."
+        ]
+      },
+      {
+        "title": "3. Semilleros y plantines",
+        "items": [
+          "Semilla - Usar semillas sanas, identificadas y dentro de fecha razonable.",
+          "Sustrato - Liviano, limpio, con retención de agua y aireación.",
+          "Profundidad - Cubrir según tamaño de semilla; no enterrar en exceso.",
+          "Riego - Fino y frecuente sin encharcar.",
+          "Trasplante - Hacer cuando el plantín tenga desarrollo suficiente y clima adecuado."
+        ]
+      },
+      {
+        "title": "4. Riego y clima de Misiones",
+        "items": [
+          "Regar temprano o al final de la tarde, directo al suelo y evitando exceso de humedad foliar.",
+          "Usar cobertura para reducir evaporación y golpe de lluvia.",
+          "Revisar drenaje después de tormentas; raíces anegadas también enferman.",
+          "En calor extremo, usar media sombra sin quitar toda la luz."
+        ]
+      },
+      {
+        "title": "5. Plan inicial de 90 días",
+        "items": [
+          "1 - Definir lugar, medir luz, preparar recipientes/cantero y compost.",
+          "2 - Sembrar hojas y aromáticas conocidas; iniciar almácigos.",
+          "3-4 - Control de riego, malezas, hormigas y drenaje.",
+          "5-8 - Trasplantar, cubrir suelo y registrar crecimiento.",
+          "9-12 - Cosechar, guardar semillas cuando corresponda y planificar nueva siembra."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "INTA - La huerta agroecológica",
+        "url": "https://repositorio.inta.gob.ar/handle/20.500.12123/17468"
+      },
+      {
+        "name": "INTA - Mi casa, mi huerta",
+        "url": "https://repositorio.inta.gob.ar/xmlui/handle/20.500.12123/15072"
+      },
+      {
+        "name": "INTA - Producción de plantines",
+        "url": "https://intainforma.inta.gob.ar/huertas-cinco-consejos-clave-para-producir-plantines/"
+      }
+    ]
+  },
+  {
+    "id": "manual-electricidad-domiciliaria-segura",
+    "title": "Electricidad domiciliaria segura",
+    "icon": "⚡",
+    "category": "Hogar",
+    "priority": "Esencial",
+    "summary": "Manual de prevención para reconocer peligros y resolver solo acciones simples sin exponerse a 220 V.",
+    "keywords": [
+      "electricidad",
+      "disyuntor",
+      "térmica",
+      "enchufe",
+      "cable",
+      "220",
+      "tablero"
+    ],
+    "sections": [
+      {
+        "title": "1. Regla central",
+        "items": [
+          "PELIGRO DE MUERTE: La tensión domiciliaria de 220 V puede causar electrocución e incendio. No abrir tableros, tocar conductores ni reparar instalaciones energizadas. Los trabajos fijos corresponden a un electricista calificado."
+        ]
+      },
+      {
+        "title": "2. Señales de alarma",
+        "items": [
+          "Olor a plástico quemado, chisporroteo, zumbido, humo, calor en tomas o marcas negras.",
+          "Disyuntor o térmica que se dispara repetidamente.",
+          "Descarga al tocar electrodoméstico, grifería o estructura metálica.",
+          "Cables pelados, uniones con cinta improvisada, enchufes flojos o múltiples adaptadores.",
+          "Agua cerca de tomas, bombas, alargues o tablero."
+        ]
+      },
+      {
+        "title": "3. Acciones permitidas de bajo riesgo",
+        "items": [
+          "Equipo no enciende - Desenchufar, revisar manual, probar otro equipo conocido en esa toma solo si no hay olor/calor/agua.",
+          "Térmica disparada - Desenchufar cargas, identificar causa aparente y rearmar una sola vez. Si vuelve a disparar, dejar apagada.",
+          "Corte por agua - No acercarse al tablero mojado. Pedir a la distribuidora o electricista que corte desde un punto seguro.",
+          "Cable de extensión - Retirar de servicio si está dañado; no repararlo como solución permanente.",
+          "Lámpara - Cambiar solo con circuito apagado, manos secas y soporte estable."
+        ]
+      },
+      {
+        "title": "4. Generadores y energía solar",
+        "items": [
+          "Nunca conectar una fuente portátil a un tomacorriente para alimentar la instalación.",
+          "Una transferencia o sistema conectado a red debe incluir protecciones y ser instalado por profesional.",
+          "Separar circuitos de emergencia simples mediante cargas directas: lámpara, cargador y radio, respetando potencia.",
+          "No manipular conectores solares mojados o dañados; cubrir el panel antes de intervenir según manual."
+        ]
+      },
+      {
+        "title": "5. Inspección trimestral",
+        "items": [
+          "Disyuntor diferencial probado - □",
+          "Térmicas identificadas - □",
+          "Tomas sin calor ni juego - □",
+          "Alargues sin daños - □",
+          "Protección infantil en tomas - □",
+          "Detectores de humo/CO activos - □"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "ENRE - Buenas prácticas de seguridad eléctrica",
+        "url": "https://www.argentina.gob.ar/noticias/buenas-practicas-favor-del-uso-seguro-de-la-energia-electrica"
+      },
+      {
+        "name": "Argentina - Accidentes eléctricos en casa",
+        "url": "https://www.argentina.gob.ar/node/417305"
+      },
+      {
+        "name": "SRT - Manuales de prevención",
+        "url": "https://www.argentina.gob.ar/srt/prevencion/publicaciones/manual"
+      }
+    ]
+  },
+  {
+    "id": "manual-plomeria-basica-y-control-de-perdidas",
+    "title": "Plomería básica y control de pérdidas",
+    "icon": "🔧",
+    "category": "Hogar",
+    "priority": "Alta",
+    "summary": "Procedimientos domésticos simples para pérdidas, grifos, inodoros y desagües; no incluye gas ni obras.",
+    "keywords": [
+      "plomería",
+      "fontanería",
+      "agua",
+      "pérdida",
+      "caño",
+      "inodoro",
+      "desagüe"
+    ],
+    "sections": [
+      {
+        "title": "1. Ubicar cortes y herramientas",
+        "items": [
+          "Identificar llave general, llaves de cada baño/cocina, tanque y bomba. Etiquetarlas.",
+          "Guardar pinza, llave ajustable, cinta PTFE, balde, trapos, destapador de goma y linterna.",
+          "Practicar el cierre con todos los adultos de la casa. No forzar válvulas trabadas.",
+          "Separar claramente cañerías de agua de gas; ante olor a gas, evacuar y llamar al servicio correspondiente."
+        ]
+      },
+      {
+        "title": "2. Pérdida repentina",
+        "items": [
+          "1 - Cortar electricidad si el agua se acerca a equipos, pero solo desde un lugar seco y seguro.",
+          "2 - Cerrar la llave local; si no detiene, cerrar la general.",
+          "3 - Contener agua con baldes y retirar objetos sensibles.",
+          "4 - Abrir una canilla baja para aliviar presión, si corresponde.",
+          "5 - Documentar y llamar a plomero si la unión está dentro de pared, techo o piso."
+        ]
+      },
+      {
+        "title": "3. Soluciones simples",
+        "items": [
+          "Canilla que gotea: cerrar agua y reemplazar pieza solo si el modelo y procedimiento son conocidos; no forzar piezas antiguas.",
+          "Flexible visible con pérdida: cerrar la llave y reemplazar por uno de igual especificación y longitud. Revisar sin exceder ajuste.",
+          "Inodoro que corre: cerrar llave, revisar flotante y sello accesible; no usar piezas improvisadas.",
+          "Desagüe lento: retirar residuos visibles y usar destapador. Evitar mezclar productos químicos.",
+          "Sifón accesible: colocar balde, desmontar solo si se reconoce el armado y volver a probar sin fugas."
+        ]
+      },
+      {
+        "title": "4. Agua contaminada o retorno",
+        "items": [
+          "No consumir agua con olor, color o aviso de contaminación.",
+          "Después de una inundación, no usar bombas o equipos mojados hasta revisión eléctrica.",
+          "No conectar mangueras entre agua potable y fuentes dudosas.",
+          "Limpiar tanques o cisternas con procedimiento sanitario adecuado, no con mezclas improvisadas."
+        ]
+      },
+      {
+        "title": "5. Mapa doméstico",
+        "items": [
+          "Llave general",
+          "Tanque / salida",
+          "Bomba",
+          "Cocina",
+          "Baño 1",
+          "Baño 2"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "OPS - Agua, saneamiento e higiene",
+        "url": "https://www.paho.org/es/temas/agua-saneamiento-e-higiene-wash"
+      },
+      {
+        "name": "Argentina - Riesgos eléctricos en casa",
+        "url": "https://www.argentina.gob.ar/node/417305"
+      },
+      {
+        "name": "Argentina - Químicos en casa",
+        "url": "https://www.argentina.gob.ar/ambiente/contenidos/domisanitarios"
+      }
+    ]
+  },
+  {
+    "id": "manual-costura-y-reparacion-de-ropa-y-equipo-textil",
+    "title": "Costura y reparación de ropa y equipo textil",
+    "icon": "🧵",
+    "category": "Habilidades",
+    "priority": "Media",
+    "summary": "Técnicas básicas para prolongar la vida útil de ropa y equipo sin máquinas especiales.",
+    "keywords": [
+      "costura",
+      "ropa",
+      "aguja",
+      "hilo",
+      "parche",
+      "cierre",
+      "mochila"
+    ],
+    "sections": [
+      {
+        "title": "1. Kit mínimo",
+        "items": [
+          "Agujas variadas y alfileres - Costuras finas y telas resistentes.",
+          "Hilo poliéster y encerado - Ropa general y reparaciones de carga ligera.",
+          "Tijera pequeña - Cortar hilo y parches; no compartir con alimentos.",
+          "Dedal y enhebrador - Protección y facilidad.",
+          "Parches, cinta textil y adhesivo adecuado - Reparación temporal según material.",
+          "Botones, broches y elástico - Repuestos comunes."
+        ]
+      },
+      {
+        "title": "2. Puntadas útiles",
+        "items": [
+          "Pespunte: resistente para unir bordes de prendas.",
+          "Puntada corrida: rápida para hilvanar o reparaciones temporales.",
+          "Sobrehilado: evita que el borde se desarme.",
+          "Puntada invisible: dobladillos y terminaciones.",
+          "Refuerzo en caja y cruz: para cintas de mochilas, solo en cargas moderadas."
+        ]
+      },
+      {
+        "title": "3. Reparaciones frecuentes",
+        "items": [
+          "Desgarro: detener el avance con puntadas cortas y parche más grande que la zona dañada.",
+          "Botón: reforzar con varias pasadas y dejar un pequeño cuello de hilo.",
+          "Dobladillo: doblar dos veces el borde para ocultar fibras.",
+          "Mosquitero: parchear ambos lados si el agujero es grande; revisar perímetro.",
+          "Cierre trabado: limpiar, alinear y lubricar solo con producto compatible; no forzar el carro."
+        ]
+      },
+      {
+        "title": "4. Equipo de emergencia",
+        "items": [
+          "LÍMITE DE CARGA: Una reparación casera no debe usarse para arneses, cuerdas de seguridad, elementos de escalada, cinturones del vehículo, equipo contra caídas ni componentes cuya falla pueda causar lesiones.",
+          "En mochilas, revisar costuras de hombros y base antes de cargar.",
+          "En carpas, usar parches compatibles y probar impermeabilidad antes de una salida.",
+          "Secar completamente telas y calzado antes de guardar para evitar hongos."
+        ]
+      },
+      {
+        "title": "5. Práctica familiar",
+        "items": [
+          "Cada adulto practica coser un botón y cerrar un desgarro.",
+          "Los niños pueden clasificar materiales y aprender a usar tijera con supervisión.",
+          "Guardar fotos de las puntadas en EDY para consulta offline."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Ready.gov - Kit de emergencias",
+        "url": "https://www.ready.gov/"
+      },
+      {
+        "name": "OSHA - Herramientas manuales",
+        "url": "https://www.osha.gov/hand-power-tools"
+      }
+    ]
+  },
+  {
+    "id": "manual-nudos-cuerdas-y-amarres-basicos",
+    "title": "Nudos, cuerdas y amarres básicos",
+    "icon": "🪢",
+    "category": "Habilidades",
+    "priority": "Media",
+    "summary": "Nudos simples para organizar, asegurar lonas y transportar objetos, sin usos de escalada o rescate.",
+    "keywords": [
+      "nudos",
+      "cuerda",
+      "paracord",
+      "amarre",
+      "lona",
+      "ballestrinque"
+    ],
+    "sections": [
+      {
+        "title": "1. Antes de usar una cuerda",
+        "items": [
+          "Identificar material, diámetro, longitud y carga de trabajo del fabricante.",
+          "Inspeccionar cortes, zonas aplastadas, quemaduras, decoloración y contaminación química.",
+          "No pisar, arrastrar sobre bordes filosos ni guardar húmeda.",
+          "Separar cuerdas de uso general de cualquier cuerda certificada para seguridad."
+        ]
+      },
+      {
+        "title": "2. Nudos recomendados",
+        "items": [
+          "Ocho simple - Tope al final de una cuerda. - No usar como sistema de vida sin formación.",
+          "As de guía - Gaza que no se cierra fácilmente. - Requiere remate y práctica; revisar antes de cargar.",
+          "Ballestrinque - Fijación temporal a poste. - Puede deslizar; agregar seguridad.",
+          "Vuelta de escota - Unir cuerdas de distinto grosor. - No confiar para personas o cargas críticas.",
+          "Tensor de carpa - Ajustar vientos de lona o carpa. - Revisar con lluvia y viento.",
+          "Nudo llano - Atar paquetes y vendas no críticas. - Puede soltarse o volcarse bajo carga."
+        ]
+      },
+      {
+        "title": "3. Amarres y lonas",
+        "items": [
+          "Distribuir tensión en varios puntos; no concentrar toda la carga en un ojal.",
+          "Proteger la cuerda donde toca bordes.",
+          "Mantener pasillos y salidas libres; señalizar líneas a baja altura.",
+          "En viento fuerte, reducir superficie de la lona y revisar anclajes sin exponerse."
+        ]
+      },
+      {
+        "title": "4. Paracord y usos limitados",
+        "items": [
+          "Puede servir para organizar equipo, reparaciones temporales, tensores y ataduras.",
+          "No asumir que cualquier “paracord” cumple una resistencia certificada.",
+          "No usar para remolque, elevación, rescate, escalada, hamacas elevadas o suspensión de personas."
+        ]
+      },
+      {
+        "title": "5. Hoja de práctica",
+        "items": [
+          "Ocho - □ - □ - □",
+          "As de guía - □ - □ - □",
+          "Ballestrinque - □ - □ - □",
+          "Vuelta de escota - □ - □ - □",
+          "Tensor - □ - □ - □"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "OSHA - Hand and Power Tools",
+        "url": "https://www.osha.gov/hand-power-tools"
+      },
+      {
+        "name": "Ready.gov - Preparación en el hogar",
+        "url": "https://www.ready.gov/"
+      }
+    ]
+  },
+  {
+    "id": "manual-orientacion-con-mapa-brujula-y-gps",
+    "title": "Orientación con mapa, brújula y GPS",
+    "icon": "🧭",
+    "category": "Navegación",
+    "priority": "Alta",
+    "summary": "Cómo preparar y seguir una ruta sin depender exclusivamente de señal móvil.",
+    "keywords": [
+      "brújula",
+      "gps",
+      "mapa",
+      "rumbo",
+      "coordenadas",
+      "orientación",
+      "ruta"
+    ],
+    "sections": [
+      {
+        "title": "1. Capas de navegación",
+        "items": [
+          "Mapa impreso - No usa batería y muestra contexto. - Puede estar desactualizado o no incluir caminos menores.",
+          "Mapa offline en iPad/teléfono - Detalle y ubicación GPS. - Batería, daño, error de descarga.",
+          "Brújula - Indica dirección sin red. - Necesita conocimiento y puede afectarse por metal.",
+          "Señalización del terreno - Ríos, rutas, relieve, carteles. - Puede cambiar con lluvia, obras o vegetación."
+        ]
+      },
+      {
+        "title": "2. Preparar una ruta",
+        "items": [
+          "Marcar origen, destino, puntos de control, combustible, agua, hospitales y rutas alternativas.",
+          "Descargar mapas para uso sin Internet y probarlos en modo avión.",
+          "Anotar coordenadas solo como apoyo; confirmar que todos usan el mismo formato.",
+          "Establecer hora límite para regresar o activar búsqueda.",
+          "Compartir la ruta con una persona que no viaje."
+        ]
+      },
+      {
+        "title": "3. Uso básico de brújula",
+        "items": [
+          "Alejarla de vehículos, teléfonos, armas, parlantes y estructuras metálicas.",
+          "Orientar el mapa al norte y reconocer un punto visible antes de avanzar.",
+          "Tomar rumbos cortos entre referencias claras, no caminar mirando continuamente la brújula.",
+          "Registrar cambios de dirección y distancia aproximada.",
+          "Si la información contradice el terreno, detenerse y reevaluar."
+        ]
+      },
+      {
+        "title": "4. Si se pierde la orientación",
+        "items": [
+          "STOP: Detenerse, pensar, observar y planificar. Moverse sin certeza suele aumentar la distancia y dificulta el rescate.",
+          "Volver al último punto confirmado solo si la ruta es segura y evidente.",
+          "Buscar señal sin subir a lugares peligrosos. Enviar ubicación y estado con mensaje breve.",
+          "Conservar energía, agua y abrigo. Usar silbato o señales visibles.",
+          "No cruzar ríos, barrancos o selva densa para “acortar”."
+        ]
+      },
+      {
+        "title": "5. Tarjeta de ruta",
+        "items": [
+          "Destino",
+          "Ruta principal",
+          "Alternativa",
+          "Puntos de control",
+          "Hora de salida",
+          "Hora límite"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "SINAGIR - Plan Familiar",
+        "url": "https://www.argentina.gob.ar/sinagir/plan-familiar-de-emergencias"
+      },
+      {
+        "name": "Ready.gov - Planificar según ubicación",
+        "url": "https://www.ready.gov/plan-for-locations"
+      }
+    ]
+  },
+  {
+    "id": "manual-fauna-de-misiones-convivencia-y-seguridad",
+    "title": "Fauna de Misiones: convivencia y seguridad",
+    "icon": "🐍",
+    "category": "Naturaleza",
+    "priority": "Alta",
+    "summary": "Guía preventiva para convivir con fauna silvestre sin dañarla ni exponerse.",
+    "keywords": [
+      "fauna",
+      "Misiones",
+      "serpiente",
+      "araña",
+      "yaguareté",
+      "insectos",
+      "mordedura"
+    ],
+    "sections": [
+      {
+        "title": "1. Principios",
+        "items": [
+          "La fauna silvestre debe observarse a distancia. No alimentar, tocar, capturar ni trasladar.",
+          "Mantener patios limpios, pasto controlado y residuos cerrados para reducir refugios y alimento.",
+          "Usar calzado cerrado, linterna y guantes al mover leña, chapas o escombros.",
+          "No introducir manos en huecos, troncos, cajas o lugares sin visibilidad."
+        ]
+      },
+      {
+        "title": "2. Serpientes",
+        "items": [
+          "ANTE UNA MORDEDURA: Alejarse, mantener a la persona quieta, retirar anillos o calzado ajustado y trasladar urgentemente. No hacer torniquetes, cortes, succión, hielo ni intentar capturar la serpiente.",
+          "En Argentina, yarará, cascabel y coral son de importancia médica; Misiones presenta especies particulares.",
+          "Fotografiar desde distancia solo si es seguro, sin demorar el traslado.",
+          "Mantener a mascotas con correa en zonas de riesgo."
+        ]
+      },
+      {
+        "title": "3. Insectos, arañas y otros animales",
+        "items": [
+          "Sacudir calzado, ropa, mantas y guantes antes de usarlos.",
+          "No aplastar insectos sobre la piel; retirarlos con movimientos lentos cuando sea posible.",
+          "Ante dificultad respiratoria, hinchazón de cara, desmayo o dolor intenso: emergencia médica.",
+          "Después de mordedura de mamífero, lavar la herida y consultar por riesgo de infección y rabia."
+        ]
+      },
+      {
+        "title": "4. Grandes mamíferos y conservación",
+        "items": [
+          "No aproximarse a crías, animales heridos o acorralados.",
+          "Retroceder sin correr y dar una vía de escape.",
+          "No divulgar ubicaciones sensibles de especies amenazadas.",
+          "La caza de fauna silvestre está prohibida en Misiones y puede implicar riesgos sanitarios."
+        ]
+      },
+      {
+        "title": "5. Preparación del hogar",
+        "items": [
+          "Mallas y burletes sin aberturas - □",
+          "Leña elevada y ordenada - □",
+          "Residuos cerrados - □",
+          "Linternas accesibles - □",
+          "Calzado cerrado junto a salidas - □",
+          "Teléfono de Defensa Civil / fauna registrado - □"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Ministerio de Ecología Misiones - Fauna",
+        "url": "https://ecologia.misiones.gob.ar/fauna-de-misiones/"
+      },
+      {
+        "name": "Ministerio de Salud - Mordeduras de serpientes",
+        "url": "https://www.argentina.gob.ar/salud/socioambiental/recomendaciones/serpientes"
+      },
+      {
+        "name": "Ministerio de Ecología - No a la caza furtiva",
+        "url": "https://ecologia.misiones.gob.ar/no-a-la-caza-furtiva-consumir-carne-de-animales-silvestres-pone-en-riesgo-la-salud-humana-y-amenaza-la-invaluable-biodiversidad-de-misiones/"
+      }
+    ]
+  },
+  {
+    "id": "manual-plantas-utiles-de-huerta-y-plantas-potencialmente-toxicas",
+    "title": "Plantas útiles de huerta y plantas potencialmente tóxicas",
+    "icon": "🌿",
+    "category": "Naturaleza",
+    "priority": "Alta",
+    "summary": "Manual preventivo para evitar consumo o uso medicinal de especies mal identificadas.",
+    "keywords": [
+      "plantas",
+      "tóxicas",
+      "huerta",
+      "medicinales",
+      "identificación",
+      "intoxicación",
+      "mandioca"
+    ],
+    "sections": [
+      {
+        "title": "1. Regla de identificación",
+        "items": [
+          "NO CONSUMIR POR UNA FOTO: La identificación de plantas silvestres puede fallar por hojas parecidas, edad, estación o variedad. No ingerir ni usar como medicamento una planta basándose solo en este manual, una aplicación o un nombre popular."
+        ]
+      },
+      {
+        "title": "2. Usos seguros y conocidos",
+        "items": [
+          "Cultivar especies alimentarias compradas e identificadas: hojas, aromáticas y hortalizas habituales.",
+          "Usar cobertura seca, compost maduro y restos vegetales sanos para mejorar suelo.",
+          "Mantener etiquetas con nombre, origen y fecha de siembra.",
+          "Separar plantas ornamentales o potencialmente tóxicas del área de juego y de mascotas."
+        ]
+      },
+      {
+        "title": "3. Riesgos frecuentes",
+        "items": [
+          "Partes distintas de una misma planta pueden tener toxicidad diferente.",
+          "Cocinar o secar no elimina todos los tóxicos.",
+          "El nombre popular cambia entre regiones y puede referirse a especies distintas.",
+          "Niños y mascotas pueden intoxicarse con hojas, semillas, savia o frutos atractivos.",
+          "La mandioca requiere variedades y preparación adecuadas; no improvisar consumo de plantas desconocidas."
+        ]
+      },
+      {
+        "title": "4. Si hubo exposición",
+        "items": [
+          "Retirar contacto - Quitar restos de boca o piel sin exponerse; lavar con agua.",
+          "No provocar vómito - Salvo indicación expresa de toxicología o veterinario.",
+          "Guardar muestra - Planta, foto, envase, hora y cantidad aproximada.",
+          "Pedir ayuda - Centro Nacional de Intoxicaciones 0800-333-0160 y servicio local.",
+          "Mascotas - Contactar veterinario de urgencia; no administrar remedios humanos."
+        ]
+      },
+      {
+        "title": "5. Ficha de identificación autorizada",
+        "items": [
+          "Nombre científico",
+          "Nombre común local",
+          "Origen de la identificación",
+          "Partes comestibles",
+          "Preparación segura",
+          "Riesgos / contraindicaciones"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Centro Nacional de Intoxicaciones",
+        "url": "https://www.argentina.gob.ar/salud/hospital-nacional-posadas/intoxicaciones"
+      },
+      {
+        "name": "Ministerio de Ecología Misiones - Flora",
+        "url": "https://ecologia.misiones.gob.ar/flora-plantas-vasculares/"
+      },
+      {
+        "name": "Argentina - Prevención de intoxicaciones en el hogar",
+        "url": "https://www.argentina.gob.ar/node/203034"
+      }
+    ]
+  },
+  {
+    "id": "manual-mantenimiento-y-uso-seguro-de-generadores-portatiles",
+    "title": "Mantenimiento y uso seguro de generadores portátiles",
+    "icon": "⛽",
+    "category": "Energía",
+    "priority": "Esencial",
+    "summary": "Plan de inspección y prueba para que el generador esté disponible sin generar monóxido, incendio o daño eléctrico.",
+    "keywords": [
+      "generador",
+      "Gamma",
+      "aceite",
+      "combustible",
+      "service",
+      "batería",
+      "AVR"
+    ],
+    "sections": [
+      {
+        "title": "1. Antes de cada uso",
+        "items": [
+          "Ubicación - Exterior, seco, estable y lejos de aberturas y materiales combustibles.",
+          "Aceite - Verificar nivel con motor frío según manual.",
+          "Combustible - Inspeccionar fugas, olor y estado del recipiente.",
+          "Cables - Adecuados para exterior, sin cortes, completamente desenrollados.",
+          "Carga - Calcular potencia continua y picos; conectar con cargas apagadas.",
+          "Tierra / transferencia - Seguir manual y electricista; no improvisar conexión domiciliaria."
+        ]
+      },
+      {
+        "title": "2. Arranque y operación",
+        "items": [
+          "Arrancar sin cargas conectadas salvo indicación del fabricante.",
+          "Dejar estabilizar y conectar equipos de a uno, observando ruidos, tensión y protección.",
+          "No cubrir ni operar bajo lluvia directa. Mantener circulación de aire.",
+          "No mover, inclinar ni cargar combustible con el motor en marcha o caliente.",
+          "Registrar horas de funcionamiento y consumo real."
+        ]
+      },
+      {
+        "title": "3. Rutina mensual",
+        "items": [
+          "Prueba de arranque y carga moderada según manual, en exterior.",
+          "Verificar batería de arranque, terminales, neumáticos/ruedas y tornillería visible.",
+          "Inspeccionar filtro de aire, aceite y bujía de acuerdo con el calendario del fabricante.",
+          "Revisar que no haya nidos, insectos, humedad o corrosión.",
+          "Rotar combustible con método seguro y legal; evitar reservas envejecidas."
+        ]
+      },
+      {
+        "title": "4. Señales para detener",
+        "items": [
+          "Humo anormal, olor intenso, fuga, chispas, vibración o ruido nuevo.",
+          "Protección que se dispara repetidamente o tensión inestable.",
+          "Sobrecalentamiento, falta de aceite o pérdida de potencia.",
+          "Dolor de cabeza, mareos o náuseas en personas cercanas: alejarse y sospechar monóxido."
+        ]
+      },
+      {
+        "title": "5. Registro de mantenimiento",
+        "items": [
+          "",
+          "",
+          "",
+          ""
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "CDC - Monóxido y generadores",
+        "url": "https://www.cdc.gov/es/disasters/psa/co.html"
+      },
+      {
+        "name": "CDC - Peligros eléctricos después de desastres",
+        "url": "https://www.cdc.gov/natural-disasters/es/response/que-hacer-para-protegerse-de-peligros-electricos.html"
+      },
+      {
+        "name": "SRT - Prevención y herramientas",
+        "url": "https://www.argentina.gob.ar/srt/prevencion/publicaciones/manual"
+      }
+    ]
+  },
+  {
+    "id": "manual-uso-seguro-de-motosierras-y-herramientas",
+    "title": "Uso seguro de motosierras y herramientas",
+    "icon": "🪚",
+    "category": "Herramientas",
+    "priority": "Alta",
+    "summary": "Guía preventiva para herramientas manuales y eléctricas, con énfasis en motosierras, sierras y el sistema TOTAL 20 V.",
+    "keywords": [
+      "motosierra",
+      "sierra",
+      "herramientas",
+      "TOTAL",
+      "batería",
+      "corte",
+      "EPP"
+    ],
+    "sections": [
+      {
+        "title": "1. Preparación",
+        "items": [
+          "Leer el manual exacto y mantener guardas, frenos, mangos y controles originales.",
+          "Usar protección ocular, auditiva, calzado firme, pantalón adecuado y guantes según la tarea.",
+          "Retirar niños, mascotas y observadores del área.",
+          "Revisar cables, batería, disco/cadena, accesorios y fijaciones antes de energizar.",
+          "No trabajar cansado, bajo medicación sedante, lluvia intensa, tormenta eléctrica o poca luz."
+        ]
+      },
+      {
+        "title": "2. Motosierra",
+        "items": [
+          "ALTO RIESGO: La tala, ramas tensionadas, árboles inclinados, altura y trabajos cerca de líneas eléctricas requieren personal capacitado. No improvisar.",
+          "Arrancar con freno de cadena activado y sierra apoyada de forma estable, lejos del combustible.",
+          "Sujetar con ambas manos, pies firmes y sin cortar por encima de hombros.",
+          "Evitar contacto de la punta de la espada, principal zona de retroceso.",
+          "No cortar troncos bajo tensión sin identificar hacia dónde cerrará el corte.",
+          "Apagar y bloquear antes de limpiar, tensar o trasladar."
+        ]
+      },
+      {
+        "title": "3. Herramientas eléctricas y baterías",
+        "items": [
+          "Retirar batería antes de cambiar disco, broca o realizar ajustes.",
+          "Usar el accesorio correcto y dentro de velocidad/diámetro permitido.",
+          "No anular guardas ni trabar interruptores.",
+          "Mantener baterías secas, sin golpes, abultamiento ni calor anormal.",
+          "Cargar con cargador compatible, sobre superficie no combustible y con ventilación."
+        ]
+      },
+      {
+        "title": "4. Área de trabajo",
+        "items": [
+          "Piso firme y despejado - □",
+          "Salida libre - □",
+          "Sin combustibles cercanos - □",
+          "Pieza inmovilizada - □",
+          "Cable fuera de la trayectoria - □",
+          "Protección colocada - □"
+        ]
+      },
+      {
+        "title": "5. Después",
+        "items": [
+          "Limpiar con equipo sin energía; no usar solventes incompatibles.",
+          "Revisar daño y guardar seco, separado de niños.",
+          "Registrar afilado, cambio de cadena/disco, batería y fallas.",
+          "Retirar de servicio cualquier herramienta con guardas rotas, chispas o vibración anormal."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "OSHA - Seguridad con motosierras",
+        "url": "https://www.osha.gov/publications/bytopic/chainsaw"
+      },
+      {
+        "name": "OSHA - Operación segura de motosierra",
+        "url": "https://www.osha.gov/etools/logging/manual-operations/logger/chain-saw/saw-operation"
+      },
+      {
+        "name": "OSHA - Herramientas manuales y eléctricas",
+        "url": "https://www.osha.gov/hand-power-tools"
+      }
+    ]
+  },
+  {
+    "id": "manual-seguridad-y-defensa-pasiva-del-hogar",
+    "title": "Seguridad y defensa pasiva del hogar",
+    "icon": "🏠",
+    "category": "Seguridad",
+    "priority": "Alta",
+    "summary": "Plan familiar para reducir intrusiones y protegerse sin buscar enfrentamientos ni colocar trampas.",
+    "keywords": [
+      "seguridad",
+      "hogar",
+      "intrusión",
+      "alarma",
+      "puertas",
+      "defensa",
+      "habitación segura"
+    ],
+    "sections": [
+      {
+        "title": "1. Capas de seguridad",
+        "items": [
+          "Perímetro - Iluminación, vegetación controlada, cerramientos en buen estado, números visibles para emergencias.",
+          "Accesos - Puertas sólidas, cerraduras adecuadas, bisagras y marcos revisados, llaves controladas.",
+          "Detección - Alarma, cámaras, perros como alerta y coordinación con vecinos de confianza.",
+          "Demora - Rejas y cierres que retrasan sin bloquear una evacuación por incendio.",
+          "Respuesta - Llamar, resguardarse, describir ubicación y evitar confrontación."
+        ]
+      },
+      {
+        "title": "2. Hábitos que reducen riesgo",
+        "items": [
+          "No publicar viajes, ausencias, compras sensibles ni ubicación de equipos.",
+          "Verificar identidad antes de abrir y usar un punto de entrega exterior cuando sea posible.",
+          "Mantener llaves y controles fuera de vista de ventanas.",
+          "Revisar accesos después de personal de mantenimiento o pérdida de llaves.",
+          "Acordar una palabra familiar para confirmar que una situación o persona es legítima."
+        ]
+      },
+      {
+        "title": "3. Ante una posible intrusión",
+        "items": [
+          "EVITAR CONFRONTAR: Reunir a la familia en una zona segura, bloquear el acceso si es posible, llamar al 911 y describir ubicación y personas. No salir a investigar ni perseguir.",
+          "Mantener una salida alternativa si no atraviesa la zona de peligro.",
+          "Hablar en voz baja y silenciar dispositivos sin apagar la capacidad de llamar.",
+          "Informar si hay niños, adultos vulnerables o mascotas.",
+          "Al llegar la policía, mantener manos visibles y seguir instrucciones."
+        ]
+      },
+      {
+        "title": "4. Armas y elementos sensibles",
+        "items": [
+          "Almacenar legalmente, descargados y con acceso restringido según normativa y prácticas seguras.",
+          "No dejar armas, municiones o llaves accesibles a niños, visitas o personal.",
+          "No instalar trampas, dispositivos improvisados ni mecanismos que puedan herir a terceros o a la familia.",
+          "La defensa del hogar comienza por detección, demora, escape y llamada; no por la confrontación."
+        ]
+      },
+      {
+        "title": "5. Auditoría",
+        "items": [
+          "Puerta principal - □",
+          "Puertas secundarias - □",
+          "Ventanas bajas - □",
+          "Iluminación exterior - □",
+          "Cámaras/alarma - □",
+          "Salida de incendio - □"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Argentina - 911 Emergencias",
+        "url": "https://www.argentina.gob.ar/seguridad/911emergencias"
+      },
+      {
+        "name": "SINAGIR - Plan Familiar",
+        "url": "https://www.argentina.gob.ar/sinagir/plan-familiar-de-emergencias"
+      },
+      {
+        "name": "Ready.gov - Preparación en el hogar",
+        "url": "https://www.ready.gov/"
+      }
+    ]
+  },
+  {
+    "id": "manual-evacuacion-y-reunificacion-familiar",
+    "title": "Evacuación y reunificación familiar",
+    "icon": "🚗",
+    "category": "Evacuación",
+    "priority": "Esencial",
+    "summary": "Plan de salida para la familia Dell’Era con rutas, puntos de encuentro, vehículos y comunicación alternativa.",
+    "keywords": [
+      "evacuación",
+      "reunificación",
+      "familia",
+      "punto de encuentro",
+      "vehículo",
+      "mochila"
+    ],
+    "sections": [
+      {
+        "title": "1. Decisión de evacuar",
+        "items": [
+          "Orden de autoridad, incendio, fuga de gas, agua que sube, daño estructural, violencia inmediata, necesidad médica no atendible. - Cuando la vivienda es segura, las rutas son más peligrosas, no hay orden de salida y se dispone de recursos suficientes.",
+          "REVISAR CADA 30-60 MIN: La decisión puede cambiar con clima, agua, humo, salud, rutas y comunicaciones."
+        ]
+      },
+      {
+        "title": "2. Roles familiares",
+        "items": [
+          "Coordinación - Decidir salida, confirmar personas y destino.",
+          "Documentos/salud - Medicamentos, botiquín, documentos y registros.",
+          "Energía/comunicación - Teléfonos, iPad EDY, radios, baterías y cargadores.",
+          "Agua/alimentos - Agua y comida de tránsito.",
+          "Mascotas - Bella y Manchas, correas, transportadora, alimento y cartillas.",
+          "Vehículo - Combustible, llaves, neumáticos, ruta y carga segura."
+        ]
+      },
+      {
+        "title": "3. Puntos de encuentro",
+        "items": [
+          "Punto A: inmediato y caminable fuera de la vivienda.",
+          "Punto B: dentro de Puerto Iguazú, fuera del barrio o zona afectada.",
+          "Punto C: fuera de la ciudad o del corredor afectado.",
+          "Contacto externo: persona que recibe mensajes de todos si las llamadas locales fallan.",
+          "Cada punto debe tener dirección escrita, coordenadas, ruta principal y alternativa."
+        ]
+      },
+      {
+        "title": "4. Salida en vehículo",
+        "items": [
+          "No sobrecargar ni tapar visión; asegurar objetos pesados y mascotas.",
+          "Mantener agua, botiquín, linterna y extintor accesibles, no enterrados bajo equipaje.",
+          "No cruzar agua, humo denso, barricadas ni caminos cerrados.",
+          "Informar salida y ruta; detenerse solo en lugares seguros.",
+          "Si el vehículo falla, priorizar alejarse de tránsito, señalizar y reevaluar refugio."
+        ]
+      },
+      {
+        "title": "5. Tarjeta de reunificación",
+        "items": [
+          "Punto A",
+          "Punto B",
+          "Punto C",
+          "Contacto externo",
+          "Mensaje estándar - “Estamos bien / somos __ / vamos a __ / próximo contacto __”",
+          "Ruta 1"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "SINAGIR - Plan Familiar",
+        "url": "https://www.argentina.gob.ar/sinagir/plan-familiar-de-emergencias"
+      },
+      {
+        "name": "SINAGIR - Kit de Emergencias",
+        "url": "https://www.argentina.gob.ar/sinagir/kit-de-emergencias"
+      },
+      {
+        "name": "Argentina - Lluvias intensas",
+        "url": "https://www.argentina.gob.ar/sinagir/riesgos-frecuentes/lluvias-intensas/que-hacer"
+      }
+    ]
+  },
+  {
+    "id": "manual-documentos-importantes-dinero-y-respaldos",
+    "title": "Documentos importantes, dinero y respaldos",
+    "icon": "📄",
+    "category": "Documentación",
+    "priority": "Alta",
+    "summary": "Organización de documentación familiar y comercial sin incluir datos privados en el paquete público de EDY.",
+    "keywords": [
+      "documentos",
+      "pasaporte",
+      "seguro",
+      "respaldo",
+      "contraseña",
+      "dinero",
+      "inventario"
+    ],
+    "sections": [
+      {
+        "title": "1. Carpeta física de emergencia",
+        "items": [
+          "Copias de identificación, partidas, pólizas, recetas, contactos y datos de vehículos.",
+          "Lista de medicamentos, alergias y profesionales, sin depender de la memoria.",
+          "Pequeña cantidad de efectivo en billetes variados, según decisión familiar.",
+          "Inventario fotográfico de bienes y números de póliza, guardado fuera de la vivienda.",
+          "No incluir originales innecesarios en una mochila que pueda perderse."
+        ]
+      },
+      {
+        "title": "2. Respaldo digital 3-2-1",
+        "items": [
+          "3 copias - Original más dos respaldos.",
+          "2 soportes - Por ejemplo iPad/PC y pendrive/SSD.",
+          "1 fuera del lugar - Nube cifrada o copia en ubicación segura distinta.",
+          "Cifrado - Contraseña fuerte y recuperación documentada en lugar separado.",
+          "Prueba - Abrir archivos y verificar que el respaldo se restaura."
+        ]
+      },
+      {
+        "title": "3. EDY público y perfil privado",
+        "items": [
+          "No publicar dirección exacta, teléfonos, documentos, claves, números de serie, información médica o ubicación de equipos.",
+          "Mantener esos datos en un archivo privado importado localmente o en respaldo cifrado.",
+          "Borrar metadatos de fotografías cuando vayan a un repositorio público.",
+          "Revisar permisos de enlaces compartidos y evitar archivos “públicos con enlace” para documentación sensible."
+        ]
+      },
+      {
+        "title": "4. Recuperación después de daños",
+        "items": [
+          "Fotografiar daños antes de mover objetos cuando sea seguro.",
+          "Registrar fecha, hora, gastos, llamadas y número de reclamo.",
+          "Guardar comprobantes de alojamiento, transporte, reparaciones y compras de emergencia.",
+          "Contactar aseguradora y autoridades sin entregar originales salvo procedimiento formal."
+        ]
+      },
+      {
+        "title": "5. Índice privado a completar",
+        "items": [
+          "DNI/pasaportes",
+          "Partidas y ciudadanía",
+          "Pólizas",
+          "Vehículos",
+          "Salud y recetas",
+          "Mascotas"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Ready.gov - Emergency Financial First Aid Kit",
+        "url": "https://www.ready.gov/sites/default/files/2020-03/ready_emergency-financial-first-aid-toolkit.pdf"
+      },
+      {
+        "name": "Ready.gov - Fotografiar documentos y planificar",
+        "url": "https://www.ready.gov/resolution"
+      },
+      {
+        "name": "SINAGIR - Kit de Emergencias",
+        "url": "https://www.argentina.gob.ar/sinagir/kit-de-emergencias"
+      }
+    ]
+  },
+  {
+    "id": "manual-ninos-y-adolescentes-en-emergencias",
+    "title": "Niños y adolescentes en emergencias",
+    "icon": "🧒",
+    "category": "Familia",
+    "priority": "Esencial",
+    "summary": "Plan para que los chicos sepan qué hacer sin asignarles responsabilidades de adultos.",
+    "keywords": [
+      "niños",
+      "adolescentes",
+      "familia",
+      "miedo",
+      "escuela",
+      "emergencia"
+    ],
+    "sections": [
+      {
+        "title": "1. Lo que todos deben saber",
+        "items": [
+          "Nombre completo, adultos responsables y al menos un teléfono de memoria o en tarjeta.",
+          "Dos salidas de la casa y el punto de reunión exterior.",
+          "Cómo llamar al 911 y explicar qué pasó y dónde están.",
+          "No esconderse durante incendio, no volver por objetos y no tocar cables o agua inundada.",
+          "La palabra familiar para confirmar que una persona autorizada puede retirarlos."
+        ]
+      },
+      {
+        "title": "2. Tareas según madurez",
+        "items": [
+          "Pequeños - Seguir al adulto, ponerse calzado, llevar su objeto de calma, no esconderse.",
+          "Escolares - Tomar su mochila, ayudar a contar mascotas a distancia, recordar punto de reunión.",
+          "Adolescentes - Llevar teléfono/radio, ayudar a un hermano, revisar una lista corta, sin asumir riesgos.",
+          "Nunca - Cortar gas/electricidad, combatir fuego, entrar a agua, usar generadores, armas o herramientas."
+        ]
+      },
+      {
+        "title": "3. Reducir miedo",
+        "items": [
+          "Dar información breve, verdadera y adecuada a la edad.",
+          "Mantener rutinas de comida, sueño y juego cuando sea posible.",
+          "Permitir preguntas y repetir el plan sin burlarse del miedo.",
+          "Limitar imágenes repetidas de noticias y discusiones alarmantes.",
+          "Buscar ayuda profesional si persisten pesadillas, regresiones, aislamiento o miedo intenso."
+        ]
+      },
+      {
+        "title": "4. Escuela y separación",
+        "items": [
+          "Conocer el plan de la escuela y quién puede retirar a cada niño.",
+          "No ir todos a la vez si la escuela pidió esperar; seguir canales oficiales.",
+          "Usar el contacto externo familiar si la red local está saturada.",
+          "Dejar una tarjeta en cada mochila con contactos y necesidades médicas esenciales."
+        ]
+      },
+      {
+        "title": "5. Simulacro amigable",
+        "items": [
+          "Duración de 10 minutos, sin sirenas sorpresivas ni escenas aterradoras.",
+          "Practicar calzado, salida, conteo y punto de reunión.",
+          "Finalizar explicando qué salió bien y una mejora concreta.",
+          "Repetir cada seis meses o cuando cambie la casa, escuela o teléfonos."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "SINAGIR - Plan Familiar",
+        "url": "https://www.argentina.gob.ar/sinagir/plan-familiar-de-emergencias"
+      },
+      {
+        "name": "SINAGIR - Kit de Emergencias",
+        "url": "https://www.argentina.gob.ar/sinagir/kit-de-emergencias"
+      },
+      {
+        "name": "Ready Kids",
+        "url": "https://www.ready.gov/kids"
+      }
+    ]
+  },
+  {
+    "id": "manual-adultos-mayores-movilidad-y-accesibilidad",
+    "title": "Adultos mayores, movilidad y accesibilidad",
+    "icon": "👵",
+    "category": "Familia",
+    "priority": "Esencial",
+    "summary": "Plan para familiares que necesitan más tiempo, asistencia, equipos o medicación durante una emergencia.",
+    "keywords": [
+      "adultos mayores",
+      "accesibilidad",
+      "movilidad",
+      "medicamentos",
+      "cuidador",
+      "evacuación"
+    ],
+    "sections": [
+      {
+        "title": "1. Perfil de apoyo",
+        "items": [
+          "Movilidad - Ayudas técnicas, silla, bastón, ruta sin escaleras y persona de apoyo.",
+          "Audición/visión - Mensajes escritos, lentes, baterías, linterna y señal táctil acordada.",
+          "Medicamentos - Lista actual, reserva autorizada, receta y condiciones de conservación.",
+          "Cognición - Rutina simple, identificación, acompañante constante y reducción de estímulos.",
+          "Equipos eléctricos - Fuente de respaldo, autonomía y contacto con proveedor/servicio médico."
+        ]
+      },
+      {
+        "title": "2. Preparación",
+        "items": [
+          "Mantener una ficha de salud actualizada y fácil de leer.",
+          "Guardar medicamentos en envases originales y revisar vencimientos.",
+          "Tener una bolsa liviana preparada con agua, ropa, higiene y elementos de apoyo.",
+          "Practicar el traslado real: puerta, escalones, vehículo y tiempo necesario.",
+          "Registrar dos personas de apoyo por si una no está disponible."
+        ]
+      },
+      {
+        "title": "3. Durante una evacuación",
+        "items": [
+          "Salir temprano; esperar puede volver impracticables escaleras, calor o caminos.",
+          "Explicar cada paso y evitar separar a la persona de sus ayudas técnicas.",
+          "No levantar o movilizar de forma improvisada si hay dolor, caída o sospecha de lesión.",
+          "Llevar medicación, lista, documentos, agua y elementos de continencia si se usan.",
+          "Informar necesidades al refugio, hotel, hospital o autoridad antes de llegar cuando sea posible."
+        ]
+      },
+      {
+        "title": "4. Apagón y calor",
+        "items": [
+          "Revisar hidratación, temperatura, presión o parámetros indicados por su profesional.",
+          "Evitar generadores, braseros o combustión dentro de la vivienda.",
+          "Priorizar ventilación y traslado a un lugar seguro si el calor supera la capacidad de la casa.",
+          "No suspender ni duplicar medicación por cuenta propia."
+        ]
+      },
+      {
+        "title": "5. Tarjeta inclusiva",
+        "items": [
+          "Persona",
+          "Contacto principal",
+          "Contacto alternativo",
+          "Medicamentos críticos",
+          "Movilidad / equipos",
+          "Comunicación preferida"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Argentina - Plan Familiar de Emergencias",
+        "url": "https://www.argentina.gob.ar/sinagir/plan-familiar-de-emergencias"
+      },
+      {
+        "name": "Argentina - Manual de gestión inclusiva",
+        "url": "https://www.argentina.gob.ar/sites/default/files/bancos/2018-10/0000001244cnt-2018_manual-gestion-inclusiva-de-emergencias.pdf"
+      },
+      {
+        "name": "Argentina - Derechos de adultos mayores",
+        "url": "https://www.argentina.gob.ar/justicia/derechofacil/leysimple/proteccion-de-los-derechos-humanos-de-los-adultos-mayores"
+      }
+    ]
+  },
+  {
+    "id": "manual-plan-de-contingencia-operativo-ecoiguazu-boutique-travel",
+    "title": "Plan de contingencia operativo - EcoIguazú Boutique Travel",
+    "icon": "🚌",
+    "category": "Organizaciones",
+    "priority": "Esencial",
+    "summary": "Marco de respuesta para incidentes que afecten pasajeros, vehículos, fronteras, atractivos, clima o canales de comunicación.",
+    "keywords": [
+      "EcoIguazú",
+      "turismo",
+      "pasajeros",
+      "vehículos",
+      "WhatsApp",
+      "frontera",
+      "contingencia"
+    ],
+    "sections": [
+      {
+        "title": "1. Activación y mando",
+        "items": [
+          "Verde - Demora menor, lluvia normal, cambio de horario. - Operaciones resuelve y registra.",
+          "Amarillo - Cierre parcial, demora fronteriza severa, falla de vehículo sin heridos. - Activar coordinación, informar agencias y preparar alternativa.",
+          "Rojo - Accidente, persona desaparecida, incendio, evacuación, cierre regional o múltiples servicios afectados. - Priorizar vida, llamar emergencias, activar comité y vocero único."
+        ]
+      },
+      {
+        "title": "2. Responsabilidades",
+        "items": [
+          "Dirección - Decisión estratégica, autoridades, seguro y vocería.",
+          "Operaciones - Lista de pasajeros, ubicación de servicios, guías, choferes y alternativas.",
+          "Comercial - Comunicación con agencias, confirmaciones y registro de compromisos.",
+          "Guía / coordinador - Conteo, primeros datos, cuidado del grupo y actualización desde el lugar.",
+          "Chofer / transporte - Seguridad vial, vehículo, ruta, combustible y reporte técnico.",
+          "Administración - Documentación, gastos, pólizas, respaldo y cronología."
+        ]
+      },
+      {
+        "title": "3. Comunicación con pasajeros y agencias",
+        "items": [
+          "Confirmar hechos antes de enviar. Separar “confirmado”, “en evaluación” y “próxima actualización”.",
+          "Usar plantillas breves en español e inglés cuando corresponda.",
+          "No divulgar identidad, salud o imágenes de pasajeros sin autorización y necesidad operativa.",
+          "Establecer hora de próxima comunicación aunque no haya novedades.",
+          "Si WhatsApp falla, usar llamadas, SMS, correo, teléfonos alternativos y canal con la agencia."
+        ]
+      },
+      {
+        "title": "4. Escenarios prioritarios",
+        "items": [
+          "Cierre de Cataratas o atracción: proteger reservas, ofrecer alternativa y documentar aceptación.",
+          "Demora o cierre fronterizo: ajustar horarios, agua, baños, comidas, vuelos y expectativas.",
+          "Accidente vehicular: asegurar escena, emergencias, conteo, atención, seguro y reemplazo.",
+          "Pasajero no localizado: último punto, descripción, teléfono, guía, seguridad del atractivo y autoridades.",
+          "Tormenta/apagón: suspender actividades expuestas, confirmar hoteles y continuidad de comunicaciones."
+        ]
+      },
+      {
+        "title": "5. Formulario de incidente",
+        "items": [
+          "Fecha/hora",
+          "Servicio y pasajero/grupo",
+          "Lugar",
+          "Hechos confirmados",
+          "Lesiones / asistencia",
+          "Autoridades / número de caso"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Ready Business - Emergency Plans",
+        "url": "https://www.ready.gov/business/emergency-plans"
+      },
+      {
+        "name": "Ready Business - Continuidad",
+        "url": "https://www.ready.gov/business"
+      },
+      {
+        "name": "Argentina - 911 Emergencias",
+        "url": "https://www.argentina.gob.ar/seguridad/911emergencias"
+      }
+    ]
+  },
+  {
+    "id": "manual-plan-de-contingencia-institucional-adavi",
+    "title": "Plan de contingencia institucional - ADAVI",
+    "icon": "🤝",
+    "category": "Organizaciones",
+    "priority": "Esencial",
+    "summary": "Estructura para responder a cierres, accidentes, conflictos operativos, desinformación o interrupciones que afecten a las agencias socias.",
+    "keywords": [
+      "ADAVI",
+      "socios",
+      "agencias",
+      "frontera",
+      "parque",
+      "comunicación",
+      "institucional"
+    ],
+    "sections": [
+      {
+        "title": "1. Comité de crisis",
+        "items": [
+          "Presidencia - Convocar, fijar posición, representar y autorizar comunicados.",
+          "Secretaría - Acta cronológica, contactos, documentos y seguimiento.",
+          "Operaciones sectoriales - Relevar socios afectados, pasajeros, servicios y necesidades.",
+          "Enlace institucional - Municipio, Provincia, Parques, fronteras, aeropuerto, fuerzas y FAEVYT.",
+          "Comunicación - Mensaje a socios, medios y redes; una sola versión oficial.",
+          "Logística - Reunión, respaldo de energía, conectividad y apoyo material."
+        ]
+      },
+      {
+        "title": "2. Criterios de activación",
+        "items": [
+          "Evento con riesgo para pasajeros o trabajadores.",
+          "Cierre o demora que afecte múltiples servicios o socios.",
+          "Rumor viral que requiera verificación y respuesta institucional.",
+          "Problema de frontera, parque, aeropuerto o transporte con impacto regional.",
+          "Interrupción de comunicaciones o energía que impida coordinación normal."
+        ]
+      },
+      {
+        "title": "3. Mensaje a socios",
+        "items": [
+          "Encabezado - “Buen día.” + situación y hora de corte.",
+          "Confirmado - Hechos verificados y fuente.",
+          "Impacto - Qué servicios o zonas están afectados.",
+          "Acción - Qué debe hacer cada socio ahora.",
+          "Canal - Dónde reportar casos y datos mínimos.",
+          "Próximo parte - Hora concreta de nueva actualización."
+        ]
+      },
+      {
+        "title": "4. Gestión de información",
+        "items": [
+          "No compartir audios o imágenes sin verificar origen, fecha y lugar.",
+          "Consolidar reportes en una planilla única: socio, pasajeros, servicio, necesidad y estado.",
+          "Evitar publicar datos personales o comerciales sensibles.",
+          "Designar vocero y registrar cada contacto con medios y autoridades.",
+          "Cerrar el evento con informe, decisiones, costos y mejoras."
+        ]
+      },
+      {
+        "title": "5. Escenarios de trabajo",
+        "items": [
+          "Frontera colapsada o cerrada: coordinar información, prioridades y alternativas con autoridades y socios.",
+          "Cierre de Cataratas: parte unificado, reglas de reprogramación y opciones de destino.",
+          "Accidente con turistas: apoyo institucional sin interferir con la empresa, seguro o investigación.",
+          "Corte de ruta: verificar fuente, seguridad y accesos; no convocar a circular por zonas de riesgo.",
+          "Suspensión de comunicaciones: árbol telefónico, punto físico y horarios de radio/llamadas."
+        ]
+      },
+      {
+        "title": "6. Registro de crisis",
+        "items": [
+          "",
+          "",
+          "",
+          ""
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Ready Business - Emergency Plans",
+        "url": "https://www.ready.gov/business/emergency-plans"
+      },
+      {
+        "name": "SINAGIR - Plan Familiar y coordinación",
+        "url": "https://www.argentina.gob.ar/sinagir/plan-familiar-de-emergencias"
+      },
+      {
+        "name": "Argentina - Emergencias",
+        "url": "https://www.argentina.gob.ar/tema/emergencias"
+      }
+    ]
   }
 ]
