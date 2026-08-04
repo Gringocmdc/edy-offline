@@ -1,4 +1,4 @@
-# EDY Offline v2.4.0
+# EDY Offline v2.4.1
 
 Actualización acumulativa del Centro de Supervivencia Digital Familiar.
 
@@ -73,13 +73,24 @@ El ZIP público no contiene dirección exacta, teléfonos familiares, números d
 - Índice maestro actualizado con 11 manuales.
 
 
-## Nuevo en 2.4.0 - Biblioteca Familiar Completa
+## Nuevo en 2.4.1 - Biblioteca Familiar Completa
 - Versión acumulativa: reemplaza directamente a la 2.3.1.
 - 35 manuales PDF familiares e institucionales.
 - 24 manuales nuevos: supervivencia urbana, apagones, tormentas e inundaciones, incendios, radio, agua segura, alimentos, huerta, electricidad, plomería, costura, nudos, orientación, fauna, plantas, generadores, herramientas, seguridad pasiva, evacuación, documentos, niños, adultos mayores, EcoIguazú y ADAVI.
 - Biblioteca buscable ampliada a 57 fichas offline.
-- Índice Maestro 2.4.0 con orden de impresión y entrenamiento anual.
+- Índice Maestro 2.4.1 con orden de impresión y entrenamiento anual.
 - Manual Maestro actualizado con reglas de privacidad, respaldo y simulacros.
 
 ## Alcance y seguridad
 Los manuales son guías de preparación. No reemplazan a médicos, veterinarios, electricistas, mecánicos, bomberos, autoridades, manuales de fabricante ni capacitaciones prácticas. Las secciones de seguridad del hogar priorizan resguardo, detección y evacuación; no incluyen tácticas de confrontación.
+
+
+## Nuevo en 2.4.1 - Inventario
+- 2 Poxipol transparente de 16 g / 14 ml, vencimiento 11/2030.
+- 2 adhesivos sintéticos El Púlpito de 50 g, vencimiento 09/2028.
+- Frutillas Bahía 520 g, arándanos Bahía 520 g y frutos del bosque Bahía 520 g.
+- 1 BiAlcohol Porta al 70% en spray de 500 ml, vencimiento 20/09/2029.
+- 3 latas de duraznos Piacere de 820 g, vencimiento 31/01/2029.
+- 2 bolsas de mix energético Zyma de 300 g, vencimiento 06/04/2027.
+- 10 bolsas de azúcar La Muñeca de 1 kg, vencimiento 10/2029.
+- La fecha de los frutos del bosque quedó pendiente de confirmación porque fue informada como 10/110/2028.

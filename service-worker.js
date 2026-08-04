@@ -1,4 +1,4 @@
-const APP_VERSION='2.4.0';
+const APP_VERSION='2.4.1';
 const CACHE=`edy-offline-v${APP_VERSION}`;
 const FILES=[
  './','./index.html','./manifest.webmanifest','./icon.svg',

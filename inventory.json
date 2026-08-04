@@ -2783,5 +2783,428 @@
     "packageCount": 1,
     "packageSize": 16,
     "packageUnit": "comprimidos"
+  },
+  {
+    "id": "starter-poxipol-transparente-16g",
+    "starter": true,
+    "name": "Soldadura en frío transparente",
+    "brand": "Poxipol",
+    "model": "Resistencia extrema · 16 g / 14 ml",
+    "category": "Herramientas",
+    "status": "available",
+    "qty": 2,
+    "unit": "unidad",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "2026-08-04",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 0,
+    "notes": "2 unidades de 16 g / 14 ml. Adhesivo epoxi de dos componentes. Mantener cerrado, lejos de niños, mascotas, calor y alimentos.",
+    "lots": [
+      {
+        "id": "starter-poxipol-transparente-16g-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 2,
+        "purchaseDate": "2026-08-04",
+        "expiryDate": "2030-11",
+        "notes": "2 unidades de 16 g / 14 ml. Adhesivo epoxi de dos componentes. Mantener cerrado, lejos de niños, mascotas, calor y alimentos."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-poxipol-transparente-16g-purchase-20260804",
+        "type": "purchase",
+        "qty": 2,
+        "date": "2026-08-04T09:00:00-03:00",
+        "note": "Compra confirmada para EDY 2.4.1"
+      }
+    ],
+    "packageCount": 2,
+    "packageSize": 16,
+    "packageUnit": "g",
+    "containerType": "Estuche"
+  },
+  {
+    "id": "starter-el-pulpito-adhesivo-50g",
+    "starter": true,
+    "name": "Adhesivo sintético",
+    "brand": "El Púlpito",
+    "model": "Más manos para tu hogar · 50 g",
+    "category": "Herramientas",
+    "status": "available",
+    "qty": 2,
+    "unit": "unidad",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "2026-08-04",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 0,
+    "notes": "2 unidades de 50 g. Adhesivo sintético de uso doméstico. Usar con ventilación y respetar el rótulo.",
+    "lots": [
+      {
+        "id": "starter-el-pulpito-adhesivo-50g-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 2,
+        "purchaseDate": "2026-08-04",
+        "expiryDate": "2028-09",
+        "notes": "2 unidades de 50 g. Adhesivo sintético de uso doméstico. Usar con ventilación y respetar el rótulo."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-el-pulpito-adhesivo-50g-purchase-20260804",
+        "type": "purchase",
+        "qty": 2,
+        "date": "2026-08-04T09:00:00-03:00",
+        "note": "Compra confirmada para EDY 2.4.1"
+      }
+    ],
+    "packageCount": 2,
+    "packageSize": 50,
+    "packageUnit": "g",
+    "containerType": "Pomo"
+  },
+  {
+    "id": "starter-bahia-frutillas-520g",
+    "starter": true,
+    "name": "Frutillas enteras seleccionadas",
+    "brand": "Bahía",
+    "model": "Lata de 520 g",
+    "category": "Despensa",
+    "status": "available",
+    "qty": 1,
+    "unit": "lata",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "2026-08-04",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 0,
+    "notes": "1 lata de 520 g peso neto.",
+    "lots": [
+      {
+        "id": "starter-bahia-frutillas-520g-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 1,
+        "purchaseDate": "2026-08-04",
+        "expiryDate": "2028-05-12",
+        "notes": "1 lata de 520 g peso neto."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-bahia-frutillas-520g-purchase-20260804",
+        "type": "purchase",
+        "qty": 1,
+        "date": "2026-08-04T09:00:00-03:00",
+        "note": "Compra confirmada para EDY 2.4.1"
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 520,
+    "packageUnit": "g",
+    "containerType": "Lata"
+  },
+  {
+    "id": "starter-bahia-arandanos-520g",
+    "starter": true,
+    "name": "Arándanos enteros seleccionados",
+    "brand": "Bahía",
+    "model": "Lata de 520 g",
+    "category": "Despensa",
+    "status": "available",
+    "qty": 1,
+    "unit": "lata",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "2026-08-04",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 0,
+    "notes": "1 lata de 520 g peso neto.",
+    "lots": [
+      {
+        "id": "starter-bahia-arandanos-520g-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 1,
+        "purchaseDate": "2026-08-04",
+        "expiryDate": "2028-05-04",
+        "notes": "1 lata de 520 g peso neto."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-bahia-arandanos-520g-purchase-20260804",
+        "type": "purchase",
+        "qty": 1,
+        "date": "2026-08-04T09:00:00-03:00",
+        "note": "Compra confirmada para EDY 2.4.1"
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 520,
+    "packageUnit": "g",
+    "containerType": "Lata"
+  },
+  {
+    "id": "starter-bahia-frutos-bosque-520g",
+    "starter": true,
+    "name": "Frutos del bosque",
+    "brand": "Bahía",
+    "model": "Lata de 520 g",
+    "category": "Despensa",
+    "status": "available",
+    "qty": 1,
+    "unit": "lata",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "2026-08-04",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 0,
+    "notes": "1 lata de 520 g peso neto. Fecha informada: 10/110/2028; quedó pendiente confirmar la fecha exacta antes de cargar el vencimiento.",
+    "lots": [
+      {
+        "id": "starter-bahia-frutos-bosque-520g-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 1,
+        "purchaseDate": "2026-08-04",
+        "expiryDate": "",
+        "notes": "1 lata de 520 g peso neto. Fecha informada: 10/110/2028; quedó pendiente confirmar la fecha exacta antes de cargar el vencimiento."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-bahia-frutos-bosque-520g-purchase-20260804",
+        "type": "purchase",
+        "qty": 1,
+        "date": "2026-08-04T09:00:00-03:00",
+        "note": "Compra confirmada para EDY 2.4.1"
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 520,
+    "packageUnit": "g",
+    "containerType": "Lata"
+  },
+  {
+    "id": "starter-bialcohol-porta-70-500ml",
+    "starter": true,
+    "name": "Limpiador desinfectante de superficies",
+    "brand": "Porta",
+    "model": "BiAlcohol · alcohol etílico al 70% · spray 500 ml",
+    "category": "Limpieza",
+    "status": "available",
+    "qty": 1,
+    "unit": "spray",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "2026-08-04",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 0,
+    "notes": "1 spray de 500 ml. Inflamable: mantener lejos del fuego, calor, niños y mascotas. No ingerir ni usar sobre alimentos o heridas.",
+    "lots": [
+      {
+        "id": "starter-bialcohol-porta-70-500ml-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 1,
+        "purchaseDate": "2026-08-04",
+        "expiryDate": "2029-09-20",
+        "notes": "1 spray de 500 ml. Inflamable: mantener lejos del fuego, calor, niños y mascotas. No ingerir ni usar sobre alimentos o heridas."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-bialcohol-porta-70-500ml-purchase-20260804",
+        "type": "purchase",
+        "qty": 1,
+        "date": "2026-08-04T09:00:00-03:00",
+        "note": "Compra confirmada para EDY 2.4.1"
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 500,
+    "packageUnit": "ml",
+    "containerType": "Spray"
+  },
+  {
+    "id": "starter-piacere-duraznos-820g",
+    "starter": true,
+    "name": "Duraznos en mitades",
+    "brand": "Piacere",
+    "model": "Lata de 820 g",
+    "category": "Despensa",
+    "status": "available",
+    "qty": 3,
+    "unit": "lata",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "2026-08-04",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 0,
+    "notes": "3 latas de 820 g peso neto cada una. Contenido total: 2,46 kg.",
+    "lots": [
+      {
+        "id": "starter-piacere-duraznos-820g-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 3,
+        "purchaseDate": "2026-08-04",
+        "expiryDate": "2029-01-31",
+        "notes": "3 latas de 820 g peso neto cada una. Contenido total: 2,46 kg."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-piacere-duraznos-820g-purchase-20260804",
+        "type": "purchase",
+        "qty": 3,
+        "date": "2026-08-04T09:00:00-03:00",
+        "note": "Compra confirmada para EDY 2.4.1"
+      }
+    ],
+    "packageCount": 3,
+    "packageSize": 820,
+    "packageUnit": "g",
+    "containerType": "Lata"
+  },
+  {
+    "id": "starter-zyma-mix-energetico-300g",
+    "starter": true,
+    "name": "Mix energético de maní, pasas y almendras",
+    "brand": "Zyma",
+    "model": "Bolsa de 300 g",
+    "category": "Despensa",
+    "status": "available",
+    "qty": 2,
+    "unit": "bolsa",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "2026-08-04",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 0,
+    "notes": "2 bolsas de 300 g. Contenido total: 600 g. Contiene frutos secos; conservar cerrado y seco.",
+    "lots": [
+      {
+        "id": "starter-zyma-mix-energetico-300g-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 2,
+        "purchaseDate": "2026-08-04",
+        "expiryDate": "2027-04-06",
+        "notes": "2 bolsas de 300 g. Contenido total: 600 g. Contiene frutos secos; conservar cerrado y seco."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-zyma-mix-energetico-300g-purchase-20260804",
+        "type": "purchase",
+        "qty": 2,
+        "date": "2026-08-04T09:00:00-03:00",
+        "note": "Compra confirmada para EDY 2.4.1"
+      }
+    ],
+    "packageCount": 2,
+    "packageSize": 300,
+    "packageUnit": "g",
+    "containerType": "Bolsa"
+  },
+  {
+    "id": "starter-azucar-la-muneca-1kg",
+    "starter": true,
+    "name": "Azúcar común tipo A",
+    "brand": "La Muñeca",
+    "model": "Bolsa de 1 kg",
+    "category": "Despensa",
+    "status": "available",
+    "qty": 10,
+    "unit": "bolsa",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": true,
+    "minStock": null,
+    "targetStock": null,
+    "purchaseDate": "2026-08-04",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 0,
+    "notes": "10 bolsas de 1 kg. Contenido total: 10 kg.",
+    "lots": [
+      {
+        "id": "starter-azucar-la-muneca-1kg-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 10,
+        "purchaseDate": "2026-08-04",
+        "expiryDate": "2029-10",
+        "notes": "10 bolsas de 1 kg. Contenido total: 10 kg."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-azucar-la-muneca-1kg-purchase-20260804",
+        "type": "purchase",
+        "qty": 10,
+        "date": "2026-08-04T09:00:00-03:00",
+        "note": "Compra confirmada para EDY 2.4.1"
+      }
+    ],
+    "packageCount": 10,
+    "packageSize": 1,
+    "packageUnit": "kg",
+    "containerType": "Bolsa"
   }
 ]
