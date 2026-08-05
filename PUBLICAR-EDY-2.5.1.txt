@@ -1,0 +1,31 @@
+EDY OFFLINE 2.5.1 - PUBLICACIÓN EN GITHUB PAGES
+
+1. Antes de actualizar, exportar un respaldo desde EDY en el iPad principal.
+2. Descomprimir este ZIP.
+3. Subir TODOS los archivos y carpetas de su interior a la raíz del repositorio gringocmdc/edy-offline, reemplazando los existentes.
+   Importante: index.html debe quedar directamente en la raíz, no dentro de otra carpeta.
+4. Confirmar el commit y esperar que GitHub Pages termine de publicar.
+5. Abrir: https://gringocmdc.github.io/edy-offline/actualizar.html
+6. Cuando EDY vuelva a abrir, verificar que la insignia superior diga 2.5.1.
+7. Entrar en “Calculadora 2.5”, revisar los supuestos y tocar “Guardar y recalcular”.
+
+EN IPHONE O IPAD QUE SIGAN MOSTRANDO UNA VERSIÓN VIEJA
+- Abrir directamente /actualizar.html desde Safari.
+- Si EDY fue agregada a la pantalla de inicio y sigue antigua, eliminar solo el acceso de la pantalla de inicio, abrir nuevamente la web en Safari y volver a agregarla.
+- El actualizador limpia archivos temporales; no borra el inventario local, pero siempre se recomienda tener un respaldo reciente.
+
+NOVEDADES PRINCIPALES
+- Días de agua potable.
+- Días equivalentes de alimentos a partir del inventario.
+- Horas de batería Forza y generador según combustible registrado.
+- Cobertura y vencimientos del botiquín.
+- Cálculo de alimento para Bella y Manchas.
+- Prioridades automáticas e informe imprimible.
+- Corrección del vencimiento de Frutos del Bosque Bahía: 10/11/2028.
+- Descarga directa de los 35 PDF de la Biblioteca Familiar.
+
+IDENTIDAD DE ESTA VERSIÓN
+- EDY Offline
+- Centro de Supervivencia Familia Dell’Era
+- Misiones · Argentina
+- No se muestra domicilio ni ciudad en la portada.

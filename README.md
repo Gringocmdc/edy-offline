@@ -1,4 +1,4 @@
-# EDY Offline v2.4.1
+# EDY Offline v2.5.1 — Centro de Supervivencia Familia Dell’Era
 
 Actualización acumulativa del Centro de Supervivencia Digital Familiar.
 
@@ -73,12 +73,12 @@ El ZIP público no contiene dirección exacta, teléfonos familiares, números d
 - Índice maestro actualizado con 11 manuales.
 
 
-## Nuevo en 2.4.1 - Biblioteca Familiar Completa
+## Nuevo en 2.4.0 - Biblioteca Familiar Completa
 - Versión acumulativa: reemplaza directamente a la 2.3.1.
 - 35 manuales PDF familiares e institucionales.
 - 24 manuales nuevos: supervivencia urbana, apagones, tormentas e inundaciones, incendios, radio, agua segura, alimentos, huerta, electricidad, plomería, costura, nudos, orientación, fauna, plantas, generadores, herramientas, seguridad pasiva, evacuación, documentos, niños, adultos mayores, EcoIguazú y ADAVI.
 - Biblioteca buscable ampliada a 57 fichas offline.
-- Índice Maestro 2.4.1 con orden de impresión y entrenamiento anual.
+- Índice Maestro 2.4.0 con orden de impresión y entrenamiento anual.
 - Manual Maestro actualizado con reglas de privacidad, respaldo y simulacros.
 
 ## Alcance y seguridad
@@ -93,4 +93,27 @@ Los manuales son guías de preparación. No reemplazan a médicos, veterinarios,
 - 3 latas de duraznos Piacere de 820 g, vencimiento 31/01/2029.
 - 2 bolsas de mix energético Zyma de 300 g, vencimiento 06/04/2027.
 - 10 bolsas de azúcar La Muñeca de 1 kg, vencimiento 10/2029.
-- La fecha de los frutos del bosque quedó pendiente de confirmación porque fue informada como 10/110/2028.
+- Frutos del bosque Bahía: vencimiento corregido y confirmado en 10/11/2028.
+
+
+
+## Nuevo en 2.5.1 — Identidad Familia Dell’Era
+
+- Encabezado y portada personalizados como **Centro de Supervivencia Familia Dell’Era**.
+- Ubicación pública limitada a **Misiones · Argentina**; no se muestra el domicilio ni la ciudad en la portada.
+- La localidad del perfil del hogar queda como dato opcional y privado.
+- Nombre de instalación, pantalla de actualización, informes y pie de página unificados.
+- Caché renovado a 2.5.1 para que iPhone, iPad y otros dispositivos descarguen la misma versión.
+
+## Nuevo en 2.5.1 - Calculadora de Autonomía Familiar
+- Panel automático con días de agua potable, días equivalentes de alimentos, horas de energía crítica, cobertura del botiquín y alimento para Bella y Manchas.
+- Usa el inventario local sin borrar ni reemplazar cambios del usuario.
+- Supuestos editables: objetivo en días, consumo familiar de agua, kcal diarias, margen utilizable, carga eléctrica, batería, eficiencia y consumo de alimento para mascotas.
+- Cálculo alimentario transparente con detalle por producto y lista de artículos no computados por falta de peso o equivalencia.
+- Prioridades automáticas para alcanzar el objetivo configurado.
+- Botón para enviar los resultados al Centro de Operaciones e informe imprimible.
+- Corrección del vencimiento de Bahía Frutos del Bosque: 10/11/2028.
+- Los 35 enlaces PDF incluyen descarga directa además de apertura offline.
+
+### Alcance de las estimaciones
+La autonomía alimentaria se expresa como días equivalentes de energía aproximada y no garantiza variedad ni suficiencia nutricional. La autonomía eléctrica depende de consumos reales, pérdidas y picos de arranque. El generador debe funcionar exclusivamente al aire libre.

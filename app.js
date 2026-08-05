@@ -1,5 +1,5 @@
-const APP_VERSION='2.4.1';
-const APP_NAME='Centro de Energía y Respuesta';
+const APP_VERSION='2.5.1';
+const APP_NAME='Centro de Supervivencia Familia Dell’Era';
 function put(id,value){const el=document.getElementById(id);if(el)el.textContent=value}
 
 const sections=[...document.querySelectorAll('.section')];
@@ -393,7 +393,7 @@ const ec=EDYStorage.get('energy_calc');if(ec){batteryWh.value=ec.wh;batteryPerce
 
 let inventoryBase=[];
 let currentItemId=null;
-const INVENTORY_SEED_VERSION='2.4.1';
+const INVENTORY_SEED_VERSION='2.5.1';
 
 function statusText(status){
  return {available:'Disponible',incoming:'En camino',review:'Revisar',missing:'Falta'}[status]||status;
@@ -544,7 +544,16 @@ function migrateDuctacPurchase150(list){
  if(!normalizeText(item.notes).includes('4 grises'))item.notes=[item.notes,note].filter(Boolean).join(' ');
  return items;
 }
-function applyInventoryMigrations(list){return migrateDuctacPurchase150(list)}
+function migrateFruitExpiry250(list){
+ const items=(Array.isArray(list)?list:[]).map(normalizeInventoryItem);
+ const item=items.find(x=>x.id==='starter-bahia-frutos-bosque-520g');
+ if(item){
+  item.lots=(item.lots||[]).map(l=>({...l,expiryDate:'2028-11-10',notes:String(l.notes||'').replace(/Fecha informada:[^.]*\.?/i,'Vencimiento confirmado: 10/11/2028.')}));
+  item.notes=String(item.notes||'').replace(/Fecha informada:[^.]*\.?/i,'Vencimiento confirmado: 10/11/2028.');
+ }
+ return items;
+}
+function applyInventoryMigrations(list){return migrateFruitExpiry250(migrateDuctacPurchase150(list))}
 function saveInventory(list,logMessage='Inventario actualizado'){
  const normalized=(Array.isArray(list)?list:[]).map(normalizeInventoryItem);
  EDYStorage.set('inventory',normalized);

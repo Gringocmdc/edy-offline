@@ -1,6 +1,6 @@
 {
-  "name": "EDY Offline - Centro de Energía y Preparación Familiar",
-  "short_name": "EDY",
+  "name": "EDY Offline - Centro de Supervivencia Familia Dell’Era",
+  "short_name": "EDY Dell’Era",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -14,6 +14,6 @@
       "purpose": "any maskable"
     }
   ],
-  "description": "Centro offline de gestión familiar con inventario, agua, energía, generador, combustible, modo apagón, riesgos, contactos, mochilas y respaldo.",
-  "version": "2.4.1"
+  "description": "Centro de Supervivencia de la Familia Dell’Era, Misiones, Argentina: inventario, calculadora de autonomía, biblioteca offline, energía, botiquín, mascotas y protocolos de emergencia.",
+  "version": "2.5.1"
 }

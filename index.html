@@ -4,16 +4,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#102a21">
-  <title>EDY Offline</title>
+  <title>EDY Offline · Familia Dell’Era</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=2.4.1">
+  <link rel="stylesheet" href="styles.css?v=2.5.1">
 </head>
 <body>
 <header>
   <div class="brand">
-    <div><h1>EDY</h1><p>Centro de Supervivencia Digital Familiar</p></div>
-    <div class="headerActions"><button class="versionBadge versionButton" onclick="openSection('actualizaciones')" title="Centro de actualizaciones">2.4.1</button><div class="pill">OFFLINE</div></div>
+    <div class="brandIdentity">
+      <h1>EDY Offline</h1>
+      <p>Centro de Supervivencia · <strong>Familia Dell’Era</strong></p>
+      <span class="brandRegion">Misiones · Argentina</span>
+    </div>
+    <div class="headerActions"><button class="versionBadge versionButton" onclick="openSection('actualizaciones')" title="Centro de actualizaciones">2.5.1</button><div class="pill">OFFLINE</div></div>
   </div>
   <input id="search" placeholder="Buscar: apagón, agua, energía, evacuación…">
 </header>
@@ -29,6 +33,16 @@
 
 <main>
 <section id="home" class="section active">
+  <div class="familyIdentityCard" aria-label="Centro de Supervivencia de la Familia Dell’Era">
+    <div class="familyShield" aria-hidden="true">🛡️</div>
+    <div class="familyIdentityText">
+      <span class="familyIdentityEyebrow">EDY OFFLINE</span>
+      <h2>Centro de Supervivencia</h2>
+      <strong>Familia Dell’Era</strong>
+      <small>Misiones · Argentina</small>
+    </div>
+    <div class="familyIdentityMotto">Preparación · Seguridad · Autonomía</div>
+  </div>
   <div class="hero commandHero">
     <div>
       <div class="greeting" id="greeting">Centro de Operaciones</div>
@@ -72,6 +86,8 @@
     </div>
   </div>
 
+  <div class="titleRow"><h2>Autonomía familiar</h2><button class="back" onclick="openSection('autonomia')">Abrir calculadora</button></div>
+  <div id="autonomyHomeSummary" class="autonomyHomeSummary"></div>
 
   <div class="titleRow"><h2>Resumen de hoy</h2><button class="back" onclick="openSection('timeline')">Ver actividad</button></div>
   <div class="todayStrip">
@@ -130,6 +146,7 @@
     <div class="card contactsFeatured" onclick="openSection('contactos')"><div class="icon">☎️</div><h3>Contactos</h3><p>Familia, emergencias y tarjeta de billetera.</p></div>
     <div class="card" onclick="openSection('mascotas')"><div class="icon">🐶</div><h3>Mascotas</h3><p>Evacuación y cuidado.</p></div>
     <div class="card" onclick="openSection('estado')"><div class="icon">🏠</div><h3>Estado</h3><p>Actualizar el hogar.</p></div>
+    <div class="card autonomyFeatured" onclick="openSection('autonomia')"><div class="icon">📊</div><h3>Calculadora 2.5</h3><p>Días de agua, alimentos, energía, botiquín y mascotas.</p></div>
     <div class="card operationsFeatured" onclick="openSection('operaciones')"><div class="icon">🧭</div><h3>Operaciones</h3><p>Autonomía y preparación.</p></div>
     <div class="card simulatorFeatured" onclick="openSection('simulador')"><div class="icon">🧪</div><h3>Simulador</h3><p>Probá apagones, tormentas, falta de agua y evacuación.</p></div>
     <div class="card checklistFeatured" onclick="openSection('checklists')"><div class="icon">✅</div><h3>Checklists</h3><p>Listas de preparación y evacuación.</p></div>
@@ -365,6 +382,37 @@
   </div>
 </section>
 
+<section id="autonomia" class="section searchable">
+  <button class="back" onclick="home()">← Inicio</button>
+  <div class="sectionHeader"><div><h2>📊 Calculadora de Autonomía Familiar</h2><p>Convierte el inventario en días y horas estimadas para orientar las próximas compras.</p></div><span class="localBadge">EDY 2.5</span></div>
+  <div class="panel amber"><strong>Estimación, no garantía:</strong> los alimentos se calculan por energía aproximada y no representan una dieta completa. El agua depende del consumo real; la autonomía eléctrica cambia según cada equipo y sus picos de arranque.</div>
+  <div id="autonomyOverview"></div>
+
+  <div class="titleRow"><h2>Supuestos editables</h2><span id="autonomyUpdated" class="small"></span></div>
+  <div class="calculator autConfig">
+    <div class="formGrid">
+      <div class="field"><label>Objetivo familiar (días)</label><input id="autTargetDays" type="number" min="1" max="365" step="1"></div>
+      <div class="field"><label>Agua potable familiar (L/día)</label><input id="autWaterDaily" type="number" min="0.1" step="0.1"><small>Beber y cocinar. Puede sincronizarse con el perfil familiar.</small></div>
+      <div class="field"><label>Necesidad familiar de alimentos (kcal/día)</label><input id="autFoodDailyKcal" type="number" min="100" step="100"><small>Valor de planificación editable.</small></div>
+      <div class="field"><label>Porción utilizable del stock (%)</label><input id="autFoodUsablePct" type="number" min="1" max="100" step="1"><small>Descuenta pérdidas, envases y margen de seguridad.</small></div>
+      <div class="field"><label>Carga eléctrica crítica (W)</label><input id="autCriticalLoadW" type="number" min="1" step="1"><small>Ej.: luces, celulares, radio e iPad.</small></div>
+      <div class="field"><label>Batería actual de la Forza (%)</label><input id="autBatteryPercent" type="number" min="0" max="100" step="1"></div>
+      <div class="field"><label>Eficiencia batería/inversor (%)</label><input id="autEnergyEfficiency" type="number" min="1" max="100" step="1"></div>
+      <div class="field"><label>Objetivo de energía crítica (horas)</label><input id="autEnergyTargetHours" type="number" min="1" step="1"></div>
+      <div class="field"><label>Alimento para mascotas disponible (kg)</label><input id="autPetFoodKg" type="number" min="0" step="0.01"><small id="autPetDetected"></small></div>
+      <div class="field"><label>Consumo conjunto Bella + Manchas (kg/día)</label><input id="autPetDailyKg" type="number" min="0" step="0.01"><small>Completar según el alimento y la indicación veterinaria.</small></div>
+    </div>
+    <div class="actions"><button class="action" onclick="saveAutonomy()">Guardar y recalcular</button><button class="action secondary" onclick="syncAutonomyDefaults()">Sincronizar familia y energía</button><button class="action secondary" onclick="applyAutonomyToOperations()">Enviar a Operaciones</button><button class="action secondary" onclick="printAutonomyReport()">Imprimir informe</button><button class="action secondary" onclick="resetAutonomy()">Restablecer supuestos</button></div>
+  </div>
+
+  <div class="titleRow"><h2>Prioridades calculadas</h2><button class="back" onclick="openSection('compras')">Lista de compras</button></div>
+  <div id="autonomyPriorities" class="autonomyPriorities"></div>
+
+  <div class="titleRow"><h2>Cómo se calculan los alimentos</h2><button class="back" onclick="openSection('inventario')">Revisar inventario</button></div>
+  <div class="panel"><p>EDY usa el peso neto registrado y valores energéticos orientativos por tipo de alimento. Café, sal y productos sin peso confirmado quedan fuera. La tabla permite detectar exactamente qué falta completar.</p></div>
+  <div id="autonomyFoodBreakdown"></div>
+</section>
+
 <section id="operaciones" class="section">
   <button class="back" onclick="home()">← Inicio</button>
   <h2>🧭 Centro de Operaciones</h2>
@@ -576,7 +624,7 @@
   <button class="back" onclick="home()">← Inicio</button>
   <h2>🔄 Centro de actualizaciones</h2>
   <div class="updateStatusCard">
-    <div><span>Versión instalada</span><strong id="installedVersion">2.4.1</strong></div>
+    <div><span>Versión instalada</span><strong id="installedVersion">2.5.1</strong></div>
     <div><span>Versión disponible</span><strong id="availableVersion">Comprobar</strong></div>
     <div><span>Modo offline</span><strong id="offlineCacheStatus">Verificando…</strong></div>
   </div>
@@ -616,7 +664,7 @@
   </div>
   <div class="formGrid">
     <div class="field wide"><label>Dirección o referencia privada</label><input id="householdAddress" placeholder="Se guarda solamente en este dispositivo"></div>
-    <div class="field"><label>Localidad</label><input id="householdCity" placeholder="Ej.: Puerto Iguazú"></div>
+    <div class="field"><label>Localidad (opcional y privada)</label><input id="householdCity" placeholder="No se muestra en la portada"></div>
     <div class="field"><label>Provincia / país</label><input id="householdRegion" placeholder="Ej.: Misiones, Argentina"></div>
     <div class="field"><label>Tipo de inmueble</label><input id="householdType" placeholder="Ej.: vivienda urbana"></div>
     <div class="field"><label>¿El sistema de agua abastece otras unidades?</label><select id="householdSharedWater"><option value="unknown">Sin confirmar</option><option value="yes">Sí</option><option value="no">No</option></select></div>
@@ -837,46 +885,46 @@
 
 <section id="biblioteca" class="section searchable">
   <button class="back" onclick="home()">← Inicio</button>
-  <div class="sectionHeader"><div><h2>📚 Biblioteca EDY Offline</h2><p>Protocolos incluidos en la aplicación y disponibles sin Internet.</p></div><span class="offlineLibraryBadge">31 MANUALES OFFLINE + 10 PDF</span></div>
+  <div class="sectionHeader"><div><h2>📚 Biblioteca EDY Offline</h2><p>Protocolos incluidos en la aplicación y disponibles sin Internet.</p></div><span class="offlineLibraryBadge">57 GUÍAS OFFLINE + 35 PDF</span></div>
   <div class="libraryDownloads">
-    <a class="downloadCard" href="manuales/Manual_Maestro_EDY_Biblioteca_Offline.pdf" target="_blank"><strong>📘 Manual Maestro EDY 2.4.1</strong><small>Uso, respaldo y entrenamiento</small></a>
-    <a class="downloadCard" href="manuales/Checklist_Botiquin_Familiar_EDY.pdf" target="_blank"><strong>🩺 Checklist de botiquín</strong><small>Abrir PDF offline</small></a>
-    <a class="downloadCard" href="manuales/Biblioteca_Familiar_Dell_Era_Indice_2.4.0.pdf" target="_blank"><strong>📚 Índice Biblioteca Familiar 2.4.1</strong><small>35 manuales y plan anual</small></a>
-    <a class="downloadCard" href="manuales/Manual_01_Primeros_Auxilios_Familia_Dell_Era.pdf" target="_blank"><strong>🩹 01 Primeros auxilios</strong><small>Respuesta inicial y signos de alarma</small></a>
-    <a class="downloadCard" href="manuales/Manual_02_Medicamentos_Basicos_Familia_Dell_Era.pdf" target="_blank"><strong>💊 02 Medicamentos básicos</strong><small>Botiquín EDY y uso seguro</small></a>
-    <a class="downloadCard" href="manuales/Manual_03_Supervivencia_Selva_Paranaense.pdf" target="_blank"><strong>🌿 03 Selva Paranaense</strong><small>Prevención, STOP, agua y fauna</small></a>
-    <a class="downloadCard" href="manuales/Manual_04_Supervivencia_para_Principiantes.pdf" target="_blank"><strong>🧭 04 Supervivencia para principiantes</strong><small>Plan familiar de 72 horas</small></a>
-    <a class="downloadCard" href="manuales/Manual_05_Limpieza_Segura_de_Armas.pdf" target="_blank"><strong>🧰 05 Limpieza segura de armas</strong><small>Solo adultos habilitados</small></a>
-    <a class="downloadCard" href="manuales/Manual_06_Cocina_Basica_y_de_Emergencia.pdf" target="_blank"><strong>🍲 06 Cocina básica y de emergencia</strong><small>Recetas y seguridad alimentaria</small></a>
-    <a class="downloadCard" href="manuales/Manual_07_Pesca_Legal_y_Obtencion_de_Alimento.pdf" target="_blank"><strong>🎣 07 Pesca legal y alimento</strong><small>Licencia, veda y conservación</small></a>
-    <a class="downloadCard" href="manuales/Manual_08_Rutas_y_Evacuacion_Regional.pdf" target="_blank"><strong>🗺️ 08 Rutas y evacuación</strong><small>Misiones, Paraná y Paraguay</small></a>
-    <a class="downloadCard" href="manuales/Manual_09_Reparaciones_Basicas_del_Auto.pdf" target="_blank"><strong>🚗 09 Reparaciones básicas del auto</strong><small>Diagnóstico y seguridad vial</small></a>
-    <a class="downloadCard" href="manuales/Manual_10_Mascotas_Bella_y_Manchas.pdf" target="_blank"><strong>🐾 10 Mascotas: Bella y Manchas</strong><small>Primeros auxilios y botiquín veterinario</small></a>
-    <a class="downloadCard" href="manuales/Manual_11_Paneles_Solares_Instalacion_Uso_y_Mantenimiento.pdf" target="_blank"><strong>☀️ 11 Paneles solares</strong><small>Instalación, uso y mantenimiento seguro</small></a>
-    <a class="downloadCard" href="manuales/Manual_12_Supervivencia_Urbana.pdf" target="_blank"><strong>🏙️ 12 Supervivencia urbana y continuidad familiar</strong><small>Plan práctico para permanecer seguros en casa, moverse con criterio y evitar decisiones impulsivas durante una crisis urbana.</small></a>
-    <a class="downloadCard" href="manuales/Manual_13_Apagones_Prolongados.pdf" target="_blank"><strong>🔦 13 Apagones prolongados: 72 horas y más</strong><small>Protocolo familiar para sostener servicios esenciales y evitar monóxido, incendios, alimentos inseguros y agotamiento de baterías.</small></a>
-    <a class="downloadCard" href="manuales/Manual_14_Tormentas_Inundaciones.pdf" target="_blank"><strong>⛈️ 14 Tormentas severas, lluvias intensas e inundaciones</strong><small>Acciones antes, durante y después de tormentas, crecidas, anegamientos y vientos intensos.</small></a>
-    <a class="downloadCard" href="manuales/Manual_15_Incendios_en_Viviendas.pdf" target="_blank"><strong>🔥 15 Incendios en viviendas</strong><small>Guía familiar para reducir el riesgo de incendio, salir rápido y evitar volver a entrar.</small></a>
-    <a class="downloadCard" href="manuales/Manual_16_Comunicaciones_por_Radio.pdf" target="_blank"><strong>📻 16 Comunicaciones por radio en emergencias</strong><small>Cómo organizar radios, mensajes y horarios sin depender de Internet, respetando licencias y frecuencias autorizadas.</small></a>
-    <a class="downloadCard" href="manuales/Manual_17_Potabilizacion_y_Agua_Segura.pdf" target="_blank"><strong>💧 17 Potabilización, almacenamiento y uso de agua segura</strong><small>Manual para separar agua potable, tratar fuentes dudosas y evitar contaminación durante cortes o evacuaciones.</small></a>
-    <a class="downloadCard" href="manuales/Manual_18_Conservacion_y_Rotacion_de_Alimentos.pdf" target="_blank"><strong>🥫 18 Conservación, rotación y seguridad de alimentos</strong><small>Organización del stock de emergencia para consumir primero lo más próximo, reducir pérdidas y evitar intoxicaciones.</small></a>
-    <a class="downloadCard" href="manuales/Manual_19_Huerta_Familiar_y_Produccion.pdf" target="_blank"><strong>🌱 19 Huerta familiar y autoproducción de alimentos</strong><small>Guía para iniciar una huerta doméstica que complemente reservas sin depender de una emergencia.</small></a>
-    <a class="downloadCard" href="manuales/Manual_20_Electricidad_Domiciliaria_Segura.pdf" target="_blank"><strong>⚡ 20 Electricidad domiciliaria segura</strong><small>Manual de prevención para reconocer peligros y resolver solo acciones simples sin exponerse a 220 V.</small></a>
-    <a class="downloadCard" href="manuales/Manual_21_Plomeria_Basica.pdf" target="_blank"><strong>🔧 21 Plomería básica y control de pérdidas</strong><small>Procedimientos domésticos simples para pérdidas, grifos, inodoros y desagües; no incluye gas ni obras.</small></a>
-    <a class="downloadCard" href="manuales/Manual_22_Costura_y_Reparacion_de_Ropa.pdf" target="_blank"><strong>🧵 22 Costura y reparación de ropa y equipo textil</strong><small>Técnicas básicas para prolongar la vida útil de ropa y equipo sin máquinas especiales.</small></a>
-    <a class="downloadCard" href="manuales/Manual_23_Nudos_y_Cuerdas.pdf" target="_blank"><strong>🪢 23 Nudos, cuerdas y amarres básicos</strong><small>Nudos simples para organizar, asegurar lonas y transportar objetos, sin usos de escalada o rescate.</small></a>
-    <a class="downloadCard" href="manuales/Manual_24_Orientacion_Brujula_GPS.pdf" target="_blank"><strong>🧭 24 Orientación con mapa, brújula y GPS</strong><small>Cómo preparar y seguir una ruta sin depender exclusivamente de señal móvil.</small></a>
-    <a class="downloadCard" href="manuales/Manual_25_Fauna_de_Misiones.pdf" target="_blank"><strong>🐍 25 Fauna de Misiones: convivencia y seguridad</strong><small>Guía preventiva para convivir con fauna silvestre sin dañarla ni exponerse.</small></a>
-    <a class="downloadCard" href="manuales/Manual_26_Plantas_Utiles_y_Toxicas.pdf" target="_blank"><strong>🌿 26 Plantas útiles de huerta y plantas potencialmente tóxicas</strong><small>Manual preventivo para evitar consumo o uso medicinal de especies mal identificadas.</small></a>
-    <a class="downloadCard" href="manuales/Manual_27_Mantenimiento_de_Generadores.pdf" target="_blank"><strong>⛽ 27 Mantenimiento y uso seguro de generadores portátiles</strong><small>Plan de inspección y prueba para que el generador esté disponible sin generar monóxido, incendio o daño eléctrico.</small></a>
-    <a class="downloadCard" href="manuales/Manual_28_Motosierras_y_Herramientas.pdf" target="_blank"><strong>🪚 28 Uso seguro de motosierras y herramientas</strong><small>Guía preventiva para herramientas manuales y eléctricas, con énfasis en motosierras, sierras y el sistema TOTAL 20 V.</small></a>
-    <a class="downloadCard" href="manuales/Manual_29_Seguridad_y_Defensa_Pasiva_del_Hogar.pdf" target="_blank"><strong>🏠 29 Seguridad y defensa pasiva del hogar</strong><small>Plan familiar para reducir intrusiones y protegerse sin buscar enfrentamientos ni colocar trampas.</small></a>
-    <a class="downloadCard" href="manuales/Manual_30_Evacuacion_y_Reunificacion_Familiar.pdf" target="_blank"><strong>🚗 30 Evacuación y reunificación familiar</strong><small>Plan de salida para la familia Dell’Era con rutas, puntos de encuentro, vehículos y comunicación alternativa.</small></a>
-    <a class="downloadCard" href="manuales/Manual_31_Documentos_y_Respaldos.pdf" target="_blank"><strong>📄 31 Documentos importantes, dinero y respaldos</strong><small>Organización de documentación familiar y comercial sin incluir datos privados en el paquete público de EDY.</small></a>
-    <a class="downloadCard" href="manuales/Manual_32_Ninos_en_Emergencias.pdf" target="_blank"><strong>🧒 32 Niños y adolescentes en emergencias</strong><small>Plan para que los chicos sepan qué hacer sin asignarles responsabilidades de adultos.</small></a>
-    <a class="downloadCard" href="manuales/Manual_33_Adultos_Mayores_y_Accesibilidad.pdf" target="_blank"><strong>👵 33 Adultos mayores, movilidad y accesibilidad</strong><small>Plan para familiares que necesitan más tiempo, asistencia, equipos o medicación durante una emergencia.</small></a>
-    <a class="downloadCard" href="manuales/Manual_34_Contingencia_EcoIguazu.pdf" target="_blank"><strong>🚌 34 Plan de contingencia operativo - EcoIguazú Boutique Travel</strong><small>Marco de respuesta para incidentes que afecten pasajeros, vehículos, fronteras, atractivos, clima o canales de comunicación.</small></a>
-    <a class="downloadCard" href="manuales/Manual_35_Contingencia_ADAVI.pdf" target="_blank"><strong>🤝 35 Plan de contingencia institucional - ADAVI</strong><small>Estructura para responder a cierres, accidentes, conflictos operativos, desinformación o interrupciones que afecten a las agencias socias.</small></a>
+    <a class="downloadCard" download href="manuales/Manual_Maestro_EDY_Biblioteca_Offline.pdf" target="_blank"><strong>📘 Manual Maestro EDY</strong><small>Uso, respaldo y entrenamiento</small></a>
+    <a class="downloadCard" download href="manuales/Checklist_Botiquin_Familiar_EDY.pdf" target="_blank"><strong>🩺 Checklist de botiquín</strong><small>Abrir PDF offline</small></a>
+    <a class="downloadCard" download href="manuales/Biblioteca_Familiar_Dell_Era_Indice_2.4.0.pdf" target="_blank"><strong>📚 Índice Biblioteca Familiar 2.4</strong><small>35 manuales y plan anual</small></a>
+    <a class="downloadCard" download href="manuales/Manual_01_Primeros_Auxilios_Familia_Dell_Era.pdf" target="_blank"><strong>🩹 01 Primeros auxilios</strong><small>Respuesta inicial y signos de alarma</small></a>
+    <a class="downloadCard" download href="manuales/Manual_02_Medicamentos_Basicos_Familia_Dell_Era.pdf" target="_blank"><strong>💊 02 Medicamentos básicos</strong><small>Botiquín EDY y uso seguro</small></a>
+    <a class="downloadCard" download href="manuales/Manual_03_Supervivencia_Selva_Paranaense.pdf" target="_blank"><strong>🌿 03 Selva Paranaense</strong><small>Prevención, STOP, agua y fauna</small></a>
+    <a class="downloadCard" download href="manuales/Manual_04_Supervivencia_para_Principiantes.pdf" target="_blank"><strong>🧭 04 Supervivencia para principiantes</strong><small>Plan familiar de 72 horas</small></a>
+    <a class="downloadCard" download href="manuales/Manual_05_Limpieza_Segura_de_Armas.pdf" target="_blank"><strong>🧰 05 Limpieza segura de armas</strong><small>Solo adultos habilitados</small></a>
+    <a class="downloadCard" download href="manuales/Manual_06_Cocina_Basica_y_de_Emergencia.pdf" target="_blank"><strong>🍲 06 Cocina básica y de emergencia</strong><small>Recetas y seguridad alimentaria</small></a>
+    <a class="downloadCard" download href="manuales/Manual_07_Pesca_Legal_y_Obtencion_de_Alimento.pdf" target="_blank"><strong>🎣 07 Pesca legal y alimento</strong><small>Licencia, veda y conservación</small></a>
+    <a class="downloadCard" download href="manuales/Manual_08_Rutas_y_Evacuacion_Regional.pdf" target="_blank"><strong>🗺️ 08 Rutas y evacuación</strong><small>Misiones, Paraná y Paraguay</small></a>
+    <a class="downloadCard" download href="manuales/Manual_09_Reparaciones_Basicas_del_Auto.pdf" target="_blank"><strong>🚗 09 Reparaciones básicas del auto</strong><small>Diagnóstico y seguridad vial</small></a>
+    <a class="downloadCard" download href="manuales/Manual_10_Mascotas_Bella_y_Manchas.pdf" target="_blank"><strong>🐾 10 Mascotas: Bella y Manchas</strong><small>Primeros auxilios y botiquín veterinario</small></a>
+    <a class="downloadCard" download href="manuales/Manual_11_Paneles_Solares_Instalacion_Uso_y_Mantenimiento.pdf" target="_blank"><strong>☀️ 11 Paneles solares</strong><small>Instalación, uso y mantenimiento seguro</small></a>
+    <a class="downloadCard" download href="manuales/Manual_12_Supervivencia_Urbana.pdf" target="_blank"><strong>🏙️ 12 Supervivencia urbana y continuidad familiar</strong><small>Plan práctico para permanecer seguros en casa, moverse con criterio y evitar decisiones impulsivas durante una crisis urbana.</small></a>
+    <a class="downloadCard" download href="manuales/Manual_13_Apagones_Prolongados.pdf" target="_blank"><strong>🔦 13 Apagones prolongados: 72 horas y más</strong><small>Protocolo familiar para sostener servicios esenciales y evitar monóxido, incendios, alimentos inseguros y agotamiento de baterías.</small></a>
+    <a class="downloadCard" download href="manuales/Manual_14_Tormentas_Inundaciones.pdf" target="_blank"><strong>⛈️ 14 Tormentas severas, lluvias intensas e inundaciones</strong><small>Acciones antes, durante y después de tormentas, crecidas, anegamientos y vientos intensos.</small></a>
+    <a class="downloadCard" download href="manuales/Manual_15_Incendios_en_Viviendas.pdf" target="_blank"><strong>🔥 15 Incendios en viviendas</strong><small>Guía familiar para reducir el riesgo de incendio, salir rápido y evitar volver a entrar.</small></a>
+    <a class="downloadCard" download href="manuales/Manual_16_Comunicaciones_por_Radio.pdf" target="_blank"><strong>📻 16 Comunicaciones por radio en emergencias</strong><small>Cómo organizar radios, mensajes y horarios sin depender de Internet, respetando licencias y frecuencias autorizadas.</small></a>
+    <a class="downloadCard" download href="manuales/Manual_17_Potabilizacion_y_Agua_Segura.pdf" target="_blank"><strong>💧 17 Potabilización, almacenamiento y uso de agua segura</strong><small>Manual para separar agua potable, tratar fuentes dudosas y evitar contaminación durante cortes o evacuaciones.</small></a>
+    <a class="downloadCard" download href="manuales/Manual_18_Conservacion_y_Rotacion_de_Alimentos.pdf" target="_blank"><strong>🥫 18 Conservación, rotación y seguridad de alimentos</strong><small>Organización del stock de emergencia para consumir primero lo más próximo, reducir pérdidas y evitar intoxicaciones.</small></a>
+    <a class="downloadCard" download href="manuales/Manual_19_Huerta_Familiar_y_Produccion.pdf" target="_blank"><strong>🌱 19 Huerta familiar y autoproducción de alimentos</strong><small>Guía para iniciar una huerta doméstica que complemente reservas sin depender de una emergencia.</small></a>
+    <a class="downloadCard" download href="manuales/Manual_20_Electricidad_Domiciliaria_Segura.pdf" target="_blank"><strong>⚡ 20 Electricidad domiciliaria segura</strong><small>Manual de prevención para reconocer peligros y resolver solo acciones simples sin exponerse a 220 V.</small></a>
+    <a class="downloadCard" download href="manuales/Manual_21_Plomeria_Basica.pdf" target="_blank"><strong>🔧 21 Plomería básica y control de pérdidas</strong><small>Procedimientos domésticos simples para pérdidas, grifos, inodoros y desagües; no incluye gas ni obras.</small></a>
+    <a class="downloadCard" download href="manuales/Manual_22_Costura_y_Reparacion_de_Ropa.pdf" target="_blank"><strong>🧵 22 Costura y reparación de ropa y equipo textil</strong><small>Técnicas básicas para prolongar la vida útil de ropa y equipo sin máquinas especiales.</small></a>
+    <a class="downloadCard" download href="manuales/Manual_23_Nudos_y_Cuerdas.pdf" target="_blank"><strong>🪢 23 Nudos, cuerdas y amarres básicos</strong><small>Nudos simples para organizar, asegurar lonas y transportar objetos, sin usos de escalada o rescate.</small></a>
+    <a class="downloadCard" download href="manuales/Manual_24_Orientacion_Brujula_GPS.pdf" target="_blank"><strong>🧭 24 Orientación con mapa, brújula y GPS</strong><small>Cómo preparar y seguir una ruta sin depender exclusivamente de señal móvil.</small></a>
+    <a class="downloadCard" download href="manuales/Manual_25_Fauna_de_Misiones.pdf" target="_blank"><strong>🐍 25 Fauna de Misiones: convivencia y seguridad</strong><small>Guía preventiva para convivir con fauna silvestre sin dañarla ni exponerse.</small></a>
+    <a class="downloadCard" download href="manuales/Manual_26_Plantas_Utiles_y_Toxicas.pdf" target="_blank"><strong>🌿 26 Plantas útiles de huerta y plantas potencialmente tóxicas</strong><small>Manual preventivo para evitar consumo o uso medicinal de especies mal identificadas.</small></a>
+    <a class="downloadCard" download href="manuales/Manual_27_Mantenimiento_de_Generadores.pdf" target="_blank"><strong>⛽ 27 Mantenimiento y uso seguro de generadores portátiles</strong><small>Plan de inspección y prueba para que el generador esté disponible sin generar monóxido, incendio o daño eléctrico.</small></a>
+    <a class="downloadCard" download href="manuales/Manual_28_Motosierras_y_Herramientas.pdf" target="_blank"><strong>🪚 28 Uso seguro de motosierras y herramientas</strong><small>Guía preventiva para herramientas manuales y eléctricas, con énfasis en motosierras, sierras y el sistema TOTAL 20 V.</small></a>
+    <a class="downloadCard" download href="manuales/Manual_29_Seguridad_y_Defensa_Pasiva_del_Hogar.pdf" target="_blank"><strong>🏠 29 Seguridad y defensa pasiva del hogar</strong><small>Plan familiar para reducir intrusiones y protegerse sin buscar enfrentamientos ni colocar trampas.</small></a>
+    <a class="downloadCard" download href="manuales/Manual_30_Evacuacion_y_Reunificacion_Familiar.pdf" target="_blank"><strong>🚗 30 Evacuación y reunificación familiar</strong><small>Plan de salida para la familia Dell’Era con rutas, puntos de encuentro, vehículos y comunicación alternativa.</small></a>
+    <a class="downloadCard" download href="manuales/Manual_31_Documentos_y_Respaldos.pdf" target="_blank"><strong>📄 31 Documentos importantes, dinero y respaldos</strong><small>Organización de documentación familiar y comercial sin incluir datos privados en el paquete público de EDY.</small></a>
+    <a class="downloadCard" download href="manuales/Manual_32_Ninos_en_Emergencias.pdf" target="_blank"><strong>🧒 32 Niños y adolescentes en emergencias</strong><small>Plan para que los chicos sepan qué hacer sin asignarles responsabilidades de adultos.</small></a>
+    <a class="downloadCard" download href="manuales/Manual_33_Adultos_Mayores_y_Accesibilidad.pdf" target="_blank"><strong>👵 33 Adultos mayores, movilidad y accesibilidad</strong><small>Plan para familiares que necesitan más tiempo, asistencia, equipos o medicación durante una emergencia.</small></a>
+    <a class="downloadCard" download href="manuales/Manual_34_Contingencia_EcoIguazu.pdf" target="_blank"><strong>🚌 34 Plan de contingencia operativo - EcoIguazú Boutique Travel</strong><small>Marco de respuesta para incidentes que afecten pasajeros, vehículos, fronteras, atractivos, clima o canales de comunicación.</small></a>
+    <a class="downloadCard" download href="manuales/Manual_35_Contingencia_ADAVI.pdf" target="_blank"><strong>🤝 35 Plan de contingencia institucional - ADAVI</strong><small>Estructura para responder a cierres, accidentes, conflictos operativos, desinformación o interrupciones que afecten a las agencias socias.</small></a>
   </div>
   <div class="manualToolbar">
     <div class="field"><label>Buscar en los manuales</label><input id="manualSearch" placeholder="Ej.: apagón, dengue, agua segura…" oninput="renderManuals()"></div>
@@ -906,14 +954,15 @@
   <button class="navCrisis" onclick="enterCrisisMode()"><span>🚨</span><small>Crisis</small></button>
 </nav>
 
-<footer>EDY Offline · v2.4.1 · Biblioteca Familiar Completa</footer>
-<script src="storage.js?v=2.4.1"></script>
-<script src="calculator.js?v=2.4.1"></script>
-<script src="media.js?v=2.4.1"></script>
-<script src="app.js?v=2.4.1"></script>
-<script src="kits.js?v=2.4.1"></script>
-<script src="v2.js?v=2.4.1"></script>
-<script src="v21.js?v=2.4.1"></script>
-<script src="v22.js?v=2.4.1"></script>
+<footer>EDY Offline · Centro de Supervivencia Familia Dell’Era · v2.5.1 · Misiones, Argentina</footer>
+<script src="storage.js?v=2.5.1"></script>
+<script src="calculator.js?v=2.5.1"></script>
+<script src="media.js?v=2.5.1"></script>
+<script src="app.js?v=2.5.1"></script>
+<script src="kits.js?v=2.5.1"></script>
+<script src="v2.js?v=2.5.1"></script>
+<script src="v21.js?v=2.5.1"></script>
+<script src="v22.js?v=2.5.1"></script>
+<script src="autonomy.js?v=2.5.1"></script>
 </body>
 </html>

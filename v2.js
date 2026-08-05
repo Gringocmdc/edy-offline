@@ -1,6 +1,6 @@
 /* EDY Offline 2.0 · Centro Inteligente del Hogar */
 (() => {
-  const V2_VERSION='2.4.1';
+  const V2_VERSION='2.5.1';
   const HOUSEHOLD_KEY='household_profile_v2';
   const WATER_KEY='water_system_v2';
   const RISK_KEY='risk_profile_v2';

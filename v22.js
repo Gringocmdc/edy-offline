@@ -2,7 +2,7 @@
 (() => {
   'use strict';
 
-  const VERSION='2.4.1';
+  const VERSION='2.5.1';
   const ENERGY_KEY='energy_center_v22';
   const BLACKOUT_KEY='blackout_mode_v22';
   const DAY=86400000;

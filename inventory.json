@@ -2994,15 +2994,15 @@
     "responsible": "",
     "serial": "",
     "reviewIntervalDays": 0,
-    "notes": "1 lata de 520 g peso neto. Fecha informada: 10/110/2028; quedó pendiente confirmar la fecha exacta antes de cargar el vencimiento.",
+    "notes": "1 lata de 520 g peso neto. Vencimiento confirmado: 10/11/2028.",
     "lots": [
       {
         "id": "starter-bahia-frutos-bosque-520g-lot-1",
         "lotNumber": "Sin registrar",
         "qty": 1,
         "purchaseDate": "2026-08-04",
-        "expiryDate": "",
-        "notes": "1 lata de 520 g peso neto. Fecha informada: 10/110/2028; quedó pendiente confirmar la fecha exacta antes de cargar el vencimiento."
+        "expiryDate": "2028-11-10",
+        "notes": "1 lata de 520 g peso neto. Vencimiento confirmado: 10/11/2028."
       }
     ],
     "movements": [
