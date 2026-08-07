@@ -1555,34 +1555,34 @@
   {
     "id": "starter-spica-sur-60",
     "starter": true,
-    "name": "Kit de panel solar portátil",
-    "brand": "SPICA",
-    "model": "SUR-60",
+    "name": "Panel solar portátil",
+    "brand": "Shenzhen Aoyuan Photoelectric",
+    "model": "IP083 · 30 W nominales",
     "category": "Energía",
     "status": "review",
     "qty": 1,
-    "unit": "kit",
+    "unit": "unidad",
     "zone": "energy",
     "location": "Sin registrar",
-    "critical": false,
-    "minStock": 0,
+    "critical": true,
+    "minStock": 1,
     "targetStock": 1,
-    "purchaseDate": "",
+    "purchaseDate": "2026-08-06",
     "lastReviewDate": "",
     "reviewDate": "",
     "warrantyUntil": "",
     "responsible": "",
     "serial": "",
-    "reviewIntervalDays": 180,
-    "notes": "Kit solar confirmado. Potencia nominal y conectores deben verificarse físicamente. Probar compatibilidad real con la estación Forza y registrar tiempo de carga en condiciones locales.",
+    "reviewIntervalDays": 90,
+    "notes": "Panel solar recibido el 06/08/2026. Etiqueta: modelo IP083, potencia nominal 30 W y fabricante Shenzhen Aoyuan Photoelectric Co., Ltd. Antes de conectarlo, confirmar en el equipo o con multímetro Voc/Vmp, Isc/Imp, polaridad y tipo de conector; 30 W es una potencia máxima de laboratorio y la entrega real será menor. No conectar directamente a 220 V ni a una batería sin controlador compatible. Probar primero con una carga pequeña y registrar el rendimiento real en EDY.",
     "lots": [
       {
-        "id": "starter-spica-sur-60-lot-1",
-        "lotNumber": "Sin registrar",
+        "id": "starter-spica-sur-60-lot-received-20260806",
+        "lotNumber": "Batch 2026.0720.HH.3..3.25",
         "qty": 1,
-        "purchaseDate": "",
+        "purchaseDate": "2026-08-06",
         "expiryDate": "",
-        "notes": "Kit pendiente de prueba y documentación."
+        "notes": "Panel recibido. Pendiente prueba eléctrica y compatibilidad con la estación Forza."
       }
     ],
     "movements": [
@@ -1592,11 +1592,30 @@
         "qty": 1,
         "date": "2026-07-25T20:00:00-03:00",
         "note": "Equipo confirmado en inventario EDY."
+      },
+      {
+        "id": "starter-panel-ip083-received-20260806",
+        "type": "purchase",
+        "qty": 1,
+        "date": "2026-08-06T13:30:00-03:00",
+        "note": "Panel solar IP083 de 30 W recibido y documentado para EDY 2.5.2"
       }
     ],
     "packageCount": 1,
-    "packageSize": 1,
-    "packageUnit": "kit"
+    "packageSize": 30,
+    "packageUnit": "W",
+    "image": "assets/panel-solar-ip083-30w.webp",
+    "specs": {
+      "nominalPowerW": 30,
+      "model": "IP083",
+      "manufacturer": "Shenzhen Aoyuan Photoelectric Co., Ltd.",
+      "voc": "pending",
+      "vmp": "pending",
+      "isc": "pending",
+      "imp": "pending",
+      "connector": "pending",
+      "polarity": "pending"
+    }
   },
   {
     "id": "starter-generador-gamma-7500-ie",
@@ -3206,5 +3225,215 @@
     "packageSize": 1,
     "packageUnit": "kg",
     "containerType": "Bolsa"
+  },
+  {
+    "id": "starter-bastones-luz-quimica-amarillos-x5",
+    "starter": true,
+    "name": "Bastones de luz química",
+    "brand": "Sin registrar",
+    "model": "Amarillos · paquete de 5 unidades",
+    "category": "Orientación y señalización",
+    "status": "available",
+    "qty": 5,
+    "unit": "unidad",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": 2,
+    "targetStock": 10,
+    "purchaseDate": "2026-08-06",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 180,
+    "notes": "5 barras luminosas químicas amarillas, de un solo uso. Para activarlas, doblar hasta oír el quiebre interno y agitar. Sirven para señalizar personas, puertas, caminos o zonas de riesgo sin gastar pilas. Mantener selladas, secas y alejadas del calor. No cortar, perforar ni ingerir el líquido; si pierde, evitar contacto con ojos y boca. Duración y vencimiento: pendientes de confirmar en el envase.",
+    "lots": [
+      {
+        "id": "starter-bastones-luz-quimica-amarillos-x5-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 5,
+        "purchaseDate": "2026-08-06",
+        "expiryDate": "",
+        "notes": "Paquete recibido con 5 unidades amarillas."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-bastones-luz-quimica-amarillos-x5-purchase-20260806",
+        "type": "purchase",
+        "qty": 5,
+        "date": "2026-08-06T13:30:00-03:00",
+        "note": "Bastones de luz recibidos para EDY 2.5.2"
+      }
+    ],
+    "packageCount": 1,
+    "packageSize": 5,
+    "packageUnit": "unidades",
+    "image": "assets/bastones-luz-quimica-amarillos-x5.webp"
+  },
+  {
+    "id": "starter-filtros-agua-portatiles-01-micron-x2",
+    "starter": true,
+    "name": "Filtro personal portátil para agua",
+    "brand": "Outdoor Survival",
+    "model": "Water Filter Straw · 0,1 micrones · hasta 1.500 L por unidad (según envase)",
+    "category": "Agua",
+    "status": "available",
+    "qty": 2,
+    "unit": "unidad",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": true,
+    "minStock": 2,
+    "targetStock": 5,
+    "purchaseDate": "2026-08-06",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 180,
+    "notes": "2 filtros personales tipo sorbete. El envase declara poro de 0,1 micrones y capacidad de hasta 1.500 litros por unidad; la vida real depende de la turbidez y del mantenimiento. Usar con agua dulce lo más clara posible y seguir las instrucciones de cebado, retrolavado y secado. No asumir que elimina virus, sal, combustible, pesticidas, metales ni otros contaminantes químicos. No usar con agua de origen industrial o con olor/sabor químico. Mantener sin congelar y registrar la fecha del primer uso.",
+    "lots": [
+      {
+        "id": "starter-filtros-agua-portatiles-01-micron-x2-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 2,
+        "purchaseDate": "2026-08-06",
+        "expiryDate": "",
+        "notes": "Dos filtros recibidos, todavía sin uso."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-filtros-agua-portatiles-01-micron-x2-purchase-20260806",
+        "type": "purchase",
+        "qty": 2,
+        "date": "2026-08-06T13:30:00-03:00",
+        "note": "Dos filtros portátiles recibidos para EDY 2.5.2"
+      }
+    ],
+    "packageCount": 2,
+    "packageSize": 1500,
+    "packageUnit": "L nominales por filtro",
+    "image": "assets/filtro-agua-portatil-01-micron.webp",
+    "specs": {
+      "poreMicron": 0.1,
+      "claimedCapacityLitersEach": 1500,
+      "firstUseDate": "pending",
+      "backwashRequired": true
+    }
+  },
+  {
+    "id": "starter-motorola-talkabout-t210-x4",
+    "starter": true,
+    "name": "Radios bidireccionales",
+    "brand": "Motorola Solutions",
+    "model": "Talkabout T210 · 2 cajas de 2 radios",
+    "category": "Comunicaciones",
+    "status": "review",
+    "qty": 4,
+    "unit": "unidad",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": true,
+    "minStock": 4,
+    "targetStock": 5,
+    "purchaseDate": "2026-08-06",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 90,
+    "notes": "4 Motorola Talkabout T210 (dos cajas de dos). La versión de la caja declara 26 canales, 121 códigos de privacidad, visor iluminado, emparejamiento fácil, VOX/iVOX, barrido, función de llamada y carga USB. Para hablar, todos deben usar el mismo canal y código; mantener PTT presionado, esperar medio segundo, hablar y soltar para escuchar. Los códigos no cifran ni vuelven privada la conversación. Cada radio admite el paquete NiMH recargable o 3 pilas AA alcalinas; para los cuatro equipos se necesitan 12 AA de respaldo. No cargar pilas alcalinas dentro del radio. No recibe AM/FM: es un comunicador entre radios. Pendiente completar prueba de carga, batería, alcance dentro de casa/barrio y revisión de la normativa de uso en Argentina; la caja está homologada por ANATEL para Brasil.",
+    "lots": [
+      {
+        "id": "starter-motorola-talkabout-t210-x4-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 4,
+        "purchaseDate": "2026-08-06",
+        "expiryDate": "",
+        "notes": "Dos cajas, dos radios por caja. Dos unidades en carga inicial."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-motorola-talkabout-t210-x4-purchase-20260806",
+        "type": "purchase",
+        "qty": 4,
+        "date": "2026-08-06T18:30:00-03:00",
+        "note": "Cuatro radios T210 recibidos; prueba inicial en curso"
+      }
+    ],
+    "packageCount": 2,
+    "packageSize": 2,
+    "packageUnit": "radios por caja",
+    "image": "assets/motorola-talkabout-t210-x4.webp",
+    "specs": {
+      "channelsDeclared": 26,
+      "privacyCodes": 121,
+      "powerOptions": "NiMH recargable o 3 AA por radio",
+      "backupAABatteriesForAll": 12,
+      "usbCharging": true,
+      "vox": true,
+      "scan": true,
+      "regionalApproval": "ANATEL Brasil; verificar ENACOM Argentina"
+    }
+  },
+  {
+    "id": "starter-papel-aluminio-albenne-30cm-75m-x2",
+    "starter": true,
+    "name": "Hoja de aluminio en rollo",
+    "brand": "Albenne",
+    "model": "30 cm × 7,5 m",
+    "category": "Herramientas",
+    "status": "available",
+    "qty": 2,
+    "unit": "rollo",
+    "zone": "home",
+    "location": "Sin registrar",
+    "critical": false,
+    "minStock": 1,
+    "targetStock": 2,
+    "purchaseDate": "2026-08-06",
+    "lastReviewDate": "",
+    "reviewDate": "",
+    "warrantyUntil": "",
+    "responsible": "",
+    "serial": "",
+    "reviewIntervalDays": 0,
+    "notes": "2 rollos de papel de aluminio, 30 cm de ancho y 7,5 m por rollo (15 m totales). En emergencia puede servir para envolver alimentos, formar una bandeja o tapa con soporte rígido, proteger objetos de salpicaduras, hacer un reflector de luz o señal brillante y crear un pequeño parabrisas alejado de la llama. No es una olla resistente: no sostener líquidos ni colocarlo solo directamente sobre una llama. Conduce electricidad, no debe acercarse a cables o bornes, y nunca se usa en microondas. Evitar almacenar durante mucho tiempo alimentos muy ácidos o salados en contacto directo.",
+    "lots": [
+      {
+        "id": "starter-papel-aluminio-albenne-30cm-75m-x2-lot-1",
+        "lotNumber": "Sin registrar",
+        "qty": 2,
+        "purchaseDate": "2026-08-06",
+        "expiryDate": "",
+        "notes": "Dos rollos nuevos de 7,5 m cada uno."
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-papel-aluminio-albenne-30cm-75m-x2-purchase-20260806",
+        "type": "purchase",
+        "qty": 2,
+        "date": "2026-08-06T21:30:00-03:00",
+        "note": "Dos rollos incorporados a EDY 2.5.2"
+      }
+    ],
+    "packageCount": 2,
+    "packageSize": 7.5,
+    "packageUnit": "m",
+    "containerType": "Rollo",
+    "image": "assets/papel-aluminio-albenne-30cm-75m-x2.webp",
+    "specs": {
+      "widthCm": 30,
+      "lengthMetersEach": 7.5,
+      "totalLengthMeters": 15
+    }
   }
 ]

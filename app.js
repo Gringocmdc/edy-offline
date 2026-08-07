@@ -1,4 +1,4 @@
-const APP_VERSION='2.5.1';
+const APP_VERSION='2.5.2';
 const APP_NAME='Centro de Supervivencia Familia Dell’Era';
 function put(id,value){const el=document.getElementById(id);if(el)el.textContent=value}
 
@@ -393,7 +393,7 @@ const ec=EDYStorage.get('energy_calc');if(ec){batteryWh.value=ec.wh;batteryPerce
 
 let inventoryBase=[];
 let currentItemId=null;
-const INVENTORY_SEED_VERSION='2.5.1';
+const INVENTORY_SEED_VERSION='2.5.2';
 
 function statusText(status){
  return {available:'Disponible',incoming:'En camino',review:'Revisar',missing:'Falta'}[status]||status;
@@ -553,7 +553,29 @@ function migrateFruitExpiry250(list){
  }
  return items;
 }
-function applyInventoryMigrations(list){return migrateFruitExpiry250(migrateDuctacPurchase150(list))}
+
+function migrateReceivedEquipment252(list){
+ const items=(Array.isArray(list)?list:[]).map(normalizeInventoryItem);
+ const item=items.find(x=>x.id==='starter-spica-sur-60');
+ if(!item)return items;
+ const oldIdentity=normalizeText(`${item.brand} ${item.model}`);
+ if(oldIdentity.includes('spica')||oldIdentity.includes('sur 60')){
+  item.name='Panel solar portátil';
+  item.brand='Shenzhen Aoyuan Photoelectric';
+  item.model='IP083 · 30 W nominales';
+  item.status='review';item.critical=true;item.minStock=1;item.targetStock=1;
+  item.purchaseDate=item.purchaseDate||'2026-08-06';item.reviewIntervalDays=90;
+  item.image='assets/panel-solar-ip083-30w.webp';
+  item.notes='Panel solar recibido el 06/08/2026. Etiqueta: modelo IP083, potencia nominal 30 W y fabricante Shenzhen Aoyuan Photoelectric Co., Ltd. Antes de conectarlo, confirmar Voc/Vmp, Isc/Imp, polaridad y conector; 30 W es potencia máxima nominal y la entrega real será menor. No conectar directamente a 220 V ni a una batería sin controlador compatible. Probar primero con una carga pequeña y registrar el rendimiento real en EDY.';
+  item.specs={...(item.specs||{}),nominalPowerW:30,model:'IP083',manufacturer:'Shenzhen Aoyuan Photoelectric Co., Ltd.',voc:'pending',vmp:'pending',isc:'pending',imp:'pending',connector:'pending',polarity:'pending'};
+  const movementId='starter-panel-ip083-received-20260806';
+  if(!(item.movements||[]).some(m=>m.id===movementId))item.movements.push({id:movementId,type:'purchase',qty:1,date:'2026-08-06T13:30:00-03:00',note:'Panel solar IP083 de 30 W recibido y documentado para EDY 2.5.2'});
+  item.qty=currentQuantity(item)||1;
+ }
+ return items;
+}
+
+function applyInventoryMigrations(list){return migrateReceivedEquipment252(migrateFruitExpiry250(migrateDuctacPurchase150(list)))}
 function saveInventory(list,logMessage='Inventario actualizado'){
  const normalized=(Array.isArray(list)?list:[]).map(normalizeInventoryItem);
  EDYStorage.set('inventory',normalized);

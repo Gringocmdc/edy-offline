@@ -376,7 +376,7 @@ body{padding-bottom:calc(var(--nav-height) + env(safe-area-inset-bottom,0px))}
 @media(max-width:520px){.autScoreCard{align-items:flex-start}.autScoreRing{width:76px;height:76px}.autMetrics{grid-template-columns:1fr}.autFoodTotals{grid-template-columns:1fr}.autHomeTiles{grid-template-columns:repeat(2,1fr)}}
 
 
-/* EDY 2.5.1 · Identidad Familia Dell’Era */
+/* EDY 2.5.2 · Identidad Familia Dell’Era */
 .brandIdentity{min-width:0}
 .brandIdentity h1{font-size:29px;line-height:1.05;letter-spacing:-.02em}
 .brandIdentity p{margin:4px 0 0;opacity:.88;font-size:13px;line-height:1.3}

@@ -1,6 +1,6 @@
 {
-  "version": "2.5.1",
-  "name": "Identidad Familia Dell’Era y Calculadora de Autonomía",
-  "released": "2026-08-04",
-  "notes": "Versión acumulativa lista para publicar directamente: conserva la calculadora 2.5 y todo el inventario, agrega la identidad “Centro de Supervivencia Familia Dell’Era”, muestra únicamente “Misiones · Argentina” en la portada y renueva el caché para todos los dispositivos."
+  "version": "2.5.2",
+  "name": "Equipos recibidos: energía, agua, comunicaciones y señalización",
+  "released": "2026-08-06",
+  "notes": "Versión acumulativa: incorpora el panel solar IP083 de 30 W, 5 bastones de luz, 2 filtros portátiles de 0,1 micrones, 4 Motorola Talkabout T210, 2 rollos de aluminio Albenne y una guía rápida offline del T210. Conserva la calculadora, biblioteca e inventario local."
 }

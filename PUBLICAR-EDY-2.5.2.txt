@@ -1,0 +1,30 @@
+EDY OFFLINE 2.5.2 - PUBLICACIÓN EN GITHUB PAGES
+
+1. Antes de actualizar, exportar un respaldo desde EDY en el iPad principal.
+2. Descomprimir este ZIP.
+3. Subir TODOS los archivos y carpetas de su interior a la raíz del repositorio gringocmdc/edy-offline, reemplazando los existentes.
+   Importante: index.html debe quedar directamente en la raíz, no dentro de otra carpeta.
+4. Confirmar el commit y esperar que GitHub Pages termine de publicar.
+5. Abrir: https://gringocmdc.github.io/edy-offline/actualizar.html
+6. Cuando EDY vuelva a abrir, verificar que la insignia superior diga 2.5.2.
+7. Entrar en Inventario y comprobar: panel IP083, 5 bastones, 2 filtros, 4 T210 y 2 rollos de aluminio.
+8. Abrir Biblioteca y buscar “T210” para verificar la guía rápida offline.
+
+EN IPHONE O IPAD QUE SIGAN MOSTRANDO UNA VERSIÓN VIEJA
+- Abrir directamente /actualizar.html desde Safari.
+- Si EDY fue agregada a la pantalla de inicio y sigue antigua, eliminar solo el acceso de la pantalla de inicio, abrir nuevamente la web en Safari y volver a agregarla.
+- El actualizador limpia archivos temporales; no borra el inventario local, pero siempre se recomienda tener un respaldo reciente.
+
+NOVEDADES PRINCIPALES
+- Panel solar IP083 de 30 W, sin duplicar el registro anterior.
+- 5 bastones de luz química.
+- 2 filtros portátiles de 0,1 micrones (capacidad declarada: hasta 1.500 L c/u).
+- 4 Motorola Talkabout T210 y guía rápida familiar.
+- 2 rollos de aluminio Albenne de 30 cm × 7,5 m.
+- 66 registros de inventario base y 58 guías offline + 35 PDF.
+
+IDENTIDAD
+- EDY Offline
+- Centro de Supervivencia Familia Dell’Era
+- Misiones · Argentina
+- No se muestra domicilio ni ciudad en la portada.

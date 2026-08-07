@@ -3557,5 +3557,85 @@
         "url": "https://www.argentina.gob.ar/tema/emergencias"
       }
     ]
+  },
+  {
+    "id": "motorola-t210-guia-rapida-familiar",
+    "title": "Motorola Talkabout T210: guía rápida familiar",
+    "icon": "📻",
+    "category": "Comunicaciones",
+    "priority": "Esencial",
+    "summary": "Configuración, uso, batería y protocolo breve para los cuatro radios de la Familia Dell’Era.",
+    "keywords": [
+      "Motorola",
+      "T210",
+      "walkie talkie",
+      "radio",
+      "canal",
+      "PTT",
+      "VOX",
+      "pilas AA",
+      "comunicación familiar",
+      "código de privacidad"
+    ],
+    "sections": [
+      {
+        "title": "Puesta en marcha en cinco pasos",
+        "items": [
+          "Cargar el paquete NiMH con el radio apagado. No intentar recargar pilas alcalinas.",
+          "Encender los cuatro y elegir exactamente el mismo canal y el mismo código de privacidad.",
+          "Para la primera prueba usar canal 1 y código 0, separados unos metros.",
+          "Presionar PTT, esperar medio segundo, hablar cerca del micrófono y soltar PTT para escuchar.",
+          "Etiquetar cada unidad y registrar en EDY cuál quedó asignada a cada persona."
+        ]
+      },
+      {
+        "title": "Configuración familiar sugerida",
+        "items": [
+          "Indicativos simples: Base (casa), Alfa (Darío), Bravo (Eliana), Charlie (Álvaro) y Delta (radio de reserva o asignación temporal).",
+          "Mensaje breve: “Base para Bravo”; la otra persona responde “Bravo recibe”; luego transmitir la información.",
+          "Definir un canal principal y uno alternativo por escrito. No anunciar información sensible ni direcciones completas.",
+          "Los códigos de privacidad filtran audio ajeno, pero no cifran: otra radio compatible puede escuchar."
+        ]
+      },
+      {
+        "title": "Botones y funciones útiles",
+        "items": [
+          "PTT: transmite mientras está presionado. Solo una persona puede hablar a la vez.",
+          "Scan/Barrido: busca actividad en otros canales; detenerlo antes de volver al canal familiar.",
+          "Monitor: abre el silenciador para intentar escuchar una señal débil.",
+          "VOX/iVOX: activa transmisión por voz; usarlo con cuidado porque ruido, viento o conversaciones pueden disparar el transmisor.",
+          "Bloqueo de teclado: evita cambiar el canal accidentalmente."
+        ]
+      },
+      {
+        "title": "Energía y almacenamiento",
+        "items": [
+          "Cada radio puede usar un paquete NiMH o tres pilas AA alcalinas. Los cuatro requieren 12 AA para un recambio completo.",
+          "Mantener un juego de AA selladas como respaldo y no mezclar marcas, químicas, edades o cargas diferentes.",
+          "Para almacenamiento prolongado retirar las pilas; la corrosión puede arruinar el equipo.",
+          "Cargar las baterías NiMH de mantenimiento aproximadamente cada tres meses y probar los cuatro radios juntos."
+        ]
+      },
+      {
+        "title": "Alcance, agua y legalidad",
+        "items": [
+          "El alcance anunciado es máximo ideal. Paredes, edificios, vehículos, desniveles y selva reducen mucho la distancia.",
+          "Realizar pruebas reales en casa, barrio, ruta y terreno abierto, sin separarse ni ponerse en riesgo.",
+          "No considerarlos impermeables si el manual no indica un grado IP: protegerlos con bolsa y no sumergirlos.",
+          "Esta versión está identificada como FRS y homologada por ANATEL para Brasil. Antes del uso habitual en Argentina verificar homologación, bandas y condiciones vigentes con ENACOM.",
+          "El T210 no es receptor de noticias AM/FM; comunica radios compatibles entre sí."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "name": "Motorola Solutions — guía oficial T200/T260 (baterías y carga)",
+        "url": "https://www.motorolasolutions.com/content/dam/msi/docs/products/two-way-radios/consumer/t200/T200T260_UserGuide_EN.pdf"
+      },
+      {
+        "name": "ENACOM — atribución del espectro radioeléctrico argentino",
+        "url": "https://www.enacom.gob.ar/atribucion-del-espectro_p409"
+      }
+    ]
   }
 ]

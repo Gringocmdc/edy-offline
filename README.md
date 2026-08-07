@@ -1,4 +1,4 @@
-# EDY Offline v2.5.1 — Centro de Supervivencia Familia Dell’Era
+# EDY Offline v2.5.2 — Centro de Supervivencia Familia Dell’Era
 
 Actualización acumulativa del Centro de Supervivencia Digital Familiar.
 
@@ -117,3 +117,20 @@ Los manuales son guías de preparación. No reemplazan a médicos, veterinarios,
 
 ### Alcance de las estimaciones
 La autonomía alimentaria se expresa como días equivalentes de energía aproximada y no garantiza variedad ni suficiencia nutricional. La autonomía eléctrica depende de consumos reales, pérdidas y picos de arranque. El generador debe funcionar exclusivamente al aire libre.
+
+
+## Nuevo en 2.5.2 — Equipos recibidos y comunicaciones
+- Panel solar portátil recibido: **IP083, 30 W nominales**, con fotografía y campos pendientes para Voc, Vmp, Isc, Imp, polaridad y conector. El antiguo registro genérico SPICA SUR-60 se migra sin duplicar el equipo.
+- **5 bastones de luz química amarillos** para señalización sin pilas.
+- **2 filtros personales de agua**: poro declarado de 0,1 micrones y hasta 1.500 L por unidad según el envase.
+- **4 Motorola Talkabout T210** (2 cajas de 2), con estado “Revisar” hasta terminar pruebas de carga y alcance.
+- **2 rollos de aluminio Albenne**, 30 cm × 7,5 m cada uno.
+- Nueva guía offline: **Motorola Talkabout T210: guía rápida familiar**. La Biblioteca pasa a 58 guías offline + 35 PDF.
+- Fotografías nuevas convertidas a WebP, sin metadatos EXIF.
+- Inventario base: **66 registros**; la actualización agrega solo los que falten y conserva cambios locales.
+
+### Datos pendientes de prueba
+- Panel: voltajes, corriente, polaridad, conector y producción real.
+- Radios: duración de batería, tiempo de carga y alcance real en casa, barrio y terreno abierto.
+- Bastones: duración de luz y vencimiento del envase.
+- Filtros: fecha de primer uso y rutina de retrolavado.
